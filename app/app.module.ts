@@ -4,12 +4,14 @@ import { RouterModule, Routes } from '@angular/router';
 
 // import components
 import { AppComponent }  from './app.component';
-import { HomeComponent } from './home/home.component';
+import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { HomeComponent } from './home/home.component';
 import { ProductsComponent } from './products/products.component';
 import { ServicesComponent } from './services/services.component';
 import { ContactComponent } from './contact/contact.component';
 import { TeamComponent } from './team/team.component';
+import { LoginComponent } from './login/login.component';
 
 // paths and Routes
 const appRoutes: Routes = [
@@ -18,7 +20,8 @@ const appRoutes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: 'services', component: ServicesComponent },
   { path: 'team', component: TeamComponent },
-  { path: 'contact', component: ContactComponent }
+  { path: 'contact', component: ContactComponent },
+  { path: 'login', component: LoginComponent },
 ];
 
 // module
@@ -29,12 +32,14 @@ const appRoutes: Routes = [
   ],
   declarations: [
     AppComponent,
-    HomeComponent,
+    HeaderComponent,
     FooterComponent,
+    HomeComponent,
     ProductsComponent,
     ServicesComponent,
     TeamComponent,
-    ContactComponent
+    ContactComponent,
+    LoginComponent
   ],
   bootstrap: [ AppComponent ]
 })
