@@ -60,6 +60,20 @@ h6 {
     text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
 }
 
+.section-heading-custom {
+    text-align: center;
+    background-color: #112540; 
+    padding-top: 87px;
+    padding-bottom: 7px;
+    color: #fff;
+    margin-bottom: 30px;
+    box-shadow: -1px 1px 5px 1px #535353;
+}
+
+.section-heading-custom > h3 {
+    margin: 0;
+}
+
 @media(max-width:767px) {
     .intro-message {
         padding-bottom: 15%;
@@ -180,7 +194,7 @@ p.copyright {
     background-color: #f8f8f8;;
     border-color: #E7E7E7;
     border-bottom: none;
-    box-shadow: 1px 1px 10px 1px;
+    box-shadow: -1px 1px 10px 1px;
 }
 /* title */
 .navbar-default .navbar-brand {
@@ -219,6 +233,16 @@ p.copyright {
 }
 
 @media (max-width: 991px) {
+    .section-heading-custom {
+        text-align: center;
+        background-color: #112540; 
+        padding-top: 72px;
+        padding-bottom: 7px;
+        color: #fff;
+        margin-bottom: 20px;
+        box-shadow: -1px 1px 5px 1px #535353;
+    }
+
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
         color: #777;
     }
@@ -443,19 +467,6 @@ now override the 3.3 new styles for modern browsers & apply opacity
     }
 }
 
-.section-heading-custom {
-    text-align: center;
-    background-color: #112540; 
-    padding-top: 95px;
-    padding-bottom: 15px;
-    color: #fff;
-    margin-bottom: 20px;
-}
-
-.section-heading-custom > h3 {
-    margin: 0;
-}
-
 /* timeline */
 .timeline {
   position: relative;
@@ -623,4 +634,9 @@ now override the 3.3 new styles for modern browsers & apply opacity
         margin-left: 0;
         background-color: #eeeeee;
     }
+}
+
+a.about-pic-link:hover > .panel {
+    box-shadow: 5px 5px 15px 0px #808080;;
+    transition: 1s all;
 }
