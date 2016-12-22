@@ -640,3 +640,6 @@ a.about-pic-link:hover > .panel {
     box-shadow: 5px 5px 15px 0px #808080;;
     transition: 1s all;
 }
+a.client-accordion:hover,a.client-accordion:focus{
+    text-decoration:none;
+}
