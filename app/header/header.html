@@ -13,14 +13,27 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a routerLink="/products">PRODUCTS</a>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#" style="transition: 1s all">
+                        PRODUCTS
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a routerLink="/products">PRODUCTS</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#">POS</a></li>
+                        <li><a href="#">FMIS</a></li>
+                        <li><a href="#">HRIS</a></li>
+                        <li><a href="#">EasyFIS</a></li>
+                    </ul>
                 </li>
                 <li>
                     <a routerLink="/services">SERVICES</a>
                 </li>
                 <li>
-                    <a routerLink="/team" routerLinkActive="true">TEAM</a>
+                    <a routerLink="/services">SUPPORT</a>
+                </li>
+                <li>
+                    <a routerLink="/team">CAREERS</a>
                 </li>
                 <li>
                     <a routerLink="/contact">CONTACT</a>
