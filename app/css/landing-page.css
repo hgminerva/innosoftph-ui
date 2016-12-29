@@ -1,105 +1,26 @@
-/*
- * Start Bootstrap - Landing Page (http://startbootstrap.com/)
- * Copyright 2013-2016 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
- */
-
- body,
- html {
-    width: 100%;
-    height: 100%;
-}
-
-h1,
 h2,
 h3,
 h4,
 h5,
 h6 {
-    font-family: "Lato","Helvetica Neue",Helvetica,Arial,sans-serif;
-    font-weight: 700;
+    font-weight: bold;
 }
 
-.topnav {
-    font-size: 14px;
+h1 {
+    font-family: "Segoe UI Black";
 }
 
 .lead {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 400;
-}
-
-.intro-header {
-    padding-top: 10px; /* If you're making other pages, make sure there is 50px of padding to make sure the navbar doesn't overlap content! */
-    padding-bottom: 50px;
-    text-align: center;
-    color: #f8f8f8;
-    background: url(../images/backgrounds/picjumbo2.jpg) no-repeat center center;
-    background-size: cover;
-}
-
-.intro-message {
-    position: relative;
-    padding-top: 20%;
-    padding-bottom: 20%;
-}
-
-.intro-message > h1 {
-    margin: 0;
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
-    font-size: 5em;
-}
-
-.intro-divider {
-    width: 400px;
-    border-top: 1px solid #f8f8f8;
-    border-bottom: 1px solid rgba(0,0,0,0.2);
-}
-
-.intro-message > h3 {
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
 }
 
 .section-heading-custom {
-    padding-top: 100px;
-    padding-bottom: 7px;
-    margin-bottom: 5px;
-}
-
-.section-heading-custom > h2 {
-    margin-bottom: 10px;
-    margin-top: 10px;
-}
-
-@media(max-width:767px) {
-    .intro-message {
-        padding-bottom: 15%;
-    }
-
-    .intro-message > h1 {
-        font-size: 3em;
-    }
-
-    ul.intro-social-buttons > li {
-        display: block;
-        margin-bottom: 20px;
-        padding: 0;
-    }
-
-    ul.intro-social-buttons > li:last-child {
-        margin-bottom: 0;
-    }
-
-    .intro-divider {
-        width: 100%;
-    }
-}
-
-.network-name {
-    text-transform: uppercase;
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 2px;
+    padding-top: 90px;
+    padding-bottom: 40px;
+    background: url(../images/backgrounds/plainblack.jpg) no-repeat center center;
+    background-size: cover;
+    color: #fff;
 }
 
 .content-section-a {
@@ -119,25 +40,10 @@ h6 {
     border-bottom: 1px solid #e7e7e7;
 }
 
-.section-heading {
-    margin-bottom: 30px;
-}
-
-.section-heading-spacer {
-    width: 200px;
-    border-top: 3px solid #e7e7e7;
-}
-
 .banner {
     padding: 50px 0;
     background: url(../images/backgrounds/apple3.jpg) no-repeat center center;
     background-size: cover;
-}
-
-.banner h2 {
-    margin: 0;
-    text-shadow: 2px 2px 3px rgba(0,0,0,0.6);
-    font-size: 3em;
 }
 
 .banner ul {
@@ -196,9 +102,14 @@ p.copyright {
 /* title */
 .navbar-default .navbar-brand {
     color: #777;
-    padding-top: 10px;
-    padding-bottom: 15px;
+    padding-top: 8px;
+    padding-bottom: 10px;
 }
+
+.navbar-default .navbar-brand > img {
+    height: 45px
+}
+
 .navbar-default .navbar-brand:hover,
 .navbar-default .navbar-brand:focus {
     color: #5E5E5E;
@@ -206,16 +117,20 @@ p.copyright {
 /* link */
 .navbar-default .navbar-nav > li > a {
     color: #777;
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 20px;
+    padding-bottom: 20px;
     font-weight: 700;
 }
 
-.navbar-default .navbar-nav > li > a:hover,
-.navbar-default .navbar-nav > li > a:focus {
+.navbar-default .navbar-nav > li > a:hover {
     color: #fff;
-    background-color: #950f0f;
+    background-color: #112540;
     transition: 1s background-color;
+}
+
+.navbar-default .navbar-nav > li > a:focus  {
+    background-color: transparent;
+    color: #777;
 }
 
 .navbar-default .navbar-toggle {
@@ -230,14 +145,6 @@ p.copyright {
 }
 
 @media (max-width: 991px) {
-    .section-heading-custom {
-        text-align: center;
-        padding-top: 72px;
-        padding-bottom: 7px;
-        margin-bottom: 20px;
-        box-shadow: -1px 1px 5px 1px #535353;
-    }
-
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
         color: #777;
     }
@@ -246,7 +153,12 @@ p.copyright {
         color: #333;
     }
 
-
+    /* title */
+    .navbar-default .navbar-brand {
+        color: #777;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
     .navbar-default .navbar-brand > img {
         height: 45px
     }
