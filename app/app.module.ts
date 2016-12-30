@@ -1,12 +1,13 @@
 // angular modules
-import { NgModule }      from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
-import { FormsModule }   from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { HttpModule } from "@angular/http";
+import { ToastModule } from 'ng2-toastr/ng2-toastr';
 
 // import components
-import { AppComponent }  from './app.component';
+import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
@@ -19,7 +20,7 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 // services
-import { LoginService } from './loginService/login.service';
+import { LoginService } from './login/login.service';
 
 // paths and Routes
 const appRoutes: Routes = [
@@ -40,7 +41,8 @@ const appRoutes: Routes = [
     BrowserModule,
     RouterModule.forRoot(appRoutes),
     FormsModule,
-    HttpModule
+    HttpModule,
+    ToastModule
   ],
   declarations: [
     AppComponent,
@@ -58,8 +60,8 @@ const appRoutes: Routes = [
   providers: [
     LoginService
   ],
-  bootstrap: [ 
-    AppComponent 
+  bootstrap: [
+    AppComponent
   ]
 })
 
