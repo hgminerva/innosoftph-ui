@@ -1,15 +1,24 @@
 <div class="content-section-b">
     <div class="section-heading-custom">
         <div class="container">
-            <h1>Dashboard</h1>
-             <p class="lead">
-                 Start Menu
-            </p>    
+            <div class="row">
+                <div class="col-md-6">
+                    <h1>Dashboard</h1>
+                    <p class="lead">
+                        Start Menu
+                    </p>
+                </div>
+                <div class="col-md-6" align="right">
+                    <form role="form" (submit)="logout()">
+                        <button type="submit" class="btn btn-danger btn-lg"><i class="fa fa-power-off fa-fw"></i> Logout</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
     <br /><br />
     <div class="container">
-       
+
     </div>
 </div>
 <my-footer></my-footer>

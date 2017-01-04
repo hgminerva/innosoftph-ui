@@ -5,7 +5,11 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Injectable()
 export class LoginService {
-    constructor(private router: Router, private http: Http, public toastr: ToastsManager) { }
+    constructor(
+        private router: Router,
+        private http: Http,
+        public toastr: ToastsManager
+    ) { }
 
     // Login
     login(username: string, password: string, toastr: ToastsManager): void {
