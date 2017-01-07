@@ -15,6 +15,7 @@ import { ProductsComponent } from './products/products.component';
 import { ServicesComponent } from './services/services.component';
 import { SupportComponent } from './support/support.component';
 import { TeamComponent } from './team/team.component';
+import { AboutUsComponent } from './aboutus/aboutus.component';
 import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -30,6 +31,7 @@ const appRoutes: Routes = [
   { path: 'services', component: ServicesComponent },
   { path: 'support', component: SupportComponent },
   { path: 'team', component: TeamComponent },
+  { path: 'aboutus', component: AboutUsComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
@@ -53,6 +55,7 @@ const appRoutes: Routes = [
     ServicesComponent,
     SupportComponent,
     TeamComponent,
+    AboutUsComponent,
     ContactComponent,
     LoginComponent,
     DashboardComponent
