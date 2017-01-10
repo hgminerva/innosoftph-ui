@@ -1,12 +1,13 @@
 // angular modules
-import { NgModule } from '@angular/core';
+import { NgModule, enableProdMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from "@angular/http";
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
-// import components
+// components
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -14,14 +15,18 @@ import { HomeComponent } from './home/home.component';
 import { ProductsComponent } from './products/products.component';
 import { ServicesComponent } from './services/services.component';
 import { SupportComponent } from './support/support.component';
-import { TeamComponent } from './team/team.component';
-import { AboutUsComponent } from './aboutus/aboutus.component';
+import { CareersComponent } from './careers/careers.component';
 import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 // services
 import { LoginService } from './login/login.service';
+import { CareersService } from './careers/careers.service';
+
+// wijmo
+import * as wjFlexGrid from 'wijmo/wijmo.angular2.grid';
+import * as wjInput from 'wijmo/wijmo.angular2.input';
 
 // paths and Routes
 const appRoutes: Routes = [
@@ -30,8 +35,7 @@ const appRoutes: Routes = [
   { path: 'products', component: ProductsComponent },
   { path: 'services', component: ServicesComponent },
   { path: 'support', component: SupportComponent },
-  { path: 'team', component: TeamComponent },
-  { path: 'aboutus', component: AboutUsComponent },
+  { path: 'careers', component: CareersComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
@@ -54,14 +58,19 @@ const appRoutes: Routes = [
     ProductsComponent,
     ServicesComponent,
     SupportComponent,
-    TeamComponent,
-    AboutUsComponent,
+    CareersComponent,
     ContactComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    wjFlexGrid.WjFlexGrid,
+    wjFlexGrid.WjFlexGridColumn,
+    wjFlexGrid.WjFlexGridCellTemplate,
+    wjInput.WjComboBox,
+    wjInput.WjCalendar,
   ],
   providers: [
-    LoginService
+    LoginService,
+    CareersService
   ],
   bootstrap: [
     AppComponent
@@ -69,3 +78,7 @@ const appRoutes: Routes = [
 })
 
 export class AppModule { }
+
+// Bootstrap application with hash style navigation and global services.
+enableProdMode();
+platformBrowserDynamic().bootstrapModule(AppModule);
