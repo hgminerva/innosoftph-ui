@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class CareersService {
+export class AboutService {
     // data used to generate random items - sample get data
     getData(count: number): wijmo.collections.ObservableArray {
         var countries = 'US, Germany, UK, Japan, Italy, Greece'.split(',');

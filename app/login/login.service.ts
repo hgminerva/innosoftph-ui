@@ -24,10 +24,10 @@ export class LoginService {
                 localStorage.setItem('expires_in', response.json().expires_in);
                 localStorage.setItem('token_type', response.json().token_type);
                 localStorage.setItem('userName', response.json().userName);
-                this.router.navigate(['/dashboard']);
+                location.reload();
             },
             error => {
-                this.toastr.error('', 'Invalid Credentials');
+                this.toastr.error('Username or Password is Incorrect. Please try again.', 'Login Failed');
             }
         );
     }

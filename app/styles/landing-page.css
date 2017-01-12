@@ -1,5 +1,5 @@
-h1 {
-    font-family: "Segoe UI Black";
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .lead {
@@ -8,7 +8,7 @@ h1 {
 }
 
 .section-heading-custom {
-    padding-top: 70px;
+    padding-top: 65px;
     padding-bottom: 20px;
     width: 100%;
     background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(../images/backgrounds/picjumbo2.jpg) no-repeat center center;
@@ -56,7 +56,13 @@ h1 {
     background-size: cover;
 }
 
-
+.banner-easyfis {
+    color: #fff;
+    width: 100%;
+    padding: 50px 0;
+    background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ),url(../images/backgrounds/coffee.jpg) no-repeat center center;
+    background-size: cover;
+}
 
 .banner ul {
     margin-bottom: 0;
@@ -151,7 +157,7 @@ p.copyright {
 }
 
 .navbar-default .navbar-nav > li > a:hover {
-    /*color: #fff;*/
+    color: #2e6da4;
     background-color: #eaeaea;
     border-bottom: 5px solid #d9534f;
     transition: 0.3s all;
@@ -159,6 +165,7 @@ p.copyright {
 }
 
 .navbar-default .navbar-nav > li > a:focus  {
+    color: #d9534f;
     background-color: #eaeaea;
     border-bottom: 5px solid #2e6da4;
     transition: 0.3s all;
@@ -176,9 +183,37 @@ p.copyright {
     background-color: #CCC;
 }
 
+.navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: #777;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    transition: 1s all;
+}
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+.navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: #333;
+    transition: 1s all;
+}
+/*
+.open > .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dropdown-menu {
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 500ms ease, visibility 200ms ease;
+  -moz-transition: opacity 500ms ease, visibility 200ms ease;
+  -o-transition: opacity 500ms ease, visibility 200ms ease;
+  transition: opacity 500ms ease, visibility 200ms ease;
+}*/
+
 @media (max-width: 991px) {
     .navbar-default .navbar-nav .open .dropdown-menu > li > a {
         color: #777;
+        padding-left: 45px;
     }
     .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
     .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
@@ -491,7 +526,7 @@ now override the 3.3 new styles for modern browsers & apply opacity
 }*/
 
 /* timeline */
-.timeline {
+/*.timeline {
   position: relative;
   padding: 20px 0 20px;
   list-style: none;
@@ -657,7 +692,7 @@ now override the 3.3 new styles for modern browsers & apply opacity
         margin-left: 0;
         background-color: #eeeeee;
     }
-}
+}*/
 
 a.about-pic-link:hover > .panel {
     box-shadow: 5px 5px 15px 0px #808080;;
@@ -678,7 +713,7 @@ a.client-accordion:hover,a.client-accordion:focus{
     color: #2f2f1e;
 }
 
-.dropdown-menu:before {
+/*.dropdown-menu:before {
   position: absolute;
   top: -7px;
   left: 100px;
@@ -688,18 +723,18 @@ a.client-accordion:hover,a.client-accordion:focus{
   border-left: 7px solid transparent;
   border-bottom-color: rgba(0, 0, 0, 0.2);
   content: '';
-}
-
+}*/
+/*
 .dropdown-menu:after {
   position: absolute;
   top: -6px;
-  left: 101px;
+  left: 130px;
   display: inline-block;
   border-right: 6px solid transparent;
   border-bottom: 6px solid #ffffff;
   border-left: 6px solid transparent;
   content: '';
-}
+}*/
 
 table.features-style {
     border: none;
@@ -727,4 +762,39 @@ table.features-style {
 
 .footer-link:hover {
     text-decoration: none;
+}
+
+.nav-pills {
+    background-color: transparent;
+}
+
+.tab-content{
+    color:#fff;
+    padding: 3px
+}
+
+.nav-pills > li > a {
+    border: medium none;
+    color: #fff;
+    font-size: 18px;
+    padding-top: 15px;
+    padding-bottom: 15px; 
+}
+
+.nav-pills > li.active > a, 
+.nav-pills > li.active > a:focus  {
+    background-color: #303136 !important;
+    border: medium none;
+    border-radius: 0;
+    color:#fff;
+    transition: 1s all;
+}
+
+
+.nav-pills > li > a:hover {
+    background-color: #303136 !important;
+    border: medium none;
+    border-radius: 0;
+    color:#fff;
+    transition: 0.2s all;
 }

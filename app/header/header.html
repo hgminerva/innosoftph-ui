@@ -13,29 +13,33 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav navbar-right">
-                 <li>
+                <li>
                     <a routerLink="/home">HOME</a>
                 </li>
                 <li>
-                    <a routerLink="/products">PRODUCTS</a>
-                </li>
-                <li>
-                    <a routerLink="/services">SERVICES</a>
+                    <a routerLink="/about">ABOUT</a>
                 </li>
                 <li>
                     <a routerLink="/support">SUPPORT</a>
                 </li>
                 <li>
-                    <a routerLink="/careers">CAREERS</a>
-                </li>
-                <li>
                     <a routerLink="/contact">CONTACT</a>
                 </li>
-                <li>
-                    <a routerLink="/login" #currentLoggedInUser name="currentLoggedInUser"></a>
-                </li> 
+                <li *ngIf="isLoggedIn">
+                    <a routerLink="/login">LOGIN</a>
+                </li>
+                <li *ngIf="isLoggedInDropdown" class="dropdown">
+                    <a class="dropdown-toggle" [innerHTML]="headerLogin" data-toggle="dropdown" href="#"></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" [innerHTML]="headerCurrentLoggedInUser" routerLink="/dashboard"></a></li>
+                        <li class="divider"></li>
+                        <li><a routerLink="/dashboard">Dashboard</a></li>
+                        <li><a (click)="logout()" routerLink="/dashboard">Logout</a></li>
+                    </ul>
+                </li>
             </ul>
         </div>
     </div>
 </nav>
 <router-outlet></router-outlet>
+<my-footer></my-footer>

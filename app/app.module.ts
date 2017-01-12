@@ -12,17 +12,15 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { HomeComponent } from './home/home.component';
-import { ProductsComponent } from './products/products.component';
-import { ServicesComponent } from './services/services.component';
+import { AboutComponent } from './about/about.component';
 import { SupportComponent } from './support/support.component';
-import { CareersComponent } from './careers/careers.component';
 import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
 // services
 import { LoginService } from './login/login.service';
-import { CareersService } from './careers/careers.service';
+import { AboutService } from './about/about.service';
 
 // wijmo
 import * as wjFlexGrid from 'wijmo/wijmo.angular2.grid';
@@ -32,10 +30,8 @@ import * as wjInput from 'wijmo/wijmo.angular2.input';
 const appRoutes: Routes = [
   { path: 'app', component: AppComponent },
   { path: 'home', component: HomeComponent },
-  { path: 'products', component: ProductsComponent },
-  { path: 'services', component: ServicesComponent },
+  { path: 'about', component: AboutComponent },
   { path: 'support', component: SupportComponent },
-  { path: 'careers', component: CareersComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
@@ -55,10 +51,8 @@ const appRoutes: Routes = [
     HeaderComponent,
     FooterComponent,
     HomeComponent,
-    ProductsComponent,
-    ServicesComponent,
+    AboutComponent,
     SupportComponent,
-    CareersComponent,
     ContactComponent,
     LoginComponent,
     DashboardComponent,
@@ -66,11 +60,11 @@ const appRoutes: Routes = [
     wjFlexGrid.WjFlexGridColumn,
     wjFlexGrid.WjFlexGridCellTemplate,
     wjInput.WjComboBox,
-    wjInput.WjCalendar,
+    wjInput.WjCalendar
   ],
   providers: [
     LoginService,
-    CareersService
+    AboutService
   ],
   bootstrap: [
     AppComponent

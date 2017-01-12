@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild, Renderer, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,16 +7,25 @@ import { Router } from '@angular/router';
 })
 
 export class AppComponent implements OnInit {
-  constructor(private renderer: Renderer, private router: Router) { }
+  // global variables
+  public headerLogin = "";
+  public headerCurrentLoggedInUser = "";
+  public isLoggedIn = true;
+  public isLoggedInDropdown = false;
 
-  @ViewChild('currentLoggedInUser') currentLoggedInUser: ElementRef;
+  // inject router
+  constructor(private router: Router) { }
 
   ngOnInit() {
     if (localStorage.getItem('access_token')) {
-      let currentUser = localStorage.getItem('userName')
-      this.renderer.setElementProperty(this.currentLoggedInUser.nativeElement, 'innerHTML', '<i class="fa fa-key fa-fw"></i> ' + currentUser);
+      let currentUser = localStorage.getItem('userName');
+      this.headerLogin = "YOU";
+      this.headerCurrentLoggedInUser = currentUser;
+      this.isLoggedIn = false;
+      this.isLoggedInDropdown = true;
     } else {
-      this.renderer.setElementProperty(this.currentLoggedInUser.nativeElement, 'innerHTML', 'LOGIN');
+      this.headerLogin = "LOGIN";
+      this.headerCurrentLoggedInUser = "Please Login";
     }
   }
 
@@ -25,6 +34,6 @@ export class AppComponent implements OnInit {
     localStorage.removeItem('expires_in');
     localStorage.removeItem('token_type');
     localStorage.removeItem('userName');
-    this.router.navigate(['home']);
+    location.reload();
   }
 }
