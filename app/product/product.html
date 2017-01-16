@@ -1,0 +1,140 @@
+<div class="content-section-b">
+    <div class="section-heading-custom">
+        <div class="container">
+            <h1 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: #fff; font-size: 35px;">PRODUCT</h1>
+        </div>
+    </div>
+</div>
+<div class="custom-content-a">
+    <div class="container">
+        <div class="well well-sm">
+            <a routerLink="/dashboard">Dashboard</a> &nbsp; / &nbsp; Product
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <table border="0" style="width: 100%;">
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
+                                <input id="" type="text" class="form-control" placeholder="Search">
+                            </div>
+                        </td>
+                        <td align="right">
+                            <button class="btn btn-primary" (click)="productDetailModal(true)" data-toggle="modal" data-target="#product-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
+                            <button class="btn btn-default" routerLink="/dashboard"><i class="fa fa-close fa-fw"></i> Close</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-body">
+                 <wj-flex-grid [itemsSource]="productCollectionView" [selectionMode]="3" style="border-radius: 0px;" [frozenColumns]="2">
+                    <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="60">
+                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                            <button class="btn btn-primary btn-xs btn-block" (click)="productDetailModal(false)" data-toggle="modal" data-target="#product-detail-modal">
+                                <i class="fa fa-edit fa-fw"></i> Edit
+                            </button>
+                        </template>
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="80">
+                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                            <button class="btn btn-danger btn-xs btn-block" (click)="productDeleteConfirmationModal()" data-toggle="modal" data-target="#product-delete-confirmation-modal">
+                                <i class="fa fa-trash fa-fw"></i> Delete
+                            </button>
+                        </template>
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Date'" [binding]="'date'" [isReadOnly]="true" [width]="100">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Country'" [binding]="'country'" [isReadOnly]="true" [width]="200">
+                    </wj-flex-grid-column>
+                </wj-flex-grid>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-12 btn-group" id="navAccountCategory">
+                        <button type="button" class="btn btn-default" (click)="productCollectionView.moveToFirstPage()">
+                            <span class="glyphicon glyphicon-fast-backward"></span> First
+                        </button>
+                        <button type="button" class="btn btn-default" (click)="productCollectionView.moveToPreviousPage()">
+                            <span class="glyphicon glyphicon-step-backward"></span> Previous
+                        </button>
+                        <button type="button" class="btn btn-default" disabled  style="width:100px">
+                            {{ productCollectionView.pageIndex + 1 }} / {{ productCollectionView.pageCount }}
+                        </button>
+                        <button type="button" class="btn btn-default" (click)="productCollectionView.moveToNextPage()">
+                            Next <span class="glyphicon glyphicon-step-forward"></span>
+                        </button>
+                        <button type="button" class="btn btn-default" (click)="productCollectionView.moveToLastPage()">
+                            Last <span class="glyphicon glyphicon-fast-forward"></span>
+                        </button>
+                    </div> 
+                </div> 
+            </div>
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label>Created by:</label>
+                        <br />
+                        <i class="fa fa-key fa-fw"></i> &nbsp; Administrator 
+                        <br />
+                        <i class="fa fa-calendar fa-fw"></i> &nbsp; 01-16-2017 
+                        <br /><br />
+                    </div>
+                    <div class="col-md-6">
+                        <label>Updated by:</label>
+                        <br />
+                        <i class="fa fa-key fa-fw"></i> &nbsp; Administrator 
+                        <br />
+                        <i class="fa fa-calendar fa-fw"></i> &nbsp; 01-16-2017  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- product detail modal -->
+<div class="modal fade" id="product-detail-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">{{ productDetailModalString }} Product</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Product Code</label>
+                    <input type="text" class="form-control" id="">
+                </div>
+                <div class="form-group">
+                    <label>Product Description:</label>
+                    <input type="text" class="form-control" id="">
+                </div>
+            </div>
+            <div class="modal-footer" align="right">
+                <button type="button" class="btn btn-primary"><i class="fa fa-save fa-fw"></i> Save</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- delete modal -->
+<div class="modal fade" id="product-delete-confirmation-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete Product</h4>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer" align="right">
+                <button type="button" class="btn btn-danger"><i class="fa fa-trash fa-fw"></i> Delete</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>

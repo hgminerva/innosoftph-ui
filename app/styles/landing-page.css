@@ -1,5 +1,5 @@
-body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+h1, h2, h3 {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
 }
 
 .lead {
@@ -119,7 +119,9 @@ p.copyright {
 .btn,
 .panel,
 .custom-grid,
-.modal-content {
+.modal-content,
+.well,
+.input-group-addon {
     border-radius: 0px;
 }
 
@@ -287,6 +289,11 @@ p.copyright {
     }
     .collapsing {
         overflow: hidden!important;
+    }
+
+    .section-heading-custom {
+        padding-top: 65px;
+        padding-bottom: 10px;
     }
 }
 
@@ -742,13 +749,13 @@ table.features-style {
 }
 
 .custom-content-a {
-    padding-top: 70px;
+    padding-top: 50px;
     padding-bottom: 50px;
     background-color: #ffffff;
 }
 
 .custom-content-b {
-    padding-top: 70px;
+    padding-top: 50px;
     padding-bottom: 50px;
     background-color: #f8f8f8;
 }
@@ -763,16 +770,16 @@ table.features-style {
 .footer-link:hover {
     text-decoration: none;
 }
-
+/*
 .nav-pills {
     background-color: transparent;
-}
-
+}*/
+/*
 .tab-content{
     color:#fff;
     padding: 3px
-}
-
+}*/
+/*
 .nav-pills > li > a {
     border: medium none;
     color: #fff;
@@ -797,4 +804,9 @@ table.features-style {
     border-radius: 0;
     color:#fff;
     transition: 0.2s all;
+}*/
+
+
+.nav-tabs > li > a  {
+    border-radius: 0;
 }

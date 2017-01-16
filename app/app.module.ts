@@ -7,6 +7,10 @@ import { HttpModule } from "@angular/http";
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
+// wijmo
+import * as wjFlexGrid from 'wijmo/wijmo.angular2.grid';
+import * as wjInput from 'wijmo/wijmo.angular2.input';
+
 // components
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -17,14 +21,13 @@ import { SupportComponent } from './support/support.component';
 import { ContactComponent } from './contact/contact.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { CustomerComponent } from './customer/customer.component';
+import { ProductComponent } from './product/product.component';
 
 // services
 import { LoginService } from './login/login.service';
-import { AboutService } from './about/about.service';
-
-// wijmo
-import * as wjFlexGrid from 'wijmo/wijmo.angular2.grid';
-import * as wjInput from 'wijmo/wijmo.angular2.input';
+import { CustomerService } from './customer/customer.service';
+import { ProductService } from './product/product.service';
 
 // paths and Routes
 const appRoutes: Routes = [
@@ -35,6 +38,8 @@ const appRoutes: Routes = [
   { path: 'contact', component: ContactComponent },
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'customer', component: CustomerComponent },
+  { path: 'product', component: ProductComponent }
 ];
 
 // module
@@ -48,6 +53,11 @@ const appRoutes: Routes = [
   ],
   declarations: [
     AppComponent,
+    wjFlexGrid.WjFlexGrid,
+    wjFlexGrid.WjFlexGridColumn,
+    wjFlexGrid.WjFlexGridCellTemplate,
+    wjInput.WjComboBox,
+    wjInput.WjCalendar,
     HeaderComponent,
     FooterComponent,
     HomeComponent,
@@ -56,15 +66,13 @@ const appRoutes: Routes = [
     ContactComponent,
     LoginComponent,
     DashboardComponent,
-    wjFlexGrid.WjFlexGrid,
-    wjFlexGrid.WjFlexGridColumn,
-    wjFlexGrid.WjFlexGridCellTemplate,
-    wjInput.WjComboBox,
-    wjInput.WjCalendar
+    CustomerComponent,
+    ProductComponent
   ],
   providers: [
     LoginService,
-    AboutService
+    CustomerService,
+    ProductService
   ],
   bootstrap: [
     AppComponent

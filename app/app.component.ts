@@ -7,15 +7,25 @@ import { Router } from '@angular/router';
 })
 
 export class AppComponent implements OnInit {
+  // inject router
+  constructor(private router: Router) { }
+
   // global variables
   public headerLogin = "";
   public headerCurrentLoggedInUser = "";
   public isLoggedIn = true;
   public isLoggedInDropdown = false;
 
-  // inject router
-  constructor(private router: Router) { }
+  // logout
+  logout() {
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('expires_in');
+    localStorage.removeItem('token_type');
+    localStorage.removeItem('userName');
+    location.reload();
+  }
 
+  // initialization
   ngOnInit() {
     if (localStorage.getItem('access_token')) {
       let currentUser = localStorage.getItem('userName');
@@ -27,13 +37,5 @@ export class AppComponent implements OnInit {
       this.headerLogin = "LOGIN";
       this.headerCurrentLoggedInUser = "Please Login";
     }
-  }
-
-  logout() {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('expires_in');
-    localStorage.removeItem('token_type');
-    localStorage.removeItem('userName');
-    location.reload();
   }
 }
