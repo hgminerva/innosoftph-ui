@@ -23,11 +23,15 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CustomerComponent } from './customer/customer.component';
 import { ProductComponent } from './product/product.component';
+import { LeadComponent } from './lead/lead.component';
+import { LeadDetailComponent } from './lead/leadDetail.component';
 
 // services
 import { LoginService } from './login/login.service';
 import { CustomerService } from './customer/customer.service';
 import { ProductService } from './product/product.service';
+import { LeadService } from './lead/lead.service';
+import { LeadDetailService } from './lead/leadDetail.service';
 
 // paths and Routes
 const appRoutes: Routes = [
@@ -39,7 +43,9 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'dashboard', component: DashboardComponent },
   { path: 'customer', component: CustomerComponent },
-  { path: 'product', component: ProductComponent }
+  { path: 'product', component: ProductComponent },
+  { path: 'lead', component: LeadComponent },
+  { path: 'leadDetail', component: LeadDetailComponent }
 ];
 
 // module
@@ -67,12 +73,16 @@ const appRoutes: Routes = [
     LoginComponent,
     DashboardComponent,
     CustomerComponent,
-    ProductComponent
+    ProductComponent,
+    LeadComponent,
+    LeadDetailComponent
   ],
   providers: [
     LoginService,
     CustomerService,
-    ProductService
+    ProductService,
+    LeadService,
+    LeadDetailService
   ],
   bootstrap: [
     AppComponent
