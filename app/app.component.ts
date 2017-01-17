@@ -29,8 +29,8 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     if (localStorage.getItem('access_token')) {
       let currentUser = localStorage.getItem('userName');
-      this.headerLogin = "YOU";
-      this.headerCurrentLoggedInUser = currentUser;
+      this.headerLogin = "YOU  <i class='fa fa-caret-down fa-fw'></i>";
+      this.headerCurrentLoggedInUser = "<i class='fa fa-key fa-fw'></i> &nbsp;" + currentUser;
       this.isLoggedIn = false;
       this.isLoggedInDropdown = true;
     } else {
