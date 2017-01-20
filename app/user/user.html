@@ -1,14 +1,14 @@
 <div class="content-section-b">
     <div class="section-heading-custom">
         <div class="container">
-            <h1 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: #fff; font-size: 35px;">PRODUCT</h1>
+            <h1 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: #fff; font-size: 35px;">CUSTOMER</h1>
         </div>
     </div>
 </div>
 <div class="custom-content-a">
     <div class="container">
         <div class="well well-sm">
-            <a routerLink="/dashboard">Dashboard</a> &nbsp; / &nbsp; Product
+            <a routerLink="/dashboard">Dashboard</a> &nbsp; / &nbsp; User
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -27,35 +27,27 @@
                 </table>
             </div>
             <div class="panel-body">
-                 <wj-flex-grid [itemsSource]="productCollectionView" [selectionMode]="3" style="border-radius: 0px;">
-                    <wj-flex-grid-column [header]="'Code'" [binding]="'ArticleCode'" [isReadOnly]="true" [width]="'2*'">
-                    </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'Manual Code'" [binding]="'ManualArticleCode'" [isReadOnly]="true" [width]="'2*'">
-                    </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'Item'" [binding]="'Article'" [isReadOnly]="true" [width]="'4*'">
-                    </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'Unit'" [binding]="'Unit'" [isReadOnly]="true" [width]="'2*'">
-                    </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'I'" [binding]="'IsInventory'" [isReadOnly]="true" [width]="'1*'">
+                 <wj-flex-grid [itemsSource]="userCollectionView" [selectionMode]="3" style="border-radius: 0px;">
+                    <wj-flex-grid-column [header]="'User'" [binding]="'FullName'" [isReadOnly]="true" [width]="'1*'">
                     </wj-flex-grid-column>
                 </wj-flex-grid>
             </div>
             <div class="panel-footer">
                 <div class="row">
                     <div class="col-sm-12 btn-group" id="navAccountCategory">
-                        <button type="button" class="btn btn-default" (click)="productCollectionView.moveToFirstPage()">
+                        <button type="button" class="btn btn-default" (click)="userCollectionView.moveToFirstPage()">
                             <span class="glyphicon glyphicon-fast-backward"></span> First
                         </button>
-                        <button type="button" class="btn btn-default" (click)="productCollectionView.moveToPreviousPage()">
+                        <button type="button" class="btn btn-default" (click)="userCollectionView.moveToPreviousPage()">
                             <span class="glyphicon glyphicon-step-backward"></span> Previous
                         </button>
                         <button type="button" class="btn btn-default" disabled  style="width:100px">
-                            {{ productCollectionView.pageIndex + 1 }} / {{ productCollectionView.pageCount }}
+                            {{ userCollectionView.pageIndex + 1 }} / {{ userCollectionView.pageCount }}
                         </button>
-                        <button type="button" class="btn btn-default" (click)="productCollectionView.moveToNextPage()">
+                        <button type="button" class="btn btn-default" (click)="userCollectionView.moveToNextPage()">
                             Next <span class="glyphicon glyphicon-step-forward"></span>
                         </button>
-                        <button type="button" class="btn btn-default" (click)="productCollectionView.moveToLastPage()">
+                        <button type="button" class="btn btn-default" (click)="userCollectionView.moveToLastPage()">
                             Last <span class="glyphicon glyphicon-fast-forward"></span>
                         </button>
                     </div> 

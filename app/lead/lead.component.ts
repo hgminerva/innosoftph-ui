@@ -8,25 +8,43 @@ import { LeadService } from './lead.service';
 })
 
 export class LeadComponent implements OnInit {
-  // inject career service
-  constructor(private leadService: LeadService, private router: Router) { }
-
   // global variables
   public leadCollectionView: wijmo.collections.CollectionView;
+  public leadDateValue: Date;
+  public leadReferredUserObservableArray: wijmo.collections.ObservableArray;
+
+  // inject career service
+  constructor(private leadService: LeadService, private router: Router) { }
 
   // lead delete modal
   leadDeleteConfirmationModal() {
 
   }
 
-  // initialization
-  ngOnInit() {
+  // values for Input date
+  setLeadDateValue() {
+    this.leadDateValue = new Date();
+    this.getListUser();
+  }
+
+  // user list
+  getListUser() {
+    this.leadReferredUserObservableArray = this.leadService.getListUserData();
+    this.getListLead();
+  }
+
+  getListLead() {
     if (!localStorage.getItem('access_token')) {
       this.router.navigate(['login']);
-    } else {
-      this.leadCollectionView = new wijmo.collections.CollectionView(this.leadService.getListLeadData(100));
-      this.leadCollectionView.pageSize = 15;
-      this.leadCollectionView.trackChanges = true;
     }
+
+    this.leadCollectionView = new wijmo.collections.CollectionView(this.leadService.getListLeadData(100));
+    this.leadCollectionView.pageSize = 15;
+    this.leadCollectionView.trackChanges = true;
+  }
+
+  // initialization
+  ngOnInit() {
+    this.setLeadDateValue();
   }
 }

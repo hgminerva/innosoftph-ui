@@ -12,11 +12,12 @@
             <li class="active"><a data-toggle="tab" href="#sales">Sales</a></li>
             <li><a data-toggle="tab" href="#support">Support</a></li>
             <li><a data-toggle="tab" href="#admin">Admin</a></li>
+            <li><a data-toggle="tab" href="#setup">Setup</a></li>
         </ul>
         <br />
         <div class="tab-content">
             <div id="sales" class="tab-pane fade in active">
-                <table class="table" border="0">
+                <table class="table table-bordered" border="0">
                     <thead style="background-color: #112540; border: 1px sold #112540; color: #fff;">
                         <tr>
                             <th style="width: 30%;">
@@ -35,6 +36,8 @@
                         <tr>
                             <td>
                                 <a routerLink="/lead" class="btn btn-primary btn-lg btn-block">
+                                    <i class="fa fa-clipboard fa-3x fa-fw"></i>
+                                    <br /><br />
                                     Leads
                                 </a>    
                             </td>
@@ -45,87 +48,169 @@
                         <tr>
                             <td>
                                 <button class="btn btn-primary btn-lg btn-block">
+                                    <i class="fa fa-line-chart fa-3x fa-fw"></i>
+                                    <br /><br />
                                     Quotation
                                 </button>        
                             </td>
                             <td>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <a href="#" class="btn btn-default btn-block" style="border: none; padding: 20px;"> 
-                                            <i class="fa fa-file-word-o fa-2x fa-fw" style="margin-bottom: 10px;"></i> 
-                                            <br />
-                                            <b> POS Contract </b>
-                                        </a>
-                                        <a href="#" class="btn btn-default btn-block" style="border: none; padding: 20px;">
-                                            <i class="fa fa-file-pdf-o fa-2x fa-fw" style="margin-bottom: 10px;"></i> 
-                                            <br />
-                                            <b> POS Brochure </b>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-4 text-center">
-                                         <a href="#" class="btn btn-default btn-block" style="border: none; padding: 20px;">
-                                            <i class="fa fa-file-word-o fa-2x fa-fw" style="margin-bottom: 10px;"></i> 
-                                            <br />
-                                            <b> FMIS Contract </b>
-                                        </a>
-                                        <a href="#" class="btn btn-default btn-block" style="border: none; padding: 20px;">
-                                            <i class="fa fa-file-pdf-o fa-2x fa-fw" style="margin-bottom: 10px;"></i> 
-                                            <br />
-                                            <b> FMIS Brochure </b>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-4 text-center">
-                                         <a href="#" class="btn btn-default btn-block" style="border: none; padding: 20px;">
-                                            <i class="fa fa-file-word-o fa-2x fa-fw" style="margin-bottom: 10px;"></i> 
-                                            <br />
-                                            <b> HRIS Contract </b>
-                                        </a>
-                                        <a href="#" class="btn btn-default btn-block" style="border: none; padding: 20px;">
-                                            <i class="fa fa-file-pdf-o fa-2x fa-fw" style="margin-bottom: 10px;"></i> 
-                                            <br />
-                                            <b> HRIS Brochure </b>
-                                        </a>
-                                    </div>
-                                </div>
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <td style="vertical-align: middle; width: 70%;">
+                                                <b><i class="fa fa-file-word-o fa-fw"></i> &nbsp; POS Contract</b>
+                                            </td>
+                                            <td style="vertical-align: middle; width: 20%;">
+                                                02-18-2017
+                                            </td>
+                                            <td style="vertical-align: middle; width: 10%;">
+                                                <button class="btn btn-success btn-block">
+                                                    <i class="fa fa-download fa-fw"></i> Download
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                           <td style="vertical-align: middle; width: 70%;">
+                                                <b><i class="fa fa-file-word-o fa-fw"></i> &nbsp; FMIS Contract</b>
+                                            </td>
+                                            <td style="vertical-align: middle; width: 20%;">
+                                                02-18-2017
+                                            </td>
+                                            <td style="vertical-align: middle; width: 10%;">
+                                                <button class="btn btn-success btn-block">
+                                                    <i class="fa fa-download fa-fw"></i> Download
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: middle; width: 70%;">
+                                                <b><i class="fa fa-file-word-o fa-fw"></i> &nbsp; HRIS Contract</b>
+                                            </td>
+                                            <td style="vertical-align: middle; width: 20%;">
+                                                02-18-2017
+                                            </td>
+                                            <td style="vertical-align: middle; width: 10%;">
+                                                <button class="btn btn-success btn-block">
+                                                    <i class="fa fa-download fa-fw"></i> Download
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: middle; width: 70%;">
+                                                <b><i class="fa fa-file-word-o fa-fw"></i> &nbsp; POS Brochure</b>
+                                            </td>
+                                            <td style="vertical-align: middle; width: 20%;">
+                                                02-18-2017
+                                            </td>
+                                            <td style="vertical-align: middle; width: 10%;">
+                                                <button class="btn btn-success btn-block">
+                                                    <i class="fa fa-download fa-fw"></i> Download
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: middle; width: 70%;">
+                                                <b><i class="fa fa-file-word-o fa-fw"></i> &nbsp; FMIS Brochure</b>
+                                            </td>
+                                            <td style="vertical-align: middle; width: 20%;">
+                                                02-18-2017
+                                            </td>
+                                            <td style="vertical-align: middle; width: 10%;">
+                                                <button class="btn btn-success btn-block">
+                                                    <i class="fa fa-download fa-fw"></i> Download
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                           <td style="vertical-align: middle; width: 70%;">
+                                                <b><i class="fa fa-file-word-o fa-fw"></i> &nbsp; HRIS Brochure</b>
+                                            </td>
+                                            <td style="vertical-align: middle; width: 20%;">
+                                                02-18-2017
+                                            </td>
+                                            <td style="vertical-align: middle; width: 10%;">
+                                                <button class="btn btn-success btn-block">
+                                                    <i class="fa fa-download fa-fw"></i> Download
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <button class="btn btn-primary btn-lg btn-block">
+                                    <i class="fa fa-users fa-3x fa-fw"></i>
+                                    <br /><br />
                                     Kick-Off Meeting
                                 </button>      
                             </td>
                             <td>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <a href="#" class="btn btn-default btn-block" style="border: none; padding: 20px;"> 
-                                            <i class="fa fa-file-word-o fa-2x fa-fw" style="margin-bottom: 10px;"></i> 
-                                            <br />
-                                            <b> POS Checklist </b>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-4 text-center">
-                                         <a href="#" class="btn btn-default btn-block" style="border: none; padding: 20px;">
-                                            <i class="fa fa-file-word-o fa-2x fa-fw" style="margin-bottom: 10px;"></i> 
-                                            <br />
-                                            <b> FMIS Checklist </b>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-4 text-center">
-                                         <a href="#" class="btn btn-default btn-block" style="border: none; padding: 20px;">
-                                            <i class="fa fa-file-word-o fa-2x fa-fw" style="margin-bottom: 10px;"></i> 
-                                            <br />
-                                            <b> HRIS Checklist </b>
-                                        </a>
-                                    </div>
-                                </div>
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <td style="vertical-align: middle; width: 70%;">
+                                                <b><i class="fa fa-file-word-o fa-fw"></i> &nbsp; POS Checklist</b>
+                                            </td>
+                                            <td style="vertical-align: middle; width: 20%;">
+                                                02-18-2017
+                                            </td>
+                                            <td style="vertical-align: middle; width: 10%;">
+                                                <button class="btn btn-success btn-block">
+                                                    <i class="fa fa-download fa-fw"></i> Download
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                           <td style="vertical-align: middle; width: 70%;">
+                                                <b><i class="fa fa-file-word-o fa-fw"></i> &nbsp; FMIS Checklist</b>
+                                            </td>
+                                            <td style="vertical-align: middle; width: 20%;">
+                                                02-18-2017
+                                            </td>
+                                            <td style="vertical-align: middle; width: 10%;">
+                                                <button class="btn btn-success btn-block">
+                                                    <i class="fa fa-download fa-fw"></i> Download
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td style="vertical-align: middle; width: 70%;">
+                                                <b><i class="fa fa-file-word-o fa-fw"></i> &nbsp; HRIS Checklist</b>
+                                            </td>
+                                            <td style="vertical-align: middle; width: 20%;">
+                                                02-18-2017
+                                            </td>
+                                            <td style="vertical-align: middle; width: 10%;">
+                                                <button class="btn btn-success btn-block">
+                                                    <i class="fa fa-download fa-fw"></i> Download
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <button class="btn btn-danger btn-lg btn-block">
-                                    Reports
+                                <button class="btn btn-primary btn-lg btn-block">
+                                    <i class="fa fa-folder-open fa-3x fa-fw"></i>
+                                    <br /><br />
+                                    Activities
                                 </button>      
+                            </td>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <button class="btn btn-primary btn-lg btn-block">
+                                    <i class="fa fa-print fa-3x fa-fw"></i>
+                                    <br /><br />
+                                    Reports
+                                </button>        
                             </td>
                             <td>
                                 
@@ -135,7 +220,7 @@
                 </table>
             </div>
             <div id="support" class="tab-pane fade">
-                <table class="table" border="0">
+                <table class="table table-bordered" border="0">
                     <thead style="background-color: #112540; border: 1px sold #112540; color: #fff;">
                         <tr>
                             <th style="width: 30%;">
@@ -154,8 +239,10 @@
                         <tr>
                             <td>
                                 <button class="btn btn-primary btn-lg btn-block">
+                                    <i class="fa fa-truck fa-3x fa-fw"></i>
+                                    <br /><br />
                                     Product Delivery
-                                </button>    
+                                </button>        
                             </td>
                             <td>
                                
@@ -164,35 +251,62 @@
                         <tr>
                             <td>
                                 <button class="btn btn-primary btn-lg btn-block">
+                                    <i class="fa fa-handshake-o fa-3x fa-fw"></i>
+                                    <br /><br />
                                     BCS
-                                </button>        
+                                </button>           
                             </td>
                             <td>
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <a href="#" class="btn btn-default btn-block" style="border: none; padding: 20px;"> 
-                                            <i class="fa fa-file-word-o fa-2x fa-fw" style="margin-bottom: 10px;"></i> 
-                                            <br />
-                                            <b> BCS Contract </b>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-4 text-center">
-                                         <a href="#" class="btn btn-default btn-block" style="border: none; padding: 20px;">
-                                            <i class="fa fa-file-word-o fa-2x fa-fw" style="margin-bottom: 10px;"></i> 
-                                            <br />
-                                            <b> BCS Brochure </b>
-                                        </a>
-                                    </div>
-                                    <div class="col-md-4 text-center">
-                                         
-                                    </div>
-                                </div>
+                                <table class="table table-hover">
+                                    <tbody>
+                                        <tr>
+                                            <td style="vertical-align: middle; width: 70%;">
+                                                <b><i class="fa fa-file-word-o fa-fw"></i> &nbsp; BCS Contract</b>
+                                            </td>
+                                            <td style="vertical-align: middle; width: 20%;">
+                                                02-18-2017
+                                            </td>
+                                            <td style="vertical-align: middle; width: 10%;">
+                                                <button class="btn btn-success btn-block">
+                                                    <i class="fa fa-download fa-fw"></i> Download
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                           <td style="vertical-align: middle; width: 70%;">
+                                                <b><i class="fa fa-file-word-o fa-fw"></i> &nbsp; BCS Brochure</b>
+                                            </td>
+                                            <td style="vertical-align: middle; width: 20%;">
+                                                02-18-2017
+                                            </td>
+                                            <td style="vertical-align: middle; width: 10%;">
+                                                <button class="btn btn-success btn-block">
+                                                    <i class="fa fa-download fa-fw"></i> Download
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </td>
                         </tr>
                         <tr>
                             <td>
                                 <button class="btn btn-primary btn-lg btn-block">
+                                    <i class="fa fa-volume-control-phone fa-3x fa-fw"></i>
+                                    <br /><br />
                                     Support
+                                </button>           
+                            </td>
+                            <td>
+                                
+                            </td>
+                        </tr>
+                         <tr>
+                            <td>
+                                <button class="btn btn-primary btn-lg btn-block">
+                                    <i class="fa fa-folder-open fa-3x fa-fw"></i>
+                                    <br /><br />
+                                    Activities
                                 </button>      
                             </td>
                             <td>
@@ -202,18 +316,10 @@
                         <tr>
                             <td>
                                 <button class="btn btn-primary btn-lg btn-block">
-                                    Other Issues
-                                </button>      
-                            </td>
-                            <td>
-                                
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <button class="btn btn-danger btn-lg btn-block">
+                                    <i class="fa fa-print fa-3x fa-fw"></i>
+                                    <br /><br />
                                     Reports
-                                </button>      
+                                </button>        
                             </td>
                             <td>
                                 
@@ -223,7 +329,7 @@
                 </table>
             </div>
             <div id="admin" class="tab-pane fade">
-                <table class="table" border="0">
+                <table class="table table-bordered" border="0">
                     <thead style="background-color: #112540; border: 1px sold #112540; color: #fff;">
                         <tr>
                             <th style="width: 30%;">
@@ -242,6 +348,8 @@
                         <tr>
                             <td>
                                 <button class="btn btn-primary btn-lg btn-block">
+                                    <i class="fa fa-file-text-o fa-3x fa-fw"></i>
+                                    <br /><br />
                                     Request to Purchase
                                 </button>    
                             </td>
@@ -252,6 +360,8 @@
                         <tr>
                             <td>
                                 <button class="btn btn-primary btn-lg btn-block">
+                                    <i class="fa fa-file-text-o fa-3x fa-fw"></i>
+                                    <br /><br />
                                     Request for Payment
                                 </button>        
                             </td>
@@ -262,6 +372,8 @@
                         <tr>
                             <td>
                                 <button class="btn btn-primary btn-lg btn-block">
+                                    <i class="fa fa-file-text-o fa-3x fa-fw"></i>
+                                    <br /><br />
                                     Leave Application
                                 </button>      
                             </td>
@@ -272,6 +384,8 @@
                          <tr>
                             <td>
                                 <button class="btn btn-primary btn-lg btn-block">
+                                    <i class="fa fa-file-text-o fa-3x fa-fw"></i>
+                                    <br /><br />
                                     OT Application
                                 </button>      
                             </td>
@@ -282,6 +396,8 @@
                          <tr>
                             <td>
                                 <button class="btn btn-primary btn-lg btn-block">
+                                    <i class="fa fa-file-text-o fa-3x fa-fw"></i>
+                                    <br /><br />
                                     Memo
                                 </button>      
                             </td>
@@ -291,7 +407,9 @@
                         </tr>
                         <tr>
                             <td>
-                                <button class="btn btn-danger btn-lg btn-block">
+                                <button class="btn btn-primary btn-lg btn-block">
+                                    <i class="fa fa-print fa-3x fa-fw"></i>
+                                    <br /><br />
                                     Reports
                                 </button>      
                             </td>
@@ -301,6 +419,31 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+            <div id="setup" class="tab-pane fade">
+                 <div class="row">
+                    <div class="col-md-4">
+                        <button class="btn btn-success btn-lg btn-block" routerLink="/customer">
+                            <i class="fa fa-user fa-3x fa-fw"></i>
+                            <br /><br />
+                            Customer
+                        </button>    
+                    </div>
+                    <div class="col-md-4">
+                         <button class="btn btn-success btn-lg btn-block" routerLink="/product">
+                            <i class="fa fa-cubes fa-3x fa-fw"></i>
+                            <br /><br />
+                            Product
+                        </button>    
+                    </div>
+                    <div class="col-md-4">
+                        <button class="btn btn-success btn-lg btn-block" routerLink="/user"> 
+                            <i class="fa fa-key fa-3x fa-fw"></i>
+                            <br /><br />
+                            User
+                        </button>    
+                    </div>
+                </div>
             </div>
         </div>
 <!--

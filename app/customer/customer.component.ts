@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ViewContainerRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CustomerService } from './customer.service';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
   selector: 'my-customer',
@@ -8,35 +9,33 @@ import { CustomerService } from './customer.service';
 })
 
 export class CustomerComponent implements OnInit {
-  // inject career service
-  constructor(private customerService: CustomerService, private router: Router) { }
-
   // global variables
-  public customerDetailModalString: String;
   public customerCollectionView: wijmo.collections.CollectionView;
 
-  // customer detail modal  
-  customerDetailModal(add: boolean) {
-    if (add) {
-      this.customerDetailModalString = "Add";
-    } else {
-      this.customerDetailModalString = "Edit";
-    }
+  // constructor
+  constructor(
+    private customerService: CustomerService,
+    private router: Router,
+    private toastr: ToastsManager,
+    private vRef: ViewContainerRef
+  ) {
+    this.toastr.setRootViewContainerRef(vRef);
   }
 
-  // customer delete modal
-  customerDeleteConfirmationModal() {
+  // list customer
+  getListCustomer() {
+    if (!localStorage.getItem('access_token')) {
+      this.router.navigate(['login']);
+    }
 
+    let toastr: ToastsManager;
+    this.customerCollectionView = new wijmo.collections.CollectionView(this.customerService.getListCustomerData(toastr));
+    this.customerCollectionView.pageSize = 15;
+    this.customerCollectionView.trackChanges = true;
   }
 
   // initialization
   ngOnInit() {
-    if (!localStorage.getItem('access_token')) {
-      this.router.navigate(['login']);
-    } else {
-      this.customerCollectionView = new wijmo.collections.CollectionView(this.customerService.getListCustomerData(100));
-      this.customerCollectionView.pageSize = 15;
-      this.customerCollectionView.trackChanges = true;
-    }
+    this.getListCustomer();
   }
 }

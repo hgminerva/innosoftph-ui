@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { LeadDetailService } from './leadDetail.service';
 
 @Component({
@@ -8,35 +8,69 @@ import { LeadDetailService } from './leadDetail.service';
 })
 
 export class LeadDetailComponent implements OnInit {
-  // inject career service
-  constructor(private leadDetailService: LeadDetailService, private router: Router) { }
-
   // global variables
-  public activityLineDetailModalString: String;
-  public activityLineCollectionView: wijmo.collections.CollectionView;
+  public leadDateValue: Date;
+  public leadReferredUserObservableArray: wijmo.collections.ObservableArray;
+  public activityDetailModalString: String;
+  public activityCollectionView: wijmo.collections.CollectionView;
+  public id: number;
+
+  // inject lead detail service
+  constructor(
+    private leadDetailService: LeadDetailService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) { }
 
   // activity line detail modal  
-  activityLineDetailModal(add: boolean) {
+  activityDetailModal(add: boolean) {
     if (add) {
-      this.activityLineDetailModalString = "Add";
+      this.activityDetailModalString = "Add";
     } else {
-      this.activityLineDetailModalString = "Edit";
+      this.activityDetailModalString = "Edit";
     }
   }
 
-  // activity line delete modal
-  activityLineDeleteConfirmationModal() {
+  // delete confirmation modal
+  activityDeleteConfirmationModal() {
 
+  }
+
+  // values for Input date
+  setLeadDateValue() {
+    this.leadDateValue = new Date();
+    this.getListUser();
+    console.log(this.getIdUrlParameter());
+  }
+
+  // user list
+  getListUser() {
+    this.leadReferredUserObservableArray = this.leadDetailService.getListUserData();
+    this.getListActivity();
+  }
+
+  // get url Id parameter
+  getIdUrlParameter() {
+    this.activatedRoute.params.subscribe(params => {
+      this.id = params['id'];
+    });
+
+    return this.id;
+  }
+
+  // activity line list
+  getListActivity() {
+    this.activityCollectionView = new wijmo.collections.CollectionView(this.leadDetailService.getListActivityData(100));
+    this.activityCollectionView.pageSize = 15;
+    this.activityCollectionView.trackChanges = true;
   }
 
   // initialization
   ngOnInit() {
     if (!localStorage.getItem('access_token')) {
       this.router.navigate(['login']);
-    } else {
-      this.activityLineCollectionView = new wijmo.collections.CollectionView(this.leadDetailService.getListActivityLineData(100));
-      this.activityLineCollectionView.pageSize = 15;
-      this.activityLineCollectionView.trackChanges = true;
     }
+
+    this.setLeadDateValue();
   }
 }

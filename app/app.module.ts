@@ -23,6 +23,7 @@ import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CustomerComponent } from './customer/customer.component';
 import { ProductComponent } from './product/product.component';
+import { UserComponent } from './user/user.component';
 import { LeadComponent } from './lead/lead.component';
 import { LeadDetailComponent } from './lead/leadDetail.component';
 
@@ -30,6 +31,7 @@ import { LeadDetailComponent } from './lead/leadDetail.component';
 import { LoginService } from './login/login.service';
 import { CustomerService } from './customer/customer.service';
 import { ProductService } from './product/product.service';
+import { UserService } from './user/user.service';
 import { LeadService } from './lead/lead.service';
 import { LeadDetailService } from './lead/leadDetail.service';
 
@@ -44,8 +46,9 @@ const appRoutes: Routes = [
   { path: 'dashboard', component: DashboardComponent },
   { path: 'customer', component: CustomerComponent },
   { path: 'product', component: ProductComponent },
+  { path: 'user', component: UserComponent },
   { path: 'lead', component: LeadComponent },
-  { path: 'leadDetail', component: LeadDetailComponent }
+  { path: 'leadDetail/:id', component: LeadDetailComponent }
 ];
 
 // module
@@ -63,7 +66,7 @@ const appRoutes: Routes = [
     wjFlexGrid.WjFlexGridColumn,
     wjFlexGrid.WjFlexGridCellTemplate,
     wjInput.WjComboBox,
-    wjInput.WjCalendar,
+    wjInput.WjInputDate,
     HeaderComponent,
     FooterComponent,
     HomeComponent,
@@ -74,6 +77,7 @@ const appRoutes: Routes = [
     DashboardComponent,
     CustomerComponent,
     ProductComponent,
+    UserComponent,
     LeadComponent,
     LeadDetailComponent
   ],
@@ -81,6 +85,7 @@ const appRoutes: Routes = [
     LoginService,
     CustomerService,
     ProductService,
+    UserService,
     LeadService,
     LeadDetailService
   ],

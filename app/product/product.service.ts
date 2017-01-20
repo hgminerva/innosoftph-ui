@@ -1,37 +1,43 @@
 import { Injectable } from '@angular/core';
+import { Headers, Http, RequestOptions } from '@angular/http';
+import { Router } from '@angular/router';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Injectable()
 export class ProductService {
-    // list customer
-    getListProductData(count: number): wijmo.collections.ObservableArray {
-        var countries = 'US, Germany, UK, Japan, Italy, Greece'.split(',');
-        var productObservableArray = new wijmo.collections.ObservableArray();
+    // constructor
+    constructor(
+        private router: Router,
+        private http: Http,
+        public toastr: ToastsManager
+    ) { }
 
-        for (var i = 0; i < count; i++) {
-            productObservableArray.push({
-                id: i,
-                country: countries[i % countries.length],
-                date: new Date(2014, i % 12, i % 28),
-                amount: Math.random() * 10000,
-                active: i % 4 == 0
-            });
-        }
+    // list product data
+    getListProductData(toastr: ToastsManager): wijmo.collections.ObservableArray {
+        let productObservableArray = new wijmo.collections.ObservableArray();
+        let url = "http://easyfiswebsite-innosoft.azurewebsites.net/api/article/list/byArticleTypeId/1";
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+
+        this.http.get(url, headers).subscribe(
+            response => {
+                for (var key in response.json()) {
+                    if (response.json().hasOwnProperty(key)) {
+                        productObservableArray.push({
+                            Id: response.json()[key].Id,
+                            ArticleCode: response.json()[key].ArticleCode,
+                            ManualArticleCode: response.json()[key].ManualArticleCode,
+                            Article: response.json()[key].Article,
+                            Unit: response.json()[key].Unit,
+                            IsInventory: response.json()[key].IsInventory,
+                        });
+                    }
+                }
+            },
+            error => {
+                this.toastr.error('', 'Something`s went wrong!');
+            }
+        );
 
         return productObservableArray;
-    }
-
-    // add product
-    addProduct() {
-
-    }
-
-    // update product
-    updateProduct() {
-
-    }
-
-    // delete product
-    deleteProduct() {
-        
     }
 }

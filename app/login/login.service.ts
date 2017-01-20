@@ -5,6 +5,7 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Injectable()
 export class LoginService {
+    // constructor
     constructor(
         private router: Router,
         private http: Http,

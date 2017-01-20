@@ -1,34 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Injectable()
-export class LeadService {
+export class UserService {
+    // constructor
     constructor(
         private router: Router,
         private http: Http,
+        public toastr: ToastsManager
     ) { }
 
-    // list lead
-    getListLeadData(count: number): wijmo.collections.ObservableArray {
-        var countries = 'US, Germany, UK, Japan, Italy, Greece'.split(',');
-        var leadObservableArray = new wijmo.collections.ObservableArray();
-
-        for (var i = 0; i < count; i++) {
-            leadObservableArray.push({
-                id: i,
-                country: countries[i % countries.length],
-                date: new Date(2014, i % 12, i % 28),
-                amount: Math.random() * 10000,
-                active: i % 4 == 0
-            });
-        }
-
-        return leadObservableArray;
-    }
-
-    // list user
-    getListUserData(): wijmo.collections.ObservableArray {
+    // list user data
+    getListUserData(toastr: ToastsManager): wijmo.collections.ObservableArray {
         let userObservableArray = new wijmo.collections.ObservableArray();
         let url = "http://easyfiswebsite-innosoft.azurewebsites.net/api/user/list";
         let headers = new Headers({ 'Content-Type': 'application/json' });
@@ -44,6 +29,9 @@ export class LeadService {
                         });
                     }
                 }
+            },
+            error => {
+                this.toastr.error('', 'Something`s went wrong!');
             }
         );
 
