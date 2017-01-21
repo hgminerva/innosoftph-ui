@@ -21,9 +21,38 @@
                             </div>
                         </td>
                         <td align="right">
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#lead-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
+                            <button class="btn btn-primary" (click)="btnAddLeadClick()" data-toggle="modal" data-target="#lead-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
                             <button class="btn btn-danger" routerLink="/dashboard"><i class="fa fa-close fa-fw"></i> Close</button>
                         </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-heading">
+                <table border="0" style="width: 100%;">
+                    <tr>
+                        <td style="width: 30%;">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
+                                <wj-input-date
+                                    [(value)]="leadStartDateValue" 
+                                    [max]="leadEndDateValue"
+                                    [format]="'MMM dd, yyyy'"
+                                    (valueChanged)="leadStartDateOnValueChanged()">
+                                </wj-input-date>
+                            </div>
+                        </td>
+                        <td style="width: 30%;">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
+                                <wj-input-date
+                                    [(value)]="leadEndDateValue" 
+                                    [min]="leadStartDateValue"
+                                    [format]="'MMM dd, yyyy'"
+                                    (valueChanged)="leadEndDateOnValueChanged()">
+                                </wj-input-date>
+                            </div>
+                        </td>
+                        <td style="width: 40%;"></td>
                     </tr>
                 </table>
             </div>
@@ -43,9 +72,13 @@
                             </button>
                         </template>
                     </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'Date'" [binding]="'date'" [isReadOnly]="true" [width]="100">
+                    <wj-flex-grid-column [header]="'Lead Date'" [binding]="'LeadDate'" [isReadOnly]="true" [width]="80">
                     </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'Country'" [binding]="'country'" [isReadOnly]="true" [width]="'*'">
+                    <wj-flex-grid-column [header]="'Lead No.'" [binding]="'LeadNumber'" [isReadOnly]="true" [width]="100">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Name'" [binding]="'LeadName'" [isReadOnly]="true" [width]="200">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Status'" [binding]="'LeadStatus'" [isReadOnly]="true" [width]="150">
                     </wj-flex-grid-column>
                 </wj-flex-grid>
             </div>

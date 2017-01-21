@@ -4,25 +4,43 @@ import { Router } from '@angular/router';
 
 @Injectable()
 export class LeadService {
+    // constructor
     constructor(
         private router: Router,
         private http: Http,
     ) { }
 
-    // list lead
-    getListLeadData(count: number): wijmo.collections.ObservableArray {
-        var countries = 'US, Germany, UK, Japan, Italy, Greece'.split(',');
-        var leadObservableArray = new wijmo.collections.ObservableArray();
-
-        for (var i = 0; i < count; i++) {
-            leadObservableArray.push({
-                id: i,
-                country: countries[i % countries.length],
-                date: new Date(2014, i % 12, i % 28),
-                amount: Math.random() * 10000,
-                active: i % 4 == 0
-            });
-        }
+    // list lead by date ranged
+    getListLeadData(leadStartDate: Date, leadEndDate: Date): wijmo.collections.ObservableArray {
+        let leadObservableArray = new wijmo.collections.ObservableArray();
+        let url = "http://localhost:22626/api/lead/list/byLeadDateRange/" + leadStartDate.toDateString() + "/" + leadEndDate.toDateString();
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        this.http.get(url, headers).subscribe(
+            response => {
+                for (var key in response.json()) {
+                    if (response.json().hasOwnProperty(key)) {
+                        leadObservableArray.push({
+                            Id: response.json()[key].Id,
+                            LeadDate: response.json()[key].LeadDate,
+                            LeadNumber: response.json()[key].LeadNumber,
+                            LeadName: response.json()[key].LeadName,
+                            Address: response.json()[key].LeadName,
+                            ContactPerson: response.json()[key].LeadName,
+                            ContactPosition: response.json()[key].LeadName,
+                            ContactEmail: response.json()[key].LeadName,
+                            ContactPhoneNo: response.json()[key].LeadName,
+                            ReferredBy: response.json()[key].LeadName,
+                            Remarks: response.json()[key].LeadName,
+                            EncodedByUserId: response.json()[key].LeadName,
+                            EncodedByUser: response.json()[key].LeadName,
+                            AssignedToUserId: response.json()[key].LeadName,
+                            AssignedToUser: response.json()[key].LeadName,
+                            LeadStatus: response.json()[key].LeadName
+                        });
+                    }
+                }
+            }
+        );
 
         return leadObservableArray;
     }
@@ -30,9 +48,8 @@ export class LeadService {
     // list user
     getListUserData(): wijmo.collections.ObservableArray {
         let userObservableArray = new wijmo.collections.ObservableArray();
-        let url = "http://easyfiswebsite-innosoft.azurewebsites.net/api/user/list";
+        let url = "http://localhost:22626/api/user/list";
         let headers = new Headers({ 'Content-Type': 'application/json' });
-
         this.http.get(url, headers).subscribe(
             response => {
                 for (var key in response.json()) {

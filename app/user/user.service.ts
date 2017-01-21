@@ -15,7 +15,7 @@ export class UserService {
     // list user data
     getListUserData(toastr: ToastsManager): wijmo.collections.ObservableArray {
         let userObservableArray = new wijmo.collections.ObservableArray();
-        let url = "http://easyfiswebsite-innosoft.azurewebsites.net/api/user/list";
+        let url = "http://localhost:22626/api/user/list";
         let headers = new Headers({ 'Content-Type': 'application/json' });
 
         this.http.get(url, headers).subscribe(
