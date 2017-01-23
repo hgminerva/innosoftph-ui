@@ -23,7 +23,7 @@ export class ProductComponent {
   }
 
   // list product
-  getProductList() {
+  public getProductList() {
     if (!localStorage.getItem('access_token')) {
       this.router.navigate(['login']);
     }

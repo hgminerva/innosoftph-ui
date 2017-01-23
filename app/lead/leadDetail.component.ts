@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer, ElementRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LeadDetailService } from './leadDetail.service';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Component({
   selector: 'my-lead-detail',
@@ -8,22 +9,48 @@ import { LeadDetailService } from './leadDetail.service';
 })
 
 export class LeadDetailComponent implements OnInit {
+  @ViewChild('viewChildLeadName') viewChildLeadName: ElementRef;
+
   // global variables
   public leadDateValue: Date;
-  public leadReferredUserObservableArray: wijmo.collections.ObservableArray;
-  public activityDetailModalString: String;
+  public isLeadDateSelected = true;
+  public leadCollectionView: wijmo.collections.CollectionView;
   public activityCollectionView: wijmo.collections.CollectionView;
+  public leadEncodedUserObservableArray: wijmo.collections.ObservableArray;
+  public leadEncodedBySelectedIndex = 0;
+  public leadAssignedUserObservableArray: wijmo.collections.ObservableArray;
+  public leadAssignedToSelectedIndex = 0;
+  public leadStatusArray = ['Open', 'Close', 'Cancelled'];
+  public leadStatusSelectedIndex = -1;
+  public leadName: String;
+  public leadAddress: String;
+  public leadContactPerson: String;
+  public leadContactPosition: String;
+  public leadContactEmail: String;
+  public leadContactNumber: String;
+  public leadEncodedByUserId: number;
+  public leadAssignedToUserId: number;
+  public leadReferredBy: String;
+  public leadRemarks: String;
+  public leadStatus: String;
+  public activityDetailModalString: String;
   public id: number;
 
   // inject lead detail service
   constructor(
     private leadDetailService: LeadDetailService,
     private router: Router,
-    private activatedRoute: ActivatedRoute
-  ) { }
+    private activatedRoute: ActivatedRoute,
+    private renderer: Renderer,
+    private elementRef: ElementRef,
+    private toastr: ToastsManager,
+    private vRef: ViewContainerRef
+  ) {
+    this.toastr.setRootViewContainerRef(vRef);
+  }
 
   // activity line detail modal  
-  activityDetailModal(add: boolean) {
+  public activityDetailModal(add: boolean) {
     if (add) {
       this.activityDetailModalString = "Add";
     } else {
@@ -32,25 +59,31 @@ export class LeadDetailComponent implements OnInit {
   }
 
   // delete confirmation modal
-  activityDeleteConfirmationModal() {
+  public activityDeleteConfirmationModal() {
 
   }
 
-  // values for Input date
-  setLeadDateValue() {
+  // lead date ranged
+  public setLeadDateValue() {
     this.leadDateValue = new Date();
     this.getListUser();
-    console.log(this.getIdUrlParameter());
+    this.getLeadServiceData();
+  }
+
+  // get lead data by id
+  public getLeadServiceData() {
+    this.leadDetailService.getLeadById(this.getIdUrlParameter());
   }
 
   // user list
-  getListUser() {
-    this.leadReferredUserObservableArray = this.leadDetailService.getListUserData();
+  public getListUser() {
+    this.leadEncodedUserObservableArray = this.leadDetailService.getListUserData();
+    this.leadAssignedUserObservableArray = this.leadDetailService.getListUserData();
     this.getListActivity();
   }
 
   // get url Id parameter
-  getIdUrlParameter() {
+  public getIdUrlParameter() {
     this.activatedRoute.params.subscribe(params => {
       this.id = params['id'];
     });
@@ -59,10 +92,40 @@ export class LeadDetailComponent implements OnInit {
   }
 
   // activity line list
-  getListActivity() {
+  public getListActivity() {
     this.activityCollectionView = new wijmo.collections.CollectionView(this.leadDetailService.getListActivityData(100));
     this.activityCollectionView.pageSize = 15;
     this.activityCollectionView.trackChanges = true;
+  }
+
+  // event: lead date
+  public leadDateOnValueChanged() {
+    // if (this.isLeadDateSelected) {
+    //   this.isLeadDateSelected = false;
+    // }
+  }
+
+  // event: encoded by
+  public cboEncodedBySelectedIndexChangedClick() {
+    // if (this.leadEncodedBySelectedIndex >= 0) {
+    //   this.leadEncodedByUserId = this.leadEncodedUserObservableArray[this.leadEncodedBySelectedIndex].Id;
+    // } else {
+    //   this.leadEncodedByUserId = 0;
+    // }
+  }
+
+  // event: assigned to
+  public cboAssignedToSelectedIndexChangedClick() {
+    // if (this.leadAssignedToSelectedIndex >= 0) {
+    //   this.leadAssignedToUserId = this.leadAssignedUserObservableArray[this.leadAssignedToSelectedIndex].Id;
+    // } else {
+    //   this.leadAssignedToUserId = 0;
+    // }
+  }
+
+  // event: status
+  public cboStatusSelectedIndexChangedClick() {
+    this.leadStatus = this.leadStatusArray[this.leadStatusSelectedIndex];
   }
 
   // initialization
@@ -72,5 +135,6 @@ export class LeadDetailComponent implements OnInit {
     }
 
     this.setLeadDateValue();
+    // this.renderer.setElementProperty(this.viewChildLeadName.nativeElement, 'innerHTML', 'weee');
   }
 }

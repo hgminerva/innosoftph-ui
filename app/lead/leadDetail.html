@@ -28,20 +28,20 @@
                         <div class="panel panel-default">
                             <div class="panel-body">
                                 <div class="form-group">
-                                    <label>Lead Number</label>
-                                    <input type="text" class="form-control" id="" placeholder="Lead Number" disabled />
-                                </div>
-                                <div class="form-group">
                                     <label>Lead Date</label><br />
-                                    <wj-input-date [value]="leadDateValue" [format]="'MMM dd, yyyy'"></wj-input-date>
+                                    <wj-input-date
+                                        [(value)]="leadDateValue" 
+                                        [format]="'MMM dd, yyyy'"
+                                        (valueChanged)="leadDateOnValueChanged()">
+                                    </wj-input-date>
                                 </div>
                                  <div class="form-group">
                                     <label>Lead Name</label>
-                                    <input type="text" class="form-control" id="" placeholder="Lead Name" />
+                                    <input type="text" [(ngModel)]="leadName" class="form-control" id="leadName" placeholder="Lead Name" />
                                 </div>
                                 <div class="form-group">
                                     <label>Address</label>
-                                    <textarea class="form-control" rows="3" id="" placeholder="Address" ></textarea>
+                                    <textarea [(ngModel)]="leadAddress" class="form-control" rows="3" id="leadAddress" placeholder="Address" ></textarea>
                                 </div>
                             </div>
                         </div>
@@ -49,19 +49,19 @@
                             <div class="panel-body">
                                 <div class="form-group">
                                     <label>Contact Person</label>
-                                    <input type="text" class="form-control" id="" placeholder="Contact Person" />
+                                    <input type="text" [(ngModel)]="leadContactPerson" class="form-control" id="leadContactPerson" placeholder="Contact Person" />
                                 </div>
                                 <div class="form-group">
                                     <label>Contact Position</label>
-                                    <input type="text" class="form-control" id="" placeholder="Contact Position" />
+                                    <input type="text" [(ngModel)]="leadContactPosition" class="form-control" id="leadContactPosition" placeholder="Contact Position" />
                                 </div>
                                 <div class="form-group">
                                     <label>Contact Email</label>
-                                    <input type="text" class="form-control" id="" placeholder="Contact Email" />
+                                    <input type="text" [(ngModel)]="leadContactEmail" class="form-control" id="leadContactEmail" placeholder="Contact Email" />
                                 </div>
                                 <div class="form-group">
                                     <label>Contact Numbers</label>
-                                    <textarea class="form-control" rows="3" id="" placeholder="Contact Numbers"></textarea>
+                                    <textarea class="form-control" [(ngModel)]="leadContactNumber" rows="3" id="leadContactNumber" placeholder="Contact Numbers"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -69,19 +69,47 @@
                      <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-body">
+                                 <div class="form-group">
+                                    <label>Referred By</label>
+                                    <input type="text" [(ngModel)]="leadReferredBy" class="form-control" id="leadReferredBy" placeholder="Contact Email" />
+                                </div>
                                 <div class="form-group">
-                                    <label>Referred By</label><br />
+                                    <label>Encoded By</label><br />
                                     <wj-combo-box 
-                                        [itemsSource]="leadReferredUserObservableArray" 
+                                        [itemsSource]="leadEncodedUserObservableArray" 
                                         [placeholder]="'Select User'"
                                         [displayMemberPath]="'FullName'" 
                                         [selectedValuePath]="'FullName'"
-                                        [isEditable]="true">
+                                        [isEditable]="true"
+                                        [(selectedIndex)]="leadEncodedBySelectedIndex"
+                                        (selectedIndexChanged)="cboEncodedBySelectedIndexChangedClick()">
+                                    </wj-combo-box>
+                                </div>
+                                <div class="form-group">
+                                    <label>Assigned To</label><br />
+                                    <wj-combo-box 
+                                        [itemsSource]="leadAssignedUserObservableArray" 
+                                        [placeholder]="'Select User'"
+                                        [displayMemberPath]="'FullName'" 
+                                        [selectedValuePath]="'FullName'"
+                                        [isEditable]="true"
+                                        [(selectedIndex)]="leadAssignedToSelectedIndex"
+                                        (selectedIndexChanged)="cboAssignedToSelectedIndexChangedClick()">
+                                    </wj-combo-box>
+                                </div>
+                                <div class="form-group">
+                                    <label>Status</label><br />
+                                    <wj-combo-box 
+                                        [itemsSource]="leadStatusArray" 
+                                        [placeholder]="'Select Status'"
+                                        [isEditable]="true"
+                                        [(selectedIndex)]="leadStatusSelectedIndex"
+                                        (selectedIndexChanged)="cboStatusSelectedIndexChangedClick()">
                                     </wj-combo-box>
                                 </div>
                                 <div class="form-group">
                                     <label>Remarks</label>
-                                    <textarea class="form-control" rows="10" id="" placeholder="Remarks"></textarea>
+                                    <textarea [(ngModel)]="leadRemarks" class="form-control" rows="10" id="leadRemarks" placeholder="Remarks"></textarea>
                                 </div>
                             </div>
                         </div>

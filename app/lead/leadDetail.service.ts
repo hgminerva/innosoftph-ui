@@ -10,12 +10,14 @@ export class LeadDetailService {
     ) { }
 
     // list user
-    getListUserData(): wijmo.collections.ObservableArray {
+    public getListUserData(): wijmo.collections.ObservableArray {
         let userObservableArray = new wijmo.collections.ObservableArray();
         let url = "http://localhost:22626/api/user/list";
         let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
 
-        this.http.get(url, headers).subscribe(
+        // get
+        this.http.get(url, options).subscribe(
             response => {
                 for (var key in response.json()) {
                     if (response.json().hasOwnProperty(key)) {
@@ -32,8 +34,35 @@ export class LeadDetailService {
         return userObservableArray;
     }
 
+    // get by id
+    public getLeadById(id: number) {
+        let url = "http://localhost:22626/api/lead/get/byId/" + id;
+        let headers = new Headers({ 'Content-Type': 'application/json' });
+        let options = new RequestOptions({ headers: headers });
+
+        // get
+        this.http.get(url, options).subscribe(
+            response => {
+                console.log(response.json().LeadNumber);
+                console.log(response.json().LeadDate);
+                console.log(response.json().LeadName);
+                console.log(response.json().Address);
+                console.log(response.json().ContactPerson);
+                console.log(response.json().ContactPosition);
+                console.log(response.json().ContactEmail);
+                console.log(response.json().ReferredBy);
+                console.log(response.json().Remarks);
+                console.log(response.json().EncodedByUserId);
+                console.log(response.json().EncodedByUser);
+                console.log(response.json().AssignedToUserId);
+                console.log(response.json().AssignedToUser);
+                console.log(response.json().LeadStatus);
+            }
+        );
+    }
+
     // list activity line
-    getListActivityData(count: number): wijmo.collections.ObservableArray {
+    public getListActivityData(count: number): wijmo.collections.ObservableArray {
         var countries = 'US, Germany, UK, Japan, Italy, Greece'.split(',');
         var leadDetailObservableArray = new wijmo.collections.ObservableArray();
 

@@ -13,7 +13,7 @@ export class LoginService {
     ) { }
 
     // Login
-    login(username: string, password: string, toastr: ToastsManager): void {
+    public login(username: string, password: string, toastr: ToastsManager): void {
         let loginTokenUrl = 'http://localhost:22626/token';
         let body = "username=" + username + "&password=" + password + "&grant_type=password";
         let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });

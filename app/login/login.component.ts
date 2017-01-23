@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   }
 
   // login with login services injected
-  login(username: string, password: string, toastr: ToastsManager): void {
+  public login(username: string, password: string, toastr: ToastsManager): void {
     this.loginService.login(username, password, toastr)
   }
 

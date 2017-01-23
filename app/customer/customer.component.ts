@@ -23,7 +23,7 @@ export class CustomerComponent implements OnInit {
   }
 
   // list customer
-  getListCustomer() {
+  public getListCustomer() {
     if (!localStorage.getItem('access_token')) {
       this.router.navigate(['login']);
     }

@@ -60,25 +60,29 @@
                  <wj-flex-grid [itemsSource]="leadCollectionView" [selectionMode]="3" style="border-radius: 0px;" [frozenColumns]="2">
                     <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="60">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                            <button class="btn btn-primary btn-xs btn-block" routerLink="/leadDetail">
+                            <button class="btn btn-primary btn-xs btn-block" (click)="btnEditLead()">
                                 <i class="fa fa-edit fa-fw"></i> Edit
                             </button>
                         </template>
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="80">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                            <button class="btn btn-danger btn-xs btn-block" (click)="leadDeleteConfirmationModal()" data-toggle="modal" data-target="#lead-delete-confirmation-modal">
+                            <button class="btn btn-danger btn-xs btn-block" data-toggle="modal" data-target="#lead-delete-confirmation-modal">
                                 <i class="fa fa-trash fa-fw"></i> Delete
                             </button>
                         </template>
                     </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'Lead Date'" [binding]="'LeadDate'" [isReadOnly]="true" [width]="80">
+                    <wj-flex-grid-column [header]="'Lead No.'" [binding]="'LeadNumber'" [isReadOnly]="true" [width]="'1*'">
                     </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'Lead No.'" [binding]="'LeadNumber'" [isReadOnly]="true" [width]="100">
+                    <wj-flex-grid-column [header]="'Lead Date'" [binding]="'LeadDate'" [isReadOnly]="true" [width]="'1*'">
                     </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'Name'" [binding]="'LeadName'" [isReadOnly]="true" [width]="200">
+                    <wj-flex-grid-column [header]="'Name'" [binding]="'LeadName'" [isReadOnly]="true" [width]="'2*'">
                     </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'Status'" [binding]="'LeadStatus'" [isReadOnly]="true" [width]="150">
+                    <wj-flex-grid-column [header]="'Encoded By'" [binding]="'EncodedByUser'" [isReadOnly]="true" [width]="'1.5*'">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Assigned To'" [binding]="'AssignedToUser'" [isReadOnly]="true" [width]="'1.5*'">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Status'" [binding]="'LeadStatus'" [isReadOnly]="true" [width]="'1.5*'">
                     </wj-flex-grid-column>
                 </wj-flex-grid>
             </div>
@@ -122,15 +126,19 @@
                             <div class="panel-body">
                                 <div class="form-group">
                                     <label>Lead Date</label><br />
-                                    <wj-input-date [value]="leadDateValue" [format]="'MMM dd, yyyy'"></wj-input-date>
+                                    <wj-input-date
+                                        [(value)]="leadDateValue" 
+                                        [format]="'MMM dd, yyyy'"
+                                        (valueChanged)="leadDateOnValueChanged()">
+                                    </wj-input-date>
                                 </div>
                                  <div class="form-group">
                                     <label>Lead Name</label>
-                                    <input type="text" class="form-control" id="" placeholder="Lead Name" />
+                                    <input type="text" [(ngModel)]="leadName" class="form-control" id="leadName" placeholder="Lead Name" />
                                 </div>
                                 <div class="form-group">
                                     <label>Address</label>
-                                    <textarea class="form-control" rows="3" id="" placeholder="Address" ></textarea>
+                                    <textarea [(ngModel)]="leadAddress" class="form-control" rows="3" id="leadAddress" placeholder="Address" ></textarea>
                                 </div>
                             </div>
                         </div>
@@ -138,19 +146,19 @@
                             <div class="panel-body">
                                 <div class="form-group">
                                     <label>Contact Person</label>
-                                    <input type="text" class="form-control" id="" placeholder="Contact Person" />
+                                    <input type="text" [(ngModel)]="leadContactPerson" class="form-control" id="leadContactPerson" placeholder="Contact Person" />
                                 </div>
                                 <div class="form-group">
                                     <label>Contact Position</label>
-                                    <input type="text" class="form-control" id="" placeholder="Contact Position" />
+                                    <input type="text" [(ngModel)]="leadContactPosition" class="form-control" id="leadContactPosition" placeholder="Contact Position" />
                                 </div>
                                 <div class="form-group">
                                     <label>Contact Email</label>
-                                    <input type="text" class="form-control" id="" placeholder="Contact Email" />
+                                    <input type="text" [(ngModel)]="leadContactEmail" class="form-control" id="leadContactEmail" placeholder="Contact Email" />
                                 </div>
                                 <div class="form-group">
                                     <label>Contact Numbers</label>
-                                    <textarea class="form-control" rows="3" id="" placeholder="Contact Numbers"></textarea>
+                                    <textarea class="form-control" [(ngModel)]="leadContactNumber" rows="3" id="leadContactNumber" placeholder="Contact Numbers"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -158,19 +166,47 @@
                      <div class="col-md-6">
                         <div class="panel panel-default">
                             <div class="panel-body">
+                                 <div class="form-group">
+                                    <label>Referred By</label>
+                                    <input type="text" [(ngModel)]="leadReferredBy" class="form-control" id="leadReferredBy" placeholder="Contact Email" />
+                                </div>
                                 <div class="form-group">
-                                    <label>Referred By</label><br />
+                                    <label>Encoded By</label><br />
                                     <wj-combo-box 
-                                        [itemsSource]="leadReferredUserObservableArray" 
+                                        [itemsSource]="leadEncodedUserObservableArray" 
                                         [placeholder]="'Select User'"
                                         [displayMemberPath]="'FullName'" 
                                         [selectedValuePath]="'FullName'"
-                                        [isEditable]="true">
+                                        [isEditable]="true"
+                                        [(selectedIndex)]="leadEncodedBySelectedIndex"
+                                        (selectedIndexChanged)="cboEncodedBySelectedIndexChangedClick()">
+                                    </wj-combo-box>
+                                </div>
+                                <div class="form-group">
+                                    <label>Assigned To</label><br />
+                                    <wj-combo-box 
+                                        [itemsSource]="leadAssignedUserObservableArray" 
+                                        [placeholder]="'Select User'"
+                                        [displayMemberPath]="'FullName'" 
+                                        [selectedValuePath]="'FullName'"
+                                        [isEditable]="true"
+                                        [(selectedIndex)]="leadAssignedToSelectedIndex"
+                                        (selectedIndexChanged)="cboAssignedToSelectedIndexChangedClick()">
+                                    </wj-combo-box>
+                                </div>
+                                <div class="form-group">
+                                    <label>Status</label><br />
+                                    <wj-combo-box 
+                                        [itemsSource]="leadStatusArray" 
+                                        [placeholder]="'Select Status'"
+                                        [isEditable]="true"
+                                        [(selectedIndex)]="leadStatusSelectedIndex"
+                                        (selectedIndexChanged)="cboStatusSelectedIndexChangedClick()">
                                     </wj-combo-box>
                                 </div>
                                 <div class="form-group">
                                     <label>Remarks</label>
-                                    <textarea class="form-control" rows="10" id="" placeholder="Remarks"></textarea>
+                                    <textarea [(ngModel)]="leadRemarks" class="form-control" rows="10" id="leadRemarks" placeholder="Remarks"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -178,7 +214,7 @@
                 </div>
             </div>
             <div class="modal-footer" align="right">
-                <button type="button" class="btn btn-primary"><i class="fa fa-save fa-fw"></i> Save</button>
+                <button type="button" class="btn btn-primary" (click)="btnSaveLead()"><i class="fa fa-save fa-fw"></i> Save</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
             </div>
         </div>
@@ -191,13 +227,13 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Delete Lead</h4>
+                <h4 class="modal-title">Delete</h4>
             </div>
             <div class="modal-body">
-                
+                Delete Lead?
             </div>
             <div class="modal-footer" align="right">
-                <button type="button" class="btn btn-danger"><i class="fa fa-trash fa-fw"></i> Delete</button>
+                <button type="button" class="btn btn-danger" (click)="btnDeleteLeadClick()"><i class="fa fa-trash fa-fw"></i> Delete</button>
                 <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
             </div>
         </div>
