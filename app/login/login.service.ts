@@ -9,7 +9,7 @@ export class LoginService {
     constructor(
         private router: Router,
         private http: Http,
-        public toastr: ToastsManager
+        private toastr: ToastsManager
     ) { }
 
     // Login
@@ -25,10 +25,16 @@ export class LoginService {
                 localStorage.setItem('expires_in', response.json().expires_in);
                 localStorage.setItem('token_type', response.json().token_type);
                 localStorage.setItem('userName', response.json().userName);
-                location.reload();
+                (<HTMLButtonElement>document.getElementById("login")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Logging in";
+                (<HTMLButtonElement>document.getElementById("login")).disabled = true;
+                setTimeout(() => {
+                    location.reload();
+                }, 1000);
             },
             error => {
                 this.toastr.error('Username or Password is Incorrect. Please try again.', 'Login Failed');
+                (<HTMLButtonElement>document.getElementById("login")).innerHTML = "Login";
+                (<HTMLButtonElement>document.getElementById("login")).disabled = false;
             }
         );
     }

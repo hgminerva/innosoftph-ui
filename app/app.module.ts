@@ -33,7 +33,6 @@ import { CustomerService } from './customer/customer.service';
 import { ProductService } from './product/product.service';
 import { UserService } from './user/user.service';
 import { LeadService } from './lead/lead.service';
-import { LeadDetailService } from './lead/leadDetail.service';
 
 // paths and Routes
 const appRoutes: Routes = [
@@ -86,8 +85,7 @@ const appRoutes: Routes = [
     CustomerService,
     ProductService,
     UserService,
-    LeadService,
-    LeadDetailService
+    LeadService
   ],
   bootstrap: [
     AppComponent

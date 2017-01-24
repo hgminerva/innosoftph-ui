@@ -1,7 +1,8 @@
-import { Component, OnInit, Renderer, ElementRef, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { LeadService } from './lead.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+
 
 @Component({
   selector: 'my-lead',
@@ -22,7 +23,7 @@ export class LeadComponent implements OnInit {
   public leadAssignedUserObservableArray: wijmo.collections.ObservableArray;
   public leadAssignedToSelectedIndex: number;
   public leadStatusArray = ['Open', 'Close', 'Cancelled'];
-  public leadStatusSelectedIndex = 0;
+  public leadStatusSelectedIndex = -1;
   public leadName: String;
   public leadAddress: String;
   public leadContactPerson: String;
@@ -34,13 +35,12 @@ export class LeadComponent implements OnInit {
   public leadReferredBy: String;
   public leadRemarks: String;
   public leadStatus: String;
+  public lead: Lead;
 
   // inject lead service
   constructor(
     private leadService: LeadService,
     private router: Router,
-    private renderer: Renderer,
-    private elementRef: ElementRef,
     private toastr: ToastsManager,
     private vRef: ViewContainerRef
   ) {
@@ -49,25 +49,26 @@ export class LeadComponent implements OnInit {
 
   // btn Add lead
   public btnAddLeadClick() {
-    let leadNameId = document.getElementById('leadName');
-    leadNameId.style.border = '1px solid #ccc;';
+    (<HTMLButtonElement>document.getElementById("btnSaveLead")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+    (<HTMLButtonElement>document.getElementById("btnSaveLead")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnCloseLead")).disabled = false;
     this.getListUser();
   }
 
   // btn edit lead
   public btnEditLead() {
-    var currentSelectedLead = this.leadCollectionView.currentItem;
+    let currentSelectedLead = this.leadCollectionView.currentItem;
     this.router.navigate(['/leadDetail', currentSelectedLead.Id]);
   }
 
-  // get lead data from dom html doc.
+  // get lead data
   public getLeadValue() {
     let assignedToUserIdValue = "NULL";
     if (this.leadAssignedToUserId > 0) {
       assignedToUserIdValue = this.leadAssignedToUserId.toString();
     }
 
-    var dataObject = {
+    let dataObject = {
       LeadDate: this.leadDateValue.toLocaleDateString(),
       LeadName: this.leadName,
       Address: this.leadAddress,
@@ -85,20 +86,30 @@ export class LeadComponent implements OnInit {
     return dataObject;
   }
 
-  // validate form
-  public validateLeadForm() {
-
-  }
-
   // btn save lead
   public btnSaveLead() {
-    this.leadService.postLeadData(this.getLeadValue());
+    let toastr: ToastsManager;
+    (<HTMLButtonElement>document.getElementById("btnSaveLead")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
+    (<HTMLButtonElement>document.getElementById("btnSaveLead")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnCloseLead")).disabled = true;
+    this.leadService.postLeadData(this.getLeadValue(), toastr);
+  }
+
+  // delete click
+  public deleteLeadClick() {
+    (<HTMLButtonElement>document.getElementById("btnDeleteLead")).innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
+    (<HTMLButtonElement>document.getElementById("btnDeleteLead")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnDeleteCloseLead")).disabled = false;
   }
 
   // delete lead
-  public btnDeleteLeadClick() {
-    var currentSelectedLead = this.leadCollectionView.currentItem;
-    this.leadService.deleteLeadData(currentSelectedLead.Id);
+  public btnDeleteConfirmLeadClick() {
+    let toastr: ToastsManager;
+    (<HTMLButtonElement>document.getElementById("btnDeleteLead")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
+    (<HTMLButtonElement>document.getElementById("btnDeleteLead")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnDeleteCloseLead")).disabled = true;
+    let currentSelectedLead = this.leadCollectionView.currentItem;
+    this.leadService.deleteLeadData(currentSelectedLead.Id, toastr);
   }
 
   // user list
@@ -107,7 +118,7 @@ export class LeadComponent implements OnInit {
     this.leadAssignedUserObservableArray = this.leadService.getListUserData();
   }
 
-  // lead date ranged
+  // lead dates
   public setLeadDateRanged() {
     this.leadStartDateValue = new Date();
     this.leadEndDateValue = new Date();

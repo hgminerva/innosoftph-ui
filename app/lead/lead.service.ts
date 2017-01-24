@@ -1,24 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions } from '@angular/http';
 import { Router } from '@angular/router';
+import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Injectable()
 export class LeadService {
+    //  Global Variables
+    private headers = new Headers({ 'Content-Type': 'application/json' });
+    private options = new RequestOptions({ headers: this.headers });
+
     // constructor
     constructor(
         private router: Router,
-        private http: Http
+        private http: Http,
+        private toastr: ToastsManager
     ) { }
 
     // list user
     public getListUserData(): wijmo.collections.ObservableArray {
         let userObservableArray = new wijmo.collections.ObservableArray();
         let url = "http://localhost:22626/api/user/list";
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-
-        // get
-        this.http.get(url, options).subscribe(
+        this.http.get(url, this.options).subscribe(
             response => {
                 for (var key in response.json()) {
                     if (response.json().hasOwnProperty(key)) {
@@ -35,15 +37,11 @@ export class LeadService {
         return userObservableArray;
     }
 
-    // list lead by date ranged
+    // list lead by date ranged (start date and end date)
     public getListLeadData(leadStartDate: Date, leadEndDate: Date): wijmo.collections.ObservableArray {
-        let leadObservableArray = new wijmo.collections.ObservableArray();
         let url = "http://localhost:22626/api/lead/list/byLeadDateRange/" + leadStartDate.toDateString() + "/" + leadEndDate.toDateString();
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-
-        // get
-        this.http.get(url, options).subscribe(
+        let leadObservableArray = new wijmo.collections.ObservableArray();
+        this.http.get(url, this.options).subscribe(
             response => {
                 for (var key in response.json()) {
                     if (response.json().hasOwnProperty(key)) {
@@ -73,48 +71,94 @@ export class LeadService {
         return leadObservableArray;
     }
 
-    // add leads
-    public postLeadData(leadObject: Object) {
-        let url = "http://localhost:22626/api/lead/post";
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
+    // get lead by id
+    public getLeadById(id: number): wijmo.collections.ObservableArray {
+        let url = "http://localhost:22626/api/lead/get/byId/" + id;
+        let leadObservableArray = new wijmo.collections.ObservableArray();
+        this.http.get(url, this.options).subscribe(
+            response => {
+                if (response.json() != null) {
+                    (<HTMLInputElement>document.getElementById("leadNumber")).value = response.json().LeadNumber;
+                    (<HTMLInputElement>document.getElementById("leadName")).value = response.json().LeadName;
+                    (<HTMLInputElement>document.getElementById("leadAddress")).value = response.json().Address;
+                    (<HTMLInputElement>document.getElementById("leadContactPerson")).value = response.json().ContactPerson;
+                    (<HTMLInputElement>document.getElementById("leadContactPosition")).value = response.json().ContactPosition;
+                    (<HTMLInputElement>document.getElementById("leadContactEmail")).value = response.json().ContactEmail;
+                    (<HTMLInputElement>document.getElementById("leadContactNumber")).value = response.json().ContactPhoneNo;
+                    (<HTMLInputElement>document.getElementById("leadReferredBy")).value = response.json().ReferredBy;
+                    (<HTMLInputElement>document.getElementById("leadRemarks")).value = response.json().Remarks;
+                } else {
+                    alert("No Data");
+                    this.router.navigate(["/lead"]);
+                }
+            }
+        );
 
-        // post
-        this.http.post(url, JSON.stringify(leadObject), options).subscribe(
+        return leadObservableArray;
+    }
+
+    // add leads
+    public postLeadData(leadObject: Object, toastr: ToastsManager) {
+        let url = "http://localhost:22626/api/lead/post";
+        this.http.post(url, JSON.stringify(leadObject), this.options).subscribe(
             response => {
                 if (response.json() > 0) {
-                    this.router.navigate(['/leadDetail', response.json()]);
+                    this.toastr.success('', 'Save Successful');
+                    setTimeout(() => {
+                        document.getElementById("btn-hidden-lead-detail-modal").click();
+                        this.router.navigate(['/leadDetail', response.json()]);
+                    }, 1000);
                 } else {
-                    alert("Error")
+                    (<HTMLButtonElement>document.getElementById("btnSaveLead")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                    (<HTMLButtonElement>document.getElementById("btnSaveLead")).disabled = false;
+                    (<HTMLButtonElement>document.getElementById("btnCloseLead")).disabled = false;
+                    this.toastr.error('', 'Something`s went wrong!');
                 }
             },
             error => {
-                alert("Error")
+                alert("Error");
+            }
+        )
+    }
+
+    // update leads
+    public putLeadData(id: number, leadObject: Object, toastr: ToastsManager) {
+        let url = "http://localhost:22626/api/lead/put/" + id;
+        this.http.put(url, JSON.stringify(leadObject), this.options).subscribe(
+            response => {
+                this.toastr.success('', 'Save Successful');
+                (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnPrintLeadDetail")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnCloseLeadDetail")).disabled = false;
+                setTimeout(() => {
+                    this.router.navigate(['/lead']);
+                }, 1000);
+            },
+            error => {
+                this.toastr.error('', 'Something`s went wrong!');
+                (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnPrintLeadDetail")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnCloseLeadDetail")).disabled = false;
             }
         )
     }
 
     // delete leads
-    public deleteLeadData(id: number) {
+    public deleteLeadData(id: number, toastr: ToastsManager) {
         let url = "http://localhost:22626/api/lead/delete/" + id;
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-        let options = new RequestOptions({ headers: headers });
-
-        // post
-        this.http.delete(url, options).subscribe(
+        this.http.delete(url, this.options).subscribe(
             response => {
-                if (response.status == 200) {
-
-                } else if (response.status == 404) {
-
-                } else if (response.status == 400) {
-
-                } else {
-                    
-                }
+                this.toastr.success('', 'Delete Successful');
+                document.getElementById("btn-hidden-lead-delete-modal").click();
+                document.getElementById("btn-hidden-refresh-grid").click();
+                (<HTMLButtonElement>document.getElementById("btnDeleteLead")).innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
+                (<HTMLButtonElement>document.getElementById("btnDeleteCloseLead")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnDeleteCloseLead")).disabled = false;
             },
             error => {
-                alert("Error")
+                this.toastr.error('', 'Something`s went wrong!');
             }
         )
     }

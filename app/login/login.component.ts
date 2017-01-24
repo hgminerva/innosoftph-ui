@@ -23,6 +23,8 @@ export class LoginComponent implements OnInit {
 
   // login with login services injected
   public login(username: string, password: string, toastr: ToastsManager): void {
+    (<HTMLButtonElement>document.getElementById("login")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Logging in";
+    (<HTMLButtonElement>document.getElementById("login")).disabled = true;
     this.loginService.login(username, password, toastr)
   }
 
