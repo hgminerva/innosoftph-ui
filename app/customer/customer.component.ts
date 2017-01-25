@@ -11,6 +11,8 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 export class CustomerComponent implements OnInit {
   // global variables
   public customerCollectionView: wijmo.collections.CollectionView;
+  public leadFilter = '';
+  public leadToFilter: any;
 
   // constructor
   constructor(
@@ -30,8 +32,42 @@ export class CustomerComponent implements OnInit {
 
     let toastr: ToastsManager;
     this.customerCollectionView = new wijmo.collections.CollectionView(this.customerService.getListCustomerData(toastr));
+    this.customerCollectionView.filter = this.filterFunction.bind(this);
     this.customerCollectionView.pageSize = 15;
     this.customerCollectionView.trackChanges = true;
+  }
+
+  // filter
+  get filter(): string {
+    return this.leadFilter;
+  }
+
+  // filter
+  set filter(value: string) {
+    if (this.leadFilter != value) {
+      this.leadFilter = value;
+
+      if (this.leadToFilter) {
+        clearTimeout(this.leadToFilter);
+      }
+
+      var self = this;
+      this.leadToFilter = setTimeout(function () {
+        self.customerCollectionView.refresh();
+      }, 500);
+    }
+  }
+
+  // filter function
+  public filterFunction(item: any) {
+    if (this.leadFilter) {
+      return (item.ArticleCode.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
+             (item.Article.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
+             (item.ContactNumber.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
+             (item.ArticleGroup.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1);
+    }
+
+    return true;
   }
 
   // initialization

@@ -11,6 +11,8 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 export class ProductComponent {
   // global variables
   public productCollectionView: wijmo.collections.CollectionView;
+  public leadFilter = '';
+  public leadToFilter: any;
 
   // constructor
   constructor(
@@ -30,8 +32,42 @@ export class ProductComponent {
 
     let toastr: ToastsManager;
     this.productCollectionView = new wijmo.collections.CollectionView(this.productService.getListProductData(toastr));
+    this.productCollectionView.filter = this.filterFunction.bind(this);
     this.productCollectionView.pageSize = 15;
     this.productCollectionView.trackChanges = true;
+  }
+
+  // filter
+  get filter(): string {
+    return this.leadFilter;
+  }
+
+  // filter
+  set filter(value: string) {
+    if (this.leadFilter != value) {
+      this.leadFilter = value;
+
+      if (this.leadToFilter) {
+        clearTimeout(this.leadToFilter);
+      }
+
+      var self = this;
+      this.leadToFilter = setTimeout(function () {
+        self.productCollectionView.refresh();
+      }, 500);
+    }
+  }
+
+  // filter function
+  public filterFunction(item: any) {
+    if (this.leadFilter) {
+      return (item.ArticleCode.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
+        (item.ManualArticleCode.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
+        (item.Article.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
+        (item.Unit.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1);
+    }
+
+    return true;
   }
 
   // initialization

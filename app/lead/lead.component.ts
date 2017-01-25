@@ -34,6 +34,8 @@ export class LeadComponent implements OnInit {
   public leadReferredBy: String;
   public leadRemarks: String;
   public leadStatus: String;
+  public leadFilter = '';
+  public leadToFilter: any;
 
   // inject lead service
   constructor(
@@ -136,6 +138,7 @@ export class LeadComponent implements OnInit {
   // lead service data
   public getLeadData() {
     this.leadCollectionView = new wijmo.collections.CollectionView(this.leadService.getListLeadData(this.leadStartDateValue, this.leadEndDateValue));
+    this.leadCollectionView.filter = this.filterFunction.bind(this);
     this.leadCollectionView.pageSize = 15;
     this.leadCollectionView.trackChanges = true;
   }
@@ -186,6 +189,39 @@ export class LeadComponent implements OnInit {
   // event: status
   public cboStatusSelectedIndexChangedClick() {
     this.leadStatus = this.leadStatusArray[this.leadStatusSelectedIndex];
+  }
+
+  // filter
+  get filter(): string {
+    return this.leadFilter;
+  }
+
+  // filter
+  set filter(value: string) {
+    if (this.leadFilter != value) {
+      this.leadFilter = value;
+
+      if (this.leadToFilter) {
+        clearTimeout(this.leadToFilter);
+      }
+
+      var self = this;
+      this.leadToFilter = setTimeout(function () {
+        self.leadCollectionView.refresh();
+      }, 500);
+    }
+  }
+
+  // filter function
+  public filterFunction(item: any) {
+    if (this.leadFilter) {
+      return (item.LeadNumber.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
+             (item.LeadName.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
+             (item.EncodedByUser.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
+             (item.LeadStatus.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1);
+    }
+
+    return true;
   }
 
   // initialization
