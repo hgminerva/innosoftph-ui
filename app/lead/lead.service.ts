@@ -71,6 +71,29 @@ export class LeadService {
         return leadObservableArray;
     }
 
+    // list user in lead detail
+    public getLeadDetailListUserData(): wijmo.collections.ObservableArray {
+        let userObservableArray = new wijmo.collections.ObservableArray();
+        let url = "http://localhost:22626/api/user/list";
+        this.http.get(url, this.options).subscribe(
+            response => {
+                for (var key in response.json()) {
+                    if (response.json().hasOwnProperty(key)) {
+                        userObservableArray.push({
+                            Id: response.json()[key].Id,
+                            UserName: response.json()[key].UserName,
+                            FullName: response.json()[key].FullName
+                        });
+                    }
+                }
+
+                document.getElementById("btn-hidden-lead-data").click();
+            }
+        );
+
+        return userObservableArray;
+    }
+
     // get lead by id
     public getLeadById(id: number): wijmo.collections.ObservableArray {
         let url = "http://localhost:22626/api/lead/get/byId/" + id;
@@ -78,6 +101,7 @@ export class LeadService {
         this.http.get(url, this.options).subscribe(
             response => {
                 if (response.json() != null) {
+                    (<HTMLInputElement>document.getElementById("leadDateValue")).value = response.json().LeadDate;
                     (<HTMLInputElement>document.getElementById("leadNumber")).value = response.json().LeadNumber;
                     (<HTMLInputElement>document.getElementById("leadName")).value = response.json().LeadName;
                     (<HTMLInputElement>document.getElementById("leadAddress")).value = response.json().Address;
@@ -87,6 +111,10 @@ export class LeadService {
                     (<HTMLInputElement>document.getElementById("leadContactNumber")).value = response.json().ContactPhoneNo;
                     (<HTMLInputElement>document.getElementById("leadReferredBy")).value = response.json().ReferredBy;
                     (<HTMLInputElement>document.getElementById("leadRemarks")).value = response.json().Remarks;
+                    (<HTMLInputElement>document.getElementById("leadEncodedBySelectedValue")).value = response.json().EncodedByUser;
+                    (<HTMLInputElement>document.getElementById("leadAssignedToSelectedValue")).value = response.json().AssignedToUser;
+                    (<HTMLInputElement>document.getElementById("leadStatusSelectedValue")).value = response.json().LeadStatus;
+                    document.getElementById("btn-hidden-selectedValue-data").click();
                 } else {
                     alert("No Data");
                     this.router.navigate(["/lead"]);
@@ -127,10 +155,6 @@ export class LeadService {
         this.http.put(url, JSON.stringify(leadObject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
-                (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-                (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).disabled = false;
-                (<HTMLButtonElement>document.getElementById("btnPrintLeadDetail")).disabled = false;
-                (<HTMLButtonElement>document.getElementById("btnCloseLeadDetail")).disabled = false;
                 setTimeout(() => {
                     this.router.navigate(['/lead']);
                 }, 1000);
@@ -153,9 +177,6 @@ export class LeadService {
                 this.toastr.success('', 'Delete Successful');
                 document.getElementById("btn-hidden-lead-delete-modal").click();
                 document.getElementById("btn-hidden-refresh-grid").click();
-                (<HTMLButtonElement>document.getElementById("btnDeleteLead")).innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
-                (<HTMLButtonElement>document.getElementById("btnDeleteCloseLead")).disabled = false;
-                (<HTMLButtonElement>document.getElementById("btnDeleteCloseLead")).disabled = false;
             },
             error => {
                 this.toastr.error('', 'Something`s went wrong!');

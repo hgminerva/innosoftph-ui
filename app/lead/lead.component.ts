@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { LeadService } from './lead.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
-
 @Component({
   selector: 'my-lead',
   templateUrl: 'app/lead/lead.html'
@@ -35,7 +34,6 @@ export class LeadComponent implements OnInit {
   public leadReferredBy: String;
   public leadRemarks: String;
   public leadStatus: String;
-  public lead: Lead;
 
   // inject lead service
   constructor(

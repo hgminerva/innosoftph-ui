@@ -16,8 +16,10 @@ export class LeadDetailComponent implements OnInit {
   public activityCollectionView: wijmo.collections.CollectionView;
   public leadEncodedUserObservableArray: wijmo.collections.ObservableArray;
   public leadEncodedBySelectedIndex = -1;
+  public leadEncodedBySelectedValue: String;
   public leadAssignedUserObservableArray: wijmo.collections.ObservableArray;
   public leadAssignedToSelectedIndex = -1;
+  public leadAssignedToSelectedValue: String;
   public leadStatusArray = ['Open', 'Close', 'Cancelled'];
   public leadStatusSelectedIndex = -1;
   public leadName: String;
@@ -31,6 +33,7 @@ export class LeadDetailComponent implements OnInit {
   public leadReferredBy: String;
   public leadRemarks: String;
   public leadStatus: String;
+  public leadStatusSelectedValue: String;
   public activityDetailModalString: String;
   public id: number;
 
@@ -68,7 +71,7 @@ export class LeadDetailComponent implements OnInit {
       LeadName: (<HTMLInputElement>document.getElementById("leadName")).value,
       Address: (<HTMLInputElement>document.getElementById("leadAddress")).value,
       ContactPerson: (<HTMLInputElement>document.getElementById("leadContactPerson")).value,
-      ContactPosition:(<HTMLInputElement>document.getElementById("leadContactPosition")).value,
+      ContactPosition: (<HTMLInputElement>document.getElementById("leadContactPosition")).value,
       ContactEmail: (<HTMLInputElement>document.getElementById("leadContactEmail")).value,
       ContactPhoneNo: (<HTMLInputElement>document.getElementById("leadContactNumber")).value,
       ReferredBy: (<HTMLInputElement>document.getElementById("leadReferredBy")).value,
@@ -104,9 +107,16 @@ export class LeadDetailComponent implements OnInit {
 
   // user list
   public getListUser() {
-    this.leadEncodedUserObservableArray = this.leadService.getListUserData();
-    this.leadAssignedUserObservableArray = this.leadService.getListUserData();
-    this.getLeadServiceData();
+    this.leadEncodedUserObservableArray = this.leadService.getLeadDetailListUserData();
+    this.leadAssignedUserObservableArray = this.leadService.getLeadDetailListUserData();
+  }
+
+  // set dropdown data
+  public setDropdownSelectedValueData() {
+    this.leadDateValue = new Date((<HTMLInputElement>document.getElementById("leadDateValue")).value.toString());
+    this.leadEncodedBySelectedValue = (<HTMLInputElement>document.getElementById("leadEncodedBySelectedValue")).value.toString();
+    this.leadAssignedToSelectedValue = (<HTMLInputElement>document.getElementById("leadAssignedToSelectedValue")).value.toString();
+    this.leadStatusSelectedValue = (<HTMLInputElement>document.getElementById("leadStatusSelectedValue")).value.toString();
   }
 
   // get url Id parameter
@@ -142,7 +152,6 @@ export class LeadDetailComponent implements OnInit {
   public cboEncodedBySelectedIndexChangedClick() {
     if (this.leadEncodedBySelectedIndex >= 0) {
       this.leadEncodedByUserId = this.leadEncodedUserObservableArray[this.leadEncodedBySelectedIndex].Id;
-      console.log(this.leadEncodedByUserId);
     } else {
       this.leadEncodedByUserId = 0;
     }
@@ -163,7 +172,7 @@ export class LeadDetailComponent implements OnInit {
   }
 
   // initialization
-  ngOnInit() {
+  public ngOnInit(): any {
     if (!localStorage.getItem('access_token')) {
       this.router.navigate(['login']);
     }

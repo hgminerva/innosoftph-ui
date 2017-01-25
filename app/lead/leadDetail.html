@@ -37,6 +37,7 @@
                                                 (valueChanged)="leadDateOnValueChanged()"
                                                 style="width: 100%; border-radius: 0px;">
                                             </wj-input-date>
+                                            <input type="hidden" class="form-control" id="leadDateValue" />
                                         </div>
                                     </div>
                                      <div class="form-group">
@@ -106,9 +107,11 @@
                                                 [isEditable]="true"
                                                 [isRequired]="true"
                                                 [(selectedIndex)]="leadEncodedBySelectedIndex"
+                                                [selectedValue]="leadEncodedBySelectedValue"
                                                 (selectedIndexChanged)="cboEncodedBySelectedIndexChangedClick()"
                                                 style="width: 100%; border-radius: 0px;">
                                             </wj-combo-box>
+                                            <input type="hidden" class="form-control" id="leadEncodedBySelectedValue" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -121,10 +124,12 @@
                                                 [selectedValuePath]="'FullName'"
                                                 [isEditable]="true"
                                                 [isRequired]="false"
+                                                [selectedValue]="leadAssignedToSelectedValue"
                                                 [(selectedIndex)]="leadAssignedToSelectedIndex"
                                                 (selectedIndexChanged)="cboAssignedToSelectedIndexChangedClick()"
                                                 style="width: 100%; border-radius: 0px;">
                                             </wj-combo-box>
+                                            <input type="hidden" class="form-control" id="leadAssignedToSelectedValue" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -136,9 +141,11 @@
                                                 [isEditable]="true"
                                                 [isRequired]="true"
                                                 [(selectedIndex)]="leadStatusSelectedIndex"
+                                                [selectedValue]="leadStatusSelectedValue"
                                                 (selectedIndexChanged)="cboStatusSelectedIndexChangedClick()"
                                                 style="width: 100%; border-radius: 0px;">
                                             </wj-combo-box>
+                                            <input type="hidden" class="form-control" id="leadStatusSelectedValue" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -250,3 +257,7 @@
         </div>
     </div>
 </div>
+
+<button id="btn-hidden-selectedValue-data" [hidden]="true" (click)="setDropdownSelectedValueData()"></button>
+<button id="btn-hidden-lead-data" [hidden]="true" (click)="getLeadServiceData()"></button>
+
