@@ -5,6 +5,13 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
 @Injectable()
 export class UserService {
+    // global variables
+    private headers = new Headers({
+        'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+        'Content-Type': 'application/json'
+    });
+    private options = new RequestOptions({ headers: this.headers });
+
     // constructor
     constructor(
         private router: Router,
@@ -16,9 +23,7 @@ export class UserService {
     public getListUserData(toastr: ToastsManager): wijmo.collections.ObservableArray {
         let userObservableArray = new wijmo.collections.ObservableArray();
         let url = "http://localhost:22626/api/user/list";
-        let headers = new Headers({ 'Content-Type': 'application/json' });
-
-        this.http.get(url, headers).subscribe(
+        this.http.get(url, this.options).subscribe(
             response => {
                 for (var key in response.json()) {
                     if (response.json().hasOwnProperty(key)) {

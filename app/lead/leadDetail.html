@@ -106,6 +106,7 @@
                                                 [selectedValuePath]="'FullName'"
                                                 [isEditable]="true"
                                                 [isRequired]="true"
+                                                [isDisabled]="true"
                                                 [(selectedIndex)]="leadEncodedBySelectedIndex"
                                                 [selectedValue]="leadEncodedBySelectedValue"
                                                 (selectedIndexChanged)="cboEncodedBySelectedIndexChangedClick()"
@@ -167,36 +168,49 @@
                                     <h4> Activity  </h4>
                                 </td>
                                 <td align="right">
-                                    <button class="btn btn-primary" (click)="activityDetailModal(true)" data-toggle="modal" data-target="#activity-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
+                                    <button class="btn btn-primary" (click)="btnActivityDetailModal(true)" data-toggle="modal" data-target="#activity-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
                                 </td>
                             </tr>
                         </table>
                     </div>
                     <div class="panel-body">
-                         <!--<wj-flex-grid [itemsSource]="activityCollectionView" [selectionMode]="3" style="border-radius: 0px;" [frozenColumns]="2">
+                         <wj-flex-grid [itemsSource]="activityCollectionView" [selectionMode]="3" style="border-radius: 0px;" [frozenColumns]="3">
                             <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="60">
                                 <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                                    <button class="btn btn-primary btn-xs btn-block" (click)="activityDetailModal(false)" data-toggle="modal" data-target="#activity-detail-modal">
+                                    <button class="btn btn-primary btn-xs btn-block" (click)="btnActivityDetailModal(false)" data-toggle="modal" data-target="#activity-detail-modal">
                                         <i class="fa fa-edit fa-fw"></i> Edit
                                     </button>
                                 </template>
                             </wj-flex-grid-column>
                             <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="80">
                                 <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                                    <button class="btn btn-danger btn-xs btn-block" (click)="activityDeleteConfirmationModal()" data-toggle="modal" data-target="#activity-delete-confirmation-modal">
+                                    <button class="btn btn-danger btn-xs btn-block" (click)="btnActivityDeleteConfirmationModal()" data-toggle="modal" data-target="#activity-delete-confirmation-modal">
                                         <i class="fa fa-trash fa-fw"></i> Delete
                                     </button>
                                 </template>
                             </wj-flex-grid-column>
-                            <wj-flex-grid-column [header]="'Date'" [binding]="'date'" [isReadOnly]="true" [width]="100">
+                            <wj-flex-grid-column [header]="Print" [isReadOnly]="true" [isContentHtml]="true" [width]="70">
+                                <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                                    <button class="btn btn-primary btn-xs btn-block">
+                                        <i class="fa fa-print fa-fw"></i> Print
+                                    </button>
+                                </template>
                             </wj-flex-grid-column>
-                            <wj-flex-grid-column [header]="'Country'" [binding]="'country'" [isReadOnly]="true" [width]="200">
+                            <wj-flex-grid-column [header]="'Activity No.'" [binding]="'ActivityNumber'" [isReadOnly]="true" [width]="'1*'">
                             </wj-flex-grid-column>
-                        </wj-flex-grid>-->
+                            <wj-flex-grid-column [header]="'Activity Date'" [binding]="'ActivityDate'" [isReadOnly]="true" [width]="'1*'">
+                            </wj-flex-grid-column>
+                            <wj-flex-grid-column [header]="'Staff'" [binding]="'StaffUser'" [isReadOnly]="true" [width]="'2*'">
+                            </wj-flex-grid-column>
+                            <wj-flex-grid-column [header]="'Particualrs'" [binding]="'Particulars'" [isReadOnly]="true" [width]="'2.5*'">
+                            </wj-flex-grid-column>
+                            <wj-flex-grid-column [header]="'Status'" [binding]="'ActivityStatus'" [isReadOnly]="true" [width]="'1.5*'">
+                            </wj-flex-grid-column>
+                        </wj-flex-grid>
                     </div>
                     <div class="panel-footer">
-                        <!--<div class="row">
-                            <div class="col-sm-12 btn-group" id="navAccountCategory">
+                        <div class="row">
+                            <div class="col-sm-12 btn-group" id="">
                                 <button type="button" class="btn btn-default" (click)="activityCollectionView.moveToFirstPage()">
                                     <span class="glyphicon glyphicon-fast-backward"></span> First
                                 </button>
@@ -213,7 +227,7 @@
                                     Last <span class="glyphicon glyphicon-fast-forward"></span>
                                 </button>
                             </div> 
-                        </div> -->
+                        </div> 
                     </div>
                 </div>
             </div>
@@ -230,11 +244,80 @@
                 <h4 class="modal-title">{{ activityDetailModalString }} Activity</h4>
             </div>
             <div class="modal-body">
-               
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Activity Date</label>
+                                <div class="col-sm-8">
+                                     <wj-input-date
+                                        [(value)]="activityDateValue" 
+                                        [format]="'MMM dd, yyyy'"
+                                        style="width: 100%; border-radius: 0px;">
+                                    </wj-input-date>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Particular Category</label>
+                                <div class="col-sm-8">
+                                     <wj-combo-box 
+                                        [itemsSource]="activityParticularCategories" 
+                                        [placeholder]="'Select Particular Category'"
+                                        [isEditable]="true"
+                                        [isRequired]="true"
+                                        [(selectedIndex)]="activityParticularCategorySelectedIndex"
+                                        [(selectedValue)]="activityParticularCategorySelectedValue"
+                                        style="width: 100%; border-radius: 0px;">
+                                    </wj-combo-box>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Particulars</label>
+                                <div class="col-sm-8">
+                                    <textarea class="form-control" rows="3" id="activityParticulars" name="Particulars" placeholder="Particularss"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">No. of Hours</label>
+                                <div class="col-sm-8">
+                                    <wj-combo-box 
+                                        [itemsSource]="activityNoOfHours" 
+                                        [placeholder]="'Select No. of Hours'"
+                                        [isEditable]="false"
+                                        [isRequired]="true"
+                                        [(selectedIndex)]="activityNoOfHoursSelectedIndex"
+                                        [(selectedValue)]="activityNoOfHoursSelectedValue"
+                                        style="width: 100%; border-radius: 0px;">
+                                    </wj-combo-box>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Amount</label>
+                                <div class="col-sm-8">
+                                    <input type="text" [(ngModel)]="activityAmount" (keypress)="onKeyPressOnlyDecimalNumberKey($event)" (blur)="onBlurOnlyDecimalNumberKey()" class="form-control" id="activityAmount" name="" placeholder="0.00" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Status</label>
+                                <div class="col-sm-8">
+                                    <wj-combo-box 
+                                        [itemsSource]="activityStatus" 
+                                        [placeholder]="'Select Status'"
+                                        [isEditable]="true"
+                                        [isRequired]="true"
+                                        [(selectedIndex)]="activityStatusSelectedIndex"
+                                        [(selectedValue)]="activityStatusSelectedValue"
+                                        style="width: 100%; border-radius: 0px;">
+                                    </wj-combo-box>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>     
             </div>
             <div class="modal-footer" align="right">
-                <button type="button" class="btn btn-primary"><i class="fa fa-save fa-fw"></i> Save</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+                <button type="button" class="btn btn-primary" id="btnActivitySave" (click)="btnActivitySaveClick()"><i class="fa fa-save fa-fw"></i> Save</button>
+                <button type="button" class="btn btn-default" id="btnActivityClose" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
             </div>
         </div>
     </div>
@@ -245,14 +328,14 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Delete Activity</h4>
+                <h4 class="modal-title">Delete</h4>
             </div>
             <div class="modal-body">
-                
+                Delete Activity?
             </div>
             <div class="modal-footer" align="right">
-                <button type="button" class="btn btn-danger"><i class="fa fa-trash fa-fw"></i> Delete</button>
-                <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+                <button type="button" class="btn btn-danger" id="btnActivityDeleteConfirmation" (click)="btnActivityDeleteConfirmationClick()"><i class="fa fa-trash fa-fw"></i> Delete</button>
+                <button type="button" class="btn btn-default" id="btnActivityCloseDeleteConfirmation" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
             </div>
         </div>
     </div>
@@ -260,4 +343,8 @@
 
 <button id="btn-hidden-selectedValue-data" [hidden]="true" (click)="setDropdownSelectedValueData()"></button>
 <button id="btn-hidden-lead-data" [hidden]="true" (click)="getLeadServiceData()"></button>
+
+<button id="btn-hidden-activity-delete-modal" [hidden]="true" data-toggle="modal" data-target="#activity-delete-confirmation-modal"></button>
+<button id="btn-hidden-activity-detail-modal" [hidden]="true" data-toggle="modal" data-target="#activity-detail-modal"></button>
+<button id="btn-hidden-activity-data" [hidden]="true" (click)="getListActivity()"></button>
 

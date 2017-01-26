@@ -6,7 +6,10 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 @Injectable()
 export class LeadService {
     //  Global Variables
-    private headers = new Headers({ 'Content-Type': 'application/json' });
+    private headers = new Headers({
+        'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+        'Content-Type': 'application/json'
+    });
     private options = new RequestOptions({ headers: this.headers });
 
     // constructor
@@ -71,6 +74,45 @@ export class LeadService {
         return leadObservableArray;
     }
 
+    // add leads
+    public postLeadData(leadObject: Object, toastr: ToastsManager) {
+        let url = "http://localhost:22626/api/lead/post";
+        this.http.post(url, JSON.stringify(leadObject), this.options).subscribe(
+            response => {
+                if (response.json() > 0) {
+                    this.toastr.success('', 'Save Successful');
+                    setTimeout(() => {
+                        document.getElementById("btn-hidden-lead-detail-modal").click();
+                        this.router.navigate(['/leadDetail', response.json()]);
+                    }, 1000);
+                } else {
+                    (<HTMLButtonElement>document.getElementById("btnSaveLead")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                    (<HTMLButtonElement>document.getElementById("btnSaveLead")).disabled = false;
+                    (<HTMLButtonElement>document.getElementById("btnCloseLead")).disabled = false;
+                    this.toastr.error('', 'Something`s went wrong!');
+                }
+            },
+            error => {
+                alert("Error");
+            }
+        )
+    }
+
+    // delete leads
+    public deleteLeadData(id: number, toastr: ToastsManager) {
+        let url = "http://localhost:22626/api/lead/delete/" + id;
+        this.http.delete(url, this.options).subscribe(
+            response => {
+                this.toastr.success('', 'Delete Successful');
+                document.getElementById("btn-hidden-lead-delete-modal").click();
+                document.getElementById("btn-hidden-refresh-grid").click();
+            },
+            error => {
+                this.toastr.error('', 'Something`s went wrong!');
+            }
+        )
+    }
+
     // list user in lead detail
     public getLeadDetailListUserData(): wijmo.collections.ObservableArray {
         let userObservableArray = new wijmo.collections.ObservableArray();
@@ -125,30 +167,6 @@ export class LeadService {
         return leadObservableArray;
     }
 
-    // add leads
-    public postLeadData(leadObject: Object, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/lead/post";
-        this.http.post(url, JSON.stringify(leadObject), this.options).subscribe(
-            response => {
-                if (response.json() > 0) {
-                    this.toastr.success('', 'Save Successful');
-                    setTimeout(() => {
-                        document.getElementById("btn-hidden-lead-detail-modal").click();
-                        this.router.navigate(['/leadDetail', response.json()]);
-                    }, 1000);
-                } else {
-                    (<HTMLButtonElement>document.getElementById("btnSaveLead")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-                    (<HTMLButtonElement>document.getElementById("btnSaveLead")).disabled = false;
-                    (<HTMLButtonElement>document.getElementById("btnCloseLead")).disabled = false;
-                    this.toastr.error('', 'Something`s went wrong!');
-                }
-            },
-            error => {
-                alert("Error");
-            }
-        )
-    }
-
     // update leads
     public putLeadData(id: number, leadObject: Object, toastr: ToastsManager) {
         let url = "http://localhost:22626/api/lead/put/" + id;
@@ -169,17 +187,92 @@ export class LeadService {
         )
     }
 
-    // delete leads
-    public deleteLeadData(id: number, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/lead/delete/" + id;
-        this.http.delete(url, this.options).subscribe(
+    // list activity by lead Id
+    public getListActivityByLeadId(leadId: number): wijmo.collections.ObservableArray {
+        let url = "http://localhost:22626/api/activity/list/byLeadId/" + leadId;
+        let activityObservableArray = new wijmo.collections.ObservableArray();
+        this.http.get(url, this.options).subscribe(
             response => {
-                this.toastr.success('', 'Delete Successful');
-                document.getElementById("btn-hidden-lead-delete-modal").click();
-                document.getElementById("btn-hidden-refresh-grid").click();
+                for (var key in response.json()) {
+                    if (response.json().hasOwnProperty(key)) {
+                        activityObservableArray.push({
+                            Id: response.json()[key].Id,
+                            ActivityNumber: response.json()[key].ActivityNumber,
+                            ActivityDate: response.json()[key].ActivityDate,
+                            StaffUserId: response.json()[key].StaffUserId,
+                            StaffUser: response.json()[key].StaffUser,
+                            CustomerId: response.json()[key].CustomerId,
+                            Customer: response.json()[key].Customer,
+                            ProductId: response.json()[key].ProductId,
+                            Product: response.json()[key].Product,
+                            ParticularCategory: response.json()[key].ParticularCategory,
+                            Particulars: response.json()[key].Particulars,
+                            NumberOfHours: response.json()[key].NumberOfHours,
+                            ActivityAmount: response.json()[key].ActivityAmount,
+                            ActivityStatus: response.json()[key].ActivityStatus,
+                            LeadId: response.json()[key].LeadId,
+                            QuotationId: response.json()[key].QuotationId,
+                            DeliveryId: response.json()[key].DeliveryId,
+                            SupportId: response.json()[key].SupportId
+                        });
+                    }
+                }
+            }
+        );
+
+        return activityObservableArray;
+    }
+
+    // add activity
+    public postActivityData(activityOject: Object, toastr: ToastsManager) {
+        let url = "http://localhost:22626/api/activity/post";
+        this.http.post(url, JSON.stringify(activityOject), this.options).subscribe(
+            response => {
+                this.toastr.success('', 'Save Successful');
+                document.getElementById("btn-hidden-activity-detail-modal").click();
+                document.getElementById("btn-hidden-activity-data").click();
+            },
+            error => {
+                (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnActivityClose")).disabled = false;
+                this.toastr.error('', 'Something`s went wrong!');
+            }
+        )
+    }
+
+    // update activity
+    public putActivityData(id: number, leadObject: Object, toastr: ToastsManager) {
+        let url = "http://localhost:22626/api/activity/put/" + id;
+        this.http.put(url, JSON.stringify(leadObject), this.options).subscribe(
+            response => {
+                this.toastr.success('', 'Save Successful');
+                document.getElementById("btn-hidden-activity-detail-modal").click();
+                document.getElementById("btn-hidden-activity-data").click();
             },
             error => {
                 this.toastr.error('', 'Something`s went wrong!');
+                (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnActivityClose")).disabled = false;
+            }
+        )
+    }
+
+    // delete activity
+    public deleteActivityData(id: number, toastr: ToastsManager) {
+        let url = "http://localhost:22626/api/activity/delete/" + id;
+        this.http.delete(url, this.options).subscribe(
+            response => {
+                this.toastr.success('', 'Delete Successful');
+                document.getElementById("btn-hidden-activity-delete-modal").click();
+                document.getElementById("btn-hidden-activity-data").click();
+            },
+            error => {
+                this.toastr.error('', 'Something`s went wrong!');
+                (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnActivityCloseDeleteConfirmation")).disabled = false;
             }
         )
     }
