@@ -21,7 +21,7 @@ export class LeadComponent implements OnInit {
   public leadEncodedBySelectedIndex: number;
   public leadAssignedUserObservableArray: wijmo.collections.ObservableArray;
   public leadAssignedToSelectedIndex: number;
-  public leadStatusArray = ['Open', 'Close', 'Cancelled'];
+  public leadStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
   public leadStatusSelectedIndex = -1;
   public leadName: String;
   public leadAddress: String;
@@ -97,9 +97,9 @@ export class LeadComponent implements OnInit {
   public filterFunction(item: any) {
     if (this.leadFilter) {
       return (item.LeadNumber.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
-             (item.LeadName.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
-             (item.EncodedByUser.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
-             (item.LeadStatus.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1);
+        (item.LeadName.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
+        (item.EncodedByUser.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
+        (item.LeadStatus.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1);
     }
 
     return true;

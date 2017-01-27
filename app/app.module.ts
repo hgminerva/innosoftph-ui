@@ -26,6 +26,8 @@ import { ProductComponent } from './product/product.component';
 import { UserComponent } from './user/user.component';
 import { LeadComponent } from './lead/lead.component';
 import { LeadDetailComponent } from './lead/leadDetail.component';
+import { QuotationComponent } from './quotation/quotation.component';
+import { QuotationDetailComponent } from './quotation/quotationDetail.component';
 
 // services
 import { LoginService } from './login/login.service';
@@ -33,6 +35,7 @@ import { CustomerService } from './customer/customer.service';
 import { ProductService } from './product/product.service';
 import { UserService } from './user/user.service';
 import { LeadService } from './lead/lead.service';
+import { QuotationService } from './quotation/quotation.service';
 
 // paths and Routes
 const appRoutes: Routes = [
@@ -47,7 +50,9 @@ const appRoutes: Routes = [
   { path: 'product', component: ProductComponent },
   { path: 'user', component: UserComponent },
   { path: 'lead', component: LeadComponent },
-  { path: 'leadDetail/:id', component: LeadDetailComponent }
+  { path: 'leadDetail/:id', component: LeadDetailComponent },
+  { path: 'quotation', component: QuotationComponent },
+  { path: 'quotationDetail/:id', component: QuotationDetailComponent }
 ];
 
 // module
@@ -78,14 +83,17 @@ const appRoutes: Routes = [
     ProductComponent,
     UserComponent,
     LeadComponent,
-    LeadDetailComponent
+    LeadDetailComponent,
+    QuotationComponent,
+    QuotationDetailComponent
   ],
   providers: [
     LoginService,
     CustomerService,
     ProductService,
     UserService,
-    LeadService
+    LeadService,
+    QuotationService
   ],
   bootstrap: [
     AppComponent

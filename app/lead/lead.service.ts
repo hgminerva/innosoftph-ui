@@ -108,6 +108,9 @@ export class LeadService {
                 document.getElementById("btn-hidden-refresh-grid").click();
             },
             error => {
+                (<HTMLButtonElement>document.getElementById("btnDeleteLead")).innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
+                (<HTMLButtonElement>document.getElementById("btnDeleteLead")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnDeleteCloseLead")).disabled = false;
                 this.toastr.error('', 'Something`s went wrong!');
             }
         )
@@ -181,7 +184,6 @@ export class LeadService {
                 this.toastr.error('', 'Something`s went wrong!');
                 (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                 (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).disabled = false;
-                (<HTMLButtonElement>document.getElementById("btnPrintLeadDetail")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnCloseLeadDetail")).disabled = false;
             }
         )

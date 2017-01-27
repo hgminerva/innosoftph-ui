@@ -30,7 +30,7 @@ export class LeadDetailComponent implements OnInit {
   public leadAssignedToSelectedValue: String;
   public leadRemarks: String;
   public leadStatus: String;
-  public leadStatusArray = ['Open', 'Close', 'Cancelled'];
+  public leadStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
   public leadStatusSelectedIndex = -1;
   public leadStatusSelectedValue: String;
   public activityCollectionView: wijmo.collections.CollectionView;
