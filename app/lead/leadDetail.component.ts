@@ -158,7 +158,6 @@ export class LeadDetailComponent implements OnInit {
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
     (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).disabled = true;
-    (<HTMLButtonElement>document.getElementById("btnPrintLeadDetail")).disabled = true;
     (<HTMLButtonElement>document.getElementById("btnCloseLeadDetail")).disabled = true;
     this.leadService.putLeadData(this.getIdUrlParameter(), this.getLeadValue(), toastr);
   }
@@ -281,6 +280,12 @@ export class LeadDetailComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).disabled = true;
     (<HTMLButtonElement>document.getElementById("btnActivityCloseDeleteConfirmation")).disabled = true;
     this.leadService.deleteActivityData(this.activityId, toastr);
+  }
+
+  // print
+  public btnActivityPrintClick() {
+    let currentSelectedActivity = this.activityCollectionView.currentItem;
+    window.open('http://localhost:22626/RepActivityTicket/activityTicket?activityId=' + currentSelectedActivity.Id, "_target");
   }
 
   // initialization

@@ -22,7 +22,7 @@ export class LeadComponent implements OnInit {
   public leadAssignedUserObservableArray: wijmo.collections.ObservableArray;
   public leadAssignedToSelectedIndex: number;
   public leadStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
-  public leadStatusSelectedIndex = -1;
+  public leadStatusSelectedIndex = 0;
   public leadName: String;
   public leadAddress: String;
   public leadContactPerson: String;
@@ -164,6 +164,7 @@ export class LeadComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnSaveLead")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
     (<HTMLButtonElement>document.getElementById("btnSaveLead")).disabled = false;
     (<HTMLButtonElement>document.getElementById("btnCloseLead")).disabled = false;
+    this.leadStatus = this.leadStatusArray[this.leadStatusSelectedIndex];
     this.getListUser();
   }
 

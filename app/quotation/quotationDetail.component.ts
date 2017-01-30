@@ -82,6 +82,7 @@ export class QuotationDetailComponent implements OnInit {
     this.quotationProductSelectedValue = (<HTMLInputElement>document.getElementById("quotationProductSelectedValue")).value.toString();
     this.quotationEncodedBySelectedValue = (<HTMLInputElement>document.getElementById("quotationEncodedBySelectedValue")).value.toString();
     this.quotationStatusSelectedValue = (<HTMLInputElement>document.getElementById("quotationStatusSelectedValue")).value.toString();
+    this.quotationStatus = this.quotationStatusSelectedValue;
   }
 
   // quotation date value
@@ -236,7 +237,7 @@ export class QuotationDetailComponent implements OnInit {
       this.activityNoOfHoursSelectedValue = "0";
       (<HTMLInputElement>document.getElementById("activityAmount")).value = "0";
       this.activityAmount = "0";
-      this.activityStatusSelectedValue = "Open";
+      this.activityStatusSelectedValue = "OPEN";
     } else {
       this.activityDetailModalString = "Edit";
       let currentSelectedActivity = this.activityCollectionView.currentItem;
@@ -301,6 +302,12 @@ export class QuotationDetailComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).disabled = true;
     (<HTMLButtonElement>document.getElementById("btnActivityCloseDeleteConfirmation")).disabled = true;
     this.quotationService.deleteActivityData(this.activityId, toastr);
+  }
+
+  // print
+  public btnActivityPrintClick() {
+    let currentSelectedActivity = this.activityCollectionView.currentItem;
+    window.open('http://localhost:22626/RepActivityTicket/activityTicket?activityId=' + currentSelectedActivity.Id, "_target");
   }
 
   // initialization
