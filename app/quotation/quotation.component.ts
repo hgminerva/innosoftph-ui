@@ -16,8 +16,8 @@ export class QuotationComponent implements OnInit {
   public isQuotationEndDateSelected = true;
   public quotationDateValue: Date;
   public quotationCollectionView: wijmo.collections.CollectionView;
-  public leadFilter = '';
-  public leadToFilter: any;
+  public quotationFilter = '';
+  public quotationToFilter: any;
   public quotationLeadObservableArray: wijmo.collections.ObservableArray;
   public quotationLeadSelectedIndex = -1;
   public quotationCustomerObservableArray: wijmo.collections.ObservableArray;
@@ -95,19 +95,19 @@ export class QuotationComponent implements OnInit {
 
   // list lead
   public getListLead() {
-    this.quotationLeadObservableArray = this.quotationService.getListLeadData();
+    this.quotationLeadObservableArray = this.quotationService.getListLeadData("quotation");
     this.getListCustomer();
   }
 
   // list customer
   public getListCustomer() {
-    this.quotationCustomerObservableArray = this.quotationService.getListCustomerData();
+    this.quotationCustomerObservableArray = this.quotationService.getListArticleData("quotation", 2);
     this.getListProduct();
   }
 
   // list Product
   public getListProduct() {
-    this.quotationProductObservableArray = this.quotationService.getListProductData();
+    this.quotationProductObservableArray = this.quotationService.getListArticleData("quotation", 1);
   }
 
   // quotation date on value changed
@@ -195,20 +195,20 @@ export class QuotationComponent implements OnInit {
 
   // filter
   get filter(): string {
-    return this.leadFilter;
+    return this.quotationFilter;
   }
 
   // filter
   set filter(value: string) {
-    if (this.leadFilter != value) {
-      this.leadFilter = value;
+    if (this.quotationFilter != value) {
+      this.quotationFilter = value;
 
-      if (this.leadToFilter) {
-        clearTimeout(this.leadToFilter);
+      if (this.quotationToFilter) {
+        clearTimeout(this.quotationToFilter);
       }
 
       var self = this;
-      this.leadToFilter = setTimeout(function () {
+      this.quotationToFilter = setTimeout(function () {
         self.quotationCollectionView.refresh();
       }, 500);
     }
@@ -216,13 +216,13 @@ export class QuotationComponent implements OnInit {
 
   // filter function
   public filterFunction(item: any) {
-    if (this.leadFilter) {
-      return (item.QuotationNumber.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
-        (item.Customer.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
-        (item.Product.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
-        (item.Remarks.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
-        (item.QuotationStatus.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
-        (item.EncodedByUser.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1);
+    if (this.quotationFilter) {
+      return (item.QuotationNumber.toLowerCase().indexOf(this.quotationFilter.toLowerCase()) > -1) ||
+        (item.Customer.toLowerCase().indexOf(this.quotationFilter.toLowerCase()) > -1) ||
+        (item.Product.toLowerCase().indexOf(this.quotationFilter.toLowerCase()) > -1) ||
+        (item.Remarks.toLowerCase().indexOf(this.quotationFilter.toLowerCase()) > -1) ||
+        (item.QuotationStatus.toLowerCase().indexOf(this.quotationFilter.toLowerCase()) > -1) ||
+        (item.EncodedByUser.toLowerCase().indexOf(this.quotationFilter.toLowerCase()) > -1);
     }
 
     return true;

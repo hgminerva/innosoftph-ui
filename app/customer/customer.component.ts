@@ -11,8 +11,8 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 export class CustomerComponent implements OnInit {
   // global variables
   public customerCollectionView: wijmo.collections.CollectionView;
-  public leadFilter = '';
-  public leadToFilter: any;
+  public customerFilter = '';
+  public customerToFilter: any;
 
   // constructor
   constructor(
@@ -39,20 +39,20 @@ export class CustomerComponent implements OnInit {
 
   // filter
   get filter(): string {
-    return this.leadFilter;
+    return this.customerFilter;
   }
 
   // filter
   set filter(value: string) {
-    if (this.leadFilter != value) {
-      this.leadFilter = value;
+    if (this.customerFilter != value) {
+      this.customerFilter = value;
 
-      if (this.leadToFilter) {
-        clearTimeout(this.leadToFilter);
+      if (this.customerToFilter) {
+        clearTimeout(this.customerToFilter);
       }
 
       var self = this;
-      this.leadToFilter = setTimeout(function () {
+      this.customerToFilter = setTimeout(function () {
         self.customerCollectionView.refresh();
       }, 500);
     }
@@ -60,11 +60,11 @@ export class CustomerComponent implements OnInit {
 
   // filter function
   public filterFunction(item: any) {
-    if (this.leadFilter) {
-      return (item.ArticleCode.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
-             (item.Article.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
-             (item.ContactNumber.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
-             (item.ArticleGroup.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1);
+    if (this.customerFilter) {
+      return (item.ArticleCode.toLowerCase().indexOf(this.customerFilter.toLowerCase()) > -1) ||
+             (item.Article.toLowerCase().indexOf(this.customerFilter.toLowerCase()) > -1) ||
+             (item.ContactNumber.toLowerCase().indexOf(this.customerFilter.toLowerCase()) > -1) ||
+             (item.ArticleGroup.toLowerCase().indexOf(this.customerFilter.toLowerCase()) > -1);
     }
 
     return true;

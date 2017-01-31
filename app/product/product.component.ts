@@ -11,8 +11,8 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 export class ProductComponent {
   // global variables
   public productCollectionView: wijmo.collections.CollectionView;
-  public leadFilter = '';
-  public leadToFilter: any;
+  public productFilter = '';
+  public productToFilter: any;
 
   // constructor
   constructor(
@@ -39,20 +39,20 @@ export class ProductComponent {
 
   // filter
   get filter(): string {
-    return this.leadFilter;
+    return this.productFilter;
   }
 
   // filter
   set filter(value: string) {
-    if (this.leadFilter != value) {
-      this.leadFilter = value;
+    if (this.productFilter != value) {
+      this.productFilter = value;
 
-      if (this.leadToFilter) {
-        clearTimeout(this.leadToFilter);
+      if (this.productToFilter) {
+        clearTimeout(this.productToFilter);
       }
 
       var self = this;
-      this.leadToFilter = setTimeout(function () {
+      this.productToFilter = setTimeout(function () {
         self.productCollectionView.refresh();
       }, 500);
     }
@@ -60,11 +60,11 @@ export class ProductComponent {
 
   // filter function
   public filterFunction(item: any) {
-    if (this.leadFilter) {
-      return (item.ArticleCode.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
-        (item.ManualArticleCode.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
-        (item.Article.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1) ||
-        (item.Unit.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1);
+    if (this.productFilter) {
+      return (item.ArticleCode.toLowerCase().indexOf(this.productFilter.toLowerCase()) > -1) ||
+        (item.ManualArticleCode.toLowerCase().indexOf(this.productFilter.toLowerCase()) > -1) ||
+        (item.Article.toLowerCase().indexOf(this.productFilter.toLowerCase()) > -1) ||
+        (item.Unit.toLowerCase().indexOf(this.productFilter.toLowerCase()) > -1);
     }
 
     return true;

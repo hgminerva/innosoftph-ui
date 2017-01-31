@@ -82,8 +82,8 @@ export class LeadDetailComponent implements OnInit {
 
   // user list
   public getListUser() {
-    this.leadEncodedUserObservableArray = this.leadService.getLeadDetailListUserData();
-    this.leadAssignedUserObservableArray = this.leadService.getLeadDetailListUserData();
+    this.leadEncodedUserObservableArray = this.leadService.getListUserData("leadDetail");
+    this.leadAssignedUserObservableArray = this.leadService.getListUserData("leadDetail");
 
     // activity part
     this.activityDateValue = new Date();

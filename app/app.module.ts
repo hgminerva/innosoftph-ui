@@ -28,6 +28,8 @@ import { LeadComponent } from './lead/lead.component';
 import { LeadDetailComponent } from './lead/leadDetail.component';
 import { QuotationComponent } from './quotation/quotation.component';
 import { QuotationDetailComponent } from './quotation/quotationDetail.component';
+import { DeliveryComponent } from './delivery/delivery.component';
+import { DeliveryDetailComponent } from './delivery/deliveryDetail.component';
 
 // services
 import { LoginService } from './login/login.service';
@@ -36,6 +38,7 @@ import { ProductService } from './product/product.service';
 import { UserService } from './user/user.service';
 import { LeadService } from './lead/lead.service';
 import { QuotationService } from './quotation/quotation.service';
+import { DeliveryService } from './delivery/delivery.service';
 
 // paths and Routes
 const appRoutes: Routes = [
@@ -52,7 +55,9 @@ const appRoutes: Routes = [
   { path: 'lead', component: LeadComponent },
   { path: 'leadDetail/:id', component: LeadDetailComponent },
   { path: 'quotation', component: QuotationComponent },
-  { path: 'quotationDetail/:id', component: QuotationDetailComponent }
+  { path: 'quotationDetail/:id', component: QuotationDetailComponent },
+  { path: 'delivery', component: DeliveryComponent },
+  { path: 'deliveryDetail/:id', component: DeliveryDetailComponent }
 ];
 
 // module
@@ -85,7 +90,9 @@ const appRoutes: Routes = [
     LeadComponent,
     LeadDetailComponent,
     QuotationComponent,
-    QuotationDetailComponent
+    QuotationDetailComponent,
+    DeliveryComponent,
+    DeliveryDetailComponent
   ],
   providers: [
     LoginService,
@@ -93,7 +100,8 @@ const appRoutes: Routes = [
     ProductService,
     UserService,
     LeadService,
-    QuotationService
+    QuotationService,
+    DeliveryService
   ],
   bootstrap: [
     AppComponent

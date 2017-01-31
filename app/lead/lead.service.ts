@@ -20,7 +20,7 @@ export class LeadService {
     ) { }
 
     // list user
-    public getListUserData(): wijmo.collections.ObservableArray {
+    public getListUserData(page: String): wijmo.collections.ObservableArray {
         let userObservableArray = new wijmo.collections.ObservableArray();
         let url = "http://localhost:22626/api/user/list";
         this.http.get(url, this.options).subscribe(
@@ -29,10 +29,13 @@ export class LeadService {
                     if (response.json().hasOwnProperty(key)) {
                         userObservableArray.push({
                             Id: response.json()[key].Id,
-                            UserName: response.json()[key].UserName,
                             FullName: response.json()[key].FullName
                         });
                     }
+                }
+
+                if (page == "leadDetail") {
+                    document.getElementById("btn-hidden-lead-data").click();
                 }
             }
         );
@@ -74,6 +77,34 @@ export class LeadService {
         return leadObservableArray;
     }
 
+    // get lead by id
+    public getLeadById(id: number) {
+        let url = "http://localhost:22626/api/lead/get/byId/" + id;
+        this.http.get(url, this.options).subscribe(
+            response => {
+                if (response.json() != null) {
+                    (<HTMLInputElement>document.getElementById("leadDateValue")).value = response.json().LeadDate;
+                    (<HTMLInputElement>document.getElementById("leadNumber")).value = response.json().LeadNumber;
+                    (<HTMLInputElement>document.getElementById("leadName")).value = response.json().LeadName;
+                    (<HTMLInputElement>document.getElementById("leadAddress")).value = response.json().Address;
+                    (<HTMLInputElement>document.getElementById("leadContactPerson")).value = response.json().ContactPerson;
+                    (<HTMLInputElement>document.getElementById("leadContactPosition")).value = response.json().ContactPosition;
+                    (<HTMLInputElement>document.getElementById("leadContactEmail")).value = response.json().ContactEmail;
+                    (<HTMLInputElement>document.getElementById("leadContactNumber")).value = response.json().ContactPhoneNo;
+                    (<HTMLInputElement>document.getElementById("leadReferredBy")).value = response.json().ReferredBy;
+                    (<HTMLInputElement>document.getElementById("leadRemarks")).value = response.json().Remarks;
+                    (<HTMLInputElement>document.getElementById("leadEncodedBySelectedValue")).value = response.json().EncodedByUser;
+                    (<HTMLInputElement>document.getElementById("leadAssignedToSelectedValue")).value = response.json().AssignedToUser;
+                    (<HTMLInputElement>document.getElementById("leadStatusSelectedValue")).value = response.json().LeadStatus;
+                    document.getElementById("btn-hidden-selectedValue-data").click();
+                } else {
+                    alert("No Data");
+                    this.router.navigate(["/lead"]);
+                }
+            }
+        );
+    }
+
     // add leads
     public postLeadData(leadObject: Object, toastr: ToastsManager) {
         let url = "http://localhost:22626/api/lead/post";
@@ -98,78 +129,6 @@ export class LeadService {
         )
     }
 
-    // delete leads
-    public deleteLeadData(id: number, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/lead/delete/" + id;
-        this.http.delete(url, this.options).subscribe(
-            response => {
-                this.toastr.success('', 'Delete Successful');
-                document.getElementById("btn-hidden-lead-delete-modal").click();
-                document.getElementById("btn-hidden-refresh-grid").click();
-            },
-            error => {
-                (<HTMLButtonElement>document.getElementById("btnDeleteLead")).innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
-                (<HTMLButtonElement>document.getElementById("btnDeleteLead")).disabled = false;
-                (<HTMLButtonElement>document.getElementById("btnDeleteCloseLead")).disabled = false;
-                this.toastr.error('', 'Something`s went wrong!');
-            }
-        )
-    }
-
-    // list user in lead detail
-    public getLeadDetailListUserData(): wijmo.collections.ObservableArray {
-        let userObservableArray = new wijmo.collections.ObservableArray();
-        let url = "http://localhost:22626/api/user/list";
-        this.http.get(url, this.options).subscribe(
-            response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
-                        userObservableArray.push({
-                            Id: response.json()[key].Id,
-                            UserName: response.json()[key].UserName,
-                            FullName: response.json()[key].FullName
-                        });
-                    }
-                }
-
-                document.getElementById("btn-hidden-lead-data").click();
-            }
-        );
-
-        return userObservableArray;
-    }
-
-    // get lead by id
-    public getLeadById(id: number): wijmo.collections.ObservableArray {
-        let url = "http://localhost:22626/api/lead/get/byId/" + id;
-        let leadObservableArray = new wijmo.collections.ObservableArray();
-        this.http.get(url, this.options).subscribe(
-            response => {
-                if (response.json() != null) {
-                    (<HTMLInputElement>document.getElementById("leadDateValue")).value = response.json().LeadDate;
-                    (<HTMLInputElement>document.getElementById("leadNumber")).value = response.json().LeadNumber;
-                    (<HTMLInputElement>document.getElementById("leadName")).value = response.json().LeadName;
-                    (<HTMLInputElement>document.getElementById("leadAddress")).value = response.json().Address;
-                    (<HTMLInputElement>document.getElementById("leadContactPerson")).value = response.json().ContactPerson;
-                    (<HTMLInputElement>document.getElementById("leadContactPosition")).value = response.json().ContactPosition;
-                    (<HTMLInputElement>document.getElementById("leadContactEmail")).value = response.json().ContactEmail;
-                    (<HTMLInputElement>document.getElementById("leadContactNumber")).value = response.json().ContactPhoneNo;
-                    (<HTMLInputElement>document.getElementById("leadReferredBy")).value = response.json().ReferredBy;
-                    (<HTMLInputElement>document.getElementById("leadRemarks")).value = response.json().Remarks;
-                    (<HTMLInputElement>document.getElementById("leadEncodedBySelectedValue")).value = response.json().EncodedByUser;
-                    (<HTMLInputElement>document.getElementById("leadAssignedToSelectedValue")).value = response.json().AssignedToUser;
-                    (<HTMLInputElement>document.getElementById("leadStatusSelectedValue")).value = response.json().LeadStatus;
-                    document.getElementById("btn-hidden-selectedValue-data").click();
-                } else {
-                    alert("No Data");
-                    this.router.navigate(["/lead"]);
-                }
-            }
-        );
-
-        return leadObservableArray;
-    }
-
     // update leads
     public putLeadData(id: number, leadObject: Object, toastr: ToastsManager) {
         let url = "http://localhost:22626/api/lead/put/" + id;
@@ -185,6 +144,24 @@ export class LeadService {
                 (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                 (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnCloseLeadDetail")).disabled = false;
+            }
+        )
+    }
+
+    // delete leads
+    public deleteLeadData(id: number, toastr: ToastsManager) {
+        let url = "http://localhost:22626/api/lead/delete/" + id;
+        this.http.delete(url, this.options).subscribe(
+            response => {
+                this.toastr.success('', 'Delete Successful');
+                document.getElementById("btn-hidden-lead-delete-modal").click();
+                document.getElementById("btn-hidden-refresh-grid").click();
+            },
+            error => {
+                (<HTMLButtonElement>document.getElementById("btnDeleteLead")).innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
+                (<HTMLButtonElement>document.getElementById("btnDeleteLead")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnDeleteCloseLead")).disabled = false;
+                this.toastr.error('', 'Something`s went wrong!');
             }
         )
     }

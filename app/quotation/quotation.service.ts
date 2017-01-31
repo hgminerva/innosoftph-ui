@@ -20,7 +20,7 @@ export class QuotationService {
     ) { }
 
     // list lead by status
-    public getListLeadData(): wijmo.collections.ObservableArray {
+    public getListLeadData(page: String): wijmo.collections.ObservableArray {
         let url = "http://localhost:22626/api/lead/list/byLeadStatus";
         let leadObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
@@ -29,23 +29,13 @@ export class QuotationService {
                     if (response.json().hasOwnProperty(key)) {
                         leadObservableArray.push({
                             Id: response.json()[key].Id,
-                            LeadDate: response.json()[key].LeadDate,
                             LeadNumber: response.json()[key].LeadNumber,
-                            LeadName: response.json()[key].LeadName,
-                            Address: response.json()[key].Address,
-                            ContactPerson: response.json()[key].ContactPerson,
-                            ContactPosition: response.json()[key].ContactPosition,
-                            ContactEmail: response.json()[key].ContactEmail,
-                            ContactPhoneNo: response.json()[key].ContactPhoneNo,
-                            ReferredBy: response.json()[key].ReferredBy,
-                            Remarks: response.json()[key].Remarks,
-                            EncodedByUserId: response.json()[key].EncodedByUserId,
-                            EncodedByUser: response.json()[key].EncodedByUser,
-                            AssignedToUserId: response.json()[key].AssignedToUserId,
-                            AssignedToUser: response.json()[key].AssignedToUser,
-                            LeadStatus: response.json()[key].LeadStatus
                         });
                     }
+                }
+
+                if (page == "quotationDetail") {
+                    document.getElementById("btn-hidden-article-data").click();
                 }
             }
         );
@@ -53,8 +43,32 @@ export class QuotationService {
         return leadObservableArray;
     }
 
+    // list article by article type
+    public getListArticleData(page: String, articleTypeId: number): wijmo.collections.ObservableArray {
+        let customerObservableArray = new wijmo.collections.ObservableArray();
+        let url = "http://localhost:22626/api/article/list/byArticleTypeId/" + articleTypeId;
+        this.http.get(url, this.options).subscribe(
+            response => {
+                for (var key in response.json()) {
+                    if (response.json().hasOwnProperty(key)) {
+                        customerObservableArray.push({
+                            Id: response.json()[key].Id,
+                            Article: response.json()[key].Article
+                        });
+                    }
+                }
+
+                if (page == "quotationDetail") {
+                    document.getElementById("btn-hidden-user-data").click();
+                }
+            }
+        );
+
+        return customerObservableArray;
+    }
+
     // list user
-    public getListUserData(): wijmo.collections.ObservableArray {
+    public getListUserData(page: String): wijmo.collections.ObservableArray {
         let userObservableArray = new wijmo.collections.ObservableArray();
         let url = "http://localhost:22626/api/user/list";
         this.http.get(url, this.options).subscribe(
@@ -63,62 +77,18 @@ export class QuotationService {
                     if (response.json().hasOwnProperty(key)) {
                         userObservableArray.push({
                             Id: response.json()[key].Id,
-                            UserName: response.json()[key].UserName,
                             FullName: response.json()[key].FullName
                         });
                     }
+                }
+
+                if (page == "quotationDetail") {
+                    document.getElementById("btn-hidden-quotation-data").click();
                 }
             }
         );
 
         return userObservableArray;
-    }
-
-    // list customer data
-    public getListCustomerData(): wijmo.collections.ObservableArray {
-        let customerObservableArray = new wijmo.collections.ObservableArray();
-        let url = "http://localhost:22626/api/article/list/byArticleTypeId/2";
-        this.http.get(url, this.options).subscribe(
-            response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
-                        customerObservableArray.push({
-                            Id: response.json()[key].Id,
-                            ArticleCode: response.json()[key].ArticleCode,
-                            Article: response.json()[key].Article,
-                            ContactNumber: response.json()[key].ContactNumber,
-                            ArticleGroup: response.json()[key].ArticleGroup
-                        });
-                    }
-                }
-            }
-        );
-
-        return customerObservableArray;
-    }
-
-    // list product data
-    public getListProductData(): wijmo.collections.ObservableArray {
-        let productObservableArray = new wijmo.collections.ObservableArray();
-        let url = "http://localhost:22626/api/article/list/byArticleTypeId/1";
-        this.http.get(url, this.options).subscribe(
-            response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
-                        productObservableArray.push({
-                            Id: response.json()[key].Id,
-                            ArticleCode: response.json()[key].ArticleCode,
-                            ManualArticleCode: response.json()[key].ManualArticleCode,
-                            Article: response.json()[key].Article,
-                            Unit: response.json()[key].Unit,
-                            IsInventory: response.json()[key].IsInventory,
-                        });
-                    }
-                }
-            }
-        );
-
-        return productObservableArray;
     }
 
     // list quotation by date ranged (start date and end date)
@@ -152,6 +122,29 @@ export class QuotationService {
         return quotationObservableArray;
     }
 
+    // get quotation by id
+    public getQuotationById(id: number) {
+        let url = "http://localhost:22626/api/quotation/get/byId/" + id;
+        this.http.get(url, this.options).subscribe(
+            response => {
+                if (response.json() != null) {
+                    (<HTMLInputElement>document.getElementById("quotationDateValue")).value = response.json().QuotationDate;
+                    (<HTMLInputElement>document.getElementById("quotationNumber")).value = response.json().QuotationNumber;
+                    (<HTMLInputElement>document.getElementById("quotationLeadSelectedValue")).value = response.json().LeadNumber;
+                    (<HTMLInputElement>document.getElementById("quotationCustomerSelectedValue")).value = response.json().Customer;
+                    (<HTMLInputElement>document.getElementById("quotationProductSelectedValue")).value = response.json().Product;
+                    (<HTMLInputElement>document.getElementById("quotationEncodedBySelectedValue")).value = response.json().EncodedByUser;
+                    (<HTMLInputElement>document.getElementById("quotationRemarks")).value = response.json().Remarks;
+                    (<HTMLInputElement>document.getElementById("quotationStatusSelectedValue")).value = response.json().QuotationStatus;
+                    document.getElementById("btn-hidden-selectedValue-data").click();
+                } else {
+                    alert("No Data");
+                    this.router.navigate(["/quotation"]);
+                }
+            }
+        );
+    }
+
     // add quotation
     public postQuotationData(quotationObject: Object, toastr: ToastsManager) {
         let url = "http://localhost:22626/api/quotation/post";
@@ -176,6 +169,26 @@ export class QuotationService {
         )
     }
 
+    // update quotation
+    public putQuotationData(id: number, quotationObject: Object, toastr: ToastsManager) {
+        let url = "http://localhost:22626/api/quotation/put/" + id;
+        this.http.put(url, JSON.stringify(quotationObject), this.options).subscribe(
+            response => {
+                this.toastr.success('', 'Save Successful');
+                setTimeout(() => {
+                    this.router.navigate(['/quotation']);
+                }, 1000);
+            },
+            error => {
+                this.toastr.error(error._body.replace(/^"?(.+?)"?$/,'$1'), 'Save Failed');
+                (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnCloseQuotationDetail")).disabled = false;
+                console.log(error);
+            }
+        )
+    }
+
     // delete quotation
     public deleteQuotationData(id: number, toastr: ToastsManager) {
         let url = "http://localhost:22626/api/quotation/delete/" + id;
@@ -190,161 +203,6 @@ export class QuotationService {
                 (<HTMLButtonElement>document.getElementById("btnDeleteQuotation")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnDeleteCloseQuotation")).disabled = false;
                 this.toastr.error('', 'Something`s went wrong!');
-            }
-        )
-    }
-
-    // list quotation detail lead by status
-    public getQuotationDetailLeadData(): wijmo.collections.ObservableArray {
-        let url = "http://localhost:22626/api/lead/list/byLeadStatus";
-        let leadObservableArray = new wijmo.collections.ObservableArray();
-        this.http.get(url, this.options).subscribe(
-            response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
-                        leadObservableArray.push({
-                            Id: response.json()[key].Id,
-                            LeadDate: response.json()[key].LeadDate,
-                            LeadNumber: response.json()[key].LeadNumber,
-                            LeadName: response.json()[key].LeadName,
-                            Address: response.json()[key].Address,
-                            ContactPerson: response.json()[key].ContactPerson,
-                            ContactPosition: response.json()[key].ContactPosition,
-                            ContactEmail: response.json()[key].ContactEmail,
-                            ContactPhoneNo: response.json()[key].ContactPhoneNo,
-                            ReferredBy: response.json()[key].ReferredBy,
-                            Remarks: response.json()[key].Remarks,
-                            EncodedByUserId: response.json()[key].EncodedByUserId,
-                            EncodedByUser: response.json()[key].EncodedByUser,
-                            AssignedToUserId: response.json()[key].AssignedToUserId,
-                            AssignedToUser: response.json()[key].AssignedToUser,
-                            LeadStatus: response.json()[key].LeadStatus
-                        });
-                    }
-                }
-
-                document.getElementById("btn-hidden-customer-data").click();
-            }
-        );
-
-        return leadObservableArray;
-    }
-
-    // list customer data
-    public getQuotationDetailListCustomerData(): wijmo.collections.ObservableArray {
-        let customerObservableArray = new wijmo.collections.ObservableArray();
-        let url = "http://localhost:22626/api/article/list/byArticleTypeId/2";
-        this.http.get(url, this.options).subscribe(
-            response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
-                        customerObservableArray.push({
-                            Id: response.json()[key].Id,
-                            ArticleCode: response.json()[key].ArticleCode,
-                            Article: response.json()[key].Article,
-                            ContactNumber: response.json()[key].ContactNumber,
-                            ArticleGroup: response.json()[key].ArticleGroup
-                        });
-                    }
-                }
-
-                document.getElementById("btn-hidden-product-data").click();
-            }
-        );
-
-        return customerObservableArray;
-    }
-
-    // list product data
-    public getQuotationDetailListProductData(): wijmo.collections.ObservableArray {
-        let productObservableArray = new wijmo.collections.ObservableArray();
-        let url = "http://localhost:22626/api/article/list/byArticleTypeId/1";
-        this.http.get(url, this.options).subscribe(
-            response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
-                        productObservableArray.push({
-                            Id: response.json()[key].Id,
-                            ArticleCode: response.json()[key].ArticleCode,
-                            ManualArticleCode: response.json()[key].ManualArticleCode,
-                            Article: response.json()[key].Article,
-                            Unit: response.json()[key].Unit,
-                            IsInventory: response.json()[key].IsInventory,
-                        });
-                    }
-                }
-
-                document.getElementById("btn-hidden-user-data").click();
-            }
-        );
-
-        return productObservableArray;
-    }
-
-    // list user
-    public getQuotationDetailListUserData(): wijmo.collections.ObservableArray {
-        let userObservableArray = new wijmo.collections.ObservableArray();
-        let url = "http://localhost:22626/api/user/list";
-        this.http.get(url, this.options).subscribe(
-            response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
-                        userObservableArray.push({
-                            Id: response.json()[key].Id,
-                            UserName: response.json()[key].UserName,
-                            FullName: response.json()[key].FullName
-                        });
-                    }
-                }
-
-                document.getElementById("btn-hidden-quotation-data").click();
-            }
-        );
-
-        return userObservableArray;
-    }
-
-    // get quotation by id
-    public getQuotationById(id: number): wijmo.collections.ObservableArray {
-        let url = "http://localhost:22626/api/quotation/get/byId/" + id;
-        let leadObservableArray = new wijmo.collections.ObservableArray();
-        this.http.get(url, this.options).subscribe(
-            response => {
-                if (response.json() != null) {
-                    (<HTMLInputElement>document.getElementById("quotationDateValue")).value = response.json().QuotationDate;
-                    (<HTMLInputElement>document.getElementById("quotationNumber")).value = response.json().QuotationNumber;
-                    (<HTMLInputElement>document.getElementById("quotationLeadSelectedValue")).value = response.json().LeadNumber;
-                    (<HTMLInputElement>document.getElementById("quotationCustomerSelectedValue")).value = response.json().Customer;
-                    (<HTMLInputElement>document.getElementById("quotationProductSelectedValue")).value = response.json().Product;
-                    (<HTMLInputElement>document.getElementById("quotationEncodedBySelectedValue")).value = response.json().EncodedByUser;
-                    (<HTMLInputElement>document.getElementById("quotationRemarks")).value = response.json().Remarks;
-                    (<HTMLInputElement>document.getElementById("quotationStatusSelectedValue")).value = response.json().QuotationStatus;
-                    document.getElementById("btn-hidden-selectedValue-data").click();
-                } else {
-                    alert("No Data");
-                    this.router.navigate(["/quotation"]);
-                }
-            }
-        );
-
-        return leadObservableArray;
-    }
-
-    // update quotation
-    public putQuotationData(id: number, quotationObject: Object, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/quotation/put/" + id;
-        this.http.put(url, JSON.stringify(quotationObject), this.options).subscribe(
-            response => {
-                this.toastr.success('', 'Save Successful');
-                setTimeout(() => {
-                    this.router.navigate(['/quotation']);
-                }, 1000);
-            },
-            error => {
-                this.toastr.error('', 'Something`s went wrong!');
-                (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-                (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).disabled = false;
-                (<HTMLButtonElement>document.getElementById("btnCloseQuotationDetail")).disabled = false;
             }
         )
     }

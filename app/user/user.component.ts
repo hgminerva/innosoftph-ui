@@ -11,8 +11,8 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 export class UserComponent implements OnInit {
   // global variables
   public userCollectionView: wijmo.collections.CollectionView;
-  public leadFilter = '';
-  public leadToFilter: any;
+  public userFilter = '';
+  public userToFilter: any;
 
   // constructor
   constructor(
@@ -39,20 +39,20 @@ export class UserComponent implements OnInit {
 
   // filter
   get filter(): string {
-    return this.leadFilter;
+    return this.userFilter;
   }
 
   // filter
   set filter(value: string) {
-    if (this.leadFilter != value) {
-      this.leadFilter = value;
+    if (this.userFilter != value) {
+      this.userFilter = value;
 
-      if (this.leadToFilter) {
-        clearTimeout(this.leadToFilter);
+      if (this.userToFilter) {
+        clearTimeout(this.userToFilter);
       }
 
       var self = this;
-      this.leadToFilter = setTimeout(function () {
+      this.userToFilter = setTimeout(function () {
         self.userCollectionView.refresh();
       }, 500);
     }
@@ -60,8 +60,8 @@ export class UserComponent implements OnInit {
 
   // filter function
   public filterFunction(item: any) {
-    if (this.leadFilter) {
-      return (item.FullName.toLowerCase().indexOf(this.leadFilter.toLowerCase()) > -1);
+    if (this.userFilter) {
+      return (item.FullName.toLowerCase().indexOf(this.userFilter.toLowerCase()) > -1);
     }
 
     return true;

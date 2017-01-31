@@ -95,22 +95,18 @@ export class QuotationDetailComponent implements OnInit {
 
   // list lead
   public getLeadServiceData() {
-    this.quotationLeadObservableArray = this.quotationService.getQuotationDetailLeadData();
+    this.quotationLeadObservableArray = this.quotationService.getListLeadData("quotationDetail");
   }
 
-  // list customer
-  public getCustomerServiceData() {
-    this.quotationCustomerObservableArray = this.quotationService.getQuotationDetailListCustomerData();
-  }
-
-  // list product
-  public getProductServiceData() {
-    this.quotationProductObservableArray = this.quotationService.getQuotationDetailListProductData();
+  // list article
+  public getArticleData() {
+    this.quotationCustomerObservableArray = this.quotationService.getListArticleData("quotationDetail", 2);
+    this.quotationProductObservableArray = this.quotationService.getListArticleData("quotationDetail", 1);
   }
 
   // list product
   public getUserServiceData() {
-    this.quotationEncodedUserObservableArray = this.quotationService.getQuotationDetailListUserData();
+    this.quotationEncodedUserObservableArray = this.quotationService.getListUserData("quotationDetail");
   }
 
   // quotation data

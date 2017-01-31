@@ -132,8 +132,8 @@
                                     <wj-combo-box 
                                         [itemsSource]="quotationStatusArray" 
                                         [placeholder]="'Select Status'"
-                                        [isEditable]="false"
-                                        [isRequired]="true"
+                                        [isEditable]="true"
+                                        [isRequired]="false"
                                         [(selectedIndex)]="quotationStatusSelectedIndex"
                                         [selectedValue]="quotationStatusSelectedValue"
                                         (selectedIndexChanged)="cboQuotationStatusSelectedIndexChangedClick()"
@@ -324,10 +324,9 @@
 </div>
 
 <!-- hidden elements to execute functions in API services -->
-<button id="btn-hidden-customer-data" [hidden]="true" (click)="getCustomerServiceData()"></button>
-<button id="btn-hidden-product-data" [hidden]="true" (click)="getProductServiceData()"></button>
-<button id="btn-hidden-quotation-data" [hidden]="true" (click)="getQuotationServiceData()"></button>
+<button id="btn-hidden-article-data" [hidden]="true" (click)="getArticleData()"></button>
 <button id="btn-hidden-user-data" [hidden]="true" (click)="getUserServiceData()"></button>
+<button id="btn-hidden-quotation-data" [hidden]="true" (click)="getQuotationServiceData()"></button>
 <button id="btn-hidden-selectedValue-data" [hidden]="true" (click)="setDropdownSelectedValueData()"></button>
 <button id="btn-hidden-activity-delete-modal" [hidden]="true" data-toggle="modal" data-target="#activity-delete-confirmation-modal"></button>
 <button id="btn-hidden-activity-detail-modal" [hidden]="true" data-toggle="modal" data-target="#activity-detail-modal"></button>

@@ -884,3 +884,8 @@ table.features-style {
 	height: 100px;
 	background: blue;
 }
+
+textarea {
+    width: 100%;
+    resize: none;
+}

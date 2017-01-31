@@ -132,8 +132,8 @@ export class LeadComponent implements OnInit {
 
   // user list
   public getListUser() {
-    this.leadEncodedUserObservableArray = this.leadService.getListUserData();
-    this.leadAssignedUserObservableArray = this.leadService.getListUserData();
+    this.leadEncodedUserObservableArray = this.leadService.getListUserData("lead");
+    this.leadAssignedUserObservableArray = this.leadService.getListUserData("lead");
   }
 
   // event: encoded by
