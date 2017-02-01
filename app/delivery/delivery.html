@@ -116,3 +116,177 @@
         </div>
     </div>
 </div>
+
+<!-- delivery detail modal -->
+<div class="modal fade" id="delivery-detail-modal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Delivery</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Delivery Date</label>
+                                <div class="col-sm-8">
+                                    <wj-input-date
+                                        [(value)]="deliveryDateValue" 
+                                        [format]="'MMM dd, yyyy'"
+                                        (valueChanged)="deliveryDateOnValueChanged()"
+                                        style="width: 100%; border-radius: 0px;">
+                                    </wj-input-date>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Quotaion No.</label>
+                                <div class="col-sm-8">
+                                    <wj-combo-box 
+                                        [itemsSource]="deliveryQuotaionObservableArray" 
+                                        [placeholder]="'Select Quotation Number'"
+                                        [displayMemberPath]="'QuotationNumber'" 
+                                        [selectedValuePath]="'QuotationNumber'"
+                                        [isEditable]="false"
+                                        [isRequired]="true"
+                                        [(selectedIndex)]="deliveryQuotaionSelectedIndex"
+                                        (selectedIndexChanged)="cboDeliveryQuotaionSelectedIndexChanged()"
+                                        style="width: 100%; border-radius: 0px;">
+                                    </wj-combo-box>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Customer</label>
+                                <div class="col-sm-8">
+                                    <wj-combo-box 
+                                        [itemsSource]="deliveryCustomerObservableArray" 
+                                        [placeholder]="'Select Customer'"
+                                        [displayMemberPath]="'Article'" 
+                                        [selectedValuePath]="'Article'"
+                                        [isEditable]="false"
+                                        [isRequired]="true"
+                                        [(selectedIndex)]="deliveryCustomerSelectedIndex"
+                                        (selectedIndexChanged)="cboDeliveryCustomerSelectedIndexChanged()"
+                                        style="width: 100%; border-radius: 0px;">
+                                    </wj-combo-box>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Product</label>
+                                <div class="col-sm-8">
+                                    <wj-combo-box 
+                                        [itemsSource]="deliveryProductObservableArray" 
+                                        [placeholder]="'Select Product'"
+                                        [displayMemberPath]="'Article'" 
+                                        [selectedValuePath]="'Article'"
+                                        [isEditable]="false"
+                                        [isRequired]="true"
+                                        [(selectedIndex)]="deliveryProductSelectedIndex"
+                                        (selectedIndexChanged)="cboDeliveryProductSelectedIndexChanged()"
+                                        style="width: 100%; border-radius: 0px;">
+                                    </wj-combo-box>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Meeting Date</label>
+                                <div class="col-sm-8">
+                                    <wj-input-date
+                                        [(value)]="deliveryMeetingDateValue" 
+                                        [format]="'MMM dd, yyyy'"
+                                        (valueChanged)="deliveryMeetingDateOnValueChanged()"
+                                        style="width: 100%; border-radius: 0px;">
+                                    </wj-input-date>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Remarks</label>
+                                <div class="col-sm-8">
+                                    <textarea [(ngModel)]="deliveryRemarks" class="form-control" rows="5" id="deliveryRemarks" name="deliveryRemarks"  placeholder="Remarks"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Technical Staff</label>
+                                <div class="col-sm-8">
+                                    <wj-combo-box 
+                                        [itemsSource]="deliveryTechnicalUserObservableArray" 
+                                        [placeholder]="'Select User'"
+                                        [displayMemberPath]="'FullName'" 
+                                        [selectedValuePath]="'FullName'"
+                                        [isEditable]="false"
+                                        [isRequired]="true"
+                                        [(selectedIndex)]="deliveryTechnicalUserSelectedIndex"
+                                        (selectedIndexChanged)="cboDeliveryTechnicalUserSelectedIndexChanged()"
+                                        style="width: 100%; border-radius: 0px;">
+                                    </wj-combo-box>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Functional Staff</label>
+                                <div class="col-sm-8">
+                                    <wj-combo-box 
+                                        [itemsSource]="deliveryFunctionalUserObservableArray" 
+                                        [placeholder]="'Select User'"
+                                        [displayMemberPath]="'FullName'" 
+                                        [selectedValuePath]="'FullName'"
+                                        [isEditable]="false"
+                                        [isRequired]="true"
+                                        [(selectedIndex)]="deliveryFunctionalUserSelectedIndex"
+                                        (selectedIndexChanged)="cboDeliveryFunctionalUserSelectedIndexChanged()"
+                                        style="width: 100%; border-radius: 0px;">
+                                    </wj-combo-box>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Status</label>
+                                <div class="col-sm-8">
+                                    <wj-combo-box 
+                                        [itemsSource]="deliveryStatusArray" 
+                                        [placeholder]="'Select Status'"
+                                        [isEditable]="false"
+                                        [isRequired]="true"
+                                        [(selectedIndex)]="deliveryStatusSelectedIndex"
+                                        (selectedIndexChanged)="cboStatusSelectedIndexChangedClick()"
+                                        style="width: 100%; border-radius: 0px;">
+                                    </wj-combo-box>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" align="right">
+                <button type="button" id="btnSaveDelivery"  class="btn btn-primary" (click)="btnSaveDelivery()"><i class="fa fa-save fa-fw"></i> Save</button>
+                <button type="button" id="btnCloseDelivery" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- delete modal -->
+<div class="modal fade" id="delivery-delete-confirmation-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete</h4>
+            </div>
+            <div class="modal-body">
+                Delete Delivery?
+            </div>
+            <div class="modal-footer" align="right">
+                <button type="button" id="btnDeleteDelivery" class="btn btn-danger" (click)="btnDeleteConfirmDeliveryClick()"><i class="fa fa-trash fa-fw"></i> Delete</button>
+                <button type="button" id="btnDeleteCloseDelivery" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<button id="btn-hidden-delivery-detail-modal" [hidden]="true" data-toggle="modal" data-target="#delivery-detail-modal"></button>
+<button id="btn-hidden-delivery-delete-modal" [hidden]="true" data-toggle="modal" data-target="#delivery-delete-confirmation-modal"></button>
+<button id="btn-hidden-refresh-grid" [hidden]="true" (click)="getDeliveryData()"></button>
+
+
