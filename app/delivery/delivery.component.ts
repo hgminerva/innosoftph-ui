@@ -242,22 +242,22 @@ export class DeliveryComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnDeleteDelivery")).innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
     (<HTMLButtonElement>document.getElementById("btnDeleteDelivery")).disabled = false;
     (<HTMLButtonElement>document.getElementById("btnDeleteCloseDelivery")).disabled = false;
-    this.startLoading();
   }
 
   // delete delivery confirm click
   public btnDeleteConfirmDeliveryClick() {
+    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnDeleteDelivery")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
     (<HTMLButtonElement>document.getElementById("btnDeleteDelivery")).disabled = true;
     (<HTMLButtonElement>document.getElementById("btnDeleteCloseDelivery")).disabled = true;
     let currentSelectedDelivery = this.deliveryCollectionView.currentItem;
     this.deliveryService.deleteDeliveryData(currentSelectedDelivery.Id, toastr);
-    this.completeLoading();
   }
 
   // edit delivery
   public btnEditDelivery() {
+    this.startLoading();
     let currentSelectedDelivery = this.deliveryCollectionView.currentItem;
     this.router.navigate(['/deliveryDetail', currentSelectedDelivery.Id]);
   }
@@ -281,6 +281,7 @@ export class DeliveryComponent implements OnInit {
 
   // save delivery
   public btnSaveDelivery() {
+    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnSaveDelivery")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
     (<HTMLButtonElement>document.getElementById("btnSaveDelivery")).disabled = true;

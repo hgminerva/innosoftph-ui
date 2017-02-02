@@ -34,6 +34,8 @@ export class UserService {
                         });
                     }
                 }
+                
+                document.getElementById("btn-hidden-complete-loading").click();
             },
             error => {
                 this.toastr.error('', 'Something`s went wrong!');

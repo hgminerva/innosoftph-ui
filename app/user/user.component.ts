@@ -2,6 +2,7 @@ import { Component, ViewContainerRef, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
   selector: 'my-user',
@@ -19,9 +20,21 @@ export class UserComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private toastr: ToastsManager,
-    private vRef: ViewContainerRef
+    private vRef: ViewContainerRef,
+    private slimLoadingBarService: SlimLoadingBarService
   ) {
     this.toastr.setRootViewContainerRef(vRef);
+  }
+
+  // start loading
+  public startLoading() {
+    this.slimLoadingBarService.progress = 30;
+    this.slimLoadingBarService.start();
+  }
+
+  // complete loading
+  public completeLoading() {
+    this.slimLoadingBarService.complete();
   }
 
   // list user

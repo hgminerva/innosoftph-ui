@@ -17,7 +17,7 @@
                     <tr>
                         <td align="right">
                             <button class="btn btn-primary" id="btnSaveDeliveryDetail" name="btnSaveDeliveryDetail" (click)="btnSaveDeliveryDetailClick()"><i class="fa fa-save fa-fw"></i> Save</button>
-                            <button class="btn btn-danger" id="btnCloseDeliveryDetail" name="btnCloseDeliveryDetail" routerLink="/delivery"><i class="fa fa-close fa-fw"></i> Close</button>
+                            <button class="btn btn-danger" id="btnCloseDeliveryDetail" name="btnCloseDeliveryDetail" routerLink="/delivery" (click)="startLoading()"><i class="fa fa-close fa-fw"></i> Close</button>
                         </td>
                     </tr>
                 </table>
@@ -371,6 +371,8 @@
 </div>
 
 <!-- hidden elements to execute functions in API services -->
+<button id="btn-hidden-start-loading" [hidden]="true" (click)="startLoading()"></button>
+<button id="btn-hidden-complete-loading" [hidden]="true" (click)="completeLoading()"></button>
 <button id="btn-hidden-customer-data" [hidden]="true" (click)="getCustomerArticleData()"></button>
 <button id="btn-hidden-product-data" [hidden]="true" (click)="getProductArticleData()"></button>
 <button id="btn-hidden-sale-user-data" [hidden]="true" (click)="getSalesUserServiceData()"></button>

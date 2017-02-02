@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer, ElementRef, ViewContainerRef } from '@angu
 import { Router, ActivatedRoute } from '@angular/router';
 import { DeliveryService } from './delivery.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
   selector: 'my-delivery-detail',
@@ -77,8 +78,20 @@ export class DeliveryDetailComponent implements OnInit {
     private elementRef: ElementRef,
     private toastr: ToastsManager,
     private vRef: ViewContainerRef,
+    private slimLoadingBarService: SlimLoadingBarService
   ) {
     this.toastr.setRootViewContainerRef(vRef);
+  }
+
+  // start loading
+  public startLoading() {
+    this.slimLoadingBarService.progress = 30;
+    this.slimLoadingBarService.start();
+  }
+
+  // complete loading
+  public completeLoading() {
+    this.slimLoadingBarService.complete();
   }
 
   // get url Id parameter
@@ -118,7 +131,7 @@ export class DeliveryDetailComponent implements OnInit {
   public getSalesUserServiceData() {
     this.deliverySalesUserObservableArray = this.deliveryService.getListUserData("deliveryDetail", "sales");
   }
-  
+
   // list technical user
   public getTechnicalUserServiceData() {
     this.deliveryTechnicalUserObservableArray = this.deliveryService.getListUserData("deliveryDetail", "technical");
@@ -140,6 +153,7 @@ export class DeliveryDetailComponent implements OnInit {
     this.deliveryTechnicalUserSelectedValue = (<HTMLInputElement>document.getElementById("deliveryTechnicalUserSelectedValue")).value.toString();
     this.deliveryFunctionalUserSelectedValue = (<HTMLInputElement>document.getElementById("deliveryFunctionalUserSelectedValue")).value.toString();
     this.deliveryStatusSelectedValue = (<HTMLInputElement>document.getElementById("deliveryStatusSelectedValue")).value.toString();
+    this.deliveryStatus = (<HTMLInputElement>document.getElementById("deliveryStatusSelectedValue")).value.toString();
   }
 
   // delivery date on value changed
@@ -244,6 +258,7 @@ export class DeliveryDetailComponent implements OnInit {
 
   // save delivery
   public btnSaveDeliveryDetailClick() {
+    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnSaveDeliveryDetail")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
     (<HTMLButtonElement>document.getElementById("btnSaveDeliveryDetail")).disabled = true;
@@ -310,6 +325,7 @@ export class DeliveryDetailComponent implements OnInit {
 
   // save activity
   public btnActivitySaveClick() {
+    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
     (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = true;
@@ -332,6 +348,7 @@ export class DeliveryDetailComponent implements OnInit {
 
   // activity delete confirmation click
   public btnActivityDeleteConfirmationClick() {
+    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
     (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).disabled = true;

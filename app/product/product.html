@@ -64,3 +64,7 @@
         </div>
     </div>
 </div>
+
+<!-- hidden elements to execute functions in API services -->
+<button id="btn-hidden-start-loading" [hidden]="true" (click)="startLoading()"></button>
+<button id="btn-hidden-complete-loading" [hidden]="true" (click)="completeLoading()"></button>

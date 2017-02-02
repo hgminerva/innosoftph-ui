@@ -137,6 +137,8 @@ export class DeliveryService {
                         });
                     }
                 }
+
+                document.getElementById("btn-hidden-complete-loading").click();
             }
         );
 
@@ -161,6 +163,7 @@ export class DeliveryService {
                     (<HTMLInputElement>document.getElementById("deliveryFunctionalUserSelectedValue")).value = response.json().FunctionalUser;
                     (<HTMLInputElement>document.getElementById("deliveryStatusSelectedValue")).value = response.json().DeliveryStatus;
                     document.getElementById("btn-hidden-selectedValue-data").click();
+                    document.getElementById("btn-hidden-complete-loading").click();
                 } else {
                     alert("No Data");
                     this.router.navigate(["/delivery"]);
@@ -257,6 +260,8 @@ export class DeliveryService {
                         });
                     }
                 }
+
+                document.getElementById("btn-hidden-complete-loading").click();
             }
         );
 

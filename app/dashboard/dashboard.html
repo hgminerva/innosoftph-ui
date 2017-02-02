@@ -423,21 +423,21 @@
             <div id="setup" class="tab-pane fade">
                  <div class="row">
                     <div class="col-md-4">
-                        <button class="btn btn-success btn-lg btn-block" routerLink="/customer">
+                        <button class="btn btn-success btn-lg btn-block" routerLink="/customer" (click)="startLoading()">
                             <i class="fa fa-user fa-3x fa-fw"></i>
                             <br /><br />
                             Customer
                         </button>    
                     </div>
                     <div class="col-md-4">
-                         <button class="btn btn-success btn-lg btn-block" routerLink="/product">
+                         <button class="btn btn-success btn-lg btn-block" routerLink="/product" (click)="startLoading()">
                             <i class="fa fa-cubes fa-3x fa-fw"></i>
                             <br /><br />
                             Product
                         </button>    
                     </div>
                     <div class="col-md-4">
-                        <button class="btn btn-success btn-lg btn-block" routerLink="/user"> 
+                        <button class="btn btn-success btn-lg btn-block" routerLink="/user" (click)="startLoading()"> 
                             <i class="fa fa-key fa-3x fa-fw"></i>
                             <br /><br />
                             User
