@@ -226,6 +226,9 @@ export class DeliveryService {
             },
             error => {
                 this.toastr.error('', 'Something`s went wrong!');
+                (<HTMLButtonElement>document.getElementById("btnDeleteDelivery")).innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
+                (<HTMLButtonElement>document.getElementById("btnDeleteDelivery")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnDeleteCloseDelivery")).disabled = false;
             }
         )
     }
