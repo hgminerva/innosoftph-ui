@@ -2,6 +2,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuotationService } from './quotation.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
   selector: 'my-quotation',
@@ -37,9 +38,21 @@ export class QuotationComponent implements OnInit {
     private quotationService: QuotationService,
     private router: Router,
     private toastr: ToastsManager,
-    private vRef: ViewContainerRef
+    private vRef: ViewContainerRef,
+    private slimLoadingBarService: SlimLoadingBarService
   ) {
     this.toastr.setRootViewContainerRef(vRef);
+  }
+
+  // start loading
+  public startLoading() {
+    this.slimLoadingBarService.progress = 30;
+    this.slimLoadingBarService.start();
+  }
+
+  // complete loading
+  public completeLoading() {
+    this.slimLoadingBarService.complete();
   }
 
   // quotation dates
@@ -53,6 +66,7 @@ export class QuotationComponent implements OnInit {
   // event: quotation start date
   public quotationStartDateOnValueChanged() {
     if (!this.isQuotationStartDateSelected) {
+      this.startLoading();
       this.getQuotationData();
     } else {
       this.isQuotationStartDateSelected = false;
@@ -62,6 +76,7 @@ export class QuotationComponent implements OnInit {
   // event: quotation end date
   public quotationEndDateOnValueChanged() {
     if (!this.isQuotationEndDateSelected) {
+      this.startLoading();
       this.getQuotationData();
     } else {
       this.isQuotationEndDateSelected = false;
@@ -149,6 +164,7 @@ export class QuotationComponent implements OnInit {
 
   // btn edit quotation
   public btnEditQuotation() {
+    this.startLoading();
     let currentSelectedQuotation = this.quotationCollectionView.currentItem;
     this.router.navigate(['/quotationDetail', currentSelectedQuotation.Id]);
   }
@@ -162,6 +178,7 @@ export class QuotationComponent implements OnInit {
 
   // delete confirm
   public btnDeleteConfirmQuotationClick() {
+    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnDeleteQuotation")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
     (<HTMLButtonElement>document.getElementById("btnDeleteQuotation")).disabled = true;
@@ -186,6 +203,7 @@ export class QuotationComponent implements OnInit {
 
   // save quotation
   public btnSaveQuotation() {
+    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnSaveQuotation")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
     (<HTMLButtonElement>document.getElementById("btnSaveQuotation")).disabled = true;

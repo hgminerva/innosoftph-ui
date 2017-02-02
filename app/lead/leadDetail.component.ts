@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer, ElementRef, ViewContainerRef } from '@angu
 import { Router, ActivatedRoute } from '@angular/router';
 import { LeadService } from './lead.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
   selector: 'my-lead-detail',
@@ -70,24 +71,38 @@ export class LeadDetailComponent implements OnInit {
     private elementRef: ElementRef,
     private toastr: ToastsManager,
     private vRef: ViewContainerRef,
+    private slimLoadingBarService: SlimLoadingBarService
   ) {
     this.toastr.setRootViewContainerRef(vRef);
+  }
+
+  // start loading
+  public startLoading() {
+    this.slimLoadingBarService.progress = 30;
+    this.slimLoadingBarService.start();
+  }
+
+  // complete loading
+  public completeLoading() {
+    this.slimLoadingBarService.complete();
   }
 
   // lead date ranged
   public setLeadDateValue() {
     this.leadDateValue = new Date();
-    this.getListUser();
+    this.activityDateValue = new Date();
+    this.getListEncodedByUser();
+    this.getListActivity();
   }
 
-  // user list
-  public getListUser() {
-    this.leadEncodedUserObservableArray = this.leadService.getListUserData("leadDetail");
-    this.leadAssignedUserObservableArray = this.leadService.getListUserData("leadDetail");
+  // encoded by user list
+  public getListEncodedByUser() {
+    this.leadEncodedUserObservableArray = this.leadService.getListUserData("leadDetail", "encodedByUser");
+  }
 
-    // activity part
-    this.activityDateValue = new Date();
-    this.getListActivity();
+  // assigned to user list
+  public getListAssignedToUser() {
+    this.leadAssignedUserObservableArray = this.leadService.getListUserData("leadDetail", "assignedToUser");
   }
 
   // event: lead date
@@ -126,6 +141,7 @@ export class LeadDetailComponent implements OnInit {
     this.leadEncodedBySelectedValue = (<HTMLInputElement>document.getElementById("leadEncodedBySelectedValue")).value.toString();
     this.leadAssignedToSelectedValue = (<HTMLInputElement>document.getElementById("leadAssignedToSelectedValue")).value.toString();
     this.leadStatusSelectedValue = (<HTMLInputElement>document.getElementById("leadStatusSelectedValue")).value.toString();
+    this.leadStatus = (<HTMLInputElement>document.getElementById("leadStatusSelectedValue")).value.toString();
   }
 
   // get lead data
@@ -155,6 +171,7 @@ export class LeadDetailComponent implements OnInit {
 
   // save lead detail
   public btnSaveLeadDetailClick() {
+    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
     (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).disabled = true;
@@ -253,6 +270,7 @@ export class LeadDetailComponent implements OnInit {
 
   // save activity
   public btnActivitySaveClick() {
+    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
     (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = true;
@@ -275,6 +293,7 @@ export class LeadDetailComponent implements OnInit {
 
   // activity delete confirmation click
   public btnActivityDeleteConfirmationClick() {
+    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
     (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).disabled = true;

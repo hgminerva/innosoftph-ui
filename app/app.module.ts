@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from "@angular/http";
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 
 // wijmo
 import * as wjFlexGrid from 'wijmo/wijmo.angular2.grid';
@@ -67,7 +68,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule,
     HttpModule,
-    ToastModule
+    ToastModule,
+    SlimLoadingBarModule.forRoot()
   ],
   declarations: [
     AppComponent,

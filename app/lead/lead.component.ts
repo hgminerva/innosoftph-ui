@@ -2,6 +2,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { LeadService } from './lead.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
   selector: 'my-lead',
@@ -42,9 +43,21 @@ export class LeadComponent implements OnInit {
     private leadService: LeadService,
     private router: Router,
     private toastr: ToastsManager,
-    private vRef: ViewContainerRef
+    private vRef: ViewContainerRef,
+    private slimLoadingBarService: SlimLoadingBarService
   ) {
     this.toastr.setRootViewContainerRef(vRef);
+  }
+
+  // start loading
+  public startLoading() {
+    this.slimLoadingBarService.progress = 30;
+    this.slimLoadingBarService.start();
+  }
+
+  // complete loading
+  public completeLoading() {
+    this.slimLoadingBarService.complete();
   }
 
   // lead dates
@@ -108,6 +121,7 @@ export class LeadComponent implements OnInit {
   // event: lead start date
   public leadStartDateOnValueChanged() {
     if (!this.isLeadStartDateSelected) {
+      document.getElementById("btn-hidden-start-loading").click();
       this.getLeadData();
     } else {
       this.isLeadStartDateSelected = false;
@@ -117,6 +131,7 @@ export class LeadComponent implements OnInit {
   // event: lead end date
   public leadEndDateOnValueChanged() {
     if (!this.isLeadEndDateSelected) {
+      document.getElementById("btn-hidden-start-loading").click();
       this.getLeadData();
     } else {
       this.isLeadEndDateSelected = false;
@@ -132,8 +147,8 @@ export class LeadComponent implements OnInit {
 
   // user list
   public getListUser() {
-    this.leadEncodedUserObservableArray = this.leadService.getListUserData("lead");
-    this.leadAssignedUserObservableArray = this.leadService.getListUserData("lead");
+    this.leadEncodedUserObservableArray = this.leadService.getListUserData("lead", "");
+    this.leadAssignedUserObservableArray = this.leadService.getListUserData("lead", "");
   }
 
   // event: encoded by
@@ -170,6 +185,7 @@ export class LeadComponent implements OnInit {
 
   // btn edit lead
   public btnEditLead() {
+    document.getElementById("btn-hidden-start-loading").click();
     let currentSelectedLead = this.leadCollectionView.currentItem;
     this.router.navigate(['/leadDetail', currentSelectedLead.Id]);
   }
@@ -191,7 +207,6 @@ export class LeadComponent implements OnInit {
       ContactPhoneNo: this.leadContactNumber,
       ReferredBy: this.leadReferredBy,
       Remarks: this.leadRemarks,
-      // EncodedByUserId: this.leadEncodedByUserId.toString(),
       AssignedToUserId: assignedToUserIdValue,
       LeadStatus: this.leadStatus,
     }
@@ -201,6 +216,7 @@ export class LeadComponent implements OnInit {
 
   // btn save lead
   public btnSaveLead() {
+    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnSaveLead")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
     (<HTMLButtonElement>document.getElementById("btnSaveLead")).disabled = true;
@@ -217,6 +233,7 @@ export class LeadComponent implements OnInit {
 
   // delete lead
   public btnDeleteConfirmLeadClick() {
+    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnDeleteLead")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
     (<HTMLButtonElement>document.getElementById("btnDeleteLead")).disabled = true;

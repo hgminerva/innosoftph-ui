@@ -249,6 +249,9 @@
     </div>
 </div>
 
+<!-- hidden elements to execute functions in API services -->
+<button id="btn-hidden-start-loading" [hidden]="true" (click)="startLoading()"></button>
+<button id="btn-hidden-complete-loading" [hidden]="true" (click)="completeLoading()"></button>
 <button id="btn-hidden-lead-detail-modal" [hidden]="true" data-toggle="modal" data-target="#lead-detail-modal"></button>
 <button id="btn-hidden-lead-delete-modal" [hidden]="true" data-toggle="modal" data-target="#lead-delete-confirmation-modal"></button>
 <button id="btn-hidden-refresh-grid" [hidden]="true" (click)="getLeadData()"></button>

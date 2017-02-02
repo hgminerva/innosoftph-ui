@@ -285,6 +285,9 @@
     </div>
 </div>
 
+<!-- hidden elements to execute functions in API services -->
+<button id="btn-hidden-start-loading" [hidden]="true" (click)="startLoading()"></button>
+<button id="btn-hidden-complete-loading" [hidden]="true" (click)="completeLoading()"></button>
 <button id="btn-hidden-delivery-detail-modal" [hidden]="true" data-toggle="modal" data-target="#delivery-detail-modal"></button>
 <button id="btn-hidden-delivery-delete-modal" [hidden]="true" data-toggle="modal" data-target="#delivery-delete-confirmation-modal"></button>
 <button id="btn-hidden-refresh-grid" [hidden]="true" (click)="getDeliveryData()"></button>

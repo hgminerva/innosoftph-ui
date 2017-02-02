@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
   selector: 'my-app',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 
 export class AppComponent implements OnInit {
   // inject router
-  constructor(private router: Router) { }
+  constructor(private router: Router, private slimLoadingBarService: SlimLoadingBarService) { }
 
   // global variables
   public headerLogin = "";
@@ -23,6 +24,17 @@ export class AppComponent implements OnInit {
     localStorage.removeItem('token_type');
     localStorage.removeItem('userName');
     location.reload();
+  }
+
+  // start loading
+  public startLoading() {
+    this.slimLoadingBarService.progress = 30;
+    this.slimLoadingBarService.start();
+  }
+
+  // complete loading
+  public completeLoading() {
+    this.slimLoadingBarService.complete();
   }
 
   // initialization

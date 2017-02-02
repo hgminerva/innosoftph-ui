@@ -35,7 +35,7 @@ export class QuotationService {
                 }
 
                 if (page == "quotationDetail") {
-                    document.getElementById("btn-hidden-article-data").click();
+                    document.getElementById("btn-hidden-customer-data").click();
                 }
             }
         );
@@ -59,7 +59,13 @@ export class QuotationService {
                 }
 
                 if (page == "quotationDetail") {
-                    document.getElementById("btn-hidden-user-data").click();
+                    if (articleTypeId == 2) {
+                        document.getElementById("btn-hidden-product-data").click();
+                    } else {
+                        if (articleTypeId == 1) {
+                            document.getElementById("btn-hidden-encoded-user-data").click();
+                        }
+                    }
                 }
             }
         );
@@ -116,6 +122,8 @@ export class QuotationService {
                         });
                     }
                 }
+
+                document.getElementById("btn-hidden-complete-loading").click();
             }
         );
 
@@ -137,6 +145,7 @@ export class QuotationService {
                     (<HTMLInputElement>document.getElementById("quotationRemarks")).value = response.json().Remarks;
                     (<HTMLInputElement>document.getElementById("quotationStatusSelectedValue")).value = response.json().QuotationStatus;
                     document.getElementById("btn-hidden-selectedValue-data").click();
+                    document.getElementById("btn-hidden-complete-loading").click();
                 } else {
                     alert("No Data");
                     this.router.navigate(["/quotation"]);
@@ -180,7 +189,7 @@ export class QuotationService {
                 }, 1000);
             },
             error => {
-                this.toastr.error(error._body.replace(/^"?(.+?)"?$/,'$1'), 'Save Failed');
+                this.toastr.error(error._body.replace(/^"?(.+?)"?$/, '$1'), 'Save Failed');
                 (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                 (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnCloseQuotationDetail")).disabled = false;
@@ -207,7 +216,7 @@ export class QuotationService {
         )
     }
 
-    // list activity by lead Id
+    // list activity by quotation Id
     public getListActivityByQuotationId(quotationId: number): wijmo.collections.ObservableArray {
         let url = "http://localhost:22626/api/activity/list/byQuotationId/" + quotationId;
         let activityObservableArray = new wijmo.collections.ObservableArray();
@@ -237,6 +246,8 @@ export class QuotationService {
                         });
                     }
                 }
+
+                document.getElementById("btn-hidden-complete-loading").click();
             }
         );
 

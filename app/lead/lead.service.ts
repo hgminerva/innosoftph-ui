@@ -20,7 +20,7 @@ export class LeadService {
     ) { }
 
     // list user
-    public getListUserData(page: String): wijmo.collections.ObservableArray {
+    public getListUserData(page: String, userType: String): wijmo.collections.ObservableArray {
         let userObservableArray = new wijmo.collections.ObservableArray();
         let url = "http://localhost:22626/api/user/list";
         this.http.get(url, this.options).subscribe(
@@ -35,7 +35,13 @@ export class LeadService {
                 }
 
                 if (page == "leadDetail") {
-                    document.getElementById("btn-hidden-lead-data").click();
+                    if (userType == "encodedByUser") {
+                        document.getElementById("btn-hidden-assigned-user-data").click();
+                    } else {
+                        if (userType == "assignedToUser") {
+                            document.getElementById("btn-hidden-lead-data").click();
+                        }
+                    }
                 }
             }
         );
@@ -71,6 +77,8 @@ export class LeadService {
                         });
                     }
                 }
+
+                document.getElementById("btn-hidden-complete-loading").click();
             }
         );
 
@@ -97,6 +105,7 @@ export class LeadService {
                     (<HTMLInputElement>document.getElementById("leadAssignedToSelectedValue")).value = response.json().AssignedToUser;
                     (<HTMLInputElement>document.getElementById("leadStatusSelectedValue")).value = response.json().LeadStatus;
                     document.getElementById("btn-hidden-selectedValue-data").click();
+                    document.getElementById("btn-hidden-complete-loading").click();
                 } else {
                     alert("No Data");
                     this.router.navigate(["/lead"]);
@@ -196,6 +205,8 @@ export class LeadService {
                         });
                     }
                 }
+
+                document.getElementById("btn-hidden-complete-loading").click();
             }
         );
 

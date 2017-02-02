@@ -2,6 +2,7 @@ import { Component, OnInit, Renderer, ElementRef, ViewContainerRef } from '@angu
 import { Router, ActivatedRoute } from '@angular/router';
 import { QuotationService } from './quotation.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
   selector: 'my-quotation-detail',
@@ -70,8 +71,20 @@ export class QuotationDetailComponent implements OnInit {
     private elementRef: ElementRef,
     private toastr: ToastsManager,
     private vRef: ViewContainerRef,
+    private slimLoadingBarService: SlimLoadingBarService
   ) {
     this.toastr.setRootViewContainerRef(vRef);
+  }
+
+  // start loading
+  public startLoading() {
+    this.slimLoadingBarService.progress = 30;
+    this.slimLoadingBarService.start();
+  }
+
+  // complete loading
+  public completeLoading() {
+    this.slimLoadingBarService.complete();
   }
 
   // set selected value for drop down
@@ -90,17 +103,21 @@ export class QuotationDetailComponent implements OnInit {
     this.quotationDateValue = new Date();
     this.activityDateValue = new Date();
     this.getLeadServiceData();
-    this.getListActivity();
   }
 
   // list lead
   public getLeadServiceData() {
     this.quotationLeadObservableArray = this.quotationService.getListLeadData("quotationDetail");
+    this.getListActivity();
   }
 
-  // list article
-  public getArticleData() {
+  // list customer article
+  public getCustomerArticleData() {
     this.quotationCustomerObservableArray = this.quotationService.getListArticleData("quotationDetail", 2);
+  }
+
+  // list product article
+  public getProductArticleData() {
     this.quotationProductObservableArray = this.quotationService.getListArticleData("quotationDetail", 1);
   }
 
@@ -187,6 +204,7 @@ export class QuotationDetailComponent implements OnInit {
 
   // save quotation detail
   public btnSaveQuotationDetailClick() {
+    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
     (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).disabled = true;
@@ -271,6 +289,7 @@ export class QuotationDetailComponent implements OnInit {
 
   // save activity
   public btnActivitySaveClick() {
+    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
     (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = true;
@@ -293,6 +312,7 @@ export class QuotationDetailComponent implements OnInit {
 
   // activity delete confirmation click
   public btnActivityDeleteConfirmationClick() {
+    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
     (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).disabled = true;

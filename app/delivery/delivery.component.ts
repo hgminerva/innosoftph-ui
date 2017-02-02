@@ -2,6 +2,7 @@ import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { DeliveryService } from './delivery.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
   selector: 'my-delivery',
@@ -46,9 +47,21 @@ export class DeliveryComponent implements OnInit {
     private deliveryService: DeliveryService,
     private router: Router,
     private toastr: ToastsManager,
-    private vRef: ViewContainerRef
+    private vRef: ViewContainerRef,
+    private slimLoadingBarService: SlimLoadingBarService
   ) {
     this.toastr.setRootViewContainerRef(vRef);
+  }
+
+  // start loading
+  public startLoading() {
+    this.slimLoadingBarService.progress = 30;
+    this.slimLoadingBarService.start();
+  }
+
+  // complete loading
+  public completeLoading() {
+    this.slimLoadingBarService.complete();
   }
 
   // delivery date ranged
@@ -197,8 +210,8 @@ export class DeliveryComponent implements OnInit {
 
   // list product data
   public getListUsers() {
-    this.deliveryTechnicalUserObservableArray = this.deliveryService.getListUserData("delivery");
-    this.deliveryFunctionalUserObservableArray = this.deliveryService.getListUserData("delivery");
+    this.deliveryTechnicalUserObservableArray = this.deliveryService.getListUserData("delivery", "");
+    this.deliveryFunctionalUserObservableArray = this.deliveryService.getListUserData("delivery", "");
   }
 
   // technical user selected index changed
@@ -229,6 +242,7 @@ export class DeliveryComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnDeleteDelivery")).innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
     (<HTMLButtonElement>document.getElementById("btnDeleteDelivery")).disabled = false;
     (<HTMLButtonElement>document.getElementById("btnDeleteCloseDelivery")).disabled = false;
+    this.startLoading();
   }
 
   // delete delivery confirm click
@@ -239,6 +253,7 @@ export class DeliveryComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnDeleteCloseDelivery")).disabled = true;
     let currentSelectedDelivery = this.deliveryCollectionView.currentItem;
     this.deliveryService.deleteDeliveryData(currentSelectedDelivery.Id, toastr);
+    this.completeLoading();
   }
 
   // edit delivery

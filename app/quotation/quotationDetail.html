@@ -16,7 +16,7 @@
                     <tr>
                         <td align="right">
                             <button class="btn btn-primary" id="btnSaveQuotationDetail" name="btnSaveQuotationDetail" (click)="btnSaveQuotationDetailClick()"><i class="fa fa-save fa-fw"></i> Save</button>
-                            <button class="btn btn-danger" id="btnCloseQuotationDetail" name="btnCloseQuotationDetail" routerLink="/quotation"><i class="fa fa-close fa-fw"></i> Close</button>
+                            <button class="btn btn-danger" id="btnCloseQuotationDetail" name="btnCloseQuotationDetail" routerLink="/quotation" (click)="startLoading()"><i class="fa fa-close fa-fw"></i> Close</button>
                         </td>
                     </tr>
                 </table>
@@ -324,8 +324,11 @@
 </div>
 
 <!-- hidden elements to execute functions in API services -->
-<button id="btn-hidden-article-data" [hidden]="true" (click)="getArticleData()"></button>
-<button id="btn-hidden-user-data" [hidden]="true" (click)="getUserServiceData()"></button>
+<button id="btn-hidden-start-loading" [hidden]="true" (click)="startLoading()"></button>
+<button id="btn-hidden-complete-loading" [hidden]="true" (click)="completeLoading()"></button>
+<button id="btn-hidden-customer-data" [hidden]="true" (click)="getCustomerArticleData()"></button>
+<button id="btn-hidden-product-data" [hidden]="true" (click)="getProductArticleData()"></button>
+<button id="btn-hidden-encoded-user-data" [hidden]="true" (click)="getUserServiceData()"></button>
 <button id="btn-hidden-quotation-data" [hidden]="true" (click)="getQuotationServiceData()"></button>
 <button id="btn-hidden-selectedValue-data" [hidden]="true" (click)="setDropdownSelectedValueData()"></button>
 <button id="btn-hidden-activity-delete-modal" [hidden]="true" data-toggle="modal" data-target="#activity-delete-confirmation-modal"></button>
