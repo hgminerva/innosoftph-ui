@@ -273,9 +273,9 @@ export class QuotationService {
     }
 
     // update activity
-    public putActivityData(id: number, leadObject: Object, toastr: ToastsManager) {
+    public putActivityData(id: number, activityOject: Object, toastr: ToastsManager) {
         let url = "http://localhost:22626/api/activity/put/" + id;
-        this.http.put(url, JSON.stringify(leadObject), this.options).subscribe(
+        this.http.put(url, JSON.stringify(activityOject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
                 document.getElementById("btn-hidden-activity-detail-modal").click();

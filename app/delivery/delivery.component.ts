@@ -71,7 +71,7 @@ export class DeliveryComponent implements OnInit {
     this.getListDelivery();
   }
 
-  // event: quotation start date
+  // event: delivery start date
   public deliveryStartDateOnValueChanged() {
     if (!this.isDeliveryStartDateSelected) {
       this.getDeliveryData();
@@ -80,7 +80,7 @@ export class DeliveryComponent implements OnInit {
     }
   }
 
-  // event: quotation end date
+  // event: delivery end date
   public deliveryEndDateOnValueChanged() {
     if (!this.isDeliveryEndDateSelected) {
       this.getDeliveryData();

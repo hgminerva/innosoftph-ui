@@ -1,4 +1,4 @@
-// angular modules
+// angular modules and other libraries
 import { NgModule, enableProdMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
@@ -7,8 +7,6 @@ import { HttpModule } from "@angular/http";
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
-
-// wijmo
 import * as wjFlexGrid from 'wijmo/wijmo.angular2.grid';
 import * as wjInput from 'wijmo/wijmo.angular2.input';
 
@@ -31,6 +29,7 @@ import { QuotationComponent } from './quotation/quotation.component';
 import { QuotationDetailComponent } from './quotation/quotationDetail.component';
 import { DeliveryComponent } from './delivery/delivery.component';
 import { DeliveryDetailComponent } from './delivery/deliveryDetail.component';
+import { ContinuityComponent } from './continuity/continuity.component';
 
 // services
 import { LoginService } from './login/login.service';
@@ -40,6 +39,7 @@ import { UserService } from './user/user.service';
 import { LeadService } from './lead/lead.service';
 import { QuotationService } from './quotation/quotation.service';
 import { DeliveryService } from './delivery/delivery.service';
+import { ContinuityService } from './continuity/continuity.service';
 
 // paths and Routes
 const appRoutes: Routes = [
@@ -58,7 +58,8 @@ const appRoutes: Routes = [
   { path: 'quotation', component: QuotationComponent },
   { path: 'quotationDetail/:id', component: QuotationDetailComponent },
   { path: 'delivery', component: DeliveryComponent },
-  { path: 'deliveryDetail/:id', component: DeliveryDetailComponent }
+  { path: 'deliveryDetail/:id', component: DeliveryDetailComponent },
+  { path: 'continuity', component: ContinuityComponent },
 ];
 
 // module
@@ -94,7 +95,8 @@ const appRoutes: Routes = [
     QuotationComponent,
     QuotationDetailComponent,
     DeliveryComponent,
-    DeliveryDetailComponent
+    DeliveryDetailComponent,
+    ContinuityComponent
   ],
   providers: [
     LoginService,
@@ -103,7 +105,8 @@ const appRoutes: Routes = [
     UserService,
     LeadService,
     QuotationService,
-    DeliveryService
+    DeliveryService,
+    ContinuityService
   ],
   bootstrap: [
     AppComponent
