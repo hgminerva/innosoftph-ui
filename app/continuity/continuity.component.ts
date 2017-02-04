@@ -196,15 +196,16 @@ export class ContinuityComponent {
     if (add) {
       this.continuityDetailModalString = "Add";
       this.continuityId = 0;
-      this.continuityNumber = "NA"
+      this.continuityNumber = "--"
       this.continuityDateValue = new Date();
       this.continuityDeliverySelectedIndex = 0;
       this.continuityCustomerSelectedIndex = 0;
       this.continuityProductSelectedIndex = 0;
       this.continuityExpiryDateValue = new Date();
+      this.continuityStatusSelectedIndex = 0;
       this.continuityStatusSelectedValue = "OPEN";
       this.continuityStatus = "OPEN";
-      this.continuityStaffUser = "NA";
+      this.continuityStaffUser = "--";
     } else {
       let currentSelectedContinuity = this.continuityCollectionView.currentItem;
       this.continuityDetailModalString = "Edit";
