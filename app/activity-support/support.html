@@ -1,0 +1,314 @@
+<div class="content-section-b">
+    <div class="section-heading-custom">
+        <div class="container">
+            <h1 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: #fff; font-size: 35px;">SUPPORT</h1>
+        </div>
+    </div>
+</div>
+<div class="custom-content-a">
+    <div class="container">
+        <div class="well well-sm">
+            <a routerLink="/dashboard">Dashboard</a> &nbsp; / &nbsp; Supports
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <table border="0" style="width: 100%;">
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
+                                <input type="text" class="form-control" placeholder="filter" [(ngModel)]="filter" />
+                            </div>
+                        </td>
+                        <td align="right">
+                            <button class="btn btn-primary" (click)="btnAddSupportClick()" data-toggle="modal" data-target="#support-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
+                            <button class="btn btn-danger" routerLink="/dashboard"><i class="fa fa-close fa-fw"></i> Close</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-heading">
+               <table border="0" style="width: 100%;">
+                    <tr>
+                        <td style="width: 30%;">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
+                                <wj-input-date
+                                    [(value)]="supportStartDateValue" 
+                                    [max]="supportEndDateValue"
+                                    [format]="'MMM dd, yyyy'"
+                                    (valueChanged)="supportStartDateOnValueChanged()"
+                                    style="border-radius: 0px;">
+                                </wj-input-date>
+                            </div>
+                        </td>
+                        <td style="width: 30%;">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
+                                <wj-input-date
+                                    [(value)]="supportEndDateValue" 
+                                    [min]="supportStartDateValue"
+                                    [format]="'MMM dd, yyyy'"
+                                    (valueChanged)="supportEndDateOnValueChanged()"
+                                    style="border-radius: 0px;">
+                                </wj-input-date>
+                            </div>
+                        </td>
+                        <td style="width: 40%;"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-body">
+                 <wj-flex-grid [itemsSource]="supportCollectionView" [selectionMode]="3" style="border-radius: 0px;" [frozenColumns]="2">
+                    <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="60">
+                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                            <button class="btn btn-primary btn-xs btn-block" (click)="btnEditSupport()">
+                                <i class="fa fa-edit fa-fw"></i> Edit
+                            </button>
+                        </template>
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="80">
+                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                            <button class="btn btn-danger btn-xs btn-block" (click)="btnDeleteSupportClick()" data-toggle="modal" data-target="#support-delete-confirmation-modal">
+                                <i class="fa fa-trash fa-fw"></i> Delete
+                            </button>
+                        </template>
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Support No.'" [binding]="'SupportNumber'" [isReadOnly]="true" [width]="'1.6*'">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Date'" [binding]="'SupportDate'" [isReadOnly]="true" [width]="'1.3*'">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Customer'" [binding]="'Customer'" [isReadOnly]="true" [width]="'1.9*'">
+                    </wj-flex-grid-column>
+                     <wj-flex-grid-column [header]="'Product'" [binding]="'Product'" [isReadOnly]="true" [width]="'1.9*'">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Issue'" [binding]="'Issue'" [isReadOnly]="true" [width]="'2*'">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Encoded By'" [binding]="'EncodedByUser'" [isReadOnly]="true" [width]="'1.5*'">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Assigned To'" [binding]="'AssignedByUser'" [isReadOnly]="true" [width]="'1.5*'">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Remarks'" [binding]="'Remarks'" [isReadOnly]="true" [width]="'2*'">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Status'" [binding]="'SupportStatus'" [isReadOnly]="true" [width]="'1.5*'">
+                    </wj-flex-grid-column>
+                </wj-flex-grid>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-12 btn-group" id="">
+                        <button type="button" class="btn btn-default" (click)="supportCollectionView.moveToFirstPage()">
+                            <span class="glyphicon glyphicon-fast-backward"></span> First
+                        </button>
+                        <button type="button" class="btn btn-default" (click)="supportCollectionView.moveToPreviousPage()">
+                            <span class="glyphicon glyphicon-step-backward"></span> Previous
+                        </button>
+                        <button type="button" class="btn btn-default" disabled  style="width:100px">
+                            {{ supportCollectionView.pageIndex + 1 }} / {{ supportCollectionView.pageCount }}
+                        </button>
+                        <button type="button" class="btn btn-default" (click)="supportCollectionView.moveToNextPage()">
+                            Next <span class="glyphicon glyphicon-step-forward"></span>
+                        </button>
+                        <button type="button" class="btn btn-default" (click)="supportCollectionView.moveToLastPage()">
+                            Last <span class="glyphicon glyphicon-fast-forward"></span>
+                        </button>
+                    </div> 
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- support  detail modal -->
+<div class="modal fade" id="support-detail-modal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Support</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Support Date</label>
+                                <div class="col-sm-8">
+                                    <wj-input-date
+                                        [(value)]="supportDateValue" 
+                                        [format]="'MMM dd, yyyy'"
+                                        (valueChanged)="supportDateOnValueChanged()"
+                                        style="width: 100%; border-radius: 0px;">
+                                    </wj-input-date>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Continuity No.</label>
+                                <div class="col-sm-8">
+                                    <wj-combo-box 
+                                        [itemsSource]="supportContinuityObservableArray" 
+                                        [placeholder]="'Select Continuity Number'"
+                                        [displayMemberPath]="'ContinuityNumber'" 
+                                        [selectedValuePath]="'ContinuityNumber'"
+                                        [isEditable]="false"
+                                        [isRequired]="true"
+                                        [(selectedIndex)]="supportContinuitySelectedIndex"
+                                        (selectedIndexChanged)="cboSupportContinuitySelectedIndexChanged()"
+                                        style="width: 100%; border-radius: 0px;">
+                                    </wj-combo-box>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Issue Category</label>
+                                <div class="col-sm-8">
+                                        <wj-combo-box 
+                                        [itemsSource]="supportIssueCategoryArray" 
+                                        [placeholder]="'Select Issue Category'"
+                                        [isEditable]="false"
+                                        [isRequired]="true"
+                                        [(selectedIndex)]="supportIssueCategorySelectedIndex"
+                                        (selectedIndexChanged)="cboSupportIssueCategorySelectedIndexChangedClick()"
+                                        style="width: 100%; border-radius: 0px;">
+                                    </wj-combo-box>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Issue</label>
+                                <div class="col-sm-8">
+                                    <textarea [(ngModel)]="supportIssue" class="form-control" rows="5" id="supportIssue" name="supportIssue"  placeholder="Issue"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Customer</label>
+                                <div class="col-sm-8">
+                                    <wj-combo-box 
+                                        [itemsSource]="supportCustomerObservableArray" 
+                                        [placeholder]="'Select Customer'"
+                                        [displayMemberPath]="'Article'" 
+                                        [selectedValuePath]="'Article'"
+                                        [isEditable]="false"
+                                        [isRequired]="true"
+                                        [(selectedIndex)]="supportCustomerSelectedIndex"
+                                        (selectedIndexChanged)="cboSupportCustomerSelectedIndexChangedClick()"
+                                        style="width: 100%; border-radius: 0px;">
+                                    </wj-combo-box>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Product</label>
+                                <div class="col-sm-8">
+                                    <wj-combo-box 
+                                        [itemsSource]="supportProductObservableArray" 
+                                        [placeholder]="'Select Product'"
+                                        [displayMemberPath]="'Article'" 
+                                        [selectedValuePath]="'Article'"
+                                        [isEditable]="false"
+                                        [isRequired]="true"
+                                        [(selectedIndex)]="supportProductSelectedIndex"
+                                        (selectedIndexChanged)="cboSupportProductSelectedIndexChangedClick()"
+                                        style="width: 100%; border-radius: 0px;">
+                                    </wj-combo-box>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Severity</label>
+                                <div class="col-sm-8">
+                                        <wj-combo-box 
+                                        [itemsSource]="supportSeverityArray" 
+                                        [placeholder]="'Select Severity'"
+                                        [isEditable]="false"
+                                        [isRequired]="true"
+                                        [(selectedIndex)]="supportSeveritySelectedIndex"
+                                        (selectedIndexChanged)="cboSupportSeveritySelectedIndexChangedClick()"
+                                        style="width: 100%; border-radius: 0px;">
+                                    </wj-combo-box>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Caller</label>
+                                <div class="col-sm-8">
+                                    <input type="text" [(ngModel)]="supportCaller" class="form-control" id="supportCaller" name="supportCaller" placeholder="Caller" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Remarks</label>
+                                <div class="col-sm-8">
+                                    <textarea [(ngModel)]="supportRemarks" class="form-control" rows="5" id="supportRemarks" name="supportRemarks"  placeholder="Remarks"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Screen Shot URL</label>
+                                <div class="col-sm-8">
+                                    <textarea [(ngModel)]="supportScreenShotURL" class="form-control" rows="5" id="supportScreenShotURL" name="supportScreenShotURL"  placeholder="Screen Shot URL"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Assigned To</label>
+                                <div class="col-sm-8">
+                                    <wj-combo-box 
+                                        [itemsSource]="supportAssignedUserObservableArray" 
+                                        [placeholder]="'Select User'"
+                                        [displayMemberPath]="'FullName'" 
+                                        [selectedValuePath]="'FullName'"
+                                        [isEditable]="true"
+                                        [isRequired]="false"
+                                        [(selectedIndex)]="supportAssignedToSelectedIndex"
+                                        (selectedIndexChanged)="cboAssignedToSelectedIndexChangedClick()"
+                                        style="width: 100%; border-radius: 0px;">
+                                    </wj-combo-box>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Status</label>
+                                <div class="col-sm-8">
+                                        <wj-combo-box 
+                                        [itemsSource]="supportStatusArray" 
+                                        [placeholder]="'Select Status'"
+                                        [isEditable]="false"
+                                        [isRequired]="true"
+                                        [(selectedIndex)]="supportStatusSelectedIndex"
+                                        (selectedIndexChanged)="cboSupportStatusSelectedIndexChangedClick()"
+                                        style="width: 100%; border-radius: 0px;">
+                                    </wj-combo-box>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" align="right">
+                <button type="button" id="btnSaveSupport"  class="btn btn-primary" (click)="btnSaveSupport()"><i class="fa fa-save fa-fw"></i> Save</button>
+                <button type="button" id="btnCloseSupport" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- delete modal -->
+<div class="modal fade" id="support-delete-confirmation-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete</h4>
+            </div>
+            <div class="modal-body">
+                Delete Support?
+            </div>
+            <div class="modal-footer" align="right">
+                <button type="button" id="btnDeleteSupport" class="btn btn-danger" (click)="btnDeleteConfirmSupportClick()"><i class="fa fa-trash fa-fw"></i> Delete</button>
+                <button type="button" id="btnDeleteCloseSupport" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- hidden elements to execute functions in API services -->
+<button id="btn-hidden-start-loading" [hidden]="true" (click)="startLoading()"></button>
+<button id="btn-hidden-complete-loading" [hidden]="true" (click)="completeLoading()"></button>
+<button id="btn-hidden-support-detail-modal" [hidden]="true" data-toggle="modal" data-target="#support-detail-modal"></button>
+<button id="btn-hidden-support-delete-modal" [hidden]="true" data-toggle="modal" data-target="#support-delete-confirmation-modal"></button>
+<button id="btn-hidden-refresh-grid" [hidden]="true" (click)="getSupportData()"></button>

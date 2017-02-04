@@ -30,6 +30,8 @@ import { QuotationDetailComponent } from './activity-quotation/quotationDetail.c
 import { DeliveryComponent } from './activity-delivery/delivery.component';
 import { DeliveryDetailComponent } from './activity-delivery/deliveryDetail.component';
 import { ContinuityComponent } from './activity-continuity/continuity.component';
+import { SupportActivityComponent } from './activity-support/support.component';
+import { SupportDetailComponent } from './activity-support/supportDetail.component';
 
 // services
 import { LoginService } from './security-login/login.service';
@@ -40,6 +42,7 @@ import { LeadService } from './activity-lead/lead.service';
 import { QuotationService } from './activity-quotation/quotation.service';
 import { DeliveryService } from './activity-delivery/delivery.service';
 import { ContinuityService } from './activity-continuity/continuity.service';
+import { SupportService } from './activity-support/support.service';
 
 // paths and Routes
 const appRoutes: Routes = [
@@ -60,6 +63,8 @@ const appRoutes: Routes = [
   { path: 'delivery', component: DeliveryComponent },
   { path: 'deliveryDetail/:id', component: DeliveryDetailComponent },
   { path: 'continuity', component: ContinuityComponent },
+  { path: 'supportActivity', component: SupportActivityComponent },
+  { path: 'supportDetail/:id', component: SupportDetailComponent }
 ];
 
 // module
@@ -96,7 +101,9 @@ const appRoutes: Routes = [
     QuotationDetailComponent,
     DeliveryComponent,
     DeliveryDetailComponent,
-    ContinuityComponent
+    ContinuityComponent,
+    SupportActivityComponent,
+    SupportDetailComponent
   ],
   providers: [
     LoginService,
@@ -106,7 +113,8 @@ const appRoutes: Routes = [
     LeadService,
     QuotationService,
     DeliveryService,
-    ContinuityService
+    ContinuityService,
+    SupportService
   ],
   bootstrap: [
     AppComponent
