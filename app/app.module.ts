@@ -12,8 +12,8 @@ import * as wjInput from 'wijmo/wijmo.angular2.input';
 
 // components
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
-import { FooterComponent } from './footer/footer.component';
+import { HeaderComponent } from './shared-header/header.component';
+import { FooterComponent } from './shared-footer/footer.component';
 import { HomeComponent } from './home-landing-page/home.component';
 import { AboutComponent } from './home-about/about.component';
 import { SupportComponent } from './home-support/support.component';

@@ -4,7 +4,7 @@ import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
   selector: 'my-app',
-  templateUrl: 'app/header/header.html'
+  templateUrl: 'app/shared-header/header.html'
 })
 
 export class AppComponent implements OnInit {
