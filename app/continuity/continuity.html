@@ -216,7 +216,9 @@
                                 [placeholder]="'Select Status'"
                                 [isEditable]="false"
                                 [isRequired]="true"
+                                [(selectedIndex)]="continuityStatusSelectedIndex"
                                 [selectedValue]="continuityStatusSelectedValue"
+                                (selectedIndexChanged)="cboContinuityStatusSelectedIndexChanged()"
                                 style="width: 100%; border-radius: 0px;">
                             </wj-combo-box>
                         </div>
@@ -252,5 +254,6 @@
 <!-- hidden elements to execute functions in API services -->
 <button id="btn-hidden-start-loading" [hidden]="true" (click)="startLoading()"></button>
 <button id="btn-hidden-complete-loading" [hidden]="true" (click)="completeLoading()"></button>
-
-
+<button id="btn-hidden-continuity-detail-modal" [hidden]="true" data-toggle="modal" data-target="#continuity-detail-modal"></button>
+<button id="btn-hidden-continuity-delete-modal" [hidden]="true" data-toggle="modal" data-target="#continuity-delete-confirmation-modal"></button>
+<button id="btn-hidden-continuity-data" [hidden]="true" (click)="getContinuityData()"></button>

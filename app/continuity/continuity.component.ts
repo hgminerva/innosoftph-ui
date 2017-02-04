@@ -39,6 +39,7 @@ export class ContinuityComponent {
   public continuityStatus: String;
   public continuityStaffUser: String;
   public continuityNumber: String;
+  public continuityStatusSelectedIndex = -1;
 
   // inject continuity service
   constructor(
@@ -69,6 +70,7 @@ export class ContinuityComponent {
     this.continuityDateValue = new Date();
     this.continuityExpiryDateValue = new Date();
     this.getContinuityData();
+    this.getListDeliveryServiceData();
   }
 
   // continuity date on value changed
@@ -107,7 +109,6 @@ export class ContinuityComponent {
     this.continuityCollectionView.filter = this.filterFunction.bind(this);
     this.continuityCollectionView.pageSize = 15;
     this.continuityCollectionView.trackChanges = true;
-    this.getListDeliveryServiceData();
   }
 
   // filter
@@ -189,6 +190,9 @@ export class ContinuityComponent {
 
   // add continuity click
   public btnContinuityDetailClick(add: boolean) {
+    (<HTMLButtonElement>document.getElementById("btnSaveContinuity")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+    (<HTMLButtonElement>document.getElementById("btnSaveContinuity")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnCloseContinuity")).disabled = false;
     if (add) {
       this.continuityDetailModalString = "Add";
       this.continuityId = 0;
@@ -199,6 +203,7 @@ export class ContinuityComponent {
       this.continuityProductSelectedIndex = 0;
       this.continuityExpiryDateValue = new Date();
       this.continuityStatusSelectedValue = "OPEN";
+      this.continuityStatus = "OPEN";
       this.continuityStaffUser = "NA";
     } else {
       let currentSelectedContinuity = this.continuityCollectionView.currentItem;
@@ -211,8 +216,14 @@ export class ContinuityComponent {
       this.continuityProductSelectedValue = currentSelectedContinuity.Product;
       this.continuityExpiryDateValue = new Date(currentSelectedContinuity.ExpiryDate);
       this.continuityStatusSelectedValue = currentSelectedContinuity.ContinuityStatus;
+      this.continuityStatus = currentSelectedContinuity.ContinuityStatus;
       this.continuityStaffUser = currentSelectedContinuity.StaffUser;
     }
+  }
+
+  // continuity status selected index changed
+  public cboContinuityStatusSelectedIndexChanged() {
+    this.continuityStatus = this.continuityStatusArray[this.continuityStatusSelectedIndex];
   }
 
   // continuity data
@@ -223,7 +234,7 @@ export class ContinuityComponent {
       CustomerId: this.continuitCustomerId,
       ProductId: this.continuitProductId,
       ExpiryDate: this.continuityExpiryDateValue.toLocaleDateString(),
-      ContinuityStatus: this.continuityStatusSelectedValue
+      ContinuityStatus: this.continuityStatus
     }
 
     return dataObject;
@@ -231,17 +242,34 @@ export class ContinuityComponent {
 
   // save continuity
   public btnSaveContinuity() {
-    
+    this.startLoading();
+    let toastr: ToastsManager;
+    (<HTMLButtonElement>document.getElementById("btnSaveContinuity")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
+    (<HTMLButtonElement>document.getElementById("btnSaveContinuity")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnCloseContinuity")).disabled = true;
+    if (this.continuityId == 0) {
+      this.continuityService.postContinuityData(this.getContinuityValue(), toastr);
+    } else {
+      this.continuityService.putContinuityData(this.continuityId, this.getContinuityValue(), toastr);
+    }
   }
 
   // delete continuity
-  public btnDeleteContinuityClick () {
-
+  public btnDeleteContinuityClick() {
+    (<HTMLButtonElement>document.getElementById("btnDeleteContinuity")).innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
+    (<HTMLButtonElement>document.getElementById("btnDeleteContinuity")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnDeleteCloseContinuity")).disabled = false;
   }
 
   // delete confirm continuity
   public btnDeleteConfirmContinuityClick() {
-
+    this.startLoading();
+    let toastr: ToastsManager;
+    (<HTMLButtonElement>document.getElementById("btnDeleteContinuity")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
+    (<HTMLButtonElement>document.getElementById("btnDeleteContinuity")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnDeleteCloseContinuity")).disabled = true;
+    let currentSelectedContinuity = this.continuityCollectionView.currentItem;
+    this.continuityService.deleteContinuityData(currentSelectedContinuity.Id, toastr);
   }
 
   // initialization

@@ -126,14 +126,14 @@ export class ContinuityService {
         this.http.post(url, JSON.stringify(continuityOject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
-                // document.getElementById("btn-hidden-activity-detail-modal").click();
-                // document.getElementById("btn-hidden-activity-data").click();
+                document.getElementById("btn-hidden-continuity-detail-modal").click();
+                document.getElementById("btn-hidden-continuity-data").click();
             },
             error => {
                 this.toastr.error('', 'Something`s went wrong!');
-                // (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-                // (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = false;
-                // (<HTMLButtonElement>document.getElementById("btnActivityClose")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnSaveContinuity")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                (<HTMLButtonElement>document.getElementById("btnSaveContinuity")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnCloseContinuity")).disabled = false;
             }
         )
     }
@@ -144,14 +144,14 @@ export class ContinuityService {
         this.http.put(url, JSON.stringify(continuityOject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
-                // document.getElementById("btn-hidden-activity-detail-modal").click();
-                // document.getElementById("btn-hidden-activity-data").click();
+                document.getElementById("btn-hidden-continuity-detail-modal").click();
+                document.getElementById("btn-hidden-continuity-data").click();
             },
             error => {
                 this.toastr.error('', 'Something`s went wrong!');
-                // (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-                // (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = false;
-                // (<HTMLButtonElement>document.getElementById("btnActivityClose")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnSaveContinuity")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                (<HTMLButtonElement>document.getElementById("btnSaveContinuity")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnCloseContinuity")).disabled = false;
             }
         )
     }
@@ -162,14 +162,14 @@ export class ContinuityService {
         this.http.delete(url, this.options).subscribe(
             response => {
                 this.toastr.success('', 'Delete Successful');
-                // document.getElementById("btn-hidden-activity-delete-modal").click();
-                // document.getElementById("btn-hidden-activity-data").click();
+                document.getElementById("btn-hidden-continuity-delete-modal").click();
+                document.getElementById("btn-hidden-continuity-data").click();
             },
             error => {
                 this.toastr.error('', 'Something`s went wrong!');
-                // (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-                // (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).disabled = false;
-                // (<HTMLButtonElement>document.getElementById("btnActivityCloseDeleteConfirmation")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnDeleteContinuity")).innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
+                (<HTMLButtonElement>document.getElementById("btnDeleteContinuity")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnDeleteCloseContinuity")).disabled = false;
             }
         )
     }
