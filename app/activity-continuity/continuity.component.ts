@@ -6,7 +6,7 @@ import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
   selector: 'my-continuity',
-  templateUrl: 'app/continuity/continuity.html'
+  templateUrl: 'app/activity-continuity/continuity.html'
 })
 
 export class ContinuityComponent {

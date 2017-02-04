@@ -6,7 +6,7 @@ import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
   selector: 'my-lead',
-  templateUrl: 'app/lead/lead.html'
+  templateUrl: 'app/activity-lead/lead.html'
 })
 
 export class LeadComponent implements OnInit {

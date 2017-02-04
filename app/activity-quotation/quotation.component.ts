@@ -6,7 +6,7 @@ import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
   selector: 'my-quotation',
-  templateUrl: 'app/quotation/quotation.html'
+  templateUrl: 'app/activity-quotation/quotation.html'
 })
 
 export class QuotationComponent implements OnInit {

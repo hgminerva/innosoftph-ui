@@ -6,7 +6,7 @@ import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
   selector: 'my-product',
-  templateUrl: 'app/product/product.html'
+  templateUrl: 'app/setup-product/product.html'
 })
 
 export class ProductComponent {

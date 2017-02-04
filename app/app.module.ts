@@ -20,26 +20,26 @@ import { SupportComponent } from './home-support/support.component';
 import { ContactComponent } from './home-contact/contact.component';
 import { LoginComponent } from './login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { CustomerComponent } from './customer/customer.component';
-import { ProductComponent } from './product/product.component';
-import { UserComponent } from './user/user.component';
-import { LeadComponent } from './lead/lead.component';
-import { LeadDetailComponent } from './lead/leadDetail.component';
-import { QuotationComponent } from './quotation/quotation.component';
-import { QuotationDetailComponent } from './quotation/quotationDetail.component';
-import { DeliveryComponent } from './delivery/delivery.component';
-import { DeliveryDetailComponent } from './delivery/deliveryDetail.component';
-import { ContinuityComponent } from './continuity/continuity.component';
+import { CustomerComponent } from './setup-customer/customer.component';
+import { ProductComponent } from './setup-product/product.component';
+import { UserComponent } from './setup-user/user.component';
+import { LeadComponent } from './activity-lead/lead.component';
+import { LeadDetailComponent } from './activity-lead/leadDetail.component';
+import { QuotationComponent } from './activity-quotation/quotation.component';
+import { QuotationDetailComponent } from './activity-quotation/quotationDetail.component';
+import { DeliveryComponent } from './activity-delivery/delivery.component';
+import { DeliveryDetailComponent } from './activity-delivery/deliveryDetail.component';
+import { ContinuityComponent } from './activity-continuity/continuity.component';
 
 // services
 import { LoginService } from './login/login.service';
-import { CustomerService } from './customer/customer.service';
-import { ProductService } from './product/product.service';
-import { UserService } from './user/user.service';
-import { LeadService } from './lead/lead.service';
-import { QuotationService } from './quotation/quotation.service';
-import { DeliveryService } from './delivery/delivery.service';
-import { ContinuityService } from './continuity/continuity.service';
+import { CustomerService } from './setup-customer/customer.service';
+import { ProductService } from './setup-product/product.service';
+import { UserService } from './setup-user/user.service';
+import { LeadService } from './activity-lead/lead.service';
+import { QuotationService } from './activity-quotation/quotation.service';
+import { DeliveryService } from './activity-delivery/delivery.service';
+import { ContinuityService } from './activity-continuity/continuity.service';
 
 // paths and Routes
 const appRoutes: Routes = [

@@ -6,7 +6,7 @@ import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
   selector: 'my-delivery',
-  templateUrl: 'app/delivery/delivery.html'
+  templateUrl: 'app/activity-delivery/delivery.html'
 })
 
 export class DeliveryComponent implements OnInit {

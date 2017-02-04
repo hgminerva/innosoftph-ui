@@ -1,39 +1,39 @@
 import { Component, OnInit, Renderer, ElementRef, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { LeadService } from './lead.service';
+import { QuotationService } from './quotation.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 @Component({
-  selector: 'my-lead-detail',
-  templateUrl: 'app/lead/leadDetail.html'
+  selector: 'my-quotation-detail',
+  templateUrl: 'app/activity-quotation/quotationDetail.html'
 })
 
-export class LeadDetailComponent implements OnInit {
-  // global variables
-  public leadDateValue: Date;
-  public isLeadDateSelected = true;
-  public leadId: number;
-  public leadName: String;
-  public leadAddress: String;
-  public leadContactPerson: String;
-  public leadContactPosition: String;
-  public leadContactEmail: String;
-  public leadContactNumber: String;
-  public leadEncodedByUserId: number;
-  public leadAssignedToUserId: number;
-  public leadReferredBy: String;
-  public leadEncodedUserObservableArray: wijmo.collections.ObservableArray;
-  public leadEncodedBySelectedIndex = -1;
-  public leadEncodedBySelectedValue: String;
-  public leadAssignedUserObservableArray: wijmo.collections.ObservableArray;
-  public leadAssignedToSelectedIndex = -1;
-  public leadAssignedToSelectedValue: String;
-  public leadRemarks: String;
-  public leadStatus: String;
-  public leadStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
-  public leadStatusSelectedIndex = -1;
-  public leadStatusSelectedValue: String;
+export class QuotationDetailComponent implements OnInit {
+  // global variable
+  public quotationId: number;
+  public quotationDateValue: Date;
+  public isQuotationDateSelected = true;
+  public quotationLeadObservableArray: wijmo.collections.ObservableArray;
+  public quotationLeadSelectedIndex = -1;
+  public quotationLeadSelectedValue: String;
+  public quotationLeadId: number;
+  public quotationCustomerObservableArray: wijmo.collections.ObservableArray;
+  public quotationCustomerSelectedIndex = -1;
+  public quotationCustomerSelectedValue: String;
+  public quotationCustomerId: number;
+  public quotationProductObservableArray: wijmo.collections.ObservableArray;
+  public quotationProductSelectedIndex = -1;
+  public quotationProductSelectedValue: String;
+  public quotationProductId: number;
+  public quotationEncodedUserObservableArray: wijmo.collections.ObservableArray;
+  public quotationEncodedBySelectedIndex = -1;
+  public quotationEncodedBySelectedValue: String;
+  public quotationEncodedByUserId: number;
+  public quotationStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
+  public quotationStatusSelectedIndex = -1;
+  public quotationStatusSelectedValue: String;
+  public quotationStatus: String;
   public activityCollectionView: wijmo.collections.CollectionView;
   public activityDetailModalString: String;
   public activityId: number;
@@ -62,9 +62,9 @@ export class LeadDetailComponent implements OnInit {
   public activityStatusSelectedValue: String;
   public activityAmount: String;
 
-  // inject lead detail service
+  // inject quotation detail service
   constructor(
-    private leadService: LeadService,
+    private quotationService: QuotationService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private renderer: Renderer,
@@ -87,105 +87,129 @@ export class LeadDetailComponent implements OnInit {
     this.slimLoadingBarService.complete();
   }
 
-  // lead date ranged
-  public setLeadDateValue() {
-    this.leadDateValue = new Date();
+  // set selected value for drop down
+  public setDropdownSelectedValueData() {
+    this.quotationDateValue = new Date((<HTMLInputElement>document.getElementById("quotationDateValue")).value.toString());
+    this.quotationLeadSelectedValue = (<HTMLInputElement>document.getElementById("quotationLeadSelectedValue")).value.toString();
+    this.quotationCustomerSelectedValue = (<HTMLInputElement>document.getElementById("quotationCustomerSelectedValue")).value.toString();
+    this.quotationProductSelectedValue = (<HTMLInputElement>document.getElementById("quotationProductSelectedValue")).value.toString();
+    this.quotationEncodedBySelectedValue = (<HTMLInputElement>document.getElementById("quotationEncodedBySelectedValue")).value.toString();
+    this.quotationStatusSelectedValue = (<HTMLInputElement>document.getElementById("quotationStatusSelectedValue")).value.toString();
+    this.quotationStatus = this.quotationStatusSelectedValue;
+  }
+
+  // quotation date value
+  public setQuotationDateValue() {
+    this.quotationDateValue = new Date();
     this.activityDateValue = new Date();
-    this.getListEncodedByUser();
+    this.getLeadServiceData();
+  }
+
+  // list lead
+  public getLeadServiceData() {
+    this.quotationLeadObservableArray = this.quotationService.getListLeadData("quotationDetail");
     this.getListActivity();
   }
 
-  // encoded by user list
-  public getListEncodedByUser() {
-    this.leadEncodedUserObservableArray = this.leadService.getListUserData("leadDetail", "encodedByUser");
+  // list customer article
+  public getCustomerArticleData() {
+    this.quotationCustomerObservableArray = this.quotationService.getListArticleData("quotationDetail", 2);
   }
 
-  // assigned to user list
-  public getListAssignedToUser() {
-    this.leadAssignedUserObservableArray = this.leadService.getListUserData("leadDetail", "assignedToUser");
+  // list product article
+  public getProductArticleData() {
+    this.quotationProductObservableArray = this.quotationService.getListArticleData("quotationDetail", 1);
   }
 
-  // event: lead date
-  public leadDateOnValueChanged() {
-    if (this.isLeadDateSelected) {
-      this.isLeadDateSelected = false;
-    }
+  // list product
+  public getUserServiceData() {
+    this.quotationEncodedUserObservableArray = this.quotationService.getListUserData("quotationDetail");
   }
 
-  // event: encoded by
-  public cboEncodedBySelectedIndexChangedClick() {
-    if (this.leadEncodedBySelectedIndex >= 0) {
-      this.leadEncodedByUserId = this.leadEncodedUserObservableArray[this.leadEncodedBySelectedIndex].Id;
-    } else {
-      this.leadEncodedByUserId = 0;
-    }
-  }
-
-  // event: assigned to
-  public cboAssignedToSelectedIndexChangedClick() {
-    if (this.leadAssignedToSelectedIndex >= 0) {
-      this.leadAssignedToUserId = this.leadAssignedUserObservableArray[this.leadAssignedToSelectedIndex].Id;
-    } else {
-      this.leadAssignedToUserId = 0;
-    }
-  }
-
-  // event: status
-  public cboStatusSelectedIndexChangedClick() {
-    this.leadStatus = this.leadStatusArray[this.leadStatusSelectedIndex];
-  }
-
-  // set dropdown data
-  public setDropdownSelectedValueData() {
-    this.leadDateValue = new Date((<HTMLInputElement>document.getElementById("leadDateValue")).value.toString());
-    this.leadEncodedBySelectedValue = (<HTMLInputElement>document.getElementById("leadEncodedBySelectedValue")).value.toString();
-    this.leadAssignedToSelectedValue = (<HTMLInputElement>document.getElementById("leadAssignedToSelectedValue")).value.toString();
-    this.leadStatusSelectedValue = (<HTMLInputElement>document.getElementById("leadStatusSelectedValue")).value.toString();
-    this.leadStatus = (<HTMLInputElement>document.getElementById("leadStatusSelectedValue")).value.toString();
-  }
-
-  // get lead data
-  public getLeadValue() {
-    let assignedToUserIdValue = "NULL";
-    if (this.leadAssignedToUserId > 0) {
-      assignedToUserIdValue = this.leadAssignedToUserId.toString();
-    }
-
-    let dataObject = {
-      LeadDate: this.leadDateValue.toLocaleDateString(),
-      LeadName: (<HTMLInputElement>document.getElementById("leadName")).value,
-      Address: (<HTMLInputElement>document.getElementById("leadAddress")).value,
-      ContactPerson: (<HTMLInputElement>document.getElementById("leadContactPerson")).value,
-      ContactPosition: (<HTMLInputElement>document.getElementById("leadContactPosition")).value,
-      ContactEmail: (<HTMLInputElement>document.getElementById("leadContactEmail")).value,
-      ContactPhoneNo: (<HTMLInputElement>document.getElementById("leadContactNumber")).value,
-      ReferredBy: (<HTMLInputElement>document.getElementById("leadReferredBy")).value,
-      Remarks: (<HTMLInputElement>document.getElementById("leadRemarks")).value,
-      // EncodedByUserId: this.leadEncodedByUserId.toString(),
-      AssignedToUserId: assignedToUserIdValue,
-      LeadStatus: this.leadStatus,
-    }
-
-    return dataObject;
-  }
-
-  // save lead detail
-  public btnSaveLeadDetailClick() {
-    this.startLoading();
-    let toastr: ToastsManager;
-    (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
-    (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).disabled = true;
-    (<HTMLButtonElement>document.getElementById("btnCloseLeadDetail")).disabled = true;
-    this.leadService.putLeadData(this.getIdUrlParameter(), this.getLeadValue(), toastr);
+  // quotation data
+  public getQuotationServiceData() {
+    this.quotationService.getQuotationById(this.getIdUrlParameter());
   }
 
   // get url Id parameter
   public getIdUrlParameter() {
     this.activatedRoute.params.subscribe(params => {
-      this.leadId = params['id'];
+      this.quotationId = params['id'];
     });
 
-    return this.leadId;
+    return this.quotationId;
+  }
+
+  // quotataion data value changed
+  public quotationDateOnValueChanged() {
+    if (this.isQuotationDateSelected) {
+      this.isQuotationDateSelected = false;
+    }
+  }
+
+  // quotation lead selected index changed
+  public cboQuotationLeadSelectedIndexChanged() {
+    if (this.quotationLeadSelectedIndex >= 0) {
+      this.quotationLeadId = this.quotationLeadObservableArray[this.quotationLeadSelectedIndex].Id;
+    } else {
+      this.quotationLeadId = 0;
+    }
+  }
+
+  // quotation customer selected index changed
+  public cboQuotationCustomerSelectedIndexChangedClick() {
+    if (this.quotationCustomerSelectedIndex >= 0) {
+      this.quotationCustomerId = this.quotationCustomerObservableArray[this.quotationCustomerSelectedIndex].Id;
+    } else {
+      this.quotationCustomerId = 0;
+    }
+  }
+
+  // quotation product selected index changed
+  public cboQuotationProductSelectedIndexChangedClick() {
+    if (this.quotationProductSelectedIndex >= 0) {
+      this.quotationProductId = this.quotationProductObservableArray[this.quotationProductSelectedIndex].Id;
+    } else {
+      this.quotationProductId = 0;
+    }
+  }
+
+  // quotation user selected index changed
+  public cboquotationEncodedBySelectedIndexChangedClick() {
+    if (this.quotationEncodedBySelectedIndex >= 0) {
+      this.quotationEncodedByUserId = this.quotationEncodedUserObservableArray[this.quotationEncodedBySelectedIndex].Id;
+    } else {
+      this.quotationEncodedByUserId = 0;
+    }
+  }
+
+  // quotation status selected index changed
+  public cboQuotationStatusSelectedIndexChangedClick() {
+    this.quotationStatus = this.quotationStatusArray[this.quotationStatusSelectedIndex];
+  }
+
+  // quotation data
+  public getQuotationValue() {
+    let dataObject = {
+      QuotationDate: this.quotationDateValue.toLocaleDateString(),
+      LeadId: this.quotationLeadId,
+      CustomerId: this.quotationCustomerId,
+      ProductId: this.quotationProductId,
+      Remarks: (<HTMLInputElement>document.getElementById("quotationRemarks")).value,
+      QuotationStatus: this.quotationStatus
+    }
+
+    return dataObject;
+  }
+
+  // save quotation detail
+  public btnSaveQuotationDetailClick() {
+    this.startLoading();
+    let toastr: ToastsManager;
+    (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
+    (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnCloseQuotationDetail")).disabled = true;
+    this.quotationService.putQuotationData(this.getIdUrlParameter(), this.getQuotationValue(), toastr);
   }
 
   // on key press decimal key
@@ -206,14 +230,9 @@ export class LeadDetailComponent implements OnInit {
     }, 100);
   }
 
-  // get lead data by id
-  public getLeadServiceData() {
-    this.leadService.getLeadById(this.getIdUrlParameter());
-  }
-
   // activity line list
   public getListActivity() {
-    this.activityCollectionView = new wijmo.collections.CollectionView(this.leadService.getListActivityByLeadId(this.getIdUrlParameter()));
+    this.activityCollectionView = new wijmo.collections.CollectionView(this.quotationService.getListActivityByQuotationId(this.getIdUrlParameter()));
     this.activityCollectionView.pageSize = 15;
     this.activityCollectionView.trackChanges = true;
   }
@@ -232,7 +251,7 @@ export class LeadDetailComponent implements OnInit {
       this.activityNoOfHoursSelectedValue = "0";
       (<HTMLInputElement>document.getElementById("activityAmount")).value = "0";
       this.activityAmount = "0";
-      this.activityStatusSelectedValue = "Open";
+      this.activityStatusSelectedValue = "OPEN";
     } else {
       this.activityDetailModalString = "Edit";
       let currentSelectedActivity = this.activityCollectionView.currentItem;
@@ -251,15 +270,15 @@ export class LeadDetailComponent implements OnInit {
   public getActivityData() {
     let activityDataObject = {
       ActivityDate: this.activityDateValue.toLocaleDateString(),
-      CustomerId: "NULL",
-      ProductId: "NULL",
+      CustomerId: this.quotationCustomerId,
+      ProductId: this.quotationProductId,
       ParticularCategory: this.activityParticularCategorySelectedValue,
       Particulars: (<HTMLInputElement>document.getElementById("activityParticulars")).value,
       NumberOfHours: this.activityNoOfHoursSelectedValue,
       ActivityAmount: this.activityAmount,
       ActivityStatus: this.activityStatusSelectedValue,
-      LeadId: this.getIdUrlParameter(),
-      QuotationId: "NULL",
+      LeadId: "NULL",
+      QuotationId: this.getIdUrlParameter(),
       DeliveryId: "NULL",
       SupportId: "NULL",
       LeadStatus: this.activityStatusSelectedValue
@@ -276,9 +295,9 @@ export class LeadDetailComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = true;
     (<HTMLButtonElement>document.getElementById("btnActivityClose")).disabled = true;
     if (this.activityId == 0) {
-      this.leadService.postActivityData(this.getActivityData(), toastr);
+      this.quotationService.postActivityData(this.getActivityData(), toastr);
     } else {
-      this.leadService.putActivityData(this.activityId, this.getActivityData(), toastr);
+      this.quotationService.putActivityData(this.activityId, this.getActivityData(), toastr);
     }
   }
 
@@ -298,7 +317,7 @@ export class LeadDetailComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
     (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).disabled = true;
     (<HTMLButtonElement>document.getElementById("btnActivityCloseDeleteConfirmation")).disabled = true;
-    this.leadService.deleteActivityData(this.activityId, toastr);
+    this.quotationService.deleteActivityData(this.activityId, toastr);
   }
 
   // print
@@ -312,6 +331,6 @@ export class LeadDetailComponent implements OnInit {
     if (!localStorage.getItem('access_token')) {
       this.router.navigate(['login']);
     }
-    this.setLeadDateValue();
+    this.setQuotationDateValue();
   }
 }
