@@ -7,7 +7,7 @@ import { LoginService } from './login.service';
 
 @Component({
   selector: 'my-login',
-  templateUrl: 'app/login/login.html'
+  templateUrl: 'app/security-login/login.html'
 })
 
 export class LoginComponent implements OnInit {

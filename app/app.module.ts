@@ -18,7 +18,7 @@ import { HomeComponent } from './home-landing-page/home.component';
 import { AboutComponent } from './home-about/about.component';
 import { SupportComponent } from './home-support/support.component';
 import { ContactComponent } from './home-contact/contact.component';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './security-login/login.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { CustomerComponent } from './setup-customer/customer.component';
 import { ProductComponent } from './setup-product/product.component';
@@ -32,7 +32,7 @@ import { DeliveryDetailComponent } from './activity-delivery/deliveryDetail.comp
 import { ContinuityComponent } from './activity-continuity/continuity.component';
 
 // services
-import { LoginService } from './login/login.service';
+import { LoginService } from './security-login/login.service';
 import { CustomerService } from './setup-customer/customer.service';
 import { ProductService } from './setup-product/product.service';
 import { UserService } from './setup-user/user.service';
