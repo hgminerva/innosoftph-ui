@@ -29,7 +29,9 @@ export class DeliveryService {
                     if (response.json().hasOwnProperty(key)) {
                         quotationObservableArray.push({
                             Id: response.json()[key].Id,
-                            QuotationNumber: response.json()[key].QuotationNumber
+                            QuotationNumber: response.json()[key].QuotationNumber,
+                            Customer: response.json()[key].Customer,
+                            Product: response.json()[key].Product
                         });
                     }
                 }

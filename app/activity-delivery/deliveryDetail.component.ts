@@ -46,16 +46,7 @@ export class DeliveryDetailComponent implements OnInit {
   public activityId: number;
   public activityDateValue: Date;
   public activityParticularCategories = [
-    'New Installation',
-    'Software Bug',
-    'Data Tracing',
-    'New Feature',
-    'Data Tracing',
-    'Hardware or Infrastructure Problem',
-    'Retraining',
-    'Reinstallation',
-    'Progam Update',
-    'Data Archive'
+    'Delivery'
   ];
   public activityParticularCategorySelectedIndex = 0;
   public activityParticularCategorySelectedValue: String;
@@ -170,6 +161,8 @@ export class DeliveryDetailComponent implements OnInit {
   public cboDeliveryQuotaionSelectedIndexChanged() {
     if (this.deliveryQuotaionSelectedIndex >= 0) {
       this.deliveryQuotationId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].Id;
+      this.deliveryCustomerSelectedValue = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].Customer;
+      this.deliveryProductSelectedValue = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].Product;
     } else {
       this.deliveryQuotationId = 0;
     }

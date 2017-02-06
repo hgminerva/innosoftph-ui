@@ -30,6 +30,8 @@ export class SupportService {
                         continuityObservableArray.push({
                             Id: response.json()[key].Id,
                             ContinuityNumber: response.json()[key].ContinuityNumber,
+                            Customer: response.json()[key].Customer,
+                            Product: response.json()[key].Product,
                         });
                     }
                 }

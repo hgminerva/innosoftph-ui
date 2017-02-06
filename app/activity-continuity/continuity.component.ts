@@ -154,6 +154,8 @@ export class ContinuityComponent {
   public cboContinuityDeliverySelectedIndexChanged() {
     if (this.continuityDeliverySelectedIndex >= 0) {
       this.continuityDeliveryId = this.continuityDeliveryObservableArray[this.continuityDeliverySelectedIndex].Id;
+      this.continuityCustomerSelectedValue = this.continuityDeliveryObservableArray[this.continuityDeliverySelectedIndex].Customer;
+      this.continuityProductSelectedValue = this.continuityDeliveryObservableArray[this.continuityDeliverySelectedIndex].Product;
     } else {
       this.continuityDeliveryId = 0;
     }

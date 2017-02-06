@@ -32,8 +32,6 @@ export class DeliveryComponent implements OnInit {
   public deliveryFunctionalUserSelectedIndex = -1;
   public deliveryStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
   public deliveryStatusSelectedIndex = 0;
-
-  // data
   public deliveryQuotationId: number;
   public deliveryCustomerId: number;
   public deliveryProductId: number;
@@ -41,6 +39,9 @@ export class DeliveryComponent implements OnInit {
   public deliveryTechnicalUserId: number;
   public deliveryFunctionalUserId: number;
   public deliveryStatus: String;
+
+  public deliveryCustomerSelectedValue: String;
+  public deliveryProductSelectedValue: String;
 
   // inject delivery service
   constructor(
@@ -150,6 +151,8 @@ export class DeliveryComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnSaveDelivery")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
     (<HTMLButtonElement>document.getElementById("btnSaveDelivery")).disabled = false;
     (<HTMLButtonElement>document.getElementById("btnCloseDelivery")).disabled = false;
+    this.deliveryCustomerSelectedValue = "";
+    this.deliveryProductSelectedValue = "";
   }
 
   // delivery date on value changed
@@ -167,6 +170,8 @@ export class DeliveryComponent implements OnInit {
   public cboDeliveryQuotaionSelectedIndexChanged() {
     if (this.deliveryQuotaionSelectedIndex >= 0) {
       this.deliveryQuotationId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].Id;
+      this.deliveryCustomerSelectedValue = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].Customer;
+      this.deliveryProductSelectedValue = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].Product;
     } else {
       this.deliveryQuotationId = 0;
     }

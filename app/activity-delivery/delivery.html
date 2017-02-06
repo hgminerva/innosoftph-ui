@@ -166,7 +166,9 @@
                                         [selectedValuePath]="'Article'"
                                         [isEditable]="false"
                                         [isRequired]="true"
+                                        [isDisabled]="true"
                                         [(selectedIndex)]="deliveryCustomerSelectedIndex"
+                                        [selectedValue]="deliveryCustomerSelectedValue"
                                         (selectedIndexChanged)="cboDeliveryCustomerSelectedIndexChanged()"
                                         style="width: 100%; border-radius: 0px;">
                                     </wj-combo-box>
@@ -182,7 +184,9 @@
                                         [selectedValuePath]="'Article'"
                                         [isEditable]="false"
                                         [isRequired]="true"
+                                        [isDisabled]="true"
                                         [(selectedIndex)]="deliveryProductSelectedIndex"
+                                        [selectedValue]="deliveryProductSelectedValue"
                                         (selectedIndexChanged)="cboDeliveryProductSelectedIndexChanged()"
                                         style="width: 100%; border-radius: 0px;">
                                     </wj-combo-box>
@@ -291,5 +295,3 @@
 <button id="btn-hidden-delivery-detail-modal" [hidden]="true" data-toggle="modal" data-target="#delivery-detail-modal"></button>
 <button id="btn-hidden-delivery-delete-modal" [hidden]="true" data-toggle="modal" data-target="#delivery-delete-confirmation-modal"></button>
 <button id="btn-hidden-refresh-grid" [hidden]="true" (click)="getDeliveryData()"></button>
-
-

@@ -39,16 +39,7 @@ export class LeadDetailComponent implements OnInit {
   public activityId: number;
   public activityDateValue: Date;
   public activityParticularCategories = [
-    'New Installation',
-    'Software Bug',
-    'Data Tracing',
-    'New Feature',
-    'Data Tracing',
-    'Hardware or Infrastructure Problem',
-    'Retraining',
-    'Reinstallation',
-    'Progam Update',
-    'Data Archive'
+    'Lead'
   ];
   public activityParticularCategorySelectedIndex = 0;
   public activityParticularCategorySelectedValue: String;

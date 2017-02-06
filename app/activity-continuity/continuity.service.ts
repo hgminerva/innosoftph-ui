@@ -29,7 +29,9 @@ export class ContinuityService {
                     if (response.json().hasOwnProperty(key)) {
                         deliveryObservableArray.push({
                             Id: response.json()[key].Id,
-                            DeliveryNumber: response.json()[key].DeliveryNumber
+                            DeliveryNumber: response.json()[key].DeliveryNumber,
+                            Customer: response.json()[key].Customer,
+                            Product: response.json()[key].Product
                         });
                     }
                 }

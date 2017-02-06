@@ -60,6 +60,8 @@ export class SupportActivityComponent implements OnInit {
   public supportProductId: number;
   public supportSeverity: String;
   public supportSupportStatus: String;
+  public supportCustomerSelectedValue: String;
+  public supportProductSelectedValue: String;
 
   // inject support service
   constructor(
@@ -168,6 +170,8 @@ export class SupportActivityComponent implements OnInit {
   // add support
   public btnAddSupportClick() {
     this.getListContinuity();
+    this.supportCustomerSelectedValue = "";
+    this.supportProductSelectedValue = "";
     (<HTMLButtonElement>document.getElementById("btnSaveSupport")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
     (<HTMLButtonElement>document.getElementById("btnSaveSupport")).disabled = false;
     (<HTMLButtonElement>document.getElementById("btnCloseSupport")).disabled = false;
@@ -260,6 +264,8 @@ export class SupportActivityComponent implements OnInit {
   public cboSupportContinuitySelectedIndexChanged() {
     if (this.supportContinuitySelectedIndex >= 0) {
       this.supportContinuityId = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].Id;
+      this.supportCustomerSelectedValue = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].Customer;
+      this.supportProductSelectedValue = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].Product;
     } else {
       this.supportContinuityId = 0;
     }
