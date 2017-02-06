@@ -33,7 +33,7 @@ export class SupportActivityComponent implements OnInit {
     'Progam Update',
     'Data Archive'
   ];
-  public supportIssueCategorySelectedIndex = -1;
+  public supportIssueCategorySelectedIndex = 0;
   public supportIssue: String;
   public supportCustomerObservableArray: wijmo.collections.ObservableArray;
   public supportCustomerSelectedIndex = -1;
@@ -45,16 +45,23 @@ export class SupportActivityComponent implements OnInit {
     'Low (2 day resolution)',
     'Gossip'
   ];
-  public supportSeveritySelectedIndex = -1;
+  public supportSeveritySelectedIndex = 0;
   public supportCaller: String;
   public supportRemarks: String;
   public supportScreenShotURL: String;
   public supportAssignedUserObservableArray: wijmo.collections.ObservableArray;
   public supportAssignedToSelectedIndex = -1;
   public supportStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
-  public supportStatusSelectedIndex = -1;
+  public supportStatusSelectedIndex = 0;
+  public supportAssignedToUserId: number;
+  public supportContinuityId: number;
+  public supportIssueCategory: String;
+  public supportCustomerId: number;
+  public supportProductId: number;
+  public supportSeverity: String;
+  public supportSupportStatus: String;
 
-  // inject lead service
+  // inject support service
   constructor(
     private supportService: SupportService,
     private router: Router,
@@ -161,18 +168,69 @@ export class SupportActivityComponent implements OnInit {
   // add support
   public btnAddSupportClick() {
     this.getListContinuity();
+    (<HTMLButtonElement>document.getElementById("btnSaveSupport")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+    (<HTMLButtonElement>document.getElementById("btnSaveSupport")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnCloseSupport")).disabled = false;
+  }
+
+  // support values
+  public getSupportObjectValue() {
+    let assignedToUserIdValue = "NULL";
+    if (this.supportAssignedToUserId > 0) {
+      assignedToUserIdValue = this.supportAssignedToUserId.toString();
+    }
+
+    let dataObject = {
+      SupportDate: this.supportDateValue.toLocaleDateString(),
+      ContinuityId: this.supportContinuityId,
+      IssueCategory: this.supportIssueCategory,
+      Issue: this.supportIssue,
+      CustomerId: this.supportCustomerId,
+      ProductId: this.supportProductId,
+      Severity: this.supportSeverity,
+      Caller: this.supportCaller,
+      Remarks: this.supportRemarks,
+      ScreenShotURL: this.supportScreenShotURL,
+      AssignedToUserId: assignedToUserIdValue,
+      SupportStatus: this.supportSupportStatus
+    }
+
+    return dataObject;
+  }
+
+  // save support
+  public btnSaveSupport() {
+    document.getElementById("btn-hidden-start-loading").click();
+    let toastr: ToastsManager;
+    (<HTMLButtonElement>document.getElementById("btnSaveSupport")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
+    (<HTMLButtonElement>document.getElementById("btnSaveSupport")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnCloseSupport")).disabled = true;
+    this.supportService.postSupportData(this.getSupportObjectValue(), toastr);
   }
 
   // edit support
   public btnEditSupport() {
     document.getElementById("btn-hidden-start-loading").click();
-    let currentSelectedLead = this.supportCollectionView.currentItem;
-    this.router.navigate(['/supportDetail', currentSelectedLead.Id]);
+    let currentSelectedSupport = this.supportCollectionView.currentItem;
+    this.router.navigate(['/supportDetail', currentSelectedSupport.Id]);
   }
 
   // delete support
   public btnDeleteSupportClick() {
+    (<HTMLButtonElement>document.getElementById("btnDeleteSupport")).innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
+    (<HTMLButtonElement>document.getElementById("btnDeleteSupport")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnDeleteCloseSupport")).disabled = false;
+  }
 
+  // delete support confirm
+  public btnDeleteConfirmSupportClick() {
+    document.getElementById("btn-hidden-start-loading").click();
+    let toastr: ToastsManager;
+    (<HTMLButtonElement>document.getElementById("btnDeleteSupport")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
+    (<HTMLButtonElement>document.getElementById("btnDeleteSupport")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnDeleteCloseSupport")).disabled = true;
+    let currentSelectedSupport = this.supportCollectionView.currentItem;
+    this.supportService.deleteSupportData(currentSelectedSupport.Id, toastr);
   }
 
   // support date value changed
@@ -195,42 +253,58 @@ export class SupportActivityComponent implements OnInit {
 
   // assigned to user list
   public getListAssignedToUser() {
-    this.supportAssignedUserObservableArray = this.supportService.getListUserData("support");
+    this.supportAssignedUserObservableArray = this.supportService.getListUserData("support", "");
   }
 
   // support continuuity selected index changed
   public cboSupportContinuitySelectedIndexChanged() {
-
+    if (this.supportContinuitySelectedIndex >= 0) {
+      this.supportContinuityId = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].Id;
+    } else {
+      this.supportContinuityId = 0;
+    }
   }
 
   // support issue category selected index changed
   public cboSupportIssueCategorySelectedIndexChangedClick() {
-
+    this.supportIssueCategory = this.supportIssueCategoryArray[this.supportIssueCategorySelectedIndex];
   }
 
   // support customer selected index changed
   public cboSupportCustomerSelectedIndexChangedClick() {
-
+    if (this.supportCustomerSelectedIndex >= 0) {
+      this.supportCustomerId = this.supportCustomerObservableArray[this.supportCustomerSelectedIndex].Id;
+    } else {
+      this.supportCustomerId = 0;
+    }
   }
 
   // support product selected index changed
   public cboSupportProductSelectedIndexChangedClick() {
-
+    if (this.supportProductSelectedIndex >= 0) {
+      this.supportProductId = this.supportProductObservableArray[this.supportProductSelectedIndex].Id;
+    } else {
+      this.supportProductId = 0;
+    }
   }
 
   // support severity selected index changed
   public cboSupportSeveritySelectedIndexChangedClick() {
-
+    this.supportSeverity = this.supportSeverityArray[this.supportSeveritySelectedIndex];
   }
 
   // support assigned to selected index changed
   public cboAssignedToSelectedIndexChangedClick() {
-
+    if (this.supportAssignedToSelectedIndex >= 0) {
+      this.supportAssignedToUserId = this.supportAssignedUserObservableArray[this.supportAssignedToSelectedIndex].Id;
+    } else {
+      this.supportAssignedToUserId = 0;
+    }
   }
 
   // support status to selected index changed
   public cboSupportStatusSelectedIndexChangedClick() {
-
+    this.supportSupportStatus = this.supportStatusArray[this.supportStatusSelectedIndex];
   }
 
   // initialization

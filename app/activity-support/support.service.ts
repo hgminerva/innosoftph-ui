@@ -35,7 +35,7 @@ export class SupportService {
                 }
 
                 if (page == "supportDetail") {
-                    // document.getElementById("btn-hidden-customer-data").click();
+                    document.getElementById("btn-hidden-customer-data").click();
                 }
             }
         );
@@ -60,10 +60,10 @@ export class SupportService {
 
                 if (page == "supportDetail") {
                     if (articleTypeId == 2) {
-                        // document.getElementById("btn-hidden-product-data").click();
+                        document.getElementById("btn-hidden-product-data").click();
                     } else {
                         if (articleTypeId == 1) {
-                            // document.getElementById("btn-hidden-encoded-user-data").click();
+                            document.getElementById("btn-hidden-encoded-by-user-data").click();
                         }
                     }
                 }
@@ -74,7 +74,7 @@ export class SupportService {
     }
 
     // list user
-    public getListUserData(page: String): wijmo.collections.ObservableArray {
+    public getListUserData(page: String, userType: String): wijmo.collections.ObservableArray {
         let userObservableArray = new wijmo.collections.ObservableArray();
         let url = "http://localhost:22626/api/user/list";
         this.http.get(url, this.options).subscribe(
@@ -89,7 +89,13 @@ export class SupportService {
                 }
 
                 if (page == "supportDetail") {
-                    // document.getElementById("btn-hidden-quotation-data").click();
+                    if (userType == "encodedByUser") {
+                        document.getElementById("btn-hidden-assigned-to-user-data").click();
+                    } else {
+                        if (userType == "assignedToUser") {
+                            document.getElementById("btn-hidden-support-data").click();
+                        }
+                    }
                 }
             }
         );
@@ -143,16 +149,22 @@ export class SupportService {
         this.http.get(url, this.options).subscribe(
             response => {
                 if (response.json() != null) {
-                    // (<HTMLInputElement>document.getElementById("quotationDateValue")).value = response.json().QuotationDate;
-                    // (<HTMLInputElement>document.getElementById("quotationNumber")).value = response.json().QuotationNumber;
-                    // (<HTMLInputElement>document.getElementById("quotationLeadSelectedValue")).value = response.json().LeadNumber;
-                    // (<HTMLInputElement>document.getElementById("quotationCustomerSelectedValue")).value = response.json().Customer;
-                    // (<HTMLInputElement>document.getElementById("quotationProductSelectedValue")).value = response.json().Product;
-                    // (<HTMLInputElement>document.getElementById("quotationEncodedBySelectedValue")).value = response.json().EncodedByUser;
-                    // (<HTMLInputElement>document.getElementById("quotationRemarks")).value = response.json().Remarks;
-                    // (<HTMLInputElement>document.getElementById("quotationStatusSelectedValue")).value = response.json().QuotationStatus;
-                    // document.getElementById("btn-hidden-selectedValue-data").click();
-                    // document.getElementById("btn-hidden-complete-loading").click();
+                    (<HTMLInputElement>document.getElementById("supportNumber")).value = response.json().SupportNumber;
+                    (<HTMLInputElement>document.getElementById("supportDateValue")).value = response.json().SupportDate;
+                    (<HTMLInputElement>document.getElementById("supportContinuitySelectedValue")).value = response.json().ContinuityNumber;
+                    (<HTMLInputElement>document.getElementById("supportIssueCategorySelectedValue")).value = response.json().IssueCategory;
+                    (<HTMLInputElement>document.getElementById("supportIssue")).value = response.json().Issue;
+                    (<HTMLInputElement>document.getElementById("supportCustomerSelectedValue")).value = response.json().Customer;
+                    (<HTMLInputElement>document.getElementById("supportProductSelectedValue")).value = response.json().Product;
+                    (<HTMLInputElement>document.getElementById("supportSeveritySelectedValue")).value = response.json().Severity;
+                    (<HTMLInputElement>document.getElementById("supportCaller")).value = response.json().Caller;
+                    (<HTMLInputElement>document.getElementById("supportRemarks")).value = response.json().Remarks;
+                    (<HTMLInputElement>document.getElementById("supportScreenShotURL")).value = response.json().ScreenShotURL;
+                    (<HTMLInputElement>document.getElementById("supportEncodedBySelectedValue")).value = response.json().EncodedByUser;
+                    (<HTMLInputElement>document.getElementById("supportAssignedToSelectedValue")).value = response.json().AssignedToUser;
+                    (<HTMLInputElement>document.getElementById("supportStatusSelectedValue")).value = response.json().SupportStatus;
+                    document.getElementById("btn-hidden-selectedValue-data").click();
+                    document.getElementById("btn-hidden-complete-loading").click();
                 } else {
                     alert("No Data");
                     this.router.navigate(["/supportActivity"]);
@@ -169,14 +181,14 @@ export class SupportService {
                 if (response.json() > 0) {
                     this.toastr.success('', 'Save Successful');
                     setTimeout(() => {
-                        // document.getElementById("btn-hidden-quotation-detail-modal").click();
+                        document.getElementById("btn-hidden-support-detail-modal").click();
                         this.router.navigate(['/supportDetail', response.json()]);
                     }, 1000);
                 } else {
                     this.toastr.error('', 'Something`s went wrong!');
-                    // (<HTMLButtonElement>document.getElementById("btnSaveQuotation")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-                    // (<HTMLButtonElement>document.getElementById("btnSaveQuotation")).disabled = false;
-                    // (<HTMLButtonElement>document.getElementById("btnCloseQuotation")).disabled = false;
+                    (<HTMLButtonElement>document.getElementById("btnSaveSupport")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                    (<HTMLButtonElement>document.getElementById("btnSaveSupport")).disabled = false;
+                    (<HTMLButtonElement>document.getElementById("btnCloseSupport")).disabled = false;
                 }
             },
             error => {
@@ -196,11 +208,11 @@ export class SupportService {
                 }, 1000);
             },
             error => {
-                this.toastr.success('', 'Save Unsuccessful');
+                this.toastr.error('', 'Save Unsuccessful');
                 // this.toastr.error(error._body.replace(/^"?(.+?)"?$/, '$1'), 'Save Failed');
-                // (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-                // (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).disabled = false;
-                // (<HTMLButtonElement>document.getElementById("btnCloseQuotationDetail")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnSaveSupportDetail")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                (<HTMLButtonElement>document.getElementById("btnSaveSupportDetail")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnCloseSupportDetail")).disabled = false;
             }
         )
     }
@@ -211,14 +223,14 @@ export class SupportService {
         this.http.delete(url, this.options).subscribe(
             response => {
                 this.toastr.success('', 'Delete Successful');
-                // document.getElementById("btn-hidden-quotation-delete-modal").click();
-                // document.getElementById("btn-hidden-refresh-grid").click();
+                document.getElementById("btn-hidden-support-delete-modal").click();
+                document.getElementById("btn-hidden-refresh-grid").click();
             },
             error => {
                 this.toastr.error('', 'Something`s went wrong!');
-                // (<HTMLButtonElement>document.getElementById("btnDeleteQuotation")).innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
-                // (<HTMLButtonElement>document.getElementById("btnDeleteQuotation")).disabled = false;
-                // (<HTMLButtonElement>document.getElementById("btnDeleteCloseQuotation")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnDeleteSupport")).innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
+                (<HTMLButtonElement>document.getElementById("btnDeleteSupport")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnDeleteCloseSupport")).disabled = false;
             }
         )
     }
