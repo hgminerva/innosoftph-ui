@@ -378,7 +378,7 @@ export class SupportDetailComponent implements OnInit {
   // print
   public btnActivityPrintClick() {
     let currentSelectedActivity = this.activityCollectionView.currentItem;
-    window.open('http://localhost:22626/RepActivityTicket/activityTicket?activityId=' + currentSelectedActivity.Id, "_target");
+    window.open('http://api.innosoft.ph/RepActivityTicket/activityTicket?activityId=' + currentSelectedActivity.Id, "_target");
   }
 
   // initialization
