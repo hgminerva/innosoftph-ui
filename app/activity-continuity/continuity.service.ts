@@ -21,7 +21,7 @@ export class ContinuityService {
 
     // list delivery by status
     public getListDeliveryData(): wijmo.collections.ObservableArray {
-        let url = "http://localhost:22626/api/delivery/list/byDeliveryStatus";
+        let url = "http://api.innosoft.ph/api/delivery/list/byDeliveryStatus";
         let deliveryObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
@@ -44,7 +44,7 @@ export class ContinuityService {
     // list article by article type
     public getListArticleData(articleTypeId: number): wijmo.collections.ObservableArray {
         let articleObservableArray = new wijmo.collections.ObservableArray();
-        let url = "http://localhost:22626/api/article/list/byArticleTypeId/" + articleTypeId;
+        let url = "http://api.innosoft.ph/api/article/list/byArticleTypeId/" + articleTypeId;
         this.http.get(url, this.options).subscribe(
             response => {
                 for (var key in response.json()) {
@@ -72,7 +72,7 @@ export class ContinuityService {
     // list user
     public getListUserData(page: String, userType: String): wijmo.collections.ObservableArray {
         let userObservableArray = new wijmo.collections.ObservableArray();
-        let url = "http://localhost:22626/api/user/list";
+        let url = "http://api.innosoft.ph/api/user/list";
         this.http.get(url, this.options).subscribe(
             response => {
                 for (var key in response.json()) {
@@ -91,7 +91,7 @@ export class ContinuityService {
 
     // list continuity by date ranged (start date and end date)
     public getListContinuityData(continuityStartDate: Date, continuityEndDate: Date): wijmo.collections.ObservableArray {
-        let url = "http://localhost:22626/api/continuity/list/byContinuityDateRange/" + continuityStartDate.toDateString() + "/" + continuityEndDate.toDateString();
+        let url = "http://api.innosoft.ph/api/continuity/list/byContinuityDateRange/" + continuityStartDate.toDateString() + "/" + continuityEndDate.toDateString();
         let continuityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
@@ -124,7 +124,7 @@ export class ContinuityService {
 
     // add continuity
     public postContinuityData(continuityOject: Object, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/continuity/post";
+        let url = "http://api.innosoft.ph/api/continuity/post";
         this.http.post(url, JSON.stringify(continuityOject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
@@ -142,7 +142,7 @@ export class ContinuityService {
 
     // update continuity
     public putContinuityData(id: number, continuityOject: Object, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/continuity/put/" + id;
+        let url = "http://api.innosoft.ph/api/continuity/put/" + id;
         this.http.put(url, JSON.stringify(continuityOject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
@@ -160,7 +160,7 @@ export class ContinuityService {
 
     // delete continuity
     public deleteContinuityData(id: number, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/continuity/delete/" + id;
+        let url = "http://api.innosoft.ph/api/continuity/delete/" + id;
         this.http.delete(url, this.options).subscribe(
             response => {
                 this.toastr.success('', 'Delete Successful');

@@ -21,7 +21,7 @@ export class DeliveryService {
 
     // list quotation by status
     public getListQuotationData(page: String): wijmo.collections.ObservableArray {
-        let url = "http://localhost:22626/api/quotation/list/byQuotationStatus";
+        let url = "http://api.innosoft.ph/api/quotation/list/byQuotationStatus";
         let quotationObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
@@ -48,7 +48,7 @@ export class DeliveryService {
     // list article by article type
     public getListArticleData(page: String, articleTypeId: number): wijmo.collections.ObservableArray {
         let articleObservableArray = new wijmo.collections.ObservableArray();
-        let url = "http://localhost:22626/api/article/list/byArticleTypeId/" + articleTypeId;
+        let url = "http://api.innosoft.ph/api/article/list/byArticleTypeId/" + articleTypeId;
         this.http.get(url, this.options).subscribe(
             response => {
                 for (var key in response.json()) {
@@ -78,7 +78,7 @@ export class DeliveryService {
     // list user
     public getListUserData(page: String, userType: String): wijmo.collections.ObservableArray {
         let userObservableArray = new wijmo.collections.ObservableArray();
-        let url = "http://localhost:22626/api/user/list";
+        let url = "http://api.innosoft.ph/api/user/list";
         this.http.get(url, this.options).subscribe(
             response => {
                 for (var key in response.json()) {
@@ -111,7 +111,7 @@ export class DeliveryService {
 
     // list delivery by date ranged (start date and end date)
     public getListDeliveryData(deliveryStartDate: Date, deliveryEndDate: Date): wijmo.collections.ObservableArray {
-        let url = "http://localhost:22626/api/delivery/list/byDeliveryDateRange/" + deliveryStartDate.toDateString() + "/" + deliveryEndDate.toDateString();
+        let url = "http://api.innosoft.ph/api/delivery/list/byDeliveryDateRange/" + deliveryStartDate.toDateString() + "/" + deliveryEndDate.toDateString();
         let deliveryObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
@@ -149,7 +149,7 @@ export class DeliveryService {
 
     // get delivery by id
     public getDeliveryById(id: number) {
-        let url = "http://localhost:22626/api/delivery/get/byId/" + id;
+        let url = "http://api.innosoft.ph/api/delivery/get/byId/" + id;
         this.http.get(url, this.options).subscribe(
             response => {
                 if (response.json() != null) {
@@ -176,7 +176,7 @@ export class DeliveryService {
 
     // add delivery
     public postDeliveryData(deliveryObject: Object, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/delivery/post";
+        let url = "http://api.innosoft.ph/api/delivery/post";
         this.http.post(url, JSON.stringify(deliveryObject), this.options).subscribe(
             response => {
                 if (response.json() > 0) {
@@ -200,7 +200,7 @@ export class DeliveryService {
 
     // update delivery
     public putDeliveryData(id: number, deliveryObject: Object, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/delivery/put/" + id;
+        let url = "http://api.innosoft.ph/api/delivery/put/" + id;
         this.http.put(url, JSON.stringify(deliveryObject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
@@ -219,7 +219,7 @@ export class DeliveryService {
 
     // delete delivery
     public deleteDeliveryData(id: number, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/delivery/delete/" + id;
+        let url = "http://api.innosoft.ph/api/delivery/delete/" + id;
         this.http.delete(url, this.options).subscribe(
             response => {
                 this.toastr.success('', 'Delete Successful');
@@ -237,7 +237,7 @@ export class DeliveryService {
 
     // list activity by delivery Id
     public getListActivityByQuotationId(deliveryId: number): wijmo.collections.ObservableArray {
-        let url = "http://localhost:22626/api/activity/list/byDeliveryId/" + deliveryId;
+        let url = "http://api.innosoft.ph/api/activity/list/byDeliveryId/" + deliveryId;
         let activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
@@ -275,7 +275,7 @@ export class DeliveryService {
 
     // add activity
     public postActivityData(activityOject: Object, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/activity/post";
+        let url = "http://api.innosoft.ph/api/activity/post";
         this.http.post(url, JSON.stringify(activityOject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
@@ -293,7 +293,7 @@ export class DeliveryService {
 
     // update activity
     public putActivityData(id: number, activityOject: Object, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/activity/put/" + id;
+        let url = "http://api.innosoft.ph/api/activity/put/" + id;
         this.http.put(url, JSON.stringify(activityOject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
@@ -311,7 +311,7 @@ export class DeliveryService {
 
     // delete activity
     public deleteActivityData(id: number, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/activity/delete/" + id;
+        let url = "http://api.innosoft.ph/api/activity/delete/" + id;
         this.http.delete(url, this.options).subscribe(
             response => {
                 this.toastr.success('', 'Delete Successful');

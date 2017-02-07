@@ -22,7 +22,7 @@ export class LeadService {
     // list user
     public getListUserData(page: String, userType: String): wijmo.collections.ObservableArray {
         let userObservableArray = new wijmo.collections.ObservableArray();
-        let url = "http://localhost:22626/api/user/list";
+        let url = "http://api.innosoft.ph/api/user/list";
         this.http.get(url, this.options).subscribe(
             response => {
                 for (var key in response.json()) {
@@ -51,7 +51,7 @@ export class LeadService {
 
     // list lead by date ranged (start date and end date)
     public getListLeadData(leadStartDate: Date, leadEndDate: Date): wijmo.collections.ObservableArray {
-        let url = "http://localhost:22626/api/lead/list/byLeadDateRange/" + leadStartDate.toDateString() + "/" + leadEndDate.toDateString();
+        let url = "http://api.innosoft.ph/api/lead/list/byLeadDateRange/" + leadStartDate.toDateString() + "/" + leadEndDate.toDateString();
         let leadObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
@@ -87,7 +87,7 @@ export class LeadService {
 
     // get lead by id
     public getLeadById(id: number) {
-        let url = "http://localhost:22626/api/lead/get/byId/" + id;
+        let url = "http://api.innosoft.ph/api/lead/get/byId/" + id;
         this.http.get(url, this.options).subscribe(
             response => {
                 if (response.json() != null) {
@@ -116,7 +116,7 @@ export class LeadService {
 
     // add leads
     public postLeadData(leadObject: Object, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/lead/post";
+        let url = "http://api.innosoft.ph/api/lead/post";
         this.http.post(url, JSON.stringify(leadObject), this.options).subscribe(
             response => {
                 if (response.json() > 0) {
@@ -140,7 +140,7 @@ export class LeadService {
 
     // update leads
     public putLeadData(id: number, leadObject: Object, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/lead/put/" + id;
+        let url = "http://api.innosoft.ph/api/lead/put/" + id;
         this.http.put(url, JSON.stringify(leadObject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
@@ -159,7 +159,7 @@ export class LeadService {
 
     // delete leads
     public deleteLeadData(id: number, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/lead/delete/" + id;
+        let url = "http://api.innosoft.ph/api/lead/delete/" + id;
         this.http.delete(url, this.options).subscribe(
             response => {
                 this.toastr.success('', 'Delete Successful');
@@ -177,7 +177,7 @@ export class LeadService {
 
     // list activity by lead Id
     public getListActivityByLeadId(leadId: number): wijmo.collections.ObservableArray {
-        let url = "http://localhost:22626/api/activity/list/byLeadId/" + leadId;
+        let url = "http://api.innosoft.ph/api/activity/list/byLeadId/" + leadId;
         let activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
@@ -215,7 +215,7 @@ export class LeadService {
 
     // add activity
     public postActivityData(activityOject: Object, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/activity/post";
+        let url = "http://api.innosoft.ph/api/activity/post";
         this.http.post(url, JSON.stringify(activityOject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
@@ -233,7 +233,7 @@ export class LeadService {
 
     // update activity
     public putActivityData(id: number, activityOject: Object, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/activity/put/" + id;
+        let url = "http://api.innosoft.ph/api/activity/put/" + id;
         this.http.put(url, JSON.stringify(activityOject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
@@ -251,7 +251,7 @@ export class LeadService {
 
     // delete activity
     public deleteActivityData(id: number, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/activity/delete/" + id;
+        let url = "http://api.innosoft.ph/api/activity/delete/" + id;
         this.http.delete(url, this.options).subscribe(
             response => {
                 this.toastr.success('', 'Delete Successful');

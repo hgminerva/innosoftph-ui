@@ -22,7 +22,7 @@ export class ProductService {
     // list product data
     public getListProductData(toastr: ToastsManager): wijmo.collections.ObservableArray {
         let productObservableArray = new wijmo.collections.ObservableArray();
-        let url = "http://localhost:22626/api/article/list/byArticleTypeId/1";
+        let url = "http://api.innosoft.ph/api/article/list/byArticleTypeId/1";
         this.http.get(url, this.options).subscribe(
             response => {
                 for (var key in response.json()) {

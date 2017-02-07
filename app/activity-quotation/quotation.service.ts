@@ -21,7 +21,7 @@ export class QuotationService {
 
     // list lead by status
     public getListLeadData(page: String): wijmo.collections.ObservableArray {
-        let url = "http://localhost:22626/api/lead/list/byLeadStatus";
+        let url = "http://api.innosoft.ph/api/lead/list/byLeadStatus";
         let leadObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
@@ -46,7 +46,7 @@ export class QuotationService {
     // list article by article type
     public getListArticleData(page: String, articleTypeId: number): wijmo.collections.ObservableArray {
         let customerObservableArray = new wijmo.collections.ObservableArray();
-        let url = "http://localhost:22626/api/article/list/byArticleTypeId/" + articleTypeId;
+        let url = "http://api.innosoft.ph/api/article/list/byArticleTypeId/" + articleTypeId;
         this.http.get(url, this.options).subscribe(
             response => {
                 for (var key in response.json()) {
@@ -76,7 +76,7 @@ export class QuotationService {
     // list user
     public getListUserData(page: String): wijmo.collections.ObservableArray {
         let userObservableArray = new wijmo.collections.ObservableArray();
-        let url = "http://localhost:22626/api/user/list";
+        let url = "http://api.innosoft.ph/api/user/list";
         this.http.get(url, this.options).subscribe(
             response => {
                 for (var key in response.json()) {
@@ -99,7 +99,7 @@ export class QuotationService {
 
     // list quotation by date ranged (start date and end date)
     public getListQuotationData(quotationStartDate: Date, quotationEndDate: Date): wijmo.collections.ObservableArray {
-        let url = "http://localhost:22626/api/quotation/list/byQuotationDateRange/" + quotationStartDate.toDateString() + "/" + quotationEndDate.toDateString();
+        let url = "http://api.innosoft.ph/api/quotation/list/byQuotationDateRange/" + quotationStartDate.toDateString() + "/" + quotationEndDate.toDateString();
         let quotationObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
@@ -132,7 +132,7 @@ export class QuotationService {
 
     // get quotation by id
     public getQuotationById(id: number) {
-        let url = "http://localhost:22626/api/quotation/get/byId/" + id;
+        let url = "http://api.innosoft.ph/api/quotation/get/byId/" + id;
         this.http.get(url, this.options).subscribe(
             response => {
                 if (response.json() != null) {
@@ -156,7 +156,7 @@ export class QuotationService {
 
     // add quotation
     public postQuotationData(quotationObject: Object, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/quotation/post";
+        let url = "http://api.innosoft.ph/api/quotation/post";
         this.http.post(url, JSON.stringify(quotationObject), this.options).subscribe(
             response => {
                 if (response.json() > 0) {
@@ -180,7 +180,7 @@ export class QuotationService {
 
     // update quotation
     public putQuotationData(id: number, quotationObject: Object, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/quotation/put/" + id;
+        let url = "http://api.innosoft.ph/api/quotation/put/" + id;
         this.http.put(url, JSON.stringify(quotationObject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
@@ -200,7 +200,7 @@ export class QuotationService {
 
     // delete quotation
     public deleteQuotationData(id: number, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/quotation/delete/" + id;
+        let url = "http://api.innosoft.ph/api/quotation/delete/" + id;
         this.http.delete(url, this.options).subscribe(
             response => {
                 this.toastr.success('', 'Delete Successful');
@@ -218,7 +218,7 @@ export class QuotationService {
 
     // list activity by quotation Id
     public getListActivityByQuotationId(quotationId: number): wijmo.collections.ObservableArray {
-        let url = "http://localhost:22626/api/activity/list/byQuotationId/" + quotationId;
+        let url = "http://api.innosoft.ph/api/activity/list/byQuotationId/" + quotationId;
         let activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
@@ -256,7 +256,7 @@ export class QuotationService {
 
     // add activity
     public postActivityData(activityOject: Object, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/activity/post";
+        let url = "http://api.innosoft.ph/api/activity/post";
         this.http.post(url, JSON.stringify(activityOject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
@@ -274,7 +274,7 @@ export class QuotationService {
 
     // update activity
     public putActivityData(id: number, activityOject: Object, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/activity/put/" + id;
+        let url = "http://api.innosoft.ph/api/activity/put/" + id;
         this.http.put(url, JSON.stringify(activityOject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
@@ -292,7 +292,7 @@ export class QuotationService {
 
     // delete activity
     public deleteActivityData(id: number, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/activity/delete/" + id;
+        let url = "http://api.innosoft.ph/api/activity/delete/" + id;
         this.http.delete(url, this.options).subscribe(
             response => {
                 this.toastr.success('', 'Delete Successful');

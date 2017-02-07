@@ -22,7 +22,7 @@ export class UserService {
     // list user data
     public getListUserData(toastr: ToastsManager): wijmo.collections.ObservableArray {
         let userObservableArray = new wijmo.collections.ObservableArray();
-        let url = "http://localhost:22626/api/user/list";
+        let url = "http://api.innosoft.ph/api/user/list";
         this.http.get(url, this.options).subscribe(
             response => {
                 for (var key in response.json()) {

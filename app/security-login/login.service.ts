@@ -14,7 +14,7 @@ export class LoginService {
 
     // Login
     public login(username: string, password: string, toastr: ToastsManager): void {
-        let loginTokenUrl = 'http://localhost:22626/token';
+        let loginTokenUrl = 'http://api.innosoft.ph/Token';
         let body = "username=" + username + "&password=" + password + "&grant_type=password";
         let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded' });
         let options = new RequestOptions({ headers: headers });

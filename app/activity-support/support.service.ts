@@ -21,7 +21,7 @@ export class SupportService {
 
     // list continuity by status
     public getListContinuityData(page: String): wijmo.collections.ObservableArray {
-        let url = "http://localhost:22626/api/continuity/list/byContinuityStatus";
+        let url = "http://api.innosoft.ph/api/continuity/list/byContinuityStatus";
         let continuityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
@@ -48,7 +48,7 @@ export class SupportService {
     // list article by article type
     public getListArticleData(page: String, articleTypeId: number): wijmo.collections.ObservableArray {
         let articleObservableArray = new wijmo.collections.ObservableArray();
-        let url = "http://localhost:22626/api/article/list/byArticleTypeId/" + articleTypeId;
+        let url = "http://api.innosoft.ph/api/article/list/byArticleTypeId/" + articleTypeId;
         this.http.get(url, this.options).subscribe(
             response => {
                 for (var key in response.json()) {
@@ -78,7 +78,7 @@ export class SupportService {
     // list user
     public getListUserData(page: String, userType: String): wijmo.collections.ObservableArray {
         let userObservableArray = new wijmo.collections.ObservableArray();
-        let url = "http://localhost:22626/api/user/list";
+        let url = "http://api.innosoft.ph/api/user/list";
         this.http.get(url, this.options).subscribe(
             response => {
                 for (var key in response.json()) {
@@ -107,7 +107,7 @@ export class SupportService {
 
     // list support by date ranged (start date and end date)
     public getListSupportData(supportStartDate: Date, supportEndDate: Date): wijmo.collections.ObservableArray {
-        let url = "http://localhost:22626/api/support/list/bySupportDateRange/" + supportStartDate.toDateString() + "/" + supportEndDate.toDateString();
+        let url = "http://api.innosoft.ph/api/support/list/bySupportDateRange/" + supportStartDate.toDateString() + "/" + supportEndDate.toDateString();
         let supportObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
@@ -147,7 +147,7 @@ export class SupportService {
 
     // get support by id
     public getSupportById(id: number) {
-        let url = "http://localhost:22626/api/support/get/byId/" + id;
+        let url = "http://api.innosoft.ph/api/support/get/byId/" + id;
         this.http.get(url, this.options).subscribe(
             response => {
                 if (response.json() != null) {
@@ -177,7 +177,7 @@ export class SupportService {
 
     // add support
     public postSupportData(supportObject: Object, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/support/post";
+        let url = "http://api.innosoft.ph/api/support/post";
         this.http.post(url, JSON.stringify(supportObject), this.options).subscribe(
             response => {
                 if (response.json() > 0) {
@@ -201,7 +201,7 @@ export class SupportService {
 
     // update support
     public putSupportData(id: number, supportObject: Object, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/support/put/" + id;
+        let url = "http://api.innosoft.ph/api/support/put/" + id;
         this.http.put(url, JSON.stringify(supportObject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
@@ -221,7 +221,7 @@ export class SupportService {
 
     // delete support
     public deleteSupportData(id: number, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/support/delete/" + id;
+        let url = "http://api.innosoft.ph/api/support/delete/" + id;
         this.http.delete(url, this.options).subscribe(
             response => {
                 this.toastr.success('', 'Delete Successful');
@@ -239,7 +239,7 @@ export class SupportService {
 
     // list activity by support Id
     public getListActivityBySupportId(supportId: number): wijmo.collections.ObservableArray {
-        let url = "http://localhost:22626/api/activity/list/bySupportId/" + supportId;
+        let url = "http://api.innosoft.ph/api/activity/list/bySupportId/" + supportId;
         let activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
@@ -277,7 +277,7 @@ export class SupportService {
 
     // add activity
     public postActivityData(activityOject: Object, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/activity/post";
+        let url = "http://api.innosoft.ph/api/activity/post";
         this.http.post(url, JSON.stringify(activityOject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
@@ -295,7 +295,7 @@ export class SupportService {
 
     // update activity
     public putActivityData(id: number, activityOject: Object, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/activity/put/" + id;
+        let url = "http://api.innosoft.ph/api/activity/put/" + id;
         this.http.put(url, JSON.stringify(activityOject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
@@ -313,7 +313,7 @@ export class SupportService {
 
     // delete activity
     public deleteActivityData(id: number, toastr: ToastsManager) {
-        let url = "http://localhost:22626/api/activity/delete/" + id;
+        let url = "http://api.innosoft.ph/api/activity/delete/" + id;
         this.http.delete(url, this.options).subscribe(
             response => {
                 this.toastr.success('', 'Delete Successful');

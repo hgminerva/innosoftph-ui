@@ -46,6 +46,7 @@ import { SupportService } from './activity-support/support.service';
 
 // paths and Routes
 const appRoutes: Routes = [
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: 'app', component: AppComponent },
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
