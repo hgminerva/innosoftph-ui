@@ -123,6 +123,8 @@ export class QuotationService {
                     }
                 }
 
+                console.log(quotationObservableArray);
+
                 document.getElementById("btn-hidden-complete-loading").click();
             }
         );
