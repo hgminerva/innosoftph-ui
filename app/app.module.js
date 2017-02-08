@@ -20,6 +20,7 @@ var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
 var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
 var wjFlexGrid = require('wijmo/wijmo.angular2.grid');
 var wjInput = require('wijmo/wijmo.angular2.input');
+var common_1 = require('@angular/common');
 // components
 var app_component_1 = require('./app.component');
 var header_component_1 = require('./shared-header/header.component');
@@ -127,7 +128,11 @@ var AppModule = (function () {
                 delivery_service_1.DeliveryService,
                 continuity_service_1.ContinuityService,
                 support_service_1.SupportService,
-                ng2_toastr_2.ToastsManager
+                ng2_toastr_2.ToastsManager,
+                [{
+                        provide: common_1.LocationStrategy,
+                        useClass: common_1.HashLocationStrategy
+                    }]
             ],
             bootstrap: [
                 app_component_1.AppComponent

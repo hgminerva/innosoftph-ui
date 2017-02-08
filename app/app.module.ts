@@ -10,6 +10,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 import * as wjFlexGrid from 'wijmo/wijmo.angular2.grid';
 import * as wjInput from 'wijmo/wijmo.angular2.input';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 // components
 import { AppComponent } from './app.component';
@@ -117,7 +118,11 @@ const appRoutes: Routes = [
     DeliveryService,
     ContinuityService,
     SupportService,
-    ToastsManager
+    ToastsManager,
+    [{
+      provide: LocationStrategy, 
+      useClass: HashLocationStrategy
+    }]
   ],
   bootstrap: [
     AppComponent
