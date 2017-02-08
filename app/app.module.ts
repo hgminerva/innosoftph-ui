@@ -115,7 +115,8 @@ const appRoutes: Routes = [
     QuotationService,
     DeliveryService,
     ContinuityService,
-    SupportService
+    SupportService,
+    ToastModule
   ],
   bootstrap: [
     AppComponent
