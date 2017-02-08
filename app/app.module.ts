@@ -48,7 +48,8 @@ import { SupportService } from './activity-support/support.service';
 
 // paths and Routes
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  // { path: '', redirectTo: '/home', pathMatch: 'full' },
+  { path: '', component: HomeComponent },
   { path: 'app', component: AppComponent },
   { path: 'home', component: HomeComponent },
   { path: 'about', component: AboutComponent },
@@ -118,11 +119,11 @@ const appRoutes: Routes = [
     DeliveryService,
     ContinuityService,
     SupportService,
-    ToastsManager,
-    [{
-      provide: LocationStrategy, 
-      useClass: HashLocationStrategy
-    }]
+    ToastsManager
+    // [{
+    //   provide: LocationStrategy, 
+    //   useClass: HashLocationStrategy
+    // }]
   ],
   bootstrap: [
     AppComponent

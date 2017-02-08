@@ -20,7 +20,6 @@ var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
 var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
 var wjFlexGrid = require('wijmo/wijmo.angular2.grid');
 var wjInput = require('wijmo/wijmo.angular2.input');
-var common_1 = require('@angular/common');
 // components
 var app_component_1 = require('./app.component');
 var header_component_1 = require('./shared-header/header.component');
@@ -55,7 +54,8 @@ var continuity_service_1 = require('./activity-continuity/continuity.service');
 var support_service_1 = require('./activity-support/support.service');
 // paths and Routes
 var appRoutes = [
-    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    // { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: '', component: home_component_1.HomeComponent },
     { path: 'app', component: app_component_1.AppComponent },
     { path: 'home', component: home_component_1.HomeComponent },
     { path: 'about', component: about_component_1.AboutComponent },
@@ -128,11 +128,7 @@ var AppModule = (function () {
                 delivery_service_1.DeliveryService,
                 continuity_service_1.ContinuityService,
                 support_service_1.SupportService,
-                ng2_toastr_2.ToastsManager,
-                [{
-                        provide: common_1.LocationStrategy,
-                        useClass: common_1.HashLocationStrategy
-                    }]
+                ng2_toastr_2.ToastsManager
             ],
             bootstrap: [
                 app_component_1.AppComponent
