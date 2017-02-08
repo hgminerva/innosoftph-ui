@@ -125,7 +125,8 @@ var AppModule = (function () {
                 quotation_service_1.QuotationService,
                 delivery_service_1.DeliveryService,
                 continuity_service_1.ContinuityService,
-                support_service_1.SupportService
+                support_service_1.SupportService,
+                ng2_toastr_1.ToastModule
             ],
             bootstrap: [
                 app_component_1.AppComponent
