@@ -1,49 +1,54 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <!-- Angular base routing -->
-    <base href="/">
 
-    <!-- title -->
-    <title>Cebu Innosoft Solutions Inc.</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <!-- Angular base routing -->
+  <base href="/">
 
-    <!-- styles -->
-    <link rel="shortcut icon" type="image/x-icon" href="app/images/logos/innosoftTabIcon.ico" />
-    <link rel="stylesheet" href="app/styles/styles.css">
-    <link rel="stylesheet" href="app/styles/bootstrap.min.css">
-    <link rel="stylesheet" href="app/fonts/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="app/styles/styles.css">
-    <link href="node_modules/ng2-toastr/bundles/ng2-toastr.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="app/styles/wijmo.min.css">
+  <!-- title -->
+  <title>Cebu Innosoft Solutions Inc.</title>
+  <meta charset="UTF-8">
+  <meta property="og:title" content="Innosoft Solutions" />
+  <meta property="og:image" content="http://www.innosoft.ph/app/images/slideshows/pos-slide.jpg" />
+  <meta property="og:site_name" content="Innosoft Solutions" />
+  <meta property="og:description" content="Innosoft Solutions Services Inc. is a software company that focuses on development and delivering business software such as Point-Of-Sales Systems (POS), Financial Management Information Systems (FMIS) and Human Resource Information System (HRIS) to Micro, Small and Medium Business Enterprises (MSMBE) within the Philippine Archipelago." />
 
-    <!-- scripts -->
-    <script src="node_modules/core-js/client/shim.min.js"></script>
-    <script src="node_modules/zone.js/dist/zone.js"></script>
-    <script src="node_modules/reflect-metadata/Reflect.js"></script>
-    <script src="node_modules/systemjs/dist/system.src.js"></script>
-    <script src="systemjs.config.js"></script>
-    <script>
-      System.import('app').catch(function(err) { 
-        console.error(err); 
-      });
-    </script>
-    <script src="app/scripts/jquery.js"></script>
-    <script src="app/scripts/bootstrap.min.js"></script>
-    <script src="node_modules/ng2-toastr/bundles/ng2-toastr.min.js"></script>
-    <script src="app/scripts/vendor/wijmo.min.js"></script>
-    <script src="app/scripts/vendor/wijmo.input.min.js"></script>
-    <script src="app/scripts/vendor/wijmo.grid.min.js"></script>
-    <script src="app/scripts/vendor/wijmo.angular2.min.js"></script>
-    <script src="app/scripts/scripts.js"></script>
-  </head>
-  <body>
-    <my-app>
-      <br /><br />
-      <div class="text-center">
-        <b><i class="fa fa-spinner fa-spin fa-fw"></i> Loading... </b>
-      </div>  
-    </my-app>
-  </body>
+  <!-- styles -->
+  <link rel="shortcut icon" type="image/x-icon" href="app/images/logos/innosoftTabIcon.ico" />
+  <link rel="stylesheet" href="app/styles/styles.css">
+  <link rel="stylesheet" href="app/styles/bootstrap.min.css">
+  <link rel="stylesheet" href="app/fonts/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="app/styles/styles.css">
+  <link href="node_modules/ng2-toastr/bundles/ng2-toastr.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="app/styles/wijmo.min.css">
+
+  <!-- scripts -->
+  <script src="node_modules/core-js/client/shim.min.js"></script>
+  <script src="node_modules/zone.js/dist/zone.js"></script>
+  <script src="node_modules/reflect-metadata/Reflect.js"></script>
+  <script src="node_modules/systemjs/dist/system.src.js"></script>
+  <script src="systemjs.config.js"></script>
+  <script>    System.import('app').catch(function (err) {
+      console.error(err);
+    });
+  </script>
+  <script src="app/scripts/jquery.js"></script>
+  <script src="app/scripts/bootstrap.min.js"></script>
+  <script src="node_modules/ng2-toastr/bundles/ng2-toastr.min.js"></script>
+  <script src="app/scripts/vendor/wijmo.min.js"></script>
+  <script src="app/scripts/vendor/wijmo.input.min.js"></script>
+  <script src="app/scripts/vendor/wijmo.grid.min.js"></script>
+  <script src="app/scripts/vendor/wijmo.angular2.min.js"></script>
+  <script src="app/scripts/scripts.js"></script>
+</head>
+
+<body>
+  <my-app>
+    <br /><br />
+    <div class="text-center">
+      <b><i class="fa fa-spinner fa-spin fa-fw"></i> Loading... </b>
+    </div>
+  </my-app>
+</body>
+
 </html>
