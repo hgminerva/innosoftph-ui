@@ -15,6 +15,7 @@ var router_1 = require('@angular/router');
 var forms_1 = require('@angular/forms');
 var http_1 = require("@angular/http");
 var ng2_toastr_1 = require('ng2-toastr/ng2-toastr');
+var ng2_toastr_2 = require('ng2-toastr/ng2-toastr');
 var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
 var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
 var wjFlexGrid = require('wijmo/wijmo.angular2.grid');
@@ -126,7 +127,7 @@ var AppModule = (function () {
                 delivery_service_1.DeliveryService,
                 continuity_service_1.ContinuityService,
                 support_service_1.SupportService,
-                ng2_toastr_1.ToastModule
+                ng2_toastr_2.ToastsManager
             ],
             bootstrap: [
                 app_component_1.AppComponent
