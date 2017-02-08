@@ -113,7 +113,6 @@ var QuotationService = (function () {
                     });
                 }
             }
-            console.log(quotationObservableArray);
             document.getElementById("btn-hidden-complete-loading").click();
         });
         return quotationObservableArray;
