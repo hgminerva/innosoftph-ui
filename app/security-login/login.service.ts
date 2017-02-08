@@ -27,9 +27,10 @@ export class LoginService {
                 localStorage.setItem('userName', response.json().userName);
                 (<HTMLButtonElement>document.getElementById("login")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Logging in";
                 (<HTMLButtonElement>document.getElementById("login")).disabled = true;
+                location.reload();
                 setTimeout(() => {
-                    location.reload();
-                }, 1000);
+                    this.router.navigate(['/dashboard']);
+                }, 500);
             },
             error => {
                 this.toastr.error('Username or Password is Incorrect. Please try again.', 'Login Failed');

@@ -24,11 +24,15 @@ var AppComponent = (function () {
     }
     // logout
     AppComponent.prototype.logout = function () {
+        var _this = this;
         localStorage.removeItem('access_token');
         localStorage.removeItem('expires_in');
         localStorage.removeItem('token_type');
         localStorage.removeItem('userName');
         location.reload();
+        setTimeout(function () {
+            _this.router.navigate(['/home']);
+        }, 500);
     };
     // start loading
     AppComponent.prototype.startLoading = function () {

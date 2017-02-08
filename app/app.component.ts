@@ -24,6 +24,9 @@ export class AppComponent implements OnInit {
     localStorage.removeItem('token_type');
     localStorage.removeItem('userName');
     location.reload();
+    setTimeout(() => {
+      this.router.navigate(['/home']);
+    }, 500);
   }
 
   // start loading

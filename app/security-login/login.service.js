@@ -33,9 +33,10 @@ var LoginService = (function () {
             localStorage.setItem('userName', response.json().userName);
             document.getElementById("login").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Logging in";
             document.getElementById("login").disabled = true;
+            location.reload();
             setTimeout(function () {
-                location.reload();
-            }, 1000);
+                _this.router.navigate(['/dashboard']);
+            }, 500);
         }, function (error) {
             _this.toastr.error('Username or Password is Incorrect. Please try again.', 'Login Failed');
             document.getElementById("login").innerHTML = "Login";
