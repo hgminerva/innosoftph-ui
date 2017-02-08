@@ -54,7 +54,7 @@ var continuity_service_1 = require('./activity-continuity/continuity.service');
 var support_service_1 = require('./activity-support/support.service');
 // paths and Routes
 var appRoutes = [
-    // { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: 'app', component: app_component_1.AppComponent },
     { path: 'home', component: home_component_1.HomeComponent },
     { path: 'about', component: about_component_1.AboutComponent },
