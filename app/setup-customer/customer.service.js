@@ -31,14 +31,15 @@ var CustomerService = (function () {
         var customerObservableArray = new wijmo.collections.ObservableArray();
         var url = "http://api.innosoft.ph/api/article/list/byArticleTypeId/2";
         this.http.get(url, this.options).subscribe(function (response) {
-            for (var key in response.json()) {
-                if (response.json().hasOwnProperty(key)) {
+            var results = new wijmo.collections.ObservableArray(response.json());
+            for (var i = 0; i <= results.length - 1; i++) {
+                if (results.length > 0) {
                     customerObservableArray.push({
-                        Id: response.json()[key].Id,
-                        ArticleCode: response.json()[key].ArticleCode,
-                        Article: response.json()[key].Article,
-                        ContactNumber: response.json()[key].ContactNumber,
-                        ArticleGroup: response.json()[key].ArticleGroup
+                        Id: results[i].Id,
+                        ArticleCode: results[i].ArticleCode,
+                        Article: results[i].Article,
+                        ContactNumber: results[i].ContactNumber,
+                        ArticleGroup: results[i].ArticleGroup
                     });
                 }
             }

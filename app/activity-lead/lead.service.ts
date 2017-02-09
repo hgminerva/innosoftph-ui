@@ -25,11 +25,12 @@ export class LeadService {
         let url = "http://api.innosoft.ph/api/user/list";
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         userObservableArray.push({
-                            Id: response.json()[key].Id,
-                            FullName: response.json()[key].FullName
+                            Id: results[i].Id,
+                            FullName: results[i].FullName
                         });
                     }
                 }
@@ -55,25 +56,26 @@ export class LeadService {
         let leadObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         leadObservableArray.push({
-                            Id: response.json()[key].Id,
-                            LeadDate: response.json()[key].LeadDate,
-                            LeadNumber: response.json()[key].LeadNumber,
-                            LeadName: response.json()[key].LeadName,
-                            Address: response.json()[key].Address,
-                            ContactPerson: response.json()[key].ContactPerson,
-                            ContactPosition: response.json()[key].ContactPosition,
-                            ContactEmail: response.json()[key].ContactEmail,
-                            ContactPhoneNo: response.json()[key].ContactPhoneNo,
-                            ReferredBy: response.json()[key].ReferredBy,
-                            Remarks: response.json()[key].Remarks,
-                            EncodedByUserId: response.json()[key].EncodedByUserId,
-                            EncodedByUser: response.json()[key].EncodedByUser,
-                            AssignedToUserId: response.json()[key].AssignedToUserId,
-                            AssignedToUser: response.json()[key].AssignedToUser,
-                            LeadStatus: response.json()[key].LeadStatus
+                            Id: results[i].Id,
+                            LeadDate: results[i].LeadDate,
+                            LeadNumber: results[i].LeadNumber,
+                            LeadName: results[i].LeadName,
+                            Address: results[i].Address,
+                            ContactPerson: results[i].ContactPerson,
+                            ContactPosition: results[i].ContactPosition,
+                            ContactEmail: results[i].ContactEmail,
+                            ContactPhoneNo: results[i].ContactPhoneNo,
+                            ReferredBy: results[i].ReferredBy,
+                            Remarks: results[i].Remarks,
+                            EncodedByUserId: results[i].EncodedByUserId,
+                            EncodedByUser: results[i].EncodedByUser,
+                            AssignedToUserId: results[i].AssignedToUserId,
+                            AssignedToUser: results[i].AssignedToUser,
+                            LeadStatus: results[i].LeadStatus
                         });
                     }
                 }
@@ -90,20 +92,21 @@ export class LeadService {
         let url = "http://api.innosoft.ph/api/lead/get/byId/" + id;
         this.http.get(url, this.options).subscribe(
             response => {
-                if (response.json() != null) {
-                    (<HTMLInputElement>document.getElementById("leadDateValue")).value = response.json().LeadDate;
-                    (<HTMLInputElement>document.getElementById("leadNumber")).value = response.json().LeadNumber;
-                    (<HTMLInputElement>document.getElementById("leadName")).value = response.json().LeadName;
-                    (<HTMLInputElement>document.getElementById("leadAddress")).value = response.json().Address;
-                    (<HTMLInputElement>document.getElementById("leadContactPerson")).value = response.json().ContactPerson;
-                    (<HTMLInputElement>document.getElementById("leadContactPosition")).value = response.json().ContactPosition;
-                    (<HTMLInputElement>document.getElementById("leadContactEmail")).value = response.json().ContactEmail;
-                    (<HTMLInputElement>document.getElementById("leadContactNumber")).value = response.json().ContactPhoneNo;
-                    (<HTMLInputElement>document.getElementById("leadReferredBy")).value = response.json().ReferredBy;
-                    (<HTMLInputElement>document.getElementById("leadRemarks")).value = response.json().Remarks;
-                    (<HTMLInputElement>document.getElementById("leadEncodedBySelectedValue")).value = response.json().EncodedByUser;
-                    (<HTMLInputElement>document.getElementById("leadAssignedToSelectedValue")).value = response.json().AssignedToUser;
-                    (<HTMLInputElement>document.getElementById("leadStatusSelectedValue")).value = response.json().LeadStatus;
+                var results = response.json();
+                if (results != null) {
+                    (<HTMLInputElement>document.getElementById("leadDateValue")).value = results.LeadDate;
+                    (<HTMLInputElement>document.getElementById("leadNumber")).value = results.LeadNumber;
+                    (<HTMLInputElement>document.getElementById("leadName")).value = results.LeadName;
+                    (<HTMLInputElement>document.getElementById("leadAddress")).value = results.Address;
+                    (<HTMLInputElement>document.getElementById("leadContactPerson")).value = results.ContactPerson;
+                    (<HTMLInputElement>document.getElementById("leadContactPosition")).value = results.ContactPosition;
+                    (<HTMLInputElement>document.getElementById("leadContactEmail")).value = results.ContactEmail;
+                    (<HTMLInputElement>document.getElementById("leadContactNumber")).value = results.ContactPhoneNo;
+                    (<HTMLInputElement>document.getElementById("leadReferredBy")).value = results.ReferredBy;
+                    (<HTMLInputElement>document.getElementById("leadRemarks")).value = results.Remarks;
+                    (<HTMLInputElement>document.getElementById("leadEncodedBySelectedValue")).value = results.EncodedByUser;
+                    (<HTMLInputElement>document.getElementById("leadAssignedToSelectedValue")).value = results.AssignedToUser;
+                    (<HTMLInputElement>document.getElementById("leadStatusSelectedValue")).value = results.LeadStatus;
                     document.getElementById("btn-hidden-selectedValue-data").click();
                     document.getElementById("btn-hidden-complete-loading").click();
                 } else {
@@ -119,11 +122,12 @@ export class LeadService {
         let url = "http://api.innosoft.ph/api/lead/post";
         this.http.post(url, JSON.stringify(leadObject), this.options).subscribe(
             response => {
-                if (response.json() > 0) {
+                var results = response.json();
+                if (results > 0) {
                     this.toastr.success('', 'Save Successful');
                     setTimeout(() => {
                         document.getElementById("btn-hidden-lead-detail-modal").click();
-                        this.router.navigate(['/leadDetail', response.json()]);
+                        this.router.navigate(['/leadDetail', results]);
                     }, 1000);
                 } else {
                     (<HTMLButtonElement>document.getElementById("btnSaveLead")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
@@ -181,27 +185,28 @@ export class LeadService {
         let activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         activityObservableArray.push({
-                            Id: response.json()[key].Id,
-                            ActivityNumber: response.json()[key].ActivityNumber,
-                            ActivityDate: response.json()[key].ActivityDate,
-                            StaffUserId: response.json()[key].StaffUserId,
-                            StaffUser: response.json()[key].StaffUser,
-                            CustomerId: response.json()[key].CustomerId,
-                            Customer: response.json()[key].Customer,
-                            ProductId: response.json()[key].ProductId,
-                            Product: response.json()[key].Product,
-                            ParticularCategory: response.json()[key].ParticularCategory,
-                            Particulars: response.json()[key].Particulars,
-                            NumberOfHours: response.json()[key].NumberOfHours,
-                            ActivityAmount: response.json()[key].ActivityAmount,
-                            ActivityStatus: response.json()[key].ActivityStatus,
-                            LeadId: response.json()[key].LeadId,
-                            QuotationId: response.json()[key].QuotationId,
-                            DeliveryId: response.json()[key].DeliveryId,
-                            SupportId: response.json()[key].SupportId
+                            Id: results[i].Id,
+                            ActivityNumber: results[i].ActivityNumber,
+                            ActivityDate: results[i].ActivityDate,
+                            StaffUserId: results[i].StaffUserId,
+                            StaffUser: results[i].StaffUser,
+                            CustomerId: results[i].CustomerId,
+                            Customer: results[i].Customer,
+                            ProductId: results[i].ProductId,
+                            Product: results[i].Product,
+                            ParticularCategory: results[i].ParticularCategory,
+                            Particulars: results[i].Particulars,
+                            NumberOfHours: results[i].NumberOfHours,
+                            ActivityAmount: results[i].ActivityAmount,
+                            ActivityStatus: results[i].ActivityStatus,
+                            LeadId: results[i].LeadId,
+                            QuotationId: results[i].QuotationId,
+                            DeliveryId: results[i].DeliveryId,
+                            SupportId: results[i].SupportId
                         });
                     }
                 }

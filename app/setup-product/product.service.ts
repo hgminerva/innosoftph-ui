@@ -25,15 +25,16 @@ export class ProductService {
         let url = "http://api.innosoft.ph/api/article/list/byArticleTypeId/1";
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         productObservableArray.push({
-                            Id: response.json()[key].Id,
-                            ArticleCode: response.json()[key].ArticleCode,
-                            ManualArticleCode: response.json()[key].ManualArticleCode,
-                            Article: response.json()[key].Article,
-                            Unit: response.json()[key].Unit,
-                            IsInventory: response.json()[key].IsInventory,
+                            Id: results[i].Id,
+                            ArticleCode: results[i].ArticleCode,
+                            ManualArticleCode: results[i].ManualArticleCode,
+                            Article: results[i].Article,
+                            Unit: results[i].Unit,
+                            IsInventory: results[i].IsInventory,
                         });
                     }
                 }

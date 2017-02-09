@@ -25,11 +25,12 @@ export class QuotationService {
         let leadObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         leadObservableArray.push({
-                            Id: response.json()[key].Id,
-                            LeadNumber: response.json()[key].LeadNumber,
+                            Id: results[i].Id,
+                            LeadNumber: results[i].LeadNumber,
                         });
                     }
                 }
@@ -49,11 +50,12 @@ export class QuotationService {
         let url = "http://api.innosoft.ph/api/article/list/byArticleTypeId/" + articleTypeId;
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         customerObservableArray.push({
-                            Id: response.json()[key].Id,
-                            Article: response.json()[key].Article
+                            Id: results[i].Id,
+                            Article: results[i].Article
                         });
                     }
                 }
@@ -79,11 +81,12 @@ export class QuotationService {
         let url = "http://api.innosoft.ph/api/user/list";
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         userObservableArray.push({
-                            Id: response.json()[key].Id,
-                            FullName: response.json()[key].FullName
+                            Id: results[i].Id,
+                            FullName: results[i].FullName
                         });
                     }
                 }
@@ -103,22 +106,23 @@ export class QuotationService {
         let quotationObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         quotationObservableArray.push({
-                            Id: response.json()[key].Id,
-                            QuotationNumber: response.json()[key].QuotationNumber,
-                            QuotationDate: response.json()[key].QuotationDate,
-                            LeadId: response.json()[key].LeadId,
-                            LeadNumber: response.json()[key].LeadNumber,
-                            CustomerId: response.json()[key].CustomerId,
-                            Customer: response.json()[key].Customer,
-                            ProductId: response.json()[key].ProductId,
-                            Product: response.json()[key].Product,
-                            Remarks: response.json()[key].Remarks,
-                            EncodedByUserId: response.json()[key].EncodedByUserId,
-                            EncodedByUser: response.json()[key].EncodedByUser,
-                            QuotationStatus: response.json()[key].QuotationStatus,
+                            Id: results[i].Id,
+                            QuotationNumber: results[i].QuotationNumber,
+                            QuotationDate: results[i].QuotationDate,
+                            LeadId: results[i].LeadId,
+                            LeadNumber: results[i].LeadNumber,
+                            CustomerId: results[i].CustomerId,
+                            Customer: results[i].Customer,
+                            ProductId: results[i].ProductId,
+                            Product: results[i].Product,
+                            Remarks: results[i].Remarks,
+                            EncodedByUserId: results[i].EncodedByUserId,
+                            EncodedByUser: results[i].EncodedByUser,
+                            QuotationStatus: results[i].QuotationStatus,
                         });
                     }
                 }
@@ -135,15 +139,16 @@ export class QuotationService {
         let url = "http://api.innosoft.ph/api/quotation/get/byId/" + id;
         this.http.get(url, this.options).subscribe(
             response => {
-                if (response.json() != null) {
-                    (<HTMLInputElement>document.getElementById("quotationDateValue")).value = response.json().QuotationDate;
-                    (<HTMLInputElement>document.getElementById("quotationNumber")).value = response.json().QuotationNumber;
-                    (<HTMLInputElement>document.getElementById("quotationLeadSelectedValue")).value = response.json().LeadNumber;
-                    (<HTMLInputElement>document.getElementById("quotationCustomerSelectedValue")).value = response.json().Customer;
-                    (<HTMLInputElement>document.getElementById("quotationProductSelectedValue")).value = response.json().Product;
-                    (<HTMLInputElement>document.getElementById("quotationEncodedBySelectedValue")).value = response.json().EncodedByUser;
-                    (<HTMLInputElement>document.getElementById("quotationRemarks")).value = response.json().Remarks;
-                    (<HTMLInputElement>document.getElementById("quotationStatusSelectedValue")).value = response.json().QuotationStatus;
+                var results = response.json();
+                if (results != null) {
+                    (<HTMLInputElement>document.getElementById("quotationDateValue")).value = results.QuotationDate;
+                    (<HTMLInputElement>document.getElementById("quotationNumber")).value = results.QuotationNumber;
+                    (<HTMLInputElement>document.getElementById("quotationLeadSelectedValue")).value = results.LeadNumber;
+                    (<HTMLInputElement>document.getElementById("quotationCustomerSelectedValue")).value = results.Customer;
+                    (<HTMLInputElement>document.getElementById("quotationProductSelectedValue")).value = results.Product;
+                    (<HTMLInputElement>document.getElementById("quotationEncodedBySelectedValue")).value = results.EncodedByUser;
+                    (<HTMLInputElement>document.getElementById("quotationRemarks")).value = results.Remarks;
+                    (<HTMLInputElement>document.getElementById("quotationStatusSelectedValue")).value = results.QuotationStatus;
                     document.getElementById("btn-hidden-selectedValue-data").click();
                     document.getElementById("btn-hidden-complete-loading").click();
                 } else {
@@ -159,11 +164,12 @@ export class QuotationService {
         let url = "http://api.innosoft.ph/api/quotation/post";
         this.http.post(url, JSON.stringify(quotationObject), this.options).subscribe(
             response => {
-                if (response.json() > 0) {
+                var results = response.json();
+                if (results > 0) {
                     this.toastr.success('', 'Save Successful');
                     setTimeout(() => {
                         document.getElementById("btn-hidden-quotation-detail-modal").click();
-                        this.router.navigate(['/quotationDetail', response.json()]);
+                        this.router.navigate(['/quotationDetail', results]);
                     }, 1000);
                 } else {
                     (<HTMLButtonElement>document.getElementById("btnSaveQuotation")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
@@ -222,27 +228,28 @@ export class QuotationService {
         let activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         activityObservableArray.push({
-                            Id: response.json()[key].Id,
-                            ActivityNumber: response.json()[key].ActivityNumber,
-                            ActivityDate: response.json()[key].ActivityDate,
-                            StaffUserId: response.json()[key].StaffUserId,
-                            StaffUser: response.json()[key].StaffUser,
-                            CustomerId: response.json()[key].CustomerId,
-                            Customer: response.json()[key].Customer,
-                            ProductId: response.json()[key].ProductId,
-                            Product: response.json()[key].Product,
-                            ParticularCategory: response.json()[key].ParticularCategory,
-                            Particulars: response.json()[key].Particulars,
-                            NumberOfHours: response.json()[key].NumberOfHours,
-                            ActivityAmount: response.json()[key].ActivityAmount,
-                            ActivityStatus: response.json()[key].ActivityStatus,
-                            LeadId: response.json()[key].LeadId,
-                            QuotationId: response.json()[key].QuotationId,
-                            DeliveryId: response.json()[key].DeliveryId,
-                            SupportId: response.json()[key].SupportId
+                            Id: results[i].Id,
+                            ActivityNumber: results[i].ActivityNumber,
+                            ActivityDate: results[i].ActivityDate,
+                            StaffUserId: results[i].StaffUserId,
+                            StaffUser: results[i].StaffUser,
+                            CustomerId: results[i].CustomerId,
+                            Customer: results[i].Customer,
+                            ProductId: results[i].ProductId,
+                            Product: results[i].Product,
+                            ParticularCategory: results[i].ParticularCategory,
+                            Particulars: results[i].Particulars,
+                            NumberOfHours: results[i].NumberOfHours,
+                            ActivityAmount: results[i].ActivityAmount,
+                            ActivityStatus: results[i].ActivityStatus,
+                            LeadId: results[i].LeadId,
+                            QuotationId: results[i].QuotationId,
+                            DeliveryId: results[i].DeliveryId,
+                            SupportId: results[i].SupportId
                         });
                     }
                 }

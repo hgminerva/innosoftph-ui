@@ -25,13 +25,14 @@ export class ContinuityService {
         let deliveryObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         deliveryObservableArray.push({
-                            Id: response.json()[key].Id,
-                            DeliveryNumber: response.json()[key].DeliveryNumber,
-                            Customer: response.json()[key].Customer,
-                            Product: response.json()[key].Product
+                            Id: results[i].Id,
+                            DeliveryNumber: results[i].DeliveryNumber,
+                            Customer: results[i].Customer,
+                            Product: results[i].Product
                         });
                     }
                 }
@@ -47,11 +48,12 @@ export class ContinuityService {
         let url = "http://api.innosoft.ph/api/article/list/byArticleTypeId/" + articleTypeId;
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         articleObservableArray.push({
-                            Id: response.json()[key].Id,
-                            Article: response.json()[key].Article
+                            Id: results[i].Id,
+                            Article: results[i].Article
                         });
                     }
                 }
@@ -75,11 +77,12 @@ export class ContinuityService {
         let url = "http://api.innosoft.ph/api/user/list";
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         userObservableArray.push({
-                            Id: response.json()[key].Id,
-                            FullName: response.json()[key].FullName
+                            Id: results[i].Id,
+                            FullName: results[i].FullName
                         });
                     }
                 }
@@ -95,22 +98,23 @@ export class ContinuityService {
         let continuityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         continuityObservableArray.push({
-                            Id: response.json()[key].Id,
-                            ContinuityNumber: response.json()[key].ContinuityNumber,
-                            ContinuityDate: response.json()[key].ContinuityDate,
-                            DeliveryId: response.json()[key].DeliveryId,
-                            DeliveryNumber: response.json()[key].DeliveryNumber,
-                            CustomerId: response.json()[key].CustomerId,
-                            Customer: response.json()[key].Customer,
-                            ProductId: response.json()[key].ProductId,
-                            Product: response.json()[key].Product,
-                            ExpiryDate: response.json()[key].ExpiryDate,
-                            StaffUserId: response.json()[key].StaffUserId,
-                            StaffUser: response.json()[key].StaffUser,
-                            ContinuityStatus: response.json()[key].ContinuityStatus
+                            Id: results[i].Id,
+                            ContinuityNumber: results[i].ContinuityNumber,
+                            ContinuityDate: results[i].ContinuityDate,
+                            DeliveryId: results[i].DeliveryId,
+                            DeliveryNumber: results[i].DeliveryNumber,
+                            CustomerId: results[i].CustomerId,
+                            Customer: results[i].Customer,
+                            ProductId: results[i].ProductId,
+                            Product: results[i].Product,
+                            ExpiryDate: results[i].ExpiryDate,
+                            StaffUserId: results[i].StaffUserId,
+                            StaffUser: results[i].StaffUser,
+                            ContinuityStatus: results[i].ContinuityStatus
                         });
                     }
                 }

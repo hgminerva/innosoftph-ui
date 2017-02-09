@@ -25,13 +25,14 @@ export class DeliveryService {
         let quotationObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         quotationObservableArray.push({
-                            Id: response.json()[key].Id,
-                            QuotationNumber: response.json()[key].QuotationNumber,
-                            Customer: response.json()[key].Customer,
-                            Product: response.json()[key].Product
+                            Id: results[i].Id,
+                            QuotationNumber: results[i].QuotationNumber,
+                            Customer: results[i].Customer,
+                            Product: results[i].Product
                         });
                     }
                 }
@@ -51,11 +52,12 @@ export class DeliveryService {
         let url = "http://api.innosoft.ph/api/article/list/byArticleTypeId/" + articleTypeId;
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         articleObservableArray.push({
-                            Id: response.json()[key].Id,
-                            Article: response.json()[key].Article
+                            Id: results[i].Id,
+                            Article: results[i].Article
                         });
                     }
                 }
@@ -81,11 +83,12 @@ export class DeliveryService {
         let url = "http://api.innosoft.ph/api/user/list";
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         userObservableArray.push({
-                            Id: response.json()[key].Id,
-                            FullName: response.json()[key].FullName
+                            Id: results[i].Id,
+                            FullName: results[i].FullName
                         });
                     }
                 }
@@ -115,27 +118,28 @@ export class DeliveryService {
         let deliveryObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         deliveryObservableArray.push({
-                            Id: response.json()[key].Id,
-                            DeliveryNumber: response.json()[key].DeliveryNumber,
-                            DeliveryDate: response.json()[key].DeliveryDate,
-                            QuotationId: response.json()[key].QuotationId,
-                            QuotationNumber: response.json()[key].QuotationNumber,
-                            CustomerId: response.json()[key].CustomerId,
-                            Customer: response.json()[key].Customer,
-                            ProductId: response.json()[key].ProductId,
-                            Product: response.json()[key].Product,
-                            MeetingDate: response.json()[key].MeetingDate,
-                            Remarks: response.json()[key].Remarks,
-                            SalesUserId: response.json()[key].SalesUserId,
-                            SalesUser: response.json()[key].SalesUser,
-                            TechnicalUserId: response.json()[key].TechnicalUserId,
-                            TechnicalUser: response.json()[key].TechnicalUser,
-                            FunctionalUserId: response.json()[key].FunctionalUserId,
-                            FunctionalUser: response.json()[key].FunctionalUser,
-                            DeliveryStatus: response.json()[key].DeliveryStatus,
+                            Id: results[i].Id,
+                            DeliveryNumber: results[i].DeliveryNumber,
+                            DeliveryDate: results[i].DeliveryDate,
+                            QuotationId: results[i].QuotationId,
+                            QuotationNumber: results[i].QuotationNumber,
+                            CustomerId: results[i].CustomerId,
+                            Customer: results[i].Customer,
+                            ProductId: results[i].ProductId,
+                            Product: results[i].Product,
+                            MeetingDate: results[i].MeetingDate,
+                            Remarks: results[i].Remarks,
+                            SalesUserId: results[i].SalesUserId,
+                            SalesUser: results[i].SalesUser,
+                            TechnicalUserId: results[i].TechnicalUserId,
+                            TechnicalUser: results[i].TechnicalUser,
+                            FunctionalUserId: results[i].FunctionalUserId,
+                            FunctionalUser: results[i].FunctionalUser,
+                            DeliveryStatus: results[i].DeliveryStatus,
                         });
                     }
                 }
@@ -152,18 +156,19 @@ export class DeliveryService {
         let url = "http://api.innosoft.ph/api/delivery/get/byId/" + id;
         this.http.get(url, this.options).subscribe(
             response => {
-                if (response.json() != null) {
-                    (<HTMLInputElement>document.getElementById("deliveryNumber")).value = response.json().DeliveryNumber;
-                    (<HTMLInputElement>document.getElementById("deliveryDateValue")).value = response.json().DeliveryDate;
-                    (<HTMLInputElement>document.getElementById("deliveryQuotaionSelectedValue")).value = response.json().QuotationNumber;
-                    (<HTMLInputElement>document.getElementById("deliveryCustomerSelectedValue")).value = response.json().Customer;
-                    (<HTMLInputElement>document.getElementById("deliveryProductSelectedValue")).value = response.json().Product;
-                    (<HTMLInputElement>document.getElementById("deliveryMeetingDateValue")).value = response.json().MeetingDate;
-                    (<HTMLInputElement>document.getElementById("deliveryRemarks")).value = response.json().Remarks;
-                    (<HTMLInputElement>document.getElementById("deliverySalesUserSelectedValue")).value = response.json().SalesUser;
-                    (<HTMLInputElement>document.getElementById("deliveryTechnicalUserSelectedValue")).value = response.json().TechnicalUser;
-                    (<HTMLInputElement>document.getElementById("deliveryFunctionalUserSelectedValue")).value = response.json().FunctionalUser;
-                    (<HTMLInputElement>document.getElementById("deliveryStatusSelectedValue")).value = response.json().DeliveryStatus;
+                var results = response.json();
+                if (results != null) {
+                    (<HTMLInputElement>document.getElementById("deliveryNumber")).value = results.DeliveryNumber;
+                    (<HTMLInputElement>document.getElementById("deliveryDateValue")).value = results.DeliveryDate;
+                    (<HTMLInputElement>document.getElementById("deliveryQuotaionSelectedValue")).value = results.QuotationNumber;
+                    (<HTMLInputElement>document.getElementById("deliveryCustomerSelectedValue")).value = results.Customer;
+                    (<HTMLInputElement>document.getElementById("deliveryProductSelectedValue")).value = results.Product;
+                    (<HTMLInputElement>document.getElementById("deliveryMeetingDateValue")).value = results.MeetingDate;
+                    (<HTMLInputElement>document.getElementById("deliveryRemarks")).value = results.Remarks;
+                    (<HTMLInputElement>document.getElementById("deliverySalesUserSelectedValue")).value = results.SalesUser;
+                    (<HTMLInputElement>document.getElementById("deliveryTechnicalUserSelectedValue")).value = results.TechnicalUser;
+                    (<HTMLInputElement>document.getElementById("deliveryFunctionalUserSelectedValue")).value = results.FunctionalUser;
+                    (<HTMLInputElement>document.getElementById("deliveryStatusSelectedValue")).value = results.DeliveryStatus;
                     document.getElementById("btn-hidden-selectedValue-data").click();
                     document.getElementById("btn-hidden-complete-loading").click();
                 } else {
@@ -179,11 +184,12 @@ export class DeliveryService {
         let url = "http://api.innosoft.ph/api/delivery/post";
         this.http.post(url, JSON.stringify(deliveryObject), this.options).subscribe(
             response => {
-                if (response.json() > 0) {
+                var results = response.json();
+                if (results > 0) {
                     this.toastr.success('', 'Save Successful');
                     setTimeout(() => {
                         document.getElementById("btn-hidden-delivery-detail-modal").click();
-                        this.router.navigate(['/deliveryDetail', response.json()]);
+                        this.router.navigate(['/deliveryDetail', results]);
                     }, 1000);
                 } else {
                     (<HTMLButtonElement>document.getElementById("btnSaveDelivery")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
@@ -241,27 +247,28 @@ export class DeliveryService {
         let activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         activityObservableArray.push({
-                            Id: response.json()[key].Id,
-                            ActivityNumber: response.json()[key].ActivityNumber,
-                            ActivityDate: response.json()[key].ActivityDate,
-                            StaffUserId: response.json()[key].StaffUserId,
-                            StaffUser: response.json()[key].StaffUser,
-                            CustomerId: response.json()[key].CustomerId,
-                            Customer: response.json()[key].Customer,
-                            ProductId: response.json()[key].ProductId,
-                            Product: response.json()[key].Product,
-                            ParticularCategory: response.json()[key].ParticularCategory,
-                            Particulars: response.json()[key].Particulars,
-                            NumberOfHours: response.json()[key].NumberOfHours,
-                            ActivityAmount: response.json()[key].ActivityAmount,
-                            ActivityStatus: response.json()[key].ActivityStatus,
-                            LeadId: response.json()[key].LeadId,
-                            QuotationId: response.json()[key].QuotationId,
-                            DeliveryId: response.json()[key].DeliveryId,
-                            SupportId: response.json()[key].SupportId
+                            Id: results[i].Id,
+                            ActivityNumber: results[i].ActivityNumber,
+                            ActivityDate: results[i].ActivityDate,
+                            StaffUserId: results[i].StaffUserId,
+                            StaffUser: results[i].StaffUser,
+                            CustomerId: results[i].CustomerId,
+                            Customer: results[i].Customer,
+                            ProductId: results[i].ProductId,
+                            Product: results[i].Product,
+                            ParticularCategory: results[i].ParticularCategory,
+                            Particulars: results[i].Particulars,
+                            NumberOfHours: results[i].NumberOfHours,
+                            ActivityAmount: results[i].ActivityAmount,
+                            ActivityStatus: results[i].ActivityStatus,
+                            LeadId: results[i].LeadId,
+                            QuotationId: results[i].QuotationId,
+                            DeliveryId: results[i].DeliveryId,
+                            SupportId: results[i].SupportId
                         });
                     }
                 }

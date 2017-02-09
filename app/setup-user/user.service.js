@@ -31,12 +31,13 @@ var UserService = (function () {
         var userObservableArray = new wijmo.collections.ObservableArray();
         var url = "http://api.innosoft.ph/api/user/list";
         this.http.get(url, this.options).subscribe(function (response) {
-            for (var key in response.json()) {
-                if (response.json().hasOwnProperty(key)) {
+            var results = new wijmo.collections.ObservableArray(response.json());
+            for (var i = 0; i <= results.length - 1; i++) {
+                if (results.length > 0) {
                     userObservableArray.push({
-                        Id: response.json()[key].Id,
-                        UserName: response.json()[key].UserName,
-                        FullName: response.json()[key].FullName
+                        Id: results[i].Id,
+                        UserName: results[i].UserName,
+                        FullName: results[i].FullName
                     });
                 }
             }
