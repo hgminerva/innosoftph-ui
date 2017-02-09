@@ -12,9 +12,9 @@ var ToastOptions = (function () {
         { type: core_1.Injectable },
     ];
     /** @nocollapse */
-    ToastOptions.ctorParameters = [
+    ToastOptions.ctorParameters = function () { return [
         { type: Object, },
-    ];
+    ]; };
     return ToastOptions;
 }());
 exports.ToastOptions = ToastOptions;

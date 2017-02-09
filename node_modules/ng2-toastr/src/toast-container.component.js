@@ -150,11 +150,11 @@ var ToastContainer = (function () {
                 },] },
     ];
     /** @nocollapse */
-    ToastContainer.ctorParameters = [
+    ToastContainer.ctorParameters = function () { return [
         { type: platform_browser_1.DomSanitizer, },
         { type: core_1.ChangeDetectorRef, },
         { type: toast_options_1.ToastOptions, decorators: [{ type: core_1.Optional },] },
-    ];
+    ]; };
     return ToastContainer;
 }());
 exports.ToastContainer = ToastContainer;

@@ -1,0 +1,50 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "wijmo/NpmImages/wijmo-amd-min",
+        "scope": null,
+        "escapedName": null,
+        "name": null,
+        "rawSpec": "wijmo/NpmImages/wijmo-amd-min",
+        "spec": "D:\\INNOSOFT\\Reserach and Development Projects\\Innosoft Website - Angular\\Innosoft Solutions Website\\Innosoft\\wijmo\\NpmImages\\wijmo-amd-min",
+        "type": "directory"
+      },
+      "D:\\INNOSOFT\\Reserach and Development Projects\\Innosoft Website - Angular\\Innosoft Solutions Website\\Innosoft"
+    ]
+  ],
+  "_from": "wijmo\\NpmImages\\wijmo-amd-min",
+  "_id": "wijmo@5.20163.234",
+  "_inCache": true,
+  "_location": "/wijmo",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "wijmo/NpmImages/wijmo-amd-min",
+    "scope": null,
+    "escapedName": null,
+    "name": null,
+    "rawSpec": "wijmo/NpmImages/wijmo-amd-min",
+    "spec": "D:\\INNOSOFT\\Reserach and Development Projects\\Innosoft Website - Angular\\Innosoft Solutions Website\\Innosoft\\wijmo\\NpmImages\\wijmo-amd-min",
+    "type": "directory"
+  },
+  "_requiredBy": [
+    "#USER"
+  ],
+  "_resolved": "file:wijmo\\NpmImages\\wijmo-amd-min",
+  "_shasum": "cbe1863514231dc1e1ae15b3dc47589c2aa49cce",
+  "_shrinkwrap": null,
+  "_spec": "wijmo/NpmImages/wijmo-amd-min",
+  "_where": "D:\\INNOSOFT\\Reserach and Development Projects\\Innosoft Website - Angular\\Innosoft Solutions Website\\Innosoft",
+  "author": {
+    "name": "GrapeCity, Inc"
+  },
+  "dependencies": {},
+  "description": "Wijmo 5",
+  "devDependencies": {},
+  "license": "Commercial",
+  "name": "wijmo",
+  "optionalDependencies": {},
+  "readme": "Npm image for Wijmo AMD modules (minified)\r\n==========================================\r\n\r\nThis folder represents an npm image containing Wijmo core and Angular 2 interop \r\nmodules in AMD module format, and corresponding TypeScript definition (.d.ts) files.\r\n\r\n<b>NOTE:</b> despite the \".min\" suffix is not present in .js file names, these files are MINIFIED. \r\nThe \".min\" suffix is omitted in order to simplify modules usage in conjunction with \r\nvarious application bundlers and loaders, where mapping of ambient module names used in \r\napplications (like \"wijmo/wijmo.grid\") to minified file names having \".min.js\" extension \r\nrequires either an additional setup or even not possible in some tools.\r\n\r\nBecause the folder content is formed as an npm image, you can easily install it in your \r\napplication using \"npm install <path_to_folder>\" command in NodeJS command prompt, like this:\r\nnpm install ../wijmo_download/NpmImages/wijmo-amd-min\r\nThis command will add the folder content to the node_modules/wijmo folder of your application.\r\n\r\nAlternatively, you can add the following record to the package.json file of your application:\r\n\"dependencies\": {\r\n   \"wijmo\": \"../wijmo_download/NpmImages/wijmo-amd-min\",\r\n   � other libraries\r\n}\r\nAfter that, each time you execute \"npm install\" command in your application root folder, \r\nWijmo modules will be installed under the \"node_modules\" folder along with other libraries \r\nenumerated in package.json.\r\n",
+  "readmeFilename": "readme.txt",
+  "version": "5.20163.234"
+}

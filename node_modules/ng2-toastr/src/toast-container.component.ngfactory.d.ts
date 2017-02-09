@@ -8,7 +8,7 @@ import * as import1 from '@angular/core/src/linker/view';
 import * as import3 from '@angular/core/src/linker/view_utils';
 import * as import7 from '@angular/core/src/linker/component_factory';
 import * as import16 from '@angular/core/src/linker/view_container';
-import * as import17 from '../node_modules/@angular/common/src/directives/ng_for.ngfactory';
+import * as import24 from '../node_modules/@angular/common/src/directives/ng_for.ngfactory';
 export declare class Wrapper_ToastContainer {
     _eventHandler: Function;
     context: import0.ToastContainer;
@@ -29,7 +29,7 @@ export declare class View_ToastContainer0 extends import1.AppView<import0.ToastC
     _anchor_3: any;
     _vc_3: import16.ViewContainer;
     _TemplateRef_3_5: any;
-    _NgFor_3_6: import17.Wrapper_NgFor;
+    _NgFor_3_6: import24.Wrapper_NgFor;
     _text_4: any;
     _text_5: any;
     _expr_9: any;
