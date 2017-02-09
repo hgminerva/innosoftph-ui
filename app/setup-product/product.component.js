@@ -8,11 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var product_service_1 = require('./product.service');
-var ng2_toastr_1 = require('ng2-toastr/ng2-toastr');
-var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var product_service_1 = require("./product.service");
+var ng2_toastr_1 = require("ng2-toastr/ng2-toastr");
+var ng2_slim_loading_bar_1 = require("ng2-slim-loading-bar");
 var ProductComponent = (function () {
     // constructor
     function ProductComponent(productService, router, toastr, vRef, slimLoadingBarService) {
@@ -79,14 +79,15 @@ var ProductComponent = (function () {
     ProductComponent.prototype.ngOnInit = function () {
         this.getProductList();
     };
-    ProductComponent = __decorate([
-        core_1.Component({
-            selector: 'my-product',
-            templateUrl: 'app/setup-product/product.html'
-        }), 
-        __metadata('design:paramtypes', [product_service_1.ProductService, router_1.Router, ng2_toastr_1.ToastsManager, core_1.ViewContainerRef, ng2_slim_loading_bar_1.SlimLoadingBarService])
-    ], ProductComponent);
     return ProductComponent;
 }());
+ProductComponent = __decorate([
+    core_1.Component({
+        selector: 'my-product',
+        templateUrl: 'app/setup-product/product.html'
+    }),
+    __metadata("design:paramtypes", [product_service_1.ProductService, typeof (_a = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _a || Object, typeof (_b = typeof ng2_toastr_1.ToastsManager !== "undefined" && ng2_toastr_1.ToastsManager) === "function" && _b || Object, typeof (_c = typeof core_1.ViewContainerRef !== "undefined" && core_1.ViewContainerRef) === "function" && _c || Object, typeof (_d = typeof ng2_slim_loading_bar_1.SlimLoadingBarService !== "undefined" && ng2_slim_loading_bar_1.SlimLoadingBarService) === "function" && _d || Object])
+], ProductComponent);
 exports.ProductComponent = ProductComponent;
+var _a, _b, _c, _d;
 //# sourceMappingURL=product.component.js.map

@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var ng2_slim_loading_bar_1 = require("ng2-slim-loading-bar");
 var DashboardComponent = (function () {
     // constructor
     function DashboardComponent(router, slimLoadingBarService) {
@@ -32,14 +32,15 @@ var DashboardComponent = (function () {
             this.router.navigate(['login']);
         }
     };
-    DashboardComponent = __decorate([
-        core_1.Component({
-            selector: 'my-dashboard',
-            templateUrl: 'app/dashboard/dashboard.html'
-        }), 
-        __metadata('design:paramtypes', [router_1.Router, ng2_slim_loading_bar_1.SlimLoadingBarService])
-    ], DashboardComponent);
     return DashboardComponent;
 }());
+DashboardComponent = __decorate([
+    core_1.Component({
+        selector: 'my-dashboard',
+        templateUrl: 'app/dashboard/dashboard.html'
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _a || Object, typeof (_b = typeof ng2_slim_loading_bar_1.SlimLoadingBarService !== "undefined" && ng2_slim_loading_bar_1.SlimLoadingBarService) === "function" && _b || Object])
+], DashboardComponent);
 exports.DashboardComponent = DashboardComponent;
+var _a, _b;
 //# sourceMappingURL=dashboard.component.js.map

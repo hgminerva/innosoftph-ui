@@ -8,11 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var quotation_service_1 = require('./quotation.service');
-var ng2_toastr_1 = require('ng2-toastr/ng2-toastr');
-var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var quotation_service_1 = require("./quotation.service");
+var ng2_toastr_1 = require("ng2-toastr/ng2-toastr");
+var ng2_slim_loading_bar_1 = require("ng2-slim-loading-bar");
 var QuotationDetailComponent = (function () {
     // inject quotation detail service
     function QuotationDetailComponent(quotationService, router, activatedRoute, renderer, elementRef, toastr, vRef, slimLoadingBarService) {
@@ -279,14 +279,15 @@ var QuotationDetailComponent = (function () {
         }
         this.setQuotationDateValue();
     };
-    QuotationDetailComponent = __decorate([
-        core_1.Component({
-            selector: 'my-quotation-detail',
-            templateUrl: 'app/activity-quotation/quotationDetail.html'
-        }), 
-        __metadata('design:paramtypes', [quotation_service_1.QuotationService, router_1.Router, router_1.ActivatedRoute, core_1.Renderer, core_1.ElementRef, ng2_toastr_1.ToastsManager, core_1.ViewContainerRef, ng2_slim_loading_bar_1.SlimLoadingBarService])
-    ], QuotationDetailComponent);
     return QuotationDetailComponent;
 }());
+QuotationDetailComponent = __decorate([
+    core_1.Component({
+        selector: 'my-quotation-detail',
+        templateUrl: 'app/activity-quotation/quotationDetail.html'
+    }),
+    __metadata("design:paramtypes", [quotation_service_1.QuotationService, typeof (_a = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _a || Object, typeof (_b = typeof router_1.ActivatedRoute !== "undefined" && router_1.ActivatedRoute) === "function" && _b || Object, typeof (_c = typeof core_1.Renderer !== "undefined" && core_1.Renderer) === "function" && _c || Object, typeof (_d = typeof core_1.ElementRef !== "undefined" && core_1.ElementRef) === "function" && _d || Object, typeof (_e = typeof ng2_toastr_1.ToastsManager !== "undefined" && ng2_toastr_1.ToastsManager) === "function" && _e || Object, typeof (_f = typeof core_1.ViewContainerRef !== "undefined" && core_1.ViewContainerRef) === "function" && _f || Object, typeof (_g = typeof ng2_slim_loading_bar_1.SlimLoadingBarService !== "undefined" && ng2_slim_loading_bar_1.SlimLoadingBarService) === "function" && _g || Object])
+], QuotationDetailComponent);
 exports.QuotationDetailComponent = QuotationDetailComponent;
+var _a, _b, _c, _d, _e, _f, _g;
 //# sourceMappingURL=quotationDetail.component.js.map

@@ -8,11 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var router_1 = require('@angular/router');
-var user_service_1 = require('./user.service');
-var ng2_toastr_1 = require('ng2-toastr/ng2-toastr');
-var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var user_service_1 = require("./user.service");
+var ng2_toastr_1 = require("ng2-toastr/ng2-toastr");
+var ng2_slim_loading_bar_1 = require("ng2-slim-loading-bar");
 var UserComponent = (function () {
     // constructor
     function UserComponent(userService, router, toastr, vRef, slimLoadingBarService) {
@@ -76,14 +76,15 @@ var UserComponent = (function () {
     UserComponent.prototype.ngOnInit = function () {
         this.getListUser();
     };
-    UserComponent = __decorate([
-        core_1.Component({
-            selector: 'my-user',
-            templateUrl: 'app/setup-user/user.html'
-        }), 
-        __metadata('design:paramtypes', [user_service_1.UserService, router_1.Router, ng2_toastr_1.ToastsManager, core_1.ViewContainerRef, ng2_slim_loading_bar_1.SlimLoadingBarService])
-    ], UserComponent);
     return UserComponent;
 }());
+UserComponent = __decorate([
+    core_1.Component({
+        selector: 'my-user',
+        templateUrl: 'app/setup-user/user.html'
+    }),
+    __metadata("design:paramtypes", [user_service_1.UserService, typeof (_a = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _a || Object, typeof (_b = typeof ng2_toastr_1.ToastsManager !== "undefined" && ng2_toastr_1.ToastsManager) === "function" && _b || Object, typeof (_c = typeof core_1.ViewContainerRef !== "undefined" && core_1.ViewContainerRef) === "function" && _c || Object, typeof (_d = typeof ng2_slim_loading_bar_1.SlimLoadingBarService !== "undefined" && ng2_slim_loading_bar_1.SlimLoadingBarService) === "function" && _d || Object])
+], UserComponent);
 exports.UserComponent = UserComponent;
+var _a, _b, _c, _d;
 //# sourceMappingURL=user.component.js.map

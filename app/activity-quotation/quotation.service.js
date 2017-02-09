@@ -8,10 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var http_1 = require('@angular/http');
-var router_1 = require('@angular/router');
-var ng2_toastr_1 = require('ng2-toastr/ng2-toastr');
+var core_1 = require("@angular/core");
+var http_1 = require("@angular/http");
+var router_1 = require("@angular/router");
+var ng2_toastr_1 = require("ng2-toastr/ng2-toastr");
 var QuotationService = (function () {
     // constructor
     function QuotationService(router, http, toastr) {
@@ -279,11 +279,12 @@ var QuotationService = (function () {
             document.getElementById("btnActivityCloseDeleteConfirmation").disabled = false;
         });
     };
-    QuotationService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [router_1.Router, http_1.Http, ng2_toastr_1.ToastsManager])
-    ], QuotationService);
     return QuotationService;
 }());
+QuotationService = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [typeof (_a = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _a || Object, typeof (_b = typeof http_1.Http !== "undefined" && http_1.Http) === "function" && _b || Object, typeof (_c = typeof ng2_toastr_1.ToastsManager !== "undefined" && ng2_toastr_1.ToastsManager) === "function" && _c || Object])
+], QuotationService);
 exports.QuotationService = QuotationService;
+var _a, _b, _c;
 //# sourceMappingURL=quotation.service.js.map
