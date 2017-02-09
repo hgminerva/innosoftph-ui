@@ -8,9 +8,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var ng2_slim_loading_bar_1 = require("ng2-slim-loading-bar");
+var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
+var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
 var AppComponent = (function () {
     // inject router
     function AppComponent(router, slimLoadingBarService) {
@@ -57,15 +57,14 @@ var AppComponent = (function () {
             this.headerCurrentLoggedInUser = "Please Login";
         }
     };
+    AppComponent = __decorate([
+        core_1.Component({
+            selector: 'my-app',
+            templateUrl: 'app/shared-header/header.html'
+        }), 
+        __metadata('design:paramtypes', [router_1.Router, ng2_slim_loading_bar_1.SlimLoadingBarService])
+    ], AppComponent);
     return AppComponent;
 }());
-AppComponent = __decorate([
-    core_1.Component({
-        selector: 'my-app',
-        templateUrl: 'app/shared-header/header.html'
-    }),
-    __metadata("design:paramtypes", [typeof (_a = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _a || Object, typeof (_b = typeof ng2_slim_loading_bar_1.SlimLoadingBarService !== "undefined" && ng2_slim_loading_bar_1.SlimLoadingBarService) === "function" && _b || Object])
-], AppComponent);
 exports.AppComponent = AppComponent;
-var _a, _b;
 //# sourceMappingURL=app.component.js.map

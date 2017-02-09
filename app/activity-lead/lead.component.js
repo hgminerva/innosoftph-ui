@@ -8,11 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var lead_service_1 = require("./lead.service");
-var ng2_toastr_1 = require("ng2-toastr/ng2-toastr");
-var ng2_slim_loading_bar_1 = require("ng2-slim-loading-bar");
+var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
+var lead_service_1 = require('./lead.service');
+var ng2_toastr_1 = require('ng2-toastr/ng2-toastr');
+var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
 var LeadComponent = (function () {
     // inject lead service
     function LeadComponent(leadService, router, toastr, vRef, slimLoadingBarService) {
@@ -207,15 +207,14 @@ var LeadComponent = (function () {
     LeadComponent.prototype.ngOnInit = function () {
         this.setLeadDateRanged();
     };
+    LeadComponent = __decorate([
+        core_1.Component({
+            selector: 'my-lead',
+            templateUrl: 'app/activity-lead/lead.html'
+        }), 
+        __metadata('design:paramtypes', [lead_service_1.LeadService, router_1.Router, ng2_toastr_1.ToastsManager, core_1.ViewContainerRef, ng2_slim_loading_bar_1.SlimLoadingBarService])
+    ], LeadComponent);
     return LeadComponent;
 }());
-LeadComponent = __decorate([
-    core_1.Component({
-        selector: 'my-lead',
-        templateUrl: 'app/activity-lead/lead.html'
-    }),
-    __metadata("design:paramtypes", [lead_service_1.LeadService, typeof (_a = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _a || Object, typeof (_b = typeof ng2_toastr_1.ToastsManager !== "undefined" && ng2_toastr_1.ToastsManager) === "function" && _b || Object, typeof (_c = typeof core_1.ViewContainerRef !== "undefined" && core_1.ViewContainerRef) === "function" && _c || Object, typeof (_d = typeof ng2_slim_loading_bar_1.SlimLoadingBarService !== "undefined" && ng2_slim_loading_bar_1.SlimLoadingBarService) === "function" && _d || Object])
-], LeadComponent);
 exports.LeadComponent = LeadComponent;
-var _a, _b, _c, _d;
 //# sourceMappingURL=lead.component.js.map

@@ -8,11 +8,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require("@angular/core");
-var router_1 = require("@angular/router");
-var continuity_service_1 = require("./continuity.service");
-var ng2_toastr_1 = require("ng2-toastr/ng2-toastr");
-var ng2_slim_loading_bar_1 = require("ng2-slim-loading-bar");
+var core_1 = require('@angular/core');
+var router_1 = require('@angular/router');
+var continuity_service_1 = require('./continuity.service');
+var ng2_toastr_1 = require('ng2-toastr/ng2-toastr');
+var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
 var ContinuityComponent = (function () {
     // inject continuity service
     function ContinuityComponent(continuityService, router, toastr, vRef, slimLoadingBarService) {
@@ -242,15 +242,14 @@ var ContinuityComponent = (function () {
     ContinuityComponent.prototype.ngOnInit = function () {
         this.setContinuityDateRanged();
     };
+    ContinuityComponent = __decorate([
+        core_1.Component({
+            selector: 'my-continuity',
+            templateUrl: 'app/activity-continuity/continuity.html'
+        }), 
+        __metadata('design:paramtypes', [continuity_service_1.ContinuityService, router_1.Router, ng2_toastr_1.ToastsManager, core_1.ViewContainerRef, ng2_slim_loading_bar_1.SlimLoadingBarService])
+    ], ContinuityComponent);
     return ContinuityComponent;
 }());
-ContinuityComponent = __decorate([
-    core_1.Component({
-        selector: 'my-continuity',
-        templateUrl: 'app/activity-continuity/continuity.html'
-    }),
-    __metadata("design:paramtypes", [continuity_service_1.ContinuityService, typeof (_a = typeof router_1.Router !== "undefined" && router_1.Router) === "function" && _a || Object, typeof (_b = typeof ng2_toastr_1.ToastsManager !== "undefined" && ng2_toastr_1.ToastsManager) === "function" && _b || Object, typeof (_c = typeof core_1.ViewContainerRef !== "undefined" && core_1.ViewContainerRef) === "function" && _c || Object, typeof (_d = typeof ng2_slim_loading_bar_1.SlimLoadingBarService !== "undefined" && ng2_slim_loading_bar_1.SlimLoadingBarService) === "function" && _d || Object])
-], ContinuityComponent);
 exports.ContinuityComponent = ContinuityComponent;
-var _a, _b, _c, _d;
 //# sourceMappingURL=continuity.component.js.map
