@@ -1,6 +1,6 @@
 .idea
+-node_modules
 jspm_packages
 link-checker-results.txt
-/node_modules/*
 _test-output
 _temp
