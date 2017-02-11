@@ -20,28 +20,27 @@ export class DeliveryComponent implements OnInit {
   public deliveryToFilter: any;
   public deliveryDateValue: Date;
   public deliveryQuotaionObservableArray: wijmo.collections.ObservableArray;
-  public deliveryQuotaionSelectedIndex = -1;
-  public deliveryCustomerObservableArray: wijmo.collections.ObservableArray;
-  public deliveryCustomerSelectedIndex = -1;
-  public deliveryProductObservableArray: wijmo.collections.ObservableArray;
-  public deliveryProductSelectedIndex = -1;
+  public deliveryQuotaionSelectedValue: number;
+  // public deliveryCustomerObservableArray: wijmo.collections.ObservableArray;
+  // public deliveryCustomerSelectedIndex = -1;
+  // public deliveryProductObservableArray: wijmo.collections.ObservableArray;
+  // public deliveryProductSelectedIndex = -1;
   public deliveryMeetingDateValue: Date;
   public deliveryTechnicalUserObservableArray: wijmo.collections.ObservableArray;
-  public deliveryTechnicalUserSelectedIndex = -1;
+  public deliveryTechnicalUserSelectedValue: number;
   public deliveryFunctionalUserObservableArray: wijmo.collections.ObservableArray;
-  public deliveryFunctionalUserSelectedIndex = -1;
+  public deliveryFunctionalUserSelectedValue: number;
   public deliveryStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
-  public deliveryStatusSelectedIndex = 0;
+  public deliveryStatusSelectedValue = "OPEN";
   public deliveryQuotationId: number;
-  public deliveryCustomerId: number;
-  public deliveryProductId: number;
   public deliveryRemarks: String;
   public deliveryTechnicalUserId: number;
   public deliveryFunctionalUserId: number;
   public deliveryStatus: String;
-
-  public deliveryCustomerSelectedValue: String;
-  public deliveryProductSelectedValue: String;
+  // public deliveryCustomerSelectedValue: String;
+  // public deliveryProductSelectedValue: String;
+  public isFinishLoading = false;
+  public isLoading = true;
 
   // inject delivery service
   constructor(
@@ -63,6 +62,14 @@ export class DeliveryComponent implements OnInit {
   // complete loading
   public completeLoading() {
     this.slimLoadingBarService.complete();
+  }
+
+  public finishedLoad() {
+    this.isFinishLoading = true;
+    this.isLoading = false;
+    (<HTMLButtonElement>document.getElementById("btnSaveDelivery")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+    (<HTMLButtonElement>document.getElementById("btnSaveDelivery")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnCloseDelivery")).disabled = false;
   }
 
   // delivery date ranged
@@ -146,13 +153,14 @@ export class DeliveryComponent implements OnInit {
 
   // add delivery
   public btnAddDeliveryClick() {
+    this.isFinishLoading = false;
+    this.isLoading = true;
+    (<HTMLButtonElement>document.getElementById("btnSaveDelivery")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnCloseDelivery")).disabled = true;
     this.deliveryDateValue = new Date();
     this.getListQuotation();
-    (<HTMLButtonElement>document.getElementById("btnSaveDelivery")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-    (<HTMLButtonElement>document.getElementById("btnSaveDelivery")).disabled = false;
-    (<HTMLButtonElement>document.getElementById("btnCloseDelivery")).disabled = false;
-    this.deliveryCustomerSelectedValue = "";
-    this.deliveryProductSelectedValue = "";
+    // this.deliveryCustomerSelectedValue = "";
+    // this.deliveryProductSelectedValue = "";
   }
 
   // delivery date on value changed
@@ -163,83 +171,72 @@ export class DeliveryComponent implements OnInit {
   // list quotation data
   public getListQuotation() {
     this.deliveryQuotaionObservableArray = this.deliveryService.getListQuotationData("delivery");
-    this.getListCustomer();
+    // this.getListCustomer();
   }
 
   // quotation number selected index changed
   public cboDeliveryQuotaionSelectedIndexChanged() {
-    if (this.deliveryQuotaionSelectedIndex >= 0) {
-      this.deliveryQuotationId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].Id;
-      this.deliveryCustomerSelectedValue = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].Customer;
-      this.deliveryProductSelectedValue = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].Product;
-    } else {
-      this.deliveryQuotationId = 0;
-    }
+      this.deliveryQuotationId = this.deliveryQuotaionSelectedValue;
   }
 
-  // list customer data
-  public getListCustomer() {
-    this.deliveryCustomerObservableArray = this.deliveryService.getListArticleData("delivery", 2);
-    this.getListProduct();
-  }
+  // // list customer data
+  // public getListCustomer() {
+  //   this.deliveryCustomerObservableArray = this.deliveryService.getListArticleData("delivery", 2);
+  //   this.getListProduct();
+  // }
 
-  // customer selected index changed
-  public cboDeliveryCustomerSelectedIndexChanged() {
-    if (this.deliveryCustomerSelectedIndex >= 0) {
-      this.deliveryCustomerId = this.deliveryCustomerObservableArray[this.deliveryCustomerSelectedIndex].Id;
-    } else {
-      this.deliveryCustomerId = 0;
-    }
-  }
+  // // customer selected index changed
+  // public cboDeliveryCustomerSelectedIndexChanged() {
+  //   if (this.deliveryCustomerSelectedIndex >= 0) {
+  //     this.deliveryCustomerId = this.deliveryCustomerObservableArray[this.deliveryCustomerSelectedIndex].Id;
+  //   } else {
+  //     this.deliveryCustomerId = 0;
+  //   }
+  // }
 
-  // list product data
-  public getListProduct() {
-    this.deliveryProductObservableArray = this.deliveryService.getListArticleData("delivery", 1);
-    this.deliveryMeetingDateValue = new Date();
-    this.getListUsers();
-  }
+  // // list product data
+  // public getListProduct() {
+  //   this.deliveryProductObservableArray = this.deliveryService.getListArticleData("delivery", 1);
+  //   this.deliveryMeetingDateValue = new Date();
+  //   this.getListUsers();
+  // }
 
-  // product selected index changed
-  public cboDeliveryProductSelectedIndexChanged() {
-    if (this.deliveryProductSelectedIndex >= 0) {
-      this.deliveryProductId = this.deliveryProductObservableArray[this.deliveryProductSelectedIndex].Id;
-    } else {
-      this.deliveryProductId = 0;
-    }
-  }
+  // // product selected index changed
+  // public cboDeliveryProductSelectedIndexChanged() {
+  //   if (this.deliveryProductSelectedIndex >= 0) {
+  //     this.deliveryProductId = this.deliveryProductObservableArray[this.deliveryProductSelectedIndex].Id;
+  //   } else {
+  //     this.deliveryProductId = 0;
+  //   }
+  // }
 
   // meeting date on value changed
   public deliveryMeetingDateOnValueChanged() {
 
   }
 
-  // list product data
-  public getListUsers() {
-    this.deliveryTechnicalUserObservableArray = this.deliveryService.getListUserData("delivery", "");
-    this.deliveryFunctionalUserObservableArray = this.deliveryService.getListUserData("delivery", "");
+  // list technical and functional users
+  public getTechnicalListUsers() {
+    this.deliveryTechnicalUserObservableArray = this.deliveryService.getListUserData("delivery", "technical");
+  }
+
+  public getFunctionalListUsers() {
+    this.deliveryFunctionalUserObservableArray = this.deliveryService.getListUserData("delivery", "functional");
   }
 
   // technical user selected index changed
   public cboDeliveryTechnicalUserSelectedIndexChanged() {
-    if (this.deliveryTechnicalUserSelectedIndex >= 0) {
-      this.deliveryTechnicalUserId = this.deliveryTechnicalUserObservableArray[this.deliveryTechnicalUserSelectedIndex].Id;
-    } else {
-      this.deliveryTechnicalUserId = 0;
-    }
+      this.deliveryTechnicalUserId = this.deliveryTechnicalUserSelectedValue;
   }
 
   // functionl user selected index changed
   public cboDeliveryFunctionalUserSelectedIndexChanged() {
-    if (this.deliveryFunctionalUserSelectedIndex >= 0) {
-      this.deliveryFunctionalUserId = this.deliveryFunctionalUserObservableArray[this.deliveryFunctionalUserSelectedIndex].Id;
-    } else {
-      this.deliveryFunctionalUserId = 0;
-    }
+      this.deliveryFunctionalUserId = this.deliveryFunctionalUserSelectedValue;
   }
 
   // status selected index changed
   public cboStatusSelectedIndexChangedClick() {
-    this.deliveryStatus = this.deliveryStatusArray[this.deliveryStatusSelectedIndex];
+    this.deliveryStatus = this.deliveryStatusSelectedValue;
   }
 
   // delete delivery click
@@ -272,8 +269,6 @@ export class DeliveryComponent implements OnInit {
     let dataObject = {
       DeliveryDate: this.deliveryDateValue.toLocaleDateString(),
       QuotationId: this.deliveryQuotationId,
-      CustomerId: this.deliveryCustomerId,
-      ProductId: this.deliveryProductId,
       MeetingDate: this.deliveryMeetingDateValue.toLocaleDateString(),
       Remarks: this.deliveryRemarks,
       TechnicalUserId: this.deliveryTechnicalUserId,

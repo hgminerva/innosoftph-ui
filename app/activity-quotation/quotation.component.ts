@@ -20,18 +20,16 @@ export class QuotationComponent implements OnInit {
   public quotationFilter = '';
   public quotationToFilter: any;
   public quotationLeadObservableArray: wijmo.collections.ObservableArray;
-  public quotationLeadSelectedIndex = -1;
+  public quotationLeadSelectedValue: number;
   public quotationCustomerObservableArray: wijmo.collections.ObservableArray;
-  public quotationCustomerSelectedIndex = -1;
+  public quotationCustomerSelectedValue:  number;
   public quotationProductObservableArray: wijmo.collections.ObservableArray;
-  public quotationProductSelectedIndex = -1;
+  public quotationProductSelectedValue:  number;
   public quotationStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
-  public quotationStatusSelectedIndex = 0;
-  public quotationLeadId: number;
-  public quotationCustomerId: number;
-  public quotationProductId: number;
-  public quotationQuotationStatus: String;
+  public quotationStatusSelectedValue = "OPEN";
   public quotationRemarks: String;
+  public isFinishLoading = false;
+  public isLoading = true;
 
   // inject quotation service
   constructor(
@@ -53,6 +51,14 @@ export class QuotationComponent implements OnInit {
   // complete loading
   public completeLoading() {
     this.slimLoadingBarService.complete();
+  }
+
+  public finishedLoad() {
+    this.isFinishLoading = true;
+    this.isLoading = false;
+    (<HTMLButtonElement>document.getElementById("btnSaveQuotation")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+    (<HTMLButtonElement>document.getElementById("btnSaveQuotation")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnCloseQuotation")).disabled = false;
   }
 
   // quotation dates
@@ -102,64 +108,29 @@ export class QuotationComponent implements OnInit {
 
   // btn add quotation
   public btnAddQotationClick() {
+    this.isFinishLoading = false;
+    this.isLoading = true;
+    (<HTMLButtonElement>document.getElementById("btnSaveQuotation")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnCloseQuotation")).disabled = true;
+    this.quotationDateValue = new Date();
     this.getListLead();
-    (<HTMLButtonElement>document.getElementById("btnSaveQuotation")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-    (<HTMLButtonElement>document.getElementById("btnSaveQuotation")).disabled = false;
-    (<HTMLButtonElement>document.getElementById("btnCloseQuotation")).disabled = false;
+    this.quotationRemarks = "";
+    this.quotationStatusSelectedValue = "OPEN";
   }
 
   // list lead
   public getListLead() {
     this.quotationLeadObservableArray = this.quotationService.getListLeadData("quotation");
-    this.getListCustomer();
   }
 
   // list customer
   public getListCustomer() {
     this.quotationCustomerObservableArray = this.quotationService.getListArticleData("quotation", 2);
-    this.getListProduct();
   }
 
   // list Product
   public getListProduct() {
     this.quotationProductObservableArray = this.quotationService.getListArticleData("quotation", 1);
-  }
-
-  // quotation date on value changed
-  public quotationDateOnValueChanged() {
-
-  }
-
-  // lead selected index changed
-  public cboQuotationLeadSelectedIndexChanged() {
-    if (this.quotationLeadSelectedIndex >= 0) {
-      this.quotationLeadId = this.quotationLeadObservableArray[this.quotationLeadSelectedIndex].Id;
-    } else {
-      this.quotationLeadId = 0;
-    }
-  }
-
-  // customer selected index changed
-  public cboQuotationCustomerSelectedIndexChangedClick() {
-    if (this.quotationCustomerSelectedIndex >= 0) {
-      this.quotationCustomerId = this.quotationCustomerObservableArray[this.quotationCustomerSelectedIndex].Id;
-    } else {
-      this.quotationCustomerId = 0;
-    }
-  }
-
-  // product selected index changed
-  public cboQuotationProductSelectedIndexChangedClick() {
-    if (this.quotationProductSelectedIndex >= 0) {
-      this.quotationProductId = this.quotationProductObservableArray[this.quotationProductSelectedIndex].Id;
-    } else {
-      this.quotationProductId = 0;
-    }
-  }
-
-  // status selected index changed
-  public cboQuotationStatusSelectedIndexChangedClick() {
-    this.quotationQuotationStatus = this.quotationStatusArray[this.quotationStatusSelectedIndex];
   }
 
   // btn edit quotation
@@ -191,11 +162,11 @@ export class QuotationComponent implements OnInit {
   public getQuotationValue() {
     let dataObject = {
       QuotationDate: this.quotationDateValue.toLocaleDateString(),
-      LeadId: this.quotationLeadId,
-      CustomerId: this.quotationCustomerId,
-      ProductId: this.quotationProductId,
+      LeadId: this.quotationLeadSelectedValue,
+      CustomerId: this.quotationCustomerSelectedValue,
+      ProductId: this.quotationProductSelectedValue,
       Remarks: this.quotationRemarks,
-      QuotationStatus: this.quotationQuotationStatus
+      QuotationStatus: this.quotationStatusSelectedValue
     }
 
     return dataObject;

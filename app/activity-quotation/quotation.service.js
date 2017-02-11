@@ -35,11 +35,15 @@ var QuotationService = (function () {
                 if (results.length > 0) {
                     leadObservableArray.push({
                         Id: results[i].Id,
-                        LeadNumber: results[i].LeadNumber,
+                        LeadNumberDetail: results[i].LeadNumber + " - " + results[i].LeadName,
+                        LeadNumber: results[i].LeadNumber
                     });
                 }
             }
             if (page == "quotationDetail") {
+                document.getElementById("btn-hidden-customer-data").click();
+            }
+            else {
                 document.getElementById("btn-hidden-customer-data").click();
             }
         });
@@ -66,6 +70,16 @@ var QuotationService = (function () {
                 else {
                     if (articleTypeId == 1) {
                         document.getElementById("btn-hidden-encoded-user-data").click();
+                    }
+                }
+            }
+            else {
+                if (articleTypeId == 2) {
+                    document.getElementById("btn-hidden-product-data").click();
+                }
+                else {
+                    if (articleTypeId == 1) {
+                        document.getElementById("btn-hidden-finished-load").click();
                     }
                 }
             }
@@ -128,16 +142,19 @@ var QuotationService = (function () {
         this.http.get(url, this.options).subscribe(function (response) {
             var results = response.json();
             if (results != null) {
-                document.getElementById("quotationDateValue").value = results.QuotationDate;
-                document.getElementById("quotationNumber").value = results.QuotationNumber;
-                document.getElementById("quotationLeadSelectedValue").value = results.LeadNumber;
-                document.getElementById("quotationCustomerSelectedValue").value = results.Customer;
-                document.getElementById("quotationProductSelectedValue").value = results.Product;
-                document.getElementById("quotationEncodedBySelectedValue").value = results.EncodedByUser;
-                document.getElementById("quotationRemarks").value = results.Remarks;
-                document.getElementById("quotationStatusSelectedValue").value = results.QuotationStatus;
-                document.getElementById("btn-hidden-selectedValue-data").click();
-                document.getElementById("btn-hidden-complete-loading").click();
+                document.getElementById("btn-hidden-finished-load").click();
+                setTimeout(function () {
+                    document.getElementById("quotationDateValue").value = results.QuotationDate;
+                    document.getElementById("quotationNumber").value = results.QuotationNumber;
+                    document.getElementById("quotationLeadSelectedValue").value = results.LeadId;
+                    document.getElementById("quotationCustomerSelectedValue").value = results.CustomerId;
+                    document.getElementById("quotationProductSelectedValue").value = results.ProductId;
+                    document.getElementById("quotationEncodedBySelectedValue").value = results.EncodedByUserId;
+                    document.getElementById("quotationRemarks").value = results.Remarks;
+                    document.getElementById("quotationStatusSelectedValue").value = results.QuotationStatus;
+                    document.getElementById("btn-hidden-selectedValue-data").click();
+                    document.getElementById("btn-hidden-complete-loading").click();
+                }, 200);
             }
             else {
                 alert("No Data");
@@ -230,7 +247,7 @@ var QuotationService = (function () {
                     });
                 }
             }
-            document.getElementById("btn-hidden-complete-loading").click();
+            document.getElementById("btn-hidden-lead-data").click();
         });
         return activityObservableArray;
     };

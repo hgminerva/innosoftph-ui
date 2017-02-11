@@ -30,12 +30,15 @@ export class ContinuityService {
                     if (results.length > 0) {
                         deliveryObservableArray.push({
                             Id: results[i].Id,
+                            DeliveryNumberDetail: results[i].DeliveryNumber + " - " + results[i].Customer + " (" + results[i].Product + ")",
                             DeliveryNumber: results[i].DeliveryNumber,
                             Customer: results[i].Customer,
                             Product: results[i].Product
                         });
                     }
                 }
+
+                document.getElementById("btn-hidden-finished-load").click();
             }
         );
 

@@ -30,12 +30,15 @@ export class QuotationService {
                     if (results.length > 0) {
                         leadObservableArray.push({
                             Id: results[i].Id,
-                            LeadNumber: results[i].LeadNumber,
+                            LeadNumberDetail: results[i].LeadNumber + " - " + results[i].LeadName,
+                            LeadNumber: results[i].LeadNumber
                         });
                     }
                 }
 
                 if (page == "quotationDetail") {
+                    document.getElementById("btn-hidden-customer-data").click();
+                } else {
                     document.getElementById("btn-hidden-customer-data").click();
                 }
             }
@@ -66,6 +69,14 @@ export class QuotationService {
                     } else {
                         if (articleTypeId == 1) {
                             document.getElementById("btn-hidden-encoded-user-data").click();
+                        }
+                    }
+                } else {
+                    if (articleTypeId == 2) {
+                        document.getElementById("btn-hidden-product-data").click();
+                    } else {
+                        if (articleTypeId == 1) {
+                            document.getElementById("btn-hidden-finished-load").click();
                         }
                     }
                 }
@@ -141,16 +152,19 @@ export class QuotationService {
             response => {
                 var results = response.json();
                 if (results != null) {
-                    (<HTMLInputElement>document.getElementById("quotationDateValue")).value = results.QuotationDate;
-                    (<HTMLInputElement>document.getElementById("quotationNumber")).value = results.QuotationNumber;
-                    (<HTMLInputElement>document.getElementById("quotationLeadSelectedValue")).value = results.LeadNumber;
-                    (<HTMLInputElement>document.getElementById("quotationCustomerSelectedValue")).value = results.Customer;
-                    (<HTMLInputElement>document.getElementById("quotationProductSelectedValue")).value = results.Product;
-                    (<HTMLInputElement>document.getElementById("quotationEncodedBySelectedValue")).value = results.EncodedByUser;
-                    (<HTMLInputElement>document.getElementById("quotationRemarks")).value = results.Remarks;
-                    (<HTMLInputElement>document.getElementById("quotationStatusSelectedValue")).value = results.QuotationStatus;
-                    document.getElementById("btn-hidden-selectedValue-data").click();
-                    document.getElementById("btn-hidden-complete-loading").click();
+                    document.getElementById("btn-hidden-finished-load").click();
+                    setTimeout(() => {
+                        (<HTMLInputElement>document.getElementById("quotationDateValue")).value = results.QuotationDate;
+                        (<HTMLInputElement>document.getElementById("quotationNumber")).value = results.QuotationNumber;
+                        (<HTMLInputElement>document.getElementById("quotationLeadSelectedValue")).value = results.LeadId;
+                        (<HTMLInputElement>document.getElementById("quotationCustomerSelectedValue")).value = results.CustomerId;
+                        (<HTMLInputElement>document.getElementById("quotationProductSelectedValue")).value = results.ProductId;
+                        (<HTMLInputElement>document.getElementById("quotationEncodedBySelectedValue")).value = results.EncodedByUserId;
+                        (<HTMLInputElement>document.getElementById("quotationRemarks")).value = results.Remarks;
+                        (<HTMLInputElement>document.getElementById("quotationStatusSelectedValue")).value = results.QuotationStatus;
+                        document.getElementById("btn-hidden-selectedValue-data").click();
+                        document.getElementById("btn-hidden-complete-loading").click();
+                    }, 200);
                 } else {
                     alert("No Data");
                     this.router.navigate(["/quotation"]);
@@ -254,7 +268,7 @@ export class QuotationService {
                     }
                 }
 
-                document.getElementById("btn-hidden-complete-loading").click();
+                document.getElementById("btn-hidden-lead-data").click();
             }
         );
 

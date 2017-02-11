@@ -20,19 +20,14 @@ export class LeadDetailComponent implements OnInit {
   public leadContactPosition: String;
   public leadContactEmail: String;
   public leadContactNumber: String;
-  public leadEncodedByUserId: number;
   public leadAssignedToUserId: number;
   public leadReferredBy: String;
   public leadEncodedUserObservableArray: wijmo.collections.ObservableArray;
-  public leadEncodedBySelectedIndex = -1;
-  public leadEncodedBySelectedValue: String;
+  public leadEncodedBySelectedValue: number;
   public leadAssignedUserObservableArray: wijmo.collections.ObservableArray;
-  public leadAssignedToSelectedIndex = -1;
-  public leadAssignedToSelectedValue: String;
+  public leadAssignedToSelectedValue: number;
   public leadRemarks: String;
-  public leadStatus: String;
   public leadStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
-  public leadStatusSelectedIndex = -1;
   public leadStatusSelectedValue: String;
   public activityCollectionView: wijmo.collections.CollectionView;
   public activityDetailModalString: String;
@@ -46,12 +41,12 @@ export class LeadDetailComponent implements OnInit {
   public activityNoOfHours = [
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
   ];
-  public activityNoOfHoursSelectedIndex = 0;
   public activityNoOfHoursSelectedValue: String;
-  public activityStatus = ['Open', 'Close', 'Cancelled'];
-  public activityStatusSelectedIndex = 0;
+  public activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
   public activityStatusSelectedValue: String;
   public activityAmount: String;
+  public isFinishLoading = false;
+  public isLoading = true;
 
   // inject lead detail service
   constructor(
@@ -78,12 +73,20 @@ export class LeadDetailComponent implements OnInit {
     this.slimLoadingBarService.complete();
   }
 
+  public finishedLoad() {
+    this.isFinishLoading = true;
+    this.isLoading = false;
+    (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnCloseLeadDetail")).disabled = false;
+  }
+  
   // lead date ranged
   public setLeadDateValue() {
     this.leadDateValue = new Date();
     this.activityDateValue = new Date();
-    this.getListEncodedByUser();
-    this.getListActivity();
+    this.getListActivity(false);
+    (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnCloseLeadDetail")).disabled = true;
   }
 
   // encoded by user list
@@ -96,6 +99,11 @@ export class LeadDetailComponent implements OnInit {
     this.leadAssignedUserObservableArray = this.leadService.getListUserData("leadDetail", "assignedToUser");
   }
 
+  // event: assigned to
+  public cboAssignedToSelectedIndexChangedClick() {
+    this.leadAssignedToUserId = this.leadAssignedToSelectedValue;
+  }
+
   // event: lead date
   public leadDateOnValueChanged() {
     if (this.isLeadDateSelected) {
@@ -103,36 +111,12 @@ export class LeadDetailComponent implements OnInit {
     }
   }
 
-  // event: encoded by
-  public cboEncodedBySelectedIndexChangedClick() {
-    if (this.leadEncodedBySelectedIndex >= 0) {
-      this.leadEncodedByUserId = this.leadEncodedUserObservableArray[this.leadEncodedBySelectedIndex].Id;
-    } else {
-      this.leadEncodedByUserId = 0;
-    }
-  }
-
-  // event: assigned to
-  public cboAssignedToSelectedIndexChangedClick() {
-    if (this.leadAssignedToSelectedIndex >= 0) {
-      this.leadAssignedToUserId = this.leadAssignedUserObservableArray[this.leadAssignedToSelectedIndex].Id;
-    } else {
-      this.leadAssignedToUserId = 0;
-    }
-  }
-
-  // event: status
-  public cboStatusSelectedIndexChangedClick() {
-    this.leadStatus = this.leadStatusArray[this.leadStatusSelectedIndex];
-  }
-
   // set dropdown data
   public setDropdownSelectedValueData() {
     this.leadDateValue = new Date((<HTMLInputElement>document.getElementById("leadDateValue")).value.toString());
-    this.leadEncodedBySelectedValue = (<HTMLInputElement>document.getElementById("leadEncodedBySelectedValue")).value.toString();
-    this.leadAssignedToSelectedValue = (<HTMLInputElement>document.getElementById("leadAssignedToSelectedValue")).value.toString();
     this.leadStatusSelectedValue = (<HTMLInputElement>document.getElementById("leadStatusSelectedValue")).value.toString();
-    this.leadStatus = (<HTMLInputElement>document.getElementById("leadStatusSelectedValue")).value.toString();
+    this.leadEncodedBySelectedValue = parseInt((<HTMLInputElement>document.getElementById("leadEncodedBySelectedValue")).value.toString());
+    this.leadAssignedToSelectedValue = parseInt((<HTMLInputElement>document.getElementById("leadAssignedToSelectedValue")).value.toString());
   }
 
   // get lead data
@@ -152,9 +136,8 @@ export class LeadDetailComponent implements OnInit {
       ContactPhoneNo: (<HTMLInputElement>document.getElementById("leadContactNumber")).value,
       ReferredBy: (<HTMLInputElement>document.getElementById("leadReferredBy")).value,
       Remarks: (<HTMLInputElement>document.getElementById("leadRemarks")).value,
-      // EncodedByUserId: this.leadEncodedByUserId.toString(),
       AssignedToUserId: assignedToUserIdValue,
-      LeadStatus: this.leadStatus,
+      LeadStatus: this.leadStatusSelectedValue,
     }
 
     return dataObject;
@@ -203,8 +186,8 @@ export class LeadDetailComponent implements OnInit {
   }
 
   // activity line list
-  public getListActivity() {
-    this.activityCollectionView = new wijmo.collections.CollectionView(this.leadService.getListActivityByLeadId(this.getIdUrlParameter()));
+  public getListActivity(isLoadActivityOnly: Boolean) {
+    this.activityCollectionView = new wijmo.collections.CollectionView(this.leadService.getListActivityByLeadId(this.getIdUrlParameter(), isLoadActivityOnly));
     this.activityCollectionView.pageSize = 15;
     this.activityCollectionView.trackChanges = true;
   }
@@ -223,7 +206,7 @@ export class LeadDetailComponent implements OnInit {
       this.activityNoOfHoursSelectedValue = "0";
       (<HTMLInputElement>document.getElementById("activityAmount")).value = "0";
       this.activityAmount = "0";
-      this.activityStatusSelectedValue = "Open";
+      this.activityStatusSelectedValue = "OPEN";
     } else {
       this.activityDetailModalString = "Edit";
       let currentSelectedActivity = this.activityCollectionView.currentItem;

@@ -21,16 +21,15 @@ export class ContinuityComponent {
   public continuityDateValue: Date;
   public continuityExpiryDateValue: Date;
   public continuityDeliveryObservableArray: wijmo.collections.ObservableArray;
-  public continuityDeliverySelectedIndex = -1;
-  public continuityDeliverySelectedValue: String;
-  public continuityCustomerObservableArray: wijmo.collections.ObservableArray;
-  public continuityCustomerSelectedIndex = -1;
-  public continuityCustomerSelectedValue: String;
-  public continuityProductObservableArray: wijmo.collections.ObservableArray;
-  public continuityProductSelectedIndex = -1;
-  public continuityProductSelectedValue: String;
+  public continuityDeliverySelectedValue: number;
+  // public continuityCustomerObservableArray: wijmo.collections.ObservableArray;
+  // public continuityCustomerSelectedIndex = -1;
+  // public continuityCustomerSelectedValue: String;
+  // public continuityProductObservableArray: wijmo.collections.ObservableArray;
+  // public continuityProductSelectedIndex = -1;
+  // public continuityProductSelectedValue: String;
   public continuityStatusArray = ['OPEN', 'EXPIRED'];
-  public continuityStatusSelectedValue: 'OPEN';
+  public continuityStatusSelectedValue = "OPEN";
   public continuityDetailModalString: String;
   public continuityId: number;
   public continuityDeliveryId: number;
@@ -39,7 +38,9 @@ export class ContinuityComponent {
   public continuityStatus: String;
   public continuityStaffUser: String;
   public continuityNumber: String;
-  public continuityStatusSelectedIndex = -1;
+  public isFinishLoading = false;
+  public isLoading = true;
+  public isAdd: Boolean;
 
   // inject continuity service
   constructor(
@@ -63,6 +64,14 @@ export class ContinuityComponent {
     this.slimLoadingBarService.complete();
   }
 
+  public finishedLoad() {
+    this.isFinishLoading = true;
+    this.isLoading = false;
+    (<HTMLButtonElement>document.getElementById("btnSaveContinuity")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+    (<HTMLButtonElement>document.getElementById("btnSaveContinuity")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnCloseContinuity")).disabled = false;
+  }
+
   // continuity date ranged
   public setContinuityDateRanged() {
     this.continuityStartDateValue = new Date();
@@ -70,7 +79,6 @@ export class ContinuityComponent {
     this.continuityDateValue = new Date();
     this.continuityExpiryDateValue = new Date();
     this.getContinuityData();
-    this.getListDeliveryServiceData();
   }
 
   // continuity date on value changed
@@ -147,79 +155,68 @@ export class ContinuityComponent {
   // delivery data
   public getListDeliveryServiceData() {
     this.continuityDeliveryObservableArray = this.continuityService.getListDeliveryData();
-    this.getListCustomer();
+    // this.getListCustomer();
   }
 
   // delivery selected index changed
   public cboContinuityDeliverySelectedIndexChanged() {
-    if (this.continuityDeliverySelectedIndex >= 0) {
-      this.continuityDeliveryId = this.continuityDeliveryObservableArray[this.continuityDeliverySelectedIndex].Id;
-      this.continuityCustomerSelectedValue = this.continuityDeliveryObservableArray[this.continuityDeliverySelectedIndex].Customer;
-      this.continuityProductSelectedValue = this.continuityDeliveryObservableArray[this.continuityDeliverySelectedIndex].Product;
-    } else {
-      this.continuityDeliveryId = 0;
-    }
+    this.continuityDeliveryId = this.continuityDeliverySelectedValue;
   }
 
-  // list customer data
-  public getListCustomer() {
-    this.continuityCustomerObservableArray = this.continuityService.getListArticleData(2);
-    this.getListProduct();
-  }
+  // // list customer data
+  // public getListCustomer() {
+  //   this.continuityCustomerObservableArray = this.continuityService.getListArticleData(2);
+  //   this.getListProduct();
+  // }
 
-  // customer selected index changed
-  public cboContinuityCustomerSelectedIndexChanged() {
-    if (this.continuityCustomerSelectedIndex >= 0) {
-      this.continuitCustomerId = this.continuityCustomerObservableArray[this.continuityCustomerSelectedIndex].Id;
-    } else {
-      this.continuitCustomerId = 0;
-    }
-  }
+  // // customer selected index changed
+  // public cboContinuityCustomerSelectedIndexChanged() {
+  //   if (this.continuityCustomerSelectedIndex >= 0) {
+  //     this.continuitCustomerId = this.continuityCustomerObservableArray[this.continuityCustomerSelectedIndex].Id;
+  //   } else {
+  //     this.continuitCustomerId = 0;
+  //   }
+  // }
 
-  // list product data
-  public getListProduct() {
-    this.continuityProductObservableArray = this.continuityService.getListArticleData(1);
-  }
+  // // list product data
+  // public getListProduct() {
+  //   this.continuityProductObservableArray = this.continuityService.getListArticleData(1);
+  // }
 
-  // product selected index changed
-  public cboContinuityProductSelectedIndexChanged() {
-    if (this.continuityProductSelectedIndex >= 0) {
-      this.continuitProductId = this.continuityProductObservableArray[this.continuityProductSelectedIndex].Id;
-    } else {
-      this.continuitProductId = 0;
-    }
-  }
+  // // product selected index changed
+  // public cboContinuityProductSelectedIndexChanged() {
+  //   if (this.continuityProductSelectedIndex >= 0) {
+  //     this.continuitProductId = this.continuityProductObservableArray[this.continuityProductSelectedIndex].Id;
+  //   } else {
+  //     this.continuitProductId = 0;
+  //   }
+  // }
 
   // add continuity click
   public btnContinuityDetailClick(add: boolean) {
-    (<HTMLButtonElement>document.getElementById("btnSaveContinuity")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-    (<HTMLButtonElement>document.getElementById("btnSaveContinuity")).disabled = false;
-    (<HTMLButtonElement>document.getElementById("btnCloseContinuity")).disabled = false;
+    this.isFinishLoading = false;
+    this.isLoading = true;
+    (<HTMLButtonElement>document.getElementById("btnSaveContinuity")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnCloseContinuity")).disabled = true;
+    this.getListDeliveryServiceData();
     if (add) {
+      this.isAdd = false;
       this.continuityDetailModalString = "Add";
       this.continuityId = 0;
       this.continuityNumber = "--"
       this.continuityDateValue = new Date();
-      this.continuityDeliverySelectedIndex = 0;
-      // this.continuityCustomerSelectedIndex = 0;
-      // this.continuityProductSelectedIndex = 0;
-      this.continuityCustomerSelectedValue = this.continuityCustomerObservableArray[0].Customer;
-      this.continuityProductSelectedValue = this.continuityCustomerObservableArray[0].Product;
-
       this.continuityExpiryDateValue = new Date();
-      this.continuityStatusSelectedIndex = 0;
       this.continuityStatusSelectedValue = "OPEN";
       this.continuityStatus = "OPEN";
       this.continuityStaffUser = "--";
     } else {
+      this.isAdd = true;
       let currentSelectedContinuity = this.continuityCollectionView.currentItem;
       this.continuityDetailModalString = "Edit";
       this.continuityId = currentSelectedContinuity.Id;
       this.continuityNumber = currentSelectedContinuity.ContinuityNumber;
       this.continuityDateValue = new Date(currentSelectedContinuity.ContinuityDate);
-      this.continuityDeliverySelectedValue = currentSelectedContinuity.DeliveryNumber;
-      this.continuityCustomerSelectedValue = currentSelectedContinuity.Customer;
-      this.continuityProductSelectedValue = currentSelectedContinuity.Product;
+      this.continuityDeliverySelectedValue = currentSelectedContinuity.DeliveryId;
       this.continuityExpiryDateValue = new Date(currentSelectedContinuity.ExpiryDate);
       this.continuityStatusSelectedValue = currentSelectedContinuity.ContinuityStatus;
       this.continuityStatus = currentSelectedContinuity.ContinuityStatus;
@@ -229,7 +226,7 @@ export class ContinuityComponent {
 
   // continuity status selected index changed
   public cboContinuityStatusSelectedIndexChanged() {
-    this.continuityStatus = this.continuityStatusArray[this.continuityStatusSelectedIndex];
+    this.continuityStatus = this.continuityStatusSelectedValue;
   }
 
   // continuity data
@@ -237,8 +234,6 @@ export class ContinuityComponent {
     let dataObject = {
       ContinuityDate: this.continuityDateValue.toLocaleDateString(),
       DeliveryId: this.continuityDeliveryId,
-      CustomerId: this.continuitCustomerId,
-      ProductId: this.continuitProductId,
       ExpiryDate: this.continuityExpiryDateValue.toLocaleDateString(),
       ContinuityStatus: this.continuityStatus
     }

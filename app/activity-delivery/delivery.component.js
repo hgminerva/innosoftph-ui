@@ -24,13 +24,12 @@ var DeliveryComponent = (function () {
         this.isDeliveryStartDateSelected = true;
         this.isDeliveryEndDateSelected = true;
         this.deliveryFilter = '';
-        this.deliveryQuotaionSelectedIndex = -1;
-        this.deliveryCustomerSelectedIndex = -1;
-        this.deliveryProductSelectedIndex = -1;
-        this.deliveryTechnicalUserSelectedIndex = -1;
-        this.deliveryFunctionalUserSelectedIndex = -1;
         this.deliveryStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
-        this.deliveryStatusSelectedIndex = 0;
+        this.deliveryStatusSelectedValue = "OPEN";
+        // public deliveryCustomerSelectedValue: String;
+        // public deliveryProductSelectedValue: String;
+        this.isFinishLoading = false;
+        this.isLoading = true;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -41,6 +40,13 @@ var DeliveryComponent = (function () {
     // complete loading
     DeliveryComponent.prototype.completeLoading = function () {
         this.slimLoadingBarService.complete();
+    };
+    DeliveryComponent.prototype.finishedLoad = function () {
+        this.isFinishLoading = true;
+        this.isLoading = false;
+        document.getElementById("btnSaveDelivery").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+        document.getElementById("btnSaveDelivery").disabled = false;
+        document.getElementById("btnCloseDelivery").disabled = false;
     };
     // delivery date ranged
     DeliveryComponent.prototype.setDeliveryDateRanged = function () {
@@ -117,13 +123,14 @@ var DeliveryComponent = (function () {
     };
     // add delivery
     DeliveryComponent.prototype.btnAddDeliveryClick = function () {
+        this.isFinishLoading = false;
+        this.isLoading = true;
+        document.getElementById("btnSaveDelivery").disabled = true;
+        document.getElementById("btnCloseDelivery").disabled = true;
         this.deliveryDateValue = new Date();
         this.getListQuotation();
-        document.getElementById("btnSaveDelivery").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-        document.getElementById("btnSaveDelivery").disabled = false;
-        document.getElementById("btnCloseDelivery").disabled = false;
-        this.deliveryCustomerSelectedValue = "";
-        this.deliveryProductSelectedValue = "";
+        // this.deliveryCustomerSelectedValue = "";
+        // this.deliveryProductSelectedValue = "";
     };
     // delivery date on value changed
     DeliveryComponent.prototype.deliveryDateOnValueChanged = function () {
@@ -131,77 +138,60 @@ var DeliveryComponent = (function () {
     // list quotation data
     DeliveryComponent.prototype.getListQuotation = function () {
         this.deliveryQuotaionObservableArray = this.deliveryService.getListQuotationData("delivery");
-        this.getListCustomer();
+        // this.getListCustomer();
     };
     // quotation number selected index changed
     DeliveryComponent.prototype.cboDeliveryQuotaionSelectedIndexChanged = function () {
-        if (this.deliveryQuotaionSelectedIndex >= 0) {
-            this.deliveryQuotationId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].Id;
-            this.deliveryCustomerSelectedValue = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].Customer;
-            this.deliveryProductSelectedValue = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].Product;
-        }
-        else {
-            this.deliveryQuotationId = 0;
-        }
+        this.deliveryQuotationId = this.deliveryQuotaionSelectedValue;
     };
-    // list customer data
-    DeliveryComponent.prototype.getListCustomer = function () {
-        this.deliveryCustomerObservableArray = this.deliveryService.getListArticleData("delivery", 2);
-        this.getListProduct();
-    };
-    // customer selected index changed
-    DeliveryComponent.prototype.cboDeliveryCustomerSelectedIndexChanged = function () {
-        if (this.deliveryCustomerSelectedIndex >= 0) {
-            this.deliveryCustomerId = this.deliveryCustomerObservableArray[this.deliveryCustomerSelectedIndex].Id;
-        }
-        else {
-            this.deliveryCustomerId = 0;
-        }
-    };
-    // list product data
-    DeliveryComponent.prototype.getListProduct = function () {
-        this.deliveryProductObservableArray = this.deliveryService.getListArticleData("delivery", 1);
-        this.deliveryMeetingDateValue = new Date();
-        this.getListUsers();
-    };
-    // product selected index changed
-    DeliveryComponent.prototype.cboDeliveryProductSelectedIndexChanged = function () {
-        if (this.deliveryProductSelectedIndex >= 0) {
-            this.deliveryProductId = this.deliveryProductObservableArray[this.deliveryProductSelectedIndex].Id;
-        }
-        else {
-            this.deliveryProductId = 0;
-        }
-    };
+    // // list customer data
+    // public getListCustomer() {
+    //   this.deliveryCustomerObservableArray = this.deliveryService.getListArticleData("delivery", 2);
+    //   this.getListProduct();
+    // }
+    // // customer selected index changed
+    // public cboDeliveryCustomerSelectedIndexChanged() {
+    //   if (this.deliveryCustomerSelectedIndex >= 0) {
+    //     this.deliveryCustomerId = this.deliveryCustomerObservableArray[this.deliveryCustomerSelectedIndex].Id;
+    //   } else {
+    //     this.deliveryCustomerId = 0;
+    //   }
+    // }
+    // // list product data
+    // public getListProduct() {
+    //   this.deliveryProductObservableArray = this.deliveryService.getListArticleData("delivery", 1);
+    //   this.deliveryMeetingDateValue = new Date();
+    //   this.getListUsers();
+    // }
+    // // product selected index changed
+    // public cboDeliveryProductSelectedIndexChanged() {
+    //   if (this.deliveryProductSelectedIndex >= 0) {
+    //     this.deliveryProductId = this.deliveryProductObservableArray[this.deliveryProductSelectedIndex].Id;
+    //   } else {
+    //     this.deliveryProductId = 0;
+    //   }
+    // }
     // meeting date on value changed
     DeliveryComponent.prototype.deliveryMeetingDateOnValueChanged = function () {
     };
-    // list product data
-    DeliveryComponent.prototype.getListUsers = function () {
-        this.deliveryTechnicalUserObservableArray = this.deliveryService.getListUserData("delivery", "");
-        this.deliveryFunctionalUserObservableArray = this.deliveryService.getListUserData("delivery", "");
+    // list technical and functional users
+    DeliveryComponent.prototype.getTechnicalListUsers = function () {
+        this.deliveryTechnicalUserObservableArray = this.deliveryService.getListUserData("delivery", "technical");
+    };
+    DeliveryComponent.prototype.getFunctionalListUsers = function () {
+        this.deliveryFunctionalUserObservableArray = this.deliveryService.getListUserData("delivery", "functional");
     };
     // technical user selected index changed
     DeliveryComponent.prototype.cboDeliveryTechnicalUserSelectedIndexChanged = function () {
-        if (this.deliveryTechnicalUserSelectedIndex >= 0) {
-            this.deliveryTechnicalUserId = this.deliveryTechnicalUserObservableArray[this.deliveryTechnicalUserSelectedIndex].Id;
-        }
-        else {
-            this.deliveryTechnicalUserId = 0;
-        }
+        this.deliveryTechnicalUserId = this.deliveryTechnicalUserSelectedValue;
     };
     // functionl user selected index changed
     DeliveryComponent.prototype.cboDeliveryFunctionalUserSelectedIndexChanged = function () {
-        if (this.deliveryFunctionalUserSelectedIndex >= 0) {
-            this.deliveryFunctionalUserId = this.deliveryFunctionalUserObservableArray[this.deliveryFunctionalUserSelectedIndex].Id;
-        }
-        else {
-            this.deliveryFunctionalUserId = 0;
-        }
+        this.deliveryFunctionalUserId = this.deliveryFunctionalUserSelectedValue;
     };
     // status selected index changed
     DeliveryComponent.prototype.cboStatusSelectedIndexChangedClick = function () {
-        this.deliveryStatus = this.deliveryStatusArray[this.deliveryStatusSelectedIndex];
+        this.deliveryStatus = this.deliveryStatusSelectedValue;
     };
     // delete delivery click
     DeliveryComponent.prototype.btnDeleteDeliveryClick = function () {
@@ -230,8 +220,6 @@ var DeliveryComponent = (function () {
         var dataObject = {
             DeliveryDate: this.deliveryDateValue.toLocaleDateString(),
             QuotationId: this.deliveryQuotationId,
-            CustomerId: this.deliveryCustomerId,
-            ProductId: this.deliveryProductId,
             MeetingDate: this.deliveryMeetingDateValue.toLocaleDateString(),
             Remarks: this.deliveryRemarks,
             TechnicalUserId: this.deliveryTechnicalUserId,

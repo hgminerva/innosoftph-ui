@@ -25,37 +25,41 @@ var SupportService = (function () {
         });
         this.options = new http_1.RequestOptions({ headers: this.headers });
     }
-    // list continuity by status
-    SupportService.prototype.getListContinuityData = function (page) {
-        var url = "http://api.innosoft.ph/api/continuity/list/byContinuityStatus";
-        var continuityObservableArray = new wijmo.collections.ObservableArray();
+    // list bcs customer
+    SupportService.prototype.getContuinityCustomerData = function (page) {
+        var customerObservableArray = new wijmo.collections.ObservableArray();
+        var url = "http://api.innosoft.ph/api/continuity/list/continuity/customers";
         this.http.get(url, this.options).subscribe(function (response) {
-            for (var key in response.json()) {
-                if (response.json().hasOwnProperty(key)) {
-                    continuityObservableArray.push({
-                        Id: response.json()[key].Id,
-                        ContinuityNumber: response.json()[key].ContinuityNumber,
-                        Customer: response.json()[key].Customer,
-                        Product: response.json()[key].Product,
+            var results = new wijmo.collections.ObservableArray(response.json());
+            for (var i = 0; i <= results.length - 1; i++) {
+                if (results.length > 0) {
+                    customerObservableArray.push({
+                        CustomerId: results[i].CustomerId,
+                        Customer: results[i].Customer
                     });
                 }
             }
             if (page == "supportDetail") {
-                document.getElementById("btn-hidden-customer-data").click();
+            }
+            else {
+                if (page == "support") {
+                    document.getElementById("btn-hidden-continuity-data").click();
+                }
             }
         });
-        return continuityObservableArray;
+        return customerObservableArray;
     };
     // list article by article type
     SupportService.prototype.getListArticleData = function (page, articleTypeId) {
         var articleObservableArray = new wijmo.collections.ObservableArray();
         var url = "http://api.innosoft.ph/api/article/list/byArticleTypeId/" + articleTypeId;
         this.http.get(url, this.options).subscribe(function (response) {
-            for (var key in response.json()) {
-                if (response.json().hasOwnProperty(key)) {
+            var results = new wijmo.collections.ObservableArray(response.json());
+            for (var i = 0; i <= results.length - 1; i++) {
+                if (results.length > 0) {
                     articleObservableArray.push({
-                        Id: response.json()[key].Id,
-                        Article: response.json()[key].Article
+                        Id: results[i].Id,
+                        Article: results[i].Article
                     });
                 }
             }
@@ -69,19 +73,51 @@ var SupportService = (function () {
                     }
                 }
             }
+            else {
+                if (articleTypeId == 2) {
+                    document.getElementById("btn-hidden-continuity-data").click();
+                }
+            }
         });
         return articleObservableArray;
+    };
+    // list continuity by status
+    SupportService.prototype.getListContinuityData = function (page, customerId) {
+        var continuityObservableArray = new wijmo.collections.ObservableArray();
+        var url = "http://api.innosoft.ph/api/continuity/list/byCustomerId/byContinuityStatus/" + customerId;
+        this.http.get(url, this.options).subscribe(function (response) {
+            var results = new wijmo.collections.ObservableArray(response.json());
+            for (var i = 0; i <= results.length - 1; i++) {
+                if (results.length > 0) {
+                    continuityObservableArray.push({
+                        Id: results[i].Id,
+                        ContinuityNumberDetail: results[i].ContinuityNumber + " - " + results[i].Product + " (Exp: " + results[i].ExpiryDate + ")",
+                        ContinuityNumber: results[i].ContinuityNumber,
+                        Customer: results[i].Customer,
+                        Product: results[i].Product,
+                    });
+                }
+            }
+            if (page == "supportDetail") {
+                document.getElementById("btn-hidden-customer-data").click();
+            }
+            else {
+                document.getElementById("btn-hidden-assigned-to-user-data").click();
+            }
+        });
+        return continuityObservableArray;
     };
     // list user
     SupportService.prototype.getListUserData = function (page, userType) {
         var userObservableArray = new wijmo.collections.ObservableArray();
         var url = "http://api.innosoft.ph/api/user/list";
         this.http.get(url, this.options).subscribe(function (response) {
-            for (var key in response.json()) {
-                if (response.json().hasOwnProperty(key)) {
+            var results = new wijmo.collections.ObservableArray(response.json());
+            for (var i = 0; i <= results.length - 1; i++) {
+                if (results.length > 0) {
                     userObservableArray.push({
-                        Id: response.json()[key].Id,
-                        FullName: response.json()[key].FullName
+                        Id: results[i].Id,
+                        FullName: results[i].FullName
                     });
                 }
             }
@@ -95,6 +131,11 @@ var SupportService = (function () {
                     }
                 }
             }
+            else {
+                if (userType == "assignedToUser") {
+                    document.getElementById("btn-hidden-finished-load").click();
+                }
+            }
         });
         return userObservableArray;
     };
@@ -103,29 +144,30 @@ var SupportService = (function () {
         var url = "http://api.innosoft.ph/api/support/list/bySupportDateRange/" + supportStartDate.toDateString() + "/" + supportEndDate.toDateString();
         var supportObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
-            for (var key in response.json()) {
-                if (response.json().hasOwnProperty(key)) {
+            var results = new wijmo.collections.ObservableArray(response.json());
+            for (var i = 0; i <= results.length - 1; i++) {
+                if (results.length > 0) {
                     supportObservableArray.push({
-                        Id: response.json()[key].Id,
-                        SupportNumber: response.json()[key].SupportNumber,
-                        SupportDate: response.json()[key].SupportDate,
-                        ContinuityId: response.json()[key].ContinuityId,
-                        ContinuityNumber: response.json()[key].ContinuityNumber,
-                        IssueCategory: response.json()[key].IssueCategory,
-                        Issue: response.json()[key].Issue,
-                        CustomerId: response.json()[key].CustomerId,
-                        Customer: response.json()[key].Customer,
-                        ProductId: response.json()[key].ProductId,
-                        Product: response.json()[key].Product,
-                        Severity: response.json()[key].Severity,
-                        Caller: response.json()[key].Caller,
-                        Remarks: response.json()[key].Remarks,
-                        ScreenShotURL: response.json()[key].ScreenShotURL,
-                        EncodedByUserId: response.json()[key].EncodedByUserId,
-                        EncodedByUser: response.json()[key].EncodedByUser,
-                        AssignedToUserId: response.json()[key].AssignedToUserId,
-                        AssignedToUser: response.json()[key].AssignedToUser,
-                        SupportStatus: response.json()[key].SupportStatus,
+                        Id: results[i].Id,
+                        SupportNumber: results[i].SupportNumber,
+                        SupportDate: results[i].SupportDate,
+                        ContinuityId: results[i].ContinuityId,
+                        ContinuityNumber: results[i].ContinuityNumber,
+                        IssueCategory: results[i].IssueCategory,
+                        Issue: results[i].Issue,
+                        CustomerId: results[i].CustomerId,
+                        Customer: results[i].Customer,
+                        ProductId: results[i].ProductId,
+                        Product: results[i].Product,
+                        Severity: results[i].Severity,
+                        Caller: results[i].Caller,
+                        Remarks: results[i].Remarks,
+                        ScreenShotURL: results[i].ScreenShotURL,
+                        EncodedByUserId: results[i].EncodedByUserId,
+                        EncodedByUser: results[i].EncodedByUser,
+                        AssignedToUserId: results[i].AssignedToUserId,
+                        AssignedToUser: results[i].AssignedToUser,
+                        SupportStatus: results[i].SupportStatus,
                     });
                 }
             }
@@ -138,21 +180,22 @@ var SupportService = (function () {
         var _this = this;
         var url = "http://api.innosoft.ph/api/support/get/byId/" + id;
         this.http.get(url, this.options).subscribe(function (response) {
-            if (response.json() != null) {
-                document.getElementById("supportNumber").value = response.json().SupportNumber;
-                document.getElementById("supportDateValue").value = response.json().SupportDate;
-                document.getElementById("supportContinuitySelectedValue").value = response.json().ContinuityNumber;
-                document.getElementById("supportIssueCategorySelectedValue").value = response.json().IssueCategory;
-                document.getElementById("supportIssue").value = response.json().Issue;
-                document.getElementById("supportCustomerSelectedValue").value = response.json().Customer;
-                document.getElementById("supportProductSelectedValue").value = response.json().Product;
-                document.getElementById("supportSeveritySelectedValue").value = response.json().Severity;
-                document.getElementById("supportCaller").value = response.json().Caller;
-                document.getElementById("supportRemarks").value = response.json().Remarks;
-                document.getElementById("supportScreenShotURL").value = response.json().ScreenShotURL;
-                document.getElementById("supportEncodedBySelectedValue").value = response.json().EncodedByUser;
-                document.getElementById("supportAssignedToSelectedValue").value = response.json().AssignedToUser;
-                document.getElementById("supportStatusSelectedValue").value = response.json().SupportStatus;
+            var results = response.json();
+            if (results != null) {
+                document.getElementById("supportNumber").value = results.SupportNumber;
+                document.getElementById("supportDateValue").value = results.SupportDate;
+                document.getElementById("supportContinuitySelectedValue").value = results.ContinuityNumber;
+                document.getElementById("supportIssueCategorySelectedValue").value = results.IssueCategory;
+                document.getElementById("supportIssue").value = results.Issue;
+                document.getElementById("supportCustomerSelectedValue").value = results.Customer;
+                document.getElementById("supportProductSelectedValue").value = results.Product;
+                document.getElementById("supportSeveritySelectedValue").value = results.Severity;
+                document.getElementById("supportCaller").value = results.Caller;
+                document.getElementById("supportRemarks").value = results.Remarks;
+                document.getElementById("supportScreenShotURL").value = results.ScreenShotURL;
+                document.getElementById("supportEncodedBySelectedValue").value = results.EncodedByUser;
+                document.getElementById("supportAssignedToSelectedValue").value = results.AssignedToUser;
+                document.getElementById("supportStatusSelectedValue").value = results.SupportStatus;
                 document.getElementById("btn-hidden-selectedValue-data").click();
                 document.getElementById("btn-hidden-complete-loading").click();
             }
@@ -167,11 +210,12 @@ var SupportService = (function () {
         var _this = this;
         var url = "http://api.innosoft.ph/api/support/post";
         this.http.post(url, JSON.stringify(supportObject), this.options).subscribe(function (response) {
-            if (response.json() > 0) {
+            var results = response.json();
+            if (results > 0) {
                 _this.toastr.success('', 'Save Successful');
                 setTimeout(function () {
                     document.getElementById("btn-hidden-support-detail-modal").click();
-                    _this.router.navigate(['/supportDetail', response.json()]);
+                    _this.router.navigate(['/supportDetail', results]);
                 }, 1000);
             }
             else {
@@ -221,27 +265,28 @@ var SupportService = (function () {
         var url = "http://api.innosoft.ph/api/activity/list/bySupportId/" + supportId;
         var activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
-            for (var key in response.json()) {
-                if (response.json().hasOwnProperty(key)) {
+            var results = new wijmo.collections.ObservableArray(response.json());
+            for (var i = 0; i <= results.length - 1; i++) {
+                if (results.length > 0) {
                     activityObservableArray.push({
-                        Id: response.json()[key].Id,
-                        ActivityNumber: response.json()[key].ActivityNumber,
-                        ActivityDate: response.json()[key].ActivityDate,
-                        StaffUserId: response.json()[key].StaffUserId,
-                        StaffUser: response.json()[key].StaffUser,
-                        CustomerId: response.json()[key].CustomerId,
-                        Customer: response.json()[key].Customer,
-                        ProductId: response.json()[key].ProductId,
-                        Product: response.json()[key].Product,
-                        ParticularCategory: response.json()[key].ParticularCategory,
-                        Particulars: response.json()[key].Particulars,
-                        NumberOfHours: response.json()[key].NumberOfHours,
-                        ActivityAmount: response.json()[key].ActivityAmount,
-                        ActivityStatus: response.json()[key].ActivityStatus,
-                        LeadId: response.json()[key].LeadId,
-                        QuotationId: response.json()[key].QuotationId,
-                        DeliveryId: response.json()[key].DeliveryId,
-                        SupportId: response.json()[key].SupportId
+                        Id: results[i].Id,
+                        ActivityNumber: results[i].ActivityNumber,
+                        ActivityDate: results[i].ActivityDate,
+                        StaffUserId: results[i].StaffUserId,
+                        StaffUser: results[i].StaffUser,
+                        CustomerId: results[i].CustomerId,
+                        Customer: results[i].Customer,
+                        ProductId: results[i].ProductId,
+                        Product: results[i].Product,
+                        ParticularCategory: results[i].ParticularCategory,
+                        Particulars: results[i].Particulars,
+                        NumberOfHours: results[i].NumberOfHours,
+                        ActivityAmount: results[i].ActivityAmount,
+                        ActivityStatus: results[i].ActivityStatus,
+                        LeadId: results[i].LeadId,
+                        QuotationId: results[i].QuotationId,
+                        DeliveryId: results[i].DeliveryId,
+                        SupportId: results[i].SupportId
                     });
                 }
             }

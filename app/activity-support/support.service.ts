@@ -19,30 +19,33 @@ export class SupportService {
         public toastr: ToastsManager
     ) { }
 
-    // list continuity by status
-    public getListContinuityData(page: String): wijmo.collections.ObservableArray {
-        let url = "http://api.innosoft.ph/api/continuity/list/byContinuityStatus";
-        let continuityObservableArray = new wijmo.collections.ObservableArray();
+    // list bcs customer
+    public getContuinityCustomerData(page: String): wijmo.collections.ObservableArray {
+        let customerObservableArray = new wijmo.collections.ObservableArray();
+        let url = "http://api.innosoft.ph/api/continuity/list/continuity/customers";
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
-                        continuityObservableArray.push({
-                            Id: response.json()[key].Id,
-                            ContinuityNumber: response.json()[key].ContinuityNumber,
-                            Customer: response.json()[key].Customer,
-                            Product: response.json()[key].Product,
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
+                        customerObservableArray.push({
+                            CustomerId: results[i].CustomerId,
+                            Customer: results[i].Customer
                         });
                     }
                 }
 
                 if (page == "supportDetail") {
-                    document.getElementById("btn-hidden-customer-data").click();
+
+                } else {
+                    if (page == "support") {
+                        document.getElementById("btn-hidden-continuity-data").click();
+                    }
                 }
             }
         );
 
-        return continuityObservableArray;
+        return customerObservableArray;
     }
 
     // list article by article type
@@ -51,11 +54,12 @@ export class SupportService {
         let url = "http://api.innosoft.ph/api/article/list/byArticleTypeId/" + articleTypeId;
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         articleObservableArray.push({
-                            Id: response.json()[key].Id,
-                            Article: response.json()[key].Article
+                            Id: results[i].Id,
+                            Article: results[i].Article
                         });
                     }
                 }
@@ -68,11 +72,45 @@ export class SupportService {
                             document.getElementById("btn-hidden-encoded-by-user-data").click();
                         }
                     }
+                } else {
+                    if (articleTypeId == 2) {
+                        document.getElementById("btn-hidden-continuity-data").click();
+                    }
                 }
             }
         );
 
         return articleObservableArray;
+    }
+
+    // list continuity by status
+    public getListContinuityData(page: String, customerId: number): wijmo.collections.ObservableArray {
+        let continuityObservableArray = new wijmo.collections.ObservableArray();
+        let url = "http://api.innosoft.ph/api/continuity/list/byCustomerId/byContinuityStatus/" + customerId;
+        this.http.get(url, this.options).subscribe(
+            response => {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
+                        continuityObservableArray.push({
+                            Id: results[i].Id,
+                            ContinuityNumberDetail: results[i].ContinuityNumber + " - " + results[i].Product + " (Exp: " + results[i].ExpiryDate + ")",
+                            ContinuityNumber: results[i].ContinuityNumber,
+                            Customer: results[i].Customer,
+                            Product: results[i].Product,
+                        });
+                    }
+                }
+
+                if (page == "supportDetail") {
+                    document.getElementById("btn-hidden-customer-data").click();
+                } else {
+                    document.getElementById("btn-hidden-assigned-to-user-data").click();
+                }
+            }
+        );
+
+        return continuityObservableArray;
     }
 
     // list user
@@ -81,11 +119,12 @@ export class SupportService {
         let url = "http://api.innosoft.ph/api/user/list";
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         userObservableArray.push({
-                            Id: response.json()[key].Id,
-                            FullName: response.json()[key].FullName
+                            Id: results[i].Id,
+                            FullName: results[i].FullName
                         });
                     }
                 }
@@ -97,6 +136,10 @@ export class SupportService {
                         if (userType == "assignedToUser") {
                             document.getElementById("btn-hidden-support-data").click();
                         }
+                    }
+                } else {
+                    if (userType == "assignedToUser") {
+                        document.getElementById("btn-hidden-finished-load").click();
                     }
                 }
             }
@@ -111,29 +154,30 @@ export class SupportService {
         let supportObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         supportObservableArray.push({
-                            Id: response.json()[key].Id,
-                            SupportNumber: response.json()[key].SupportNumber,
-                            SupportDate: response.json()[key].SupportDate,
-                            ContinuityId: response.json()[key].ContinuityId,
-                            ContinuityNumber: response.json()[key].ContinuityNumber,
-                            IssueCategory: response.json()[key].IssueCategory,
-                            Issue: response.json()[key].Issue,
-                            CustomerId: response.json()[key].CustomerId,
-                            Customer: response.json()[key].Customer,
-                            ProductId: response.json()[key].ProductId,
-                            Product: response.json()[key].Product,
-                            Severity: response.json()[key].Severity,
-                            Caller: response.json()[key].Caller,
-                            Remarks: response.json()[key].Remarks,
-                            ScreenShotURL: response.json()[key].ScreenShotURL,
-                            EncodedByUserId: response.json()[key].EncodedByUserId,
-                            EncodedByUser: response.json()[key].EncodedByUser,
-                            AssignedToUserId: response.json()[key].AssignedToUserId,
-                            AssignedToUser: response.json()[key].AssignedToUser,
-                            SupportStatus: response.json()[key].SupportStatus,
+                            Id: results[i].Id,
+                            SupportNumber: results[i].SupportNumber,
+                            SupportDate: results[i].SupportDate,
+                            ContinuityId: results[i].ContinuityId,
+                            ContinuityNumber: results[i].ContinuityNumber,
+                            IssueCategory: results[i].IssueCategory,
+                            Issue: results[i].Issue,
+                            CustomerId: results[i].CustomerId,
+                            Customer: results[i].Customer,
+                            ProductId: results[i].ProductId,
+                            Product: results[i].Product,
+                            Severity: results[i].Severity,
+                            Caller: results[i].Caller,
+                            Remarks: results[i].Remarks,
+                            ScreenShotURL: results[i].ScreenShotURL,
+                            EncodedByUserId: results[i].EncodedByUserId,
+                            EncodedByUser: results[i].EncodedByUser,
+                            AssignedToUserId: results[i].AssignedToUserId,
+                            AssignedToUser: results[i].AssignedToUser,
+                            SupportStatus: results[i].SupportStatus,
                         });
                     }
                 }
@@ -150,21 +194,22 @@ export class SupportService {
         let url = "http://api.innosoft.ph/api/support/get/byId/" + id;
         this.http.get(url, this.options).subscribe(
             response => {
-                if (response.json() != null) {
-                    (<HTMLInputElement>document.getElementById("supportNumber")).value = response.json().SupportNumber;
-                    (<HTMLInputElement>document.getElementById("supportDateValue")).value = response.json().SupportDate;
-                    (<HTMLInputElement>document.getElementById("supportContinuitySelectedValue")).value = response.json().ContinuityNumber;
-                    (<HTMLInputElement>document.getElementById("supportIssueCategorySelectedValue")).value = response.json().IssueCategory;
-                    (<HTMLInputElement>document.getElementById("supportIssue")).value = response.json().Issue;
-                    (<HTMLInputElement>document.getElementById("supportCustomerSelectedValue")).value = response.json().Customer;
-                    (<HTMLInputElement>document.getElementById("supportProductSelectedValue")).value = response.json().Product;
-                    (<HTMLInputElement>document.getElementById("supportSeveritySelectedValue")).value = response.json().Severity;
-                    (<HTMLInputElement>document.getElementById("supportCaller")).value = response.json().Caller;
-                    (<HTMLInputElement>document.getElementById("supportRemarks")).value = response.json().Remarks;
-                    (<HTMLInputElement>document.getElementById("supportScreenShotURL")).value = response.json().ScreenShotURL;
-                    (<HTMLInputElement>document.getElementById("supportEncodedBySelectedValue")).value = response.json().EncodedByUser;
-                    (<HTMLInputElement>document.getElementById("supportAssignedToSelectedValue")).value = response.json().AssignedToUser;
-                    (<HTMLInputElement>document.getElementById("supportStatusSelectedValue")).value = response.json().SupportStatus;
+                var results = response.json();
+                if (results != null) {
+                    (<HTMLInputElement>document.getElementById("supportNumber")).value = results.SupportNumber;
+                    (<HTMLInputElement>document.getElementById("supportDateValue")).value = results.SupportDate;
+                    (<HTMLInputElement>document.getElementById("supportContinuitySelectedValue")).value = results.ContinuityNumber;
+                    (<HTMLInputElement>document.getElementById("supportIssueCategorySelectedValue")).value = results.IssueCategory;
+                    (<HTMLInputElement>document.getElementById("supportIssue")).value = results.Issue;
+                    (<HTMLInputElement>document.getElementById("supportCustomerSelectedValue")).value = results.Customer;
+                    (<HTMLInputElement>document.getElementById("supportProductSelectedValue")).value = results.Product;
+                    (<HTMLInputElement>document.getElementById("supportSeveritySelectedValue")).value = results.Severity;
+                    (<HTMLInputElement>document.getElementById("supportCaller")).value = results.Caller;
+                    (<HTMLInputElement>document.getElementById("supportRemarks")).value = results.Remarks;
+                    (<HTMLInputElement>document.getElementById("supportScreenShotURL")).value = results.ScreenShotURL;
+                    (<HTMLInputElement>document.getElementById("supportEncodedBySelectedValue")).value = results.EncodedByUser;
+                    (<HTMLInputElement>document.getElementById("supportAssignedToSelectedValue")).value = results.AssignedToUser;
+                    (<HTMLInputElement>document.getElementById("supportStatusSelectedValue")).value = results.SupportStatus;
                     document.getElementById("btn-hidden-selectedValue-data").click();
                     document.getElementById("btn-hidden-complete-loading").click();
                 } else {
@@ -180,11 +225,12 @@ export class SupportService {
         let url = "http://api.innosoft.ph/api/support/post";
         this.http.post(url, JSON.stringify(supportObject), this.options).subscribe(
             response => {
-                if (response.json() > 0) {
+                var results = response.json();
+                if (results > 0) {
                     this.toastr.success('', 'Save Successful');
                     setTimeout(() => {
                         document.getElementById("btn-hidden-support-detail-modal").click();
-                        this.router.navigate(['/supportDetail', response.json()]);
+                        this.router.navigate(['/supportDetail', results]);
                     }, 1000);
                 } else {
                     this.toastr.error('', 'Something`s went wrong!');
@@ -243,27 +289,28 @@ export class SupportService {
         let activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
-                for (var key in response.json()) {
-                    if (response.json().hasOwnProperty(key)) {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
                         activityObservableArray.push({
-                            Id: response.json()[key].Id,
-                            ActivityNumber: response.json()[key].ActivityNumber,
-                            ActivityDate: response.json()[key].ActivityDate,
-                            StaffUserId: response.json()[key].StaffUserId,
-                            StaffUser: response.json()[key].StaffUser,
-                            CustomerId: response.json()[key].CustomerId,
-                            Customer: response.json()[key].Customer,
-                            ProductId: response.json()[key].ProductId,
-                            Product: response.json()[key].Product,
-                            ParticularCategory: response.json()[key].ParticularCategory,
-                            Particulars: response.json()[key].Particulars,
-                            NumberOfHours: response.json()[key].NumberOfHours,
-                            ActivityAmount: response.json()[key].ActivityAmount,
-                            ActivityStatus: response.json()[key].ActivityStatus,
-                            LeadId: response.json()[key].LeadId,
-                            QuotationId: response.json()[key].QuotationId,
-                            DeliveryId: response.json()[key].DeliveryId,
-                            SupportId: response.json()[key].SupportId
+                            Id: results[i].Id,
+                            ActivityNumber: results[i].ActivityNumber,
+                            ActivityDate: results[i].ActivityDate,
+                            StaffUserId: results[i].StaffUserId,
+                            StaffUser: results[i].StaffUser,
+                            CustomerId: results[i].CustomerId,
+                            Customer: results[i].Customer,
+                            ProductId: results[i].ProductId,
+                            Product: results[i].Product,
+                            ParticularCategory: results[i].ParticularCategory,
+                            Particulars: results[i].Particulars,
+                            NumberOfHours: results[i].NumberOfHours,
+                            ActivityAmount: results[i].ActivityAmount,
+                            ActivityStatus: results[i].ActivityStatus,
+                            LeadId: results[i].LeadId,
+                            QuotationId: results[i].QuotationId,
+                            DeliveryId: results[i].DeliveryId,
+                            SupportId: results[i].SupportId
                         });
                     }
                 }

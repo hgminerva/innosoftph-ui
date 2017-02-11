@@ -25,8 +25,10 @@ var LeadComponent = (function () {
         this.isLeadEndDateSelected = true;
         this.isLeadDateSelected = true;
         this.leadStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
-        this.leadStatusSelectedIndex = 0;
+        this.leadStatusSelectedValue = "OPEN";
         this.leadFilter = '';
+        this.isFinishLoading = false;
+        this.isLoading = true;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -37,6 +39,13 @@ var LeadComponent = (function () {
     // complete loading
     LeadComponent.prototype.completeLoading = function () {
         this.slimLoadingBarService.complete();
+    };
+    LeadComponent.prototype.finishedLoad = function () {
+        this.isFinishLoading = true;
+        this.isLoading = false;
+        document.getElementById("btnSaveLead").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+        document.getElementById("btnSaveLead").disabled = false;
+        document.getElementById("btnCloseLead").disabled = false;
     };
     // lead dates
     LeadComponent.prototype.setLeadDateRanged = function () {
@@ -118,37 +127,22 @@ var LeadComponent = (function () {
     };
     // user list
     LeadComponent.prototype.getListUser = function () {
-        this.leadEncodedUserObservableArray = this.leadService.getListUserData("lead", "");
         this.leadAssignedUserObservableArray = this.leadService.getListUserData("lead", "");
-    };
-    // event: encoded by
-    LeadComponent.prototype.cboEncodedBySelectedIndexChangedClick = function () {
-        if (this.leadEncodedBySelectedIndex >= 0) {
-            this.leadEncodedByUserId = this.leadEncodedUserObservableArray[this.leadEncodedBySelectedIndex].Id;
-        }
-        else {
-            this.leadEncodedByUserId = 0;
-        }
     };
     // event: assigned to
     LeadComponent.prototype.cboAssignedToSelectedIndexChangedClick = function () {
-        if (this.leadAssignedToSelectedIndex >= 0) {
-            this.leadAssignedToUserId = this.leadAssignedUserObservableArray[this.leadAssignedToSelectedIndex].Id;
-        }
-        else {
-            this.leadAssignedToUserId = 0;
-        }
+        this.leadAssignedToUserId = this.leadAssignedToSelectedValue;
     };
     // event: status
     LeadComponent.prototype.cboStatusSelectedIndexChangedClick = function () {
-        this.leadStatus = this.leadStatusArray[this.leadStatusSelectedIndex];
+        this.leadStatus = this.leadStatusSelectedValue;
     };
     // btn Add lead
     LeadComponent.prototype.btnAddLeadClick = function () {
-        document.getElementById("btnSaveLead").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-        document.getElementById("btnSaveLead").disabled = false;
-        document.getElementById("btnCloseLead").disabled = false;
-        this.leadStatus = this.leadStatusArray[this.leadStatusSelectedIndex];
+        this.isFinishLoading = false;
+        this.isLoading = true;
+        document.getElementById("btnSaveLead").disabled = true;
+        document.getElementById("btnCloseLead").disabled = true;
         this.getListUser();
     };
     // btn edit lead

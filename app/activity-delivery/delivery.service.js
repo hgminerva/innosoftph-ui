@@ -35,14 +35,16 @@ var DeliveryService = (function () {
                 if (results.length > 0) {
                     quotationObservableArray.push({
                         Id: results[i].Id,
-                        QuotationNumber: results[i].QuotationNumber,
-                        Customer: results[i].Customer,
-                        Product: results[i].Product
+                        QuotationNumberDetail: results[i].QuotationNumber + " - " + results[i].Customer + " (" + results[i].Product + ")",
+                        QuotationNumber: results[i].QuotationNumber
                     });
                 }
             }
             if (page == "deliveryDetail") {
                 document.getElementById("btn-hidden-customer-data").click();
+            }
+            else {
+                document.getElementById("btn-hidden-technical-user-data").click();
             }
         });
         return quotationObservableArray;
@@ -100,6 +102,16 @@ var DeliveryService = (function () {
                         if (userType == "functional") {
                             document.getElementById("btn-hidden-delivery-data").click();
                         }
+                    }
+                }
+            }
+            else {
+                if (userType == "technical") {
+                    document.getElementById("btn-hidden-functional-user-data").click();
+                }
+                else {
+                    if (userType == "functional") {
+                        document.getElementById("btn-hidden-finished-load").click();
                     }
                 }
             }

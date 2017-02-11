@@ -24,7 +24,7 @@ var SupportActivityComponent = (function () {
         this.isSupportStartDateSelected = true;
         this.isSupportEndDateSelected = true;
         this.supportFilter = '';
-        this.supportContinuitySelectedIndex = -1;
+        this.isSupportCustomerSelected = true;
         this.supportIssueCategoryArray = [
             'New Installation',
             'Software Bug',
@@ -37,19 +37,18 @@ var SupportActivityComponent = (function () {
             'Progam Update',
             'Data Archive'
         ];
-        this.supportIssueCategorySelectedIndex = 0;
-        this.supportCustomerSelectedIndex = -1;
-        this.supportProductSelectedIndex = -1;
+        this.supportIssueCategorySelectedValue = "New Installation";
         this.supportSeverityArray = [
             'High (3hrs. resolution)',
             'Moderate (1 day resolution)',
             'Low (2 day resolution)',
             'Gossip'
         ];
-        this.supportSeveritySelectedIndex = 0;
-        this.supportAssignedToSelectedIndex = -1;
+        this.supportSeveritySelectedValue = "High (3hrs. resolution)";
         this.supportStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
-        this.supportStatusSelectedIndex = 0;
+        this.supportStatusSelectedValue = "OPEN";
+        this.isFinishLoading = false;
+        this.isLoading = true;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -60,6 +59,13 @@ var SupportActivityComponent = (function () {
     // complete loading
     SupportActivityComponent.prototype.completeLoading = function () {
         this.slimLoadingBarService.complete();
+    };
+    SupportActivityComponent.prototype.finishedLoad = function () {
+        this.isFinishLoading = true;
+        this.isLoading = false;
+        document.getElementById("btnSaveSupport").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+        document.getElementById("btnSaveSupport").disabled = false;
+        document.getElementById("btnCloseSupport").disabled = false;
     };
     // support dates
     SupportActivityComponent.prototype.setSupportDateRanged = function () {
@@ -139,12 +145,13 @@ var SupportActivityComponent = (function () {
     };
     // add support
     SupportActivityComponent.prototype.btnAddSupportClick = function () {
-        this.getListContinuity();
-        this.supportCustomerSelectedValue = "";
-        this.supportProductSelectedValue = "";
+        this.isFinishLoading = false;
+        this.isLoading = true;
         document.getElementById("btnSaveSupport").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-        document.getElementById("btnSaveSupport").disabled = false;
-        document.getElementById("btnCloseSupport").disabled = false;
+        document.getElementById("btnSaveSupport").disabled = true;
+        document.getElementById("btnCloseSupport").disabled = true;
+        this.getListCustomer();
+        this.supportCustomerSelectedIndex = 0;
     };
     // support values
     SupportActivityComponent.prototype.getSupportObjectValue = function () {
@@ -154,17 +161,16 @@ var SupportActivityComponent = (function () {
         }
         var dataObject = {
             SupportDate: this.supportDateValue.toLocaleDateString(),
-            ContinuityId: this.supportContinuityId,
-            IssueCategory: this.supportIssueCategory,
+            ContinuityId: this.supportContinuitySelectedValue,
+            IssueCategory: this.supportIssueCategorySelectedValue,
             Issue: this.supportIssue,
-            CustomerId: this.supportCustomerId,
-            ProductId: this.supportProductId,
-            Severity: this.supportSeverity,
+            CustomerId: this.supportCustomerSelectedValue,
+            Severity: this.supportSeveritySelectedValue,
             Caller: this.supportCaller,
             Remarks: this.supportRemarks,
             ScreenShotURL: this.supportScreenShotURL,
             AssignedToUserId: assignedToUserIdValue,
-            SupportStatus: this.supportSupportStatus
+            SupportStatus: this.supportStatusSelectedValue
         };
         return dataObject;
     };
@@ -199,73 +205,27 @@ var SupportActivityComponent = (function () {
         var currentSelectedSupport = this.supportCollectionView.currentItem;
         this.supportService.deleteSupportData(currentSelectedSupport.Id, toastr);
     };
-    // support date value changed
-    SupportActivityComponent.prototype.supportDateOnValueChanged = function () {
-    };
-    // list lead
-    SupportActivityComponent.prototype.getListContinuity = function () {
-        this.supportContinuityObservableArray = this.supportService.getListContinuityData("support");
-        this.getListCustomer();
-    };
     // list customer
     SupportActivityComponent.prototype.getListCustomer = function () {
-        this.supportCustomerObservableArray = this.supportService.getListArticleData("support", 2);
-        this.supportProductObservableArray = this.supportService.getListArticleData("support", 1);
-        this.getListAssignedToUser();
-    };
-    // assigned to user list
-    SupportActivityComponent.prototype.getListAssignedToUser = function () {
-        this.supportAssignedUserObservableArray = this.supportService.getListUserData("support", "");
-    };
-    // support continuuity selected index changed
-    SupportActivityComponent.prototype.cboSupportContinuitySelectedIndexChanged = function () {
-        if (this.supportContinuitySelectedIndex >= 0) {
-            this.supportContinuityId = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].Id;
-            this.supportCustomerSelectedValue = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].Customer;
-            this.supportProductSelectedValue = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].Product;
-        }
-        else {
-            this.supportContinuityId = 0;
-        }
-    };
-    // support issue category selected index changed
-    SupportActivityComponent.prototype.cboSupportIssueCategorySelectedIndexChangedClick = function () {
-        this.supportIssueCategory = this.supportIssueCategoryArray[this.supportIssueCategorySelectedIndex];
+        this.supportCustomerObservableArray = this.supportService.getContuinityCustomerData("support");
     };
     // support customer selected index changed
     SupportActivityComponent.prototype.cboSupportCustomerSelectedIndexChangedClick = function () {
-        if (this.supportCustomerSelectedIndex >= 0) {
-            this.supportCustomerId = this.supportCustomerObservableArray[this.supportCustomerSelectedIndex].Id;
-        }
-        else {
-            this.supportCustomerId = 0;
+        if (typeof this.supportCustomerSelectedValue != 'undefined') {
+            this.getListContinuity();
         }
     };
-    // support product selected index changed
-    SupportActivityComponent.prototype.cboSupportProductSelectedIndexChangedClick = function () {
-        if (this.supportProductSelectedIndex >= 0) {
-            this.supportProductId = this.supportProductObservableArray[this.supportProductSelectedIndex].Id;
+    // list continuuity
+    SupportActivityComponent.prototype.getListContinuity = function () {
+        var customerId = this.supportCustomerObservableArray[this.supportCustomerSelectedIndex].CustomerId;
+        if (typeof this.supportCustomerSelectedValue != 'undefined') {
+            customerId = this.supportCustomerSelectedValue;
         }
-        else {
-            this.supportProductId = 0;
-        }
+        this.supportContinuityObservableArray = this.supportService.getListContinuityData("support", customerId);
     };
-    // support severity selected index changed
-    SupportActivityComponent.prototype.cboSupportSeveritySelectedIndexChangedClick = function () {
-        this.supportSeverity = this.supportSeverityArray[this.supportSeveritySelectedIndex];
-    };
-    // support assigned to selected index changed
-    SupportActivityComponent.prototype.cboAssignedToSelectedIndexChangedClick = function () {
-        if (this.supportAssignedToSelectedIndex >= 0) {
-            this.supportAssignedToUserId = this.supportAssignedUserObservableArray[this.supportAssignedToSelectedIndex].Id;
-        }
-        else {
-            this.supportAssignedToUserId = 0;
-        }
-    };
-    // support status to selected index changed
-    SupportActivityComponent.prototype.cboSupportStatusSelectedIndexChangedClick = function () {
-        this.supportSupportStatus = this.supportStatusArray[this.supportStatusSelectedIndex];
+    // assigned to user list
+    SupportActivityComponent.prototype.getListAssignedToUser = function () {
+        this.supportAssignedUserObservableArray = this.supportService.getListUserData("support", "assignedToUser");
     };
     // initialization
     SupportActivityComponent.prototype.ngOnInit = function () {

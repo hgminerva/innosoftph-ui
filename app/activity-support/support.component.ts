@@ -19,8 +19,11 @@ export class SupportActivityComponent implements OnInit {
   public supportFilter = '';
   public supportToFilter: any;
   public supportDateValue: Date;
+  public supportCustomerObservableArray: wijmo.collections.ObservableArray;
+  public supportCustomerSelectedValue: number;
+  public isSupportCustomerSelected = true;
   public supportContinuityObservableArray: wijmo.collections.ObservableArray;
-  public supportContinuitySelectedIndex = -1;
+  public supportContinuitySelectedValue: number;
   public supportIssueCategoryArray = [
     'New Installation',
     'Software Bug',
@@ -33,35 +36,26 @@ export class SupportActivityComponent implements OnInit {
     'Progam Update',
     'Data Archive'
   ];
-  public supportIssueCategorySelectedIndex = 0;
+  public supportIssueCategorySelectedValue = "New Installation";
   public supportIssue: String;
-  public supportCustomerObservableArray: wijmo.collections.ObservableArray;
-  public supportCustomerSelectedIndex = -1;
-  public supportProductObservableArray: wijmo.collections.ObservableArray;
-  public supportProductSelectedIndex = -1;
   public supportSeverityArray = [
     'High (3hrs. resolution)',
     'Moderate (1 day resolution)',
     'Low (2 day resolution)',
     'Gossip'
   ];
-  public supportSeveritySelectedIndex = 0;
+  public supportSeveritySelectedValue = "High (3hrs. resolution)";
   public supportCaller: String;
   public supportRemarks: String;
   public supportScreenShotURL: String;
   public supportAssignedUserObservableArray: wijmo.collections.ObservableArray;
-  public supportAssignedToSelectedIndex = -1;
-  public supportStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
-  public supportStatusSelectedIndex = 0;
+  public supportAssignedToSelectedValue: number;
   public supportAssignedToUserId: number;
-  public supportContinuityId: number;
-  public supportIssueCategory: String;
-  public supportCustomerId: number;
-  public supportProductId: number;
-  public supportSeverity: String;
-  public supportSupportStatus: String;
-  public supportCustomerSelectedValue: String;
-  public supportProductSelectedValue: String;
+  public supportStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
+  public supportStatusSelectedValue = "OPEN";
+  public supportCustomerSelectedIndex: number;
+  public isFinishLoading = false;
+  public isLoading = true;
 
   // inject support service
   constructor(
@@ -83,6 +77,14 @@ export class SupportActivityComponent implements OnInit {
   // complete loading
   public completeLoading() {
     this.slimLoadingBarService.complete();
+  }
+
+  public finishedLoad() {
+    this.isFinishLoading = true;
+    this.isLoading = false;
+    (<HTMLButtonElement>document.getElementById("btnSaveSupport")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+    (<HTMLButtonElement>document.getElementById("btnSaveSupport")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnCloseSupport")).disabled = false;
   }
 
   // support dates
@@ -169,12 +171,13 @@ export class SupportActivityComponent implements OnInit {
 
   // add support
   public btnAddSupportClick() {
-    this.getListContinuity();
-    this.supportCustomerSelectedValue = "";
-    this.supportProductSelectedValue = "";
+    this.isFinishLoading = false;
+    this.isLoading = true;
     (<HTMLButtonElement>document.getElementById("btnSaveSupport")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-    (<HTMLButtonElement>document.getElementById("btnSaveSupport")).disabled = false;
-    (<HTMLButtonElement>document.getElementById("btnCloseSupport")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnSaveSupport")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnCloseSupport")).disabled = true;
+    this.getListCustomer();
+    this.supportCustomerSelectedIndex = 0;
   }
 
   // support values
@@ -186,17 +189,16 @@ export class SupportActivityComponent implements OnInit {
 
     let dataObject = {
       SupportDate: this.supportDateValue.toLocaleDateString(),
-      ContinuityId: this.supportContinuityId,
-      IssueCategory: this.supportIssueCategory,
+      ContinuityId: this.supportContinuitySelectedValue,
+      IssueCategory: this.supportIssueCategorySelectedValue,
       Issue: this.supportIssue,
-      CustomerId: this.supportCustomerId,
-      ProductId: this.supportProductId,
-      Severity: this.supportSeverity,
+      CustomerId: this.supportCustomerSelectedValue,
+      Severity: this.supportSeveritySelectedValue,
       Caller: this.supportCaller,
       Remarks: this.supportRemarks,
       ScreenShotURL: this.supportScreenShotURL,
       AssignedToUserId: assignedToUserIdValue,
-      SupportStatus: this.supportSupportStatus
+      SupportStatus: this.supportStatusSelectedValue
     }
 
     return dataObject;
@@ -237,80 +239,31 @@ export class SupportActivityComponent implements OnInit {
     this.supportService.deleteSupportData(currentSelectedSupport.Id, toastr);
   }
 
-  // support date value changed
-  public supportDateOnValueChanged() {
-
-  }
-
-  // list lead
-  public getListContinuity() {
-    this.supportContinuityObservableArray = this.supportService.getListContinuityData("support");
-    this.getListCustomer();
-  }
-
   // list customer
   public getListCustomer() {
-    this.supportCustomerObservableArray = this.supportService.getListArticleData("support", 2);
-    this.supportProductObservableArray = this.supportService.getListArticleData("support", 1);
-    this.getListAssignedToUser();
-  }
-
-  // assigned to user list
-  public getListAssignedToUser() {
-    this.supportAssignedUserObservableArray = this.supportService.getListUserData("support", "");
-  }
-
-  // support continuuity selected index changed
-  public cboSupportContinuitySelectedIndexChanged() {
-    if (this.supportContinuitySelectedIndex >= 0) {
-      this.supportContinuityId = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].Id;
-      this.supportCustomerSelectedValue = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].Customer;
-      this.supportProductSelectedValue = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].Product;
-    } else {
-      this.supportContinuityId = 0;
-    }
-  }
-
-  // support issue category selected index changed
-  public cboSupportIssueCategorySelectedIndexChangedClick() {
-    this.supportIssueCategory = this.supportIssueCategoryArray[this.supportIssueCategorySelectedIndex];
+    this.supportCustomerObservableArray = this.supportService.getContuinityCustomerData("support");
   }
 
   // support customer selected index changed
   public cboSupportCustomerSelectedIndexChangedClick() {
-    if (this.supportCustomerSelectedIndex >= 0) {
-      this.supportCustomerId = this.supportCustomerObservableArray[this.supportCustomerSelectedIndex].Id;
-    } else {
-      this.supportCustomerId = 0;
+    if (typeof this.supportCustomerSelectedValue != 'undefined') {
+      this.getListContinuity();
     }
   }
 
-  // support product selected index changed
-  public cboSupportProductSelectedIndexChangedClick() {
-    if (this.supportProductSelectedIndex >= 0) {
-      this.supportProductId = this.supportProductObservableArray[this.supportProductSelectedIndex].Id;
-    } else {
-      this.supportProductId = 0;
+  // list continuuity
+  public getListContinuity() {
+    let customerId = this.supportCustomerObservableArray[this.supportCustomerSelectedIndex].CustomerId;
+    if (typeof this.supportCustomerSelectedValue != 'undefined') {
+      customerId = this.supportCustomerSelectedValue;
     }
+
+    this.supportContinuityObservableArray = this.supportService.getListContinuityData("support", customerId);
   }
 
-  // support severity selected index changed
-  public cboSupportSeveritySelectedIndexChangedClick() {
-    this.supportSeverity = this.supportSeverityArray[this.supportSeveritySelectedIndex];
-  }
-
-  // support assigned to selected index changed
-  public cboAssignedToSelectedIndexChangedClick() {
-    if (this.supportAssignedToSelectedIndex >= 0) {
-      this.supportAssignedToUserId = this.supportAssignedUserObservableArray[this.supportAssignedToSelectedIndex].Id;
-    } else {
-      this.supportAssignedToUserId = 0;
-    }
-  }
-
-  // support status to selected index changed
-  public cboSupportStatusSelectedIndexChangedClick() {
-    this.supportSupportStatus = this.supportStatusArray[this.supportStatusSelectedIndex];
+  // assigned to user list
+  public getListAssignedToUser() {
+    this.supportAssignedUserObservableArray = this.supportService.getListUserData("support", "assignedToUser");
   }
 
   // initialization

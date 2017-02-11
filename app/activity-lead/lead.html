@@ -21,7 +21,7 @@
                             </div>
                         </td>
                         <td align="right">
-                            <button class="btn btn-primary" (click)="btnAddLeadClick()" data-toggle="modal" data-target="#lead-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
+                            <button class="btn btn-primary" (click)="btnAddLeadClick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#lead-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
                             <button class="btn btn-danger" routerLink="/dashboard"><i class="fa fa-close fa-fw"></i> Close</button>
                         </td>
                     </tr>
@@ -69,7 +69,7 @@
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="80">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                            <button class="btn btn-danger btn-xs btn-block" (click)="deleteLeadClick()" data-toggle="modal" data-target="#lead-delete-confirmation-modal">
+                            <button class="btn btn-danger btn-xs btn-block" (click)="deleteLeadClick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#lead-delete-confirmation-modal">
                                 <i class="fa fa-trash fa-fw"></i> Delete
                             </button>
                         </template>
@@ -118,110 +118,113 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
                 <h4 class="modal-title">Add Lead</h4>
             </div>
             <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-horizontal">
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Lead Date</label>
-                                <div class="col-sm-8">
-                                    <wj-input-date
-                                        [(value)]="leadDateValue" 
-                                        [format]="'MMM dd, yyyy'"
-                                        (valueChanged)="leadDateOnValueChanged()"
-                                        style="width: 100%; border-radius: 0px;">
-                                    </wj-input-date>
+                <div *ngIf="isLoading" align="center">
+                    <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
+                </div>
+                <div *ngIf="isFinishLoading">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Lead Date</label>
+                                    <div class="col-sm-8">
+                                        <wj-input-date
+                                            [(value)]="leadDateValue" 
+                                            [format]="'MMM dd, yyyy'"
+                                            (valueChanged)="leadDateOnValueChanged()"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-input-date>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Lead Name</label>
-                                <div class="col-sm-8">
-                                    <input type="text" [(ngModel)]="leadName" class="form-control" id="leadName" name="leadName" placeholder="Lead Name" />
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Lead Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" [(ngModel)]="leadName" class="form-control" id="leadName" name="leadName" placeholder="Lead Name" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Address</label>
-                                <div class="col-sm-8">
-                                    <textarea [(ngModel)]="leadAddress" class="form-control" rows="3" id="leadAddress" name="leadAddress" placeholder="Address" ></textarea>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Address</label>
+                                    <div class="col-sm-8">
+                                        <textarea [(ngModel)]="leadAddress" class="form-control" rows="3" id="leadAddress" name="leadAddress" placeholder="Address" ></textarea>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Contact Person</label>
-                                <div class="col-sm-8">
-                                    <input type="text" [(ngModel)]="leadContactPerson" class="form-control" id="leadContactPerson" name="leadContactPerson" placeholder="Contact Person" />
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Contact Person</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" [(ngModel)]="leadContactPerson" class="form-control" id="leadContactPerson" name="leadContactPerson" placeholder="Contact Person" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Contact Position</label>
-                                <div class="col-sm-8">
-                                    <input type="text" [(ngModel)]="leadContactPosition" class="form-control" id="leadContactPosition" name="leadContactPosition" placeholder="Contact Position" />
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Contact Position</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" [(ngModel)]="leadContactPosition" class="form-control" id="leadContactPosition" name="leadContactPosition" placeholder="Contact Position" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Contact Email</label>
-                                <div class="col-sm-8">
-                                    <input type="text" [(ngModel)]="leadContactEmail" class="form-control" id="leadContactEmail" name="leadContactEmail" placeholder="Contact Email" />
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Contact Email</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" [(ngModel)]="leadContactEmail" class="form-control" id="leadContactEmail" name="leadContactEmail" placeholder="Contact Email" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Contact Numbers</label>
-                                <div class="col-sm-8">
-                                    <textarea class="form-control" [(ngModel)]="leadContactNumber" rows="3" id="leadContactNumber" name="leadContactNumber" placeholder="Contact Numbers"></textarea>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Contact Numbers</label>
+                                    <div class="col-sm-8">
+                                        <textarea class="form-control" [(ngModel)]="leadContactNumber" rows="3" id="leadContactNumber" name="leadContactNumber" placeholder="Contact Numbers"></textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-horizontal">
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Referred By</label>
-                                <div class="col-sm-8">
-                                    <input type="text" [(ngModel)]="leadReferredBy" class="form-control" id="leadReferredBy" name="leadReferredBy" placeholder="Referred By" />
+                        <div class="col-md-6">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Referred By</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" [(ngModel)]="leadReferredBy" class="form-control" id="leadReferredBy" name="leadReferredBy" placeholder="Referred By" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Assigned To</label>
-                                <div class="col-sm-8">
-                                    <wj-combo-box 
-                                        [itemsSource]="leadAssignedUserObservableArray" 
-                                        [placeholder]="'Select User'"
-                                        [displayMemberPath]="'FullName'" 
-                                        [selectedValuePath]="'FullName'"
-                                        [isEditable]="true"
-                                        [isRequired]="false"
-                                        [(selectedIndex)]="leadAssignedToSelectedIndex"
-                                        (selectedIndexChanged)="cboAssignedToSelectedIndexChangedClick()"
-                                        style="width: 100%; border-radius: 0px;">
-                                    </wj-combo-box>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Assigned To</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box 
+                                            [itemsSource]="leadAssignedUserObservableArray" 
+                                            [placeholder]="'Select User'"
+                                            [displayMemberPath]="'FullName'" 
+                                            [selectedValuePath]="'Id'"
+                                            [(selectedValue)]="leadAssignedToSelectedValue"
+                                            [isEditable]="true"
+                                            [isRequired]="false"
+                                            (selectedIndexChanged)="cboAssignedToSelectedIndexChangedClick()"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-combo-box>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Remarks</label>
-                                <div class="col-sm-8">
-                                    <textarea [(ngModel)]="leadRemarks" class="form-control" rows="5" id="leadRemarks" name="leadRemarks"  placeholder="Remarks"></textarea>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Remarks</label>
+                                    <div class="col-sm-8">
+                                        <textarea [(ngModel)]="leadRemarks" class="form-control" rows="5" id="leadRemarks" name="leadRemarks"  placeholder="Remarks"></textarea>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Status</label>
-                                <div class="col-sm-8">
-                                    <wj-combo-box 
-                                        [itemsSource]="leadStatusArray" 
-                                        [placeholder]="'Select Status'"
-                                        [isEditable]="false"
-                                        [isRequired]="true"
-                                        [(selectedIndex)]="leadStatusSelectedIndex"
-                                        (selectedIndexChanged)="cboStatusSelectedIndexChangedClick()"
-                                        style="width: 100%; border-radius: 0px;">
-                                    </wj-combo-box>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Status</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box 
+                                            [itemsSource]="leadStatusArray" 
+                                            [placeholder]="'Select Status'"
+                                            [isEditable]="false"
+                                            [isRequired]="true"
+                                            [(selectedValue)]="leadStatusSelectedValue"
+                                            (selectedIndexChanged)="cboStatusSelectedIndexChangedClick()"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-combo-box>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                
             </div>
             <div class="modal-footer" align="right">
                 <button type="button" id="btnSaveLead"  class="btn btn-primary" (click)="btnSaveLead()"><i class="fa fa-save fa-fw"></i> Save</button>
@@ -255,3 +258,4 @@
 <button id="btn-hidden-lead-detail-modal" [hidden]="true" data-toggle="modal" data-target="#lead-detail-modal"></button>
 <button id="btn-hidden-lead-delete-modal" [hidden]="true" data-toggle="modal" data-target="#lead-delete-confirmation-modal"></button>
 <button id="btn-hidden-refresh-grid" [hidden]="true" (click)="getLeadData()"></button>
+<button id="btn-hidden-finished-load" [hidden]="true" (click)="finishedLoad()"></button>

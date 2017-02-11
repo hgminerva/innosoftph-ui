@@ -22,124 +22,118 @@
                 </table>
             </div>
             <div class="panel-body"> 
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-horizontal">
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Quotation Number</label>
-                                <div class="col-sm-8">
-                                    <input type="text" [(ngModel)]="quotationNumber" [disabled]="true" class="form-control" id="quotationNumber" name="quotationNumber" placeholder="Quotation Number" />
+                <div *ngIf="isLoading" align="center">
+                    <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
+                </div>
+                <div *ngIf="isFinishLoading">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Quotation Number</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" [(ngModel)]="quotationNumber" [disabled]="true" class="form-control" id="quotationNumber" name="quotationNumber" placeholder="Quotation Number" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Quotation Date</label>
-                                <div class="col-sm-8">
-                                    <wj-input-date
-                                        [(value)]="quotationDateValue" 
-                                        [format]="'MMM dd, yyyy'"
-                                        (valueChanged)="quotationDateOnValueChanged()"
-                                        style="width: 100%; border-radius: 0px;">
-                                    </wj-input-date>
-                                    <input type="hidden" class="form-control" id="quotationDateValue" />
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Quotation Date</label>
+                                    <div class="col-sm-8">
+                                        <wj-input-date
+                                            [(value)]="quotationDateValue" 
+                                            [format]="'MMM dd, yyyy'"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-input-date>
+                                        <input type="hidden" class="form-control" id="quotationDateValue" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Lead Number</label>
-                                <div class="col-sm-8">
-                                    <wj-combo-box 
-                                        [itemsSource]="quotationLeadObservableArray" 
-                                        [placeholder]="'Select Lead Number'"
-                                        [displayMemberPath]="'LeadNumber'" 
-                                        [selectedValuePath]="'LeadNumber'"
-                                        [isEditable]="false"
-                                        [isRequired]="true"
-                                        [(selectedIndex)]="quotationLeadSelectedIndex"
-                                        [selectedValue]="quotationLeadSelectedValue"
-                                        (selectedIndexChanged)="cboQuotationLeadSelectedIndexChanged()"
-                                        style="width: 100%; border-radius: 0px;">
-                                    </wj-combo-box>
-                                    <input type="hidden" class="form-control" id="quotationLeadSelectedValue" />
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Lead Number</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box 
+                                            [itemsSource]="quotationLeadObservableArray" 
+                                            [placeholder]="'Select Lead Number'"
+                                            [displayMemberPath]="'LeadNumber'" 
+                                            [selectedValuePath]="'Id'"
+                                            [isEditable]="false"
+                                            [isRequired]="true"
+                                            [(selectedValue)]="quotationLeadSelectedValue"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-combo-box>
+                                        <input type="hidden" class="form-control" id="quotationLeadSelectedValue" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Customer</label>
-                                <div class="col-sm-8">
-                                    <wj-combo-box 
-                                        [itemsSource]="quotationCustomerObservableArray" 
-                                        [placeholder]="'Select Customer'"
-                                        [displayMemberPath]="'Article'" 
-                                        [selectedValuePath]="'Article'"
-                                        [isEditable]="false"
-                                        [isRequired]="true"
-                                        [(selectedIndex)]="quotationCustomerSelectedIndex"
-                                        [selectedValue]="quotationCustomerSelectedValue"
-                                        (selectedIndexChanged)="cboQuotationCustomerSelectedIndexChangedClick()"
-                                        style="width: 100%; border-radius: 0px;">
-                                    </wj-combo-box>
-                                    <input type="hidden" class="form-control" id="quotationCustomerSelectedValue" />
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Customer</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box 
+                                            [itemsSource]="quotationCustomerObservableArray" 
+                                            [placeholder]="'Select Customer'"
+                                            [displayMemberPath]="'Article'" 
+                                            [selectedValuePath]="'Id'"
+                                            [isEditable]="false"
+                                            [isRequired]="true"
+                                            [(selectedValue)]="quotationCustomerSelectedValue"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-combo-box>
+                                        <input type="hidden" class="form-control" id="quotationCustomerSelectedValue" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Product</label>
-                                <div class="col-sm-8">
-                                    <wj-combo-box 
-                                        [itemsSource]="quotationProductObservableArray" 
-                                        [placeholder]="'Select Product'"
-                                        [displayMemberPath]="'Article'" 
-                                        [selectedValuePath]="'Article'"
-                                        [isEditable]="false"
-                                        [isRequired]="true"
-                                        [(selectedIndex)]="quotationProductSelectedIndex"
-                                        [selectedValue]="quotationProductSelectedValue"
-                                        (selectedIndexChanged)="cboQuotationProductSelectedIndexChangedClick()"
-                                        style="width: 100%; border-radius: 0px;">
-                                    </wj-combo-box>
-                                    <input type="hidden" class="form-control" id="quotationProductSelectedValue" />
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Product</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box 
+                                            [itemsSource]="quotationProductObservableArray" 
+                                            [placeholder]="'Select Product'"
+                                            [displayMemberPath]="'Article'" 
+                                            [selectedValuePath]="'Id'"
+                                            [isEditable]="false"
+                                            [isRequired]="true"
+                                            [(selectedValue)]="quotationProductSelectedValue"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-combo-box>
+                                        <input type="hidden" class="form-control" id="quotationProductSelectedValue" />
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Encoded By</label>
-                                <div class="col-sm-8">
-                                    <wj-combo-box 
-                                        [itemsSource]="quotationEncodedUserObservableArray" 
-                                        [placeholder]="'Select User'"
-                                        [displayMemberPath]="'FullName'" 
-                                        [selectedValuePath]="'FullName'"
-                                        [isEditable]="false"
-                                        [isRequired]="true"
-                                        [isDisabled]="true"
-                                        [(selectedIndex)]="quotationEncodedBySelectedIndex"
-                                        [selectedValue]="quotationEncodedBySelectedValue"
-                                        (selectedIndexChanged)="cboquotationEncodedBySelectedIndexChangedClick()"
-                                        style="width: 100%; border-radius: 0px;">
-                                    </wj-combo-box>
-                                    <input type="hidden" class="form-control" id="quotationEncodedBySelectedValue" />
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Encoded By</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box 
+                                            [itemsSource]="quotationEncodedUserObservableArray" 
+                                            [placeholder]="'Select User'"
+                                            [displayMemberPath]="'FullName'" 
+                                            [selectedValuePath]="'Id'"
+                                            [isEditable]="false"
+                                            [isRequired]="true"
+                                            [isDisabled]="true"
+                                            [(selectedValue)]="quotationEncodedBySelectedValue"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-combo-box>
+                                        <input type="hidden" class="form-control" id="quotationEncodedBySelectedValue" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-horizontal">
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Remarks</label>
-                                <div class="col-sm-8">
-                                    <textarea [(ngModel)]="quotationRemarks" class="form-control" rows="7" id="quotationRemarks" name="quotationRemarks"  placeholder="Remarks"></textarea>
+                        <div class="col-md-6">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Remarks</label>
+                                    <div class="col-sm-8">
+                                        <textarea [(ngModel)]="quotationRemarks" class="form-control" rows="7" id="quotationRemarks" name="quotationRemarks"  placeholder="Remarks"></textarea>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Status</label>
-                                <div class="col-sm-8">
-                                    <wj-combo-box 
-                                        [itemsSource]="quotationStatusArray" 
-                                        [placeholder]="'Select Status'"
-                                        [isEditable]="true"
-                                        [isRequired]="false"
-                                        [(selectedIndex)]="quotationStatusSelectedIndex"
-                                        [selectedValue]="quotationStatusSelectedValue"
-                                        (selectedIndexChanged)="cboQuotationStatusSelectedIndexChangedClick()"
-                                        style="width: 100%; border-radius: 0px;">
-                                    </wj-combo-box>
-                                    <input type="hidden" class="form-control" id="quotationStatusSelectedValue" />
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Status</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box 
+                                            [itemsSource]="quotationStatusArray" 
+                                            [placeholder]="'Select Status'"
+                                            [isEditable]="true"
+                                            [isRequired]="false"
+                                            [(selectedValue)]="quotationStatusSelectedValue"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-combo-box>
+                                        <input type="hidden" class="form-control" id="quotationStatusSelectedValue" />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -249,7 +243,6 @@
                                 [placeholder]="'Select Particular Category'"
                                 [isEditable]="false"
                                 [isRequired]="true"
-                                [(selectedIndex)]="activityParticularCategorySelectedIndex"
                                 [(selectedValue)]="activityParticularCategorySelectedValue"
                                 style="width: 100%; border-radius: 0px;">
                             </wj-combo-box>
@@ -258,7 +251,7 @@
                     <div class="form-group">
                         <label class="control-label col-sm-4">Particulars</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" rows="3" id="activityParticulars" name="Particulars" placeholder="Particularss"></textarea>
+                            <textarea class="form-control" rows="3" id="activityParticulars" name="Particulars" placeholder="Particulars"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -269,9 +262,8 @@
                                 [placeholder]="'Select No. of Hours'"
                                 [isEditable]="false"
                                 [isRequired]="true"
-                                [(selectedIndex)]="activityNoOfHoursSelectedIndex"
                                 [(selectedValue)]="activityNoOfHoursSelectedValue"
-                                style="width: 100%; border-radius: 0px;">
+                                style="width: 30%; border-radius: 0px;">
                             </wj-combo-box>
                         </div>
                     </div>
@@ -289,7 +281,6 @@
                                 [placeholder]="'Select Status'"
                                 [isEditable]="false"
                                 [isRequired]="true"
-                                [(selectedIndex)]="activityStatusSelectedIndex"
                                 [(selectedValue)]="activityStatusSelectedValue"
                                 style="width: 100%; border-radius: 0px;">
                             </wj-combo-box>
@@ -326,6 +317,7 @@
 <!-- hidden elements to execute functions in API services -->
 <button id="btn-hidden-start-loading" [hidden]="true" (click)="startLoading()"></button>
 <button id="btn-hidden-complete-loading" [hidden]="true" (click)="completeLoading()"></button>
+<button id="btn-hidden-lead-data" [hidden]="true" (click)="getLeadServiceData()"></button>
 <button id="btn-hidden-customer-data" [hidden]="true" (click)="getCustomerArticleData()"></button>
 <button id="btn-hidden-product-data" [hidden]="true" (click)="getProductArticleData()"></button>
 <button id="btn-hidden-encoded-user-data" [hidden]="true" (click)="getUserServiceData()"></button>
@@ -334,3 +326,4 @@
 <button id="btn-hidden-activity-delete-modal" [hidden]="true" data-toggle="modal" data-target="#activity-delete-confirmation-modal"></button>
 <button id="btn-hidden-activity-detail-modal" [hidden]="true" data-toggle="modal" data-target="#activity-detail-modal"></button>
 <button id="btn-hidden-activity-data" [hidden]="true" (click)="getListActivity()"></button>
+<button id="btn-hidden-finished-load" [hidden]="true" (click)="finishedLoad()"></button>

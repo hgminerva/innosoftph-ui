@@ -18,25 +18,24 @@ export class LeadComponent implements OnInit {
   public leadDateValue: Date;
   public isLeadDateSelected = true;
   public leadCollectionView: wijmo.collections.CollectionView;
-  public leadEncodedUserObservableArray: wijmo.collections.ObservableArray;
-  public leadEncodedBySelectedIndex: number;
   public leadAssignedUserObservableArray: wijmo.collections.ObservableArray;
-  public leadAssignedToSelectedIndex: number;
+  public leadAssignedToSelectedValue: number;
   public leadStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
-  public leadStatusSelectedIndex = 0;
+  public leadStatusSelectedValue = "OPEN";
   public leadName: String;
   public leadAddress: String;
   public leadContactPerson: String;
   public leadContactPosition: String;
   public leadContactEmail: String;
   public leadContactNumber: String;
-  public leadEncodedByUserId: number;
   public leadAssignedToUserId: number;
   public leadReferredBy: String;
   public leadRemarks: String;
   public leadStatus: String;
   public leadFilter = '';
   public leadToFilter: any;
+  public isFinishLoading = false;
+  public isLoading = true;
 
   // inject lead service
   constructor(
@@ -58,6 +57,14 @@ export class LeadComponent implements OnInit {
   // complete loading
   public completeLoading() {
     this.slimLoadingBarService.complete();
+  }
+
+  public finishedLoad() {
+    this.isFinishLoading = true;
+    this.isLoading = false;
+    (<HTMLButtonElement>document.getElementById("btnSaveLead")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+    (<HTMLButtonElement>document.getElementById("btnSaveLead")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnCloseLead")).disabled = false;
   }
 
   // lead dates
@@ -147,39 +154,25 @@ export class LeadComponent implements OnInit {
 
   // user list
   public getListUser() {
-    this.leadEncodedUserObservableArray = this.leadService.getListUserData("lead", "");
     this.leadAssignedUserObservableArray = this.leadService.getListUserData("lead", "");
-  }
-
-  // event: encoded by
-  public cboEncodedBySelectedIndexChangedClick() {
-    if (this.leadEncodedBySelectedIndex >= 0) {
-      this.leadEncodedByUserId = this.leadEncodedUserObservableArray[this.leadEncodedBySelectedIndex].Id;
-    } else {
-      this.leadEncodedByUserId = 0;
-    }
   }
 
   // event: assigned to
   public cboAssignedToSelectedIndexChangedClick() {
-    if (this.leadAssignedToSelectedIndex >= 0) {
-      this.leadAssignedToUserId = this.leadAssignedUserObservableArray[this.leadAssignedToSelectedIndex].Id;
-    } else {
-      this.leadAssignedToUserId = 0;
-    }
+      this.leadAssignedToUserId = this.leadAssignedToSelectedValue;
   }
 
   // event: status
   public cboStatusSelectedIndexChangedClick() {
-    this.leadStatus = this.leadStatusArray[this.leadStatusSelectedIndex];
+    this.leadStatus = this.leadStatusSelectedValue;
   }
 
   // btn Add lead
   public btnAddLeadClick() {
-    (<HTMLButtonElement>document.getElementById("btnSaveLead")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-    (<HTMLButtonElement>document.getElementById("btnSaveLead")).disabled = false;
-    (<HTMLButtonElement>document.getElementById("btnCloseLead")).disabled = false;
-    this.leadStatus = this.leadStatusArray[this.leadStatusSelectedIndex];
+    this.isFinishLoading = false;
+    this.isLoading = true;
+    (<HTMLButtonElement>document.getElementById("btnSaveLead")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnCloseLead")).disabled = true;
     this.getListUser();
   }
 

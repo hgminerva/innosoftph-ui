@@ -25,12 +25,7 @@ var QuotationDetailComponent = (function () {
         this.vRef = vRef;
         this.slimLoadingBarService = slimLoadingBarService;
         this.isQuotationDateSelected = true;
-        this.quotationLeadSelectedIndex = -1;
-        this.quotationCustomerSelectedIndex = -1;
-        this.quotationProductSelectedIndex = -1;
-        this.quotationEncodedBySelectedIndex = -1;
         this.quotationStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
-        this.quotationStatusSelectedIndex = -1;
         this.activityParticularCategories = [
             'Quotation'
         ];
@@ -38,9 +33,9 @@ var QuotationDetailComponent = (function () {
         this.activityNoOfHours = [
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
         ];
-        this.activityNoOfHoursSelectedIndex = 0;
-        this.activityStatus = ['Open', 'Close', 'Cancelled'];
-        this.activityStatusSelectedIndex = 0;
+        this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
+        this.isFinishLoading = false;
+        this.isLoading = true;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -52,26 +47,32 @@ var QuotationDetailComponent = (function () {
     QuotationDetailComponent.prototype.completeLoading = function () {
         this.slimLoadingBarService.complete();
     };
+    QuotationDetailComponent.prototype.finishedLoad = function () {
+        this.isFinishLoading = true;
+        this.isLoading = false;
+        document.getElementById("btnSaveQuotationDetail").disabled = false;
+        document.getElementById("btnCloseQuotationDetail").disabled = false;
+    };
     // set selected value for drop down
     QuotationDetailComponent.prototype.setDropdownSelectedValueData = function () {
         this.quotationDateValue = new Date(document.getElementById("quotationDateValue").value.toString());
-        this.quotationLeadSelectedValue = document.getElementById("quotationLeadSelectedValue").value.toString();
-        this.quotationCustomerSelectedValue = document.getElementById("quotationCustomerSelectedValue").value.toString();
-        this.quotationProductSelectedValue = document.getElementById("quotationProductSelectedValue").value.toString();
-        this.quotationEncodedBySelectedValue = document.getElementById("quotationEncodedBySelectedValue").value.toString();
+        this.quotationLeadSelectedValue = parseInt(document.getElementById("quotationLeadSelectedValue").value.toString());
+        this.quotationCustomerSelectedValue = parseInt(document.getElementById("quotationCustomerSelectedValue").value.toString());
+        this.quotationProductSelectedValue = parseInt(document.getElementById("quotationProductSelectedValue").value.toString());
+        this.quotationEncodedBySelectedValue = parseInt(document.getElementById("quotationEncodedBySelectedValue").value.toString());
         this.quotationStatusSelectedValue = document.getElementById("quotationStatusSelectedValue").value.toString();
-        this.quotationStatus = this.quotationStatusSelectedValue;
     };
     // quotation date value
     QuotationDetailComponent.prototype.setQuotationDateValue = function () {
         this.quotationDateValue = new Date();
         this.activityDateValue = new Date();
-        this.getLeadServiceData();
+        this.getListActivity();
+        document.getElementById("btnSaveQuotationDetail").disabled = true;
+        document.getElementById("btnCloseQuotationDetail").disabled = true;
     };
     // list lead
     QuotationDetailComponent.prototype.getLeadServiceData = function () {
         this.quotationLeadObservableArray = this.quotationService.getListLeadData("quotationDetail");
-        this.getListActivity();
     };
     // list customer article
     QuotationDetailComponent.prototype.getCustomerArticleData = function () {
@@ -103,55 +104,15 @@ var QuotationDetailComponent = (function () {
             this.isQuotationDateSelected = false;
         }
     };
-    // quotation lead selected index changed
-    QuotationDetailComponent.prototype.cboQuotationLeadSelectedIndexChanged = function () {
-        if (this.quotationLeadSelectedIndex >= 0) {
-            this.quotationLeadId = this.quotationLeadObservableArray[this.quotationLeadSelectedIndex].Id;
-        }
-        else {
-            this.quotationLeadId = 0;
-        }
-    };
-    // quotation customer selected index changed
-    QuotationDetailComponent.prototype.cboQuotationCustomerSelectedIndexChangedClick = function () {
-        if (this.quotationCustomerSelectedIndex >= 0) {
-            this.quotationCustomerId = this.quotationCustomerObservableArray[this.quotationCustomerSelectedIndex].Id;
-        }
-        else {
-            this.quotationCustomerId = 0;
-        }
-    };
-    // quotation product selected index changed
-    QuotationDetailComponent.prototype.cboQuotationProductSelectedIndexChangedClick = function () {
-        if (this.quotationProductSelectedIndex >= 0) {
-            this.quotationProductId = this.quotationProductObservableArray[this.quotationProductSelectedIndex].Id;
-        }
-        else {
-            this.quotationProductId = 0;
-        }
-    };
-    // quotation user selected index changed
-    QuotationDetailComponent.prototype.cboquotationEncodedBySelectedIndexChangedClick = function () {
-        if (this.quotationEncodedBySelectedIndex >= 0) {
-            this.quotationEncodedByUserId = this.quotationEncodedUserObservableArray[this.quotationEncodedBySelectedIndex].Id;
-        }
-        else {
-            this.quotationEncodedByUserId = 0;
-        }
-    };
-    // quotation status selected index changed
-    QuotationDetailComponent.prototype.cboQuotationStatusSelectedIndexChangedClick = function () {
-        this.quotationStatus = this.quotationStatusArray[this.quotationStatusSelectedIndex];
-    };
     // quotation data
     QuotationDetailComponent.prototype.getQuotationValue = function () {
         var dataObject = {
             QuotationDate: this.quotationDateValue.toLocaleDateString(),
-            LeadId: this.quotationLeadId,
-            CustomerId: this.quotationCustomerId,
-            ProductId: this.quotationProductId,
+            LeadId: this.quotationLeadSelectedValue,
+            CustomerId: this.quotationCustomerSelectedValue,
+            ProductId: this.quotationProductSelectedValue,
             Remarks: document.getElementById("quotationRemarks").value,
-            QuotationStatus: this.quotationStatus
+            QuotationStatus: this.quotationStatusSelectedValue
         };
         return dataObject;
     };
@@ -221,8 +182,8 @@ var QuotationDetailComponent = (function () {
     QuotationDetailComponent.prototype.getActivityData = function () {
         var activityDataObject = {
             ActivityDate: this.activityDateValue.toLocaleDateString(),
-            CustomerId: this.quotationCustomerId,
-            ProductId: this.quotationProductId,
+            CustomerId: this.quotationCustomerSelectedValue,
+            ProductId: this.quotationProductSelectedValue,
             ParticularCategory: this.activityParticularCategorySelectedValue,
             Particulars: document.getElementById("activityParticulars").value,
             NumberOfHours: this.activityNoOfHoursSelectedValue,

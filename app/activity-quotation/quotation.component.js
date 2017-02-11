@@ -24,11 +24,10 @@ var QuotationComponent = (function () {
         this.isQuotationStartDateSelected = true;
         this.isQuotationEndDateSelected = true;
         this.quotationFilter = '';
-        this.quotationLeadSelectedIndex = -1;
-        this.quotationCustomerSelectedIndex = -1;
-        this.quotationProductSelectedIndex = -1;
         this.quotationStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
-        this.quotationStatusSelectedIndex = 0;
+        this.quotationStatusSelectedValue = "OPEN";
+        this.isFinishLoading = false;
+        this.isLoading = true;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -39,6 +38,13 @@ var QuotationComponent = (function () {
     // complete loading
     QuotationComponent.prototype.completeLoading = function () {
         this.slimLoadingBarService.complete();
+    };
+    QuotationComponent.prototype.finishedLoad = function () {
+        this.isFinishLoading = true;
+        this.isLoading = false;
+        document.getElementById("btnSaveQuotation").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+        document.getElementById("btnSaveQuotation").disabled = false;
+        document.getElementById("btnCloseQuotation").disabled = false;
     };
     // quotation dates
     QuotationComponent.prototype.setQuotationDateRanged = function () {
@@ -83,58 +89,26 @@ var QuotationComponent = (function () {
     };
     // btn add quotation
     QuotationComponent.prototype.btnAddQotationClick = function () {
+        this.isFinishLoading = false;
+        this.isLoading = true;
+        document.getElementById("btnSaveQuotation").disabled = true;
+        document.getElementById("btnCloseQuotation").disabled = true;
+        this.quotationDateValue = new Date();
         this.getListLead();
-        document.getElementById("btnSaveQuotation").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-        document.getElementById("btnSaveQuotation").disabled = false;
-        document.getElementById("btnCloseQuotation").disabled = false;
+        this.quotationRemarks = "";
+        this.quotationStatusSelectedValue = "OPEN";
     };
     // list lead
     QuotationComponent.prototype.getListLead = function () {
         this.quotationLeadObservableArray = this.quotationService.getListLeadData("quotation");
-        this.getListCustomer();
     };
     // list customer
     QuotationComponent.prototype.getListCustomer = function () {
         this.quotationCustomerObservableArray = this.quotationService.getListArticleData("quotation", 2);
-        this.getListProduct();
     };
     // list Product
     QuotationComponent.prototype.getListProduct = function () {
         this.quotationProductObservableArray = this.quotationService.getListArticleData("quotation", 1);
-    };
-    // quotation date on value changed
-    QuotationComponent.prototype.quotationDateOnValueChanged = function () {
-    };
-    // lead selected index changed
-    QuotationComponent.prototype.cboQuotationLeadSelectedIndexChanged = function () {
-        if (this.quotationLeadSelectedIndex >= 0) {
-            this.quotationLeadId = this.quotationLeadObservableArray[this.quotationLeadSelectedIndex].Id;
-        }
-        else {
-            this.quotationLeadId = 0;
-        }
-    };
-    // customer selected index changed
-    QuotationComponent.prototype.cboQuotationCustomerSelectedIndexChangedClick = function () {
-        if (this.quotationCustomerSelectedIndex >= 0) {
-            this.quotationCustomerId = this.quotationCustomerObservableArray[this.quotationCustomerSelectedIndex].Id;
-        }
-        else {
-            this.quotationCustomerId = 0;
-        }
-    };
-    // product selected index changed
-    QuotationComponent.prototype.cboQuotationProductSelectedIndexChangedClick = function () {
-        if (this.quotationProductSelectedIndex >= 0) {
-            this.quotationProductId = this.quotationProductObservableArray[this.quotationProductSelectedIndex].Id;
-        }
-        else {
-            this.quotationProductId = 0;
-        }
-    };
-    // status selected index changed
-    QuotationComponent.prototype.cboQuotationStatusSelectedIndexChangedClick = function () {
-        this.quotationQuotationStatus = this.quotationStatusArray[this.quotationStatusSelectedIndex];
     };
     // btn edit quotation
     QuotationComponent.prototype.btnEditQuotation = function () {
@@ -162,11 +136,11 @@ var QuotationComponent = (function () {
     QuotationComponent.prototype.getQuotationValue = function () {
         var dataObject = {
             QuotationDate: this.quotationDateValue.toLocaleDateString(),
-            LeadId: this.quotationLeadId,
-            CustomerId: this.quotationCustomerId,
-            ProductId: this.quotationProductId,
+            LeadId: this.quotationLeadSelectedValue,
+            CustomerId: this.quotationCustomerSelectedValue,
+            ProductId: this.quotationProductSelectedValue,
             Remarks: this.quotationRemarks,
-            QuotationStatus: this.quotationQuotationStatus
+            QuotationStatus: this.quotationStatusSelectedValue
         };
         return dataObject;
     };

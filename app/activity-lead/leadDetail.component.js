@@ -25,10 +25,7 @@ var LeadDetailComponent = (function () {
         this.vRef = vRef;
         this.slimLoadingBarService = slimLoadingBarService;
         this.isLeadDateSelected = true;
-        this.leadEncodedBySelectedIndex = -1;
-        this.leadAssignedToSelectedIndex = -1;
         this.leadStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
-        this.leadStatusSelectedIndex = -1;
         this.activityParticularCategories = [
             'Lead'
         ];
@@ -36,9 +33,9 @@ var LeadDetailComponent = (function () {
         this.activityNoOfHours = [
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
         ];
-        this.activityNoOfHoursSelectedIndex = 0;
-        this.activityStatus = ['Open', 'Close', 'Cancelled'];
-        this.activityStatusSelectedIndex = 0;
+        this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
+        this.isFinishLoading = false;
+        this.isLoading = true;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -50,12 +47,19 @@ var LeadDetailComponent = (function () {
     LeadDetailComponent.prototype.completeLoading = function () {
         this.slimLoadingBarService.complete();
     };
+    LeadDetailComponent.prototype.finishedLoad = function () {
+        this.isFinishLoading = true;
+        this.isLoading = false;
+        document.getElementById("btnSaveLeadDetail").disabled = false;
+        document.getElementById("btnCloseLeadDetail").disabled = false;
+    };
     // lead date ranged
     LeadDetailComponent.prototype.setLeadDateValue = function () {
         this.leadDateValue = new Date();
         this.activityDateValue = new Date();
-        this.getListEncodedByUser();
-        this.getListActivity();
+        this.getListActivity(false);
+        document.getElementById("btnSaveLeadDetail").disabled = true;
+        document.getElementById("btnCloseLeadDetail").disabled = true;
     };
     // encoded by user list
     LeadDetailComponent.prototype.getListEncodedByUser = function () {
@@ -65,41 +69,22 @@ var LeadDetailComponent = (function () {
     LeadDetailComponent.prototype.getListAssignedToUser = function () {
         this.leadAssignedUserObservableArray = this.leadService.getListUserData("leadDetail", "assignedToUser");
     };
+    // event: assigned to
+    LeadDetailComponent.prototype.cboAssignedToSelectedIndexChangedClick = function () {
+        this.leadAssignedToUserId = this.leadAssignedToSelectedValue;
+    };
     // event: lead date
     LeadDetailComponent.prototype.leadDateOnValueChanged = function () {
         if (this.isLeadDateSelected) {
             this.isLeadDateSelected = false;
         }
     };
-    // event: encoded by
-    LeadDetailComponent.prototype.cboEncodedBySelectedIndexChangedClick = function () {
-        if (this.leadEncodedBySelectedIndex >= 0) {
-            this.leadEncodedByUserId = this.leadEncodedUserObservableArray[this.leadEncodedBySelectedIndex].Id;
-        }
-        else {
-            this.leadEncodedByUserId = 0;
-        }
-    };
-    // event: assigned to
-    LeadDetailComponent.prototype.cboAssignedToSelectedIndexChangedClick = function () {
-        if (this.leadAssignedToSelectedIndex >= 0) {
-            this.leadAssignedToUserId = this.leadAssignedUserObservableArray[this.leadAssignedToSelectedIndex].Id;
-        }
-        else {
-            this.leadAssignedToUserId = 0;
-        }
-    };
-    // event: status
-    LeadDetailComponent.prototype.cboStatusSelectedIndexChangedClick = function () {
-        this.leadStatus = this.leadStatusArray[this.leadStatusSelectedIndex];
-    };
     // set dropdown data
     LeadDetailComponent.prototype.setDropdownSelectedValueData = function () {
         this.leadDateValue = new Date(document.getElementById("leadDateValue").value.toString());
-        this.leadEncodedBySelectedValue = document.getElementById("leadEncodedBySelectedValue").value.toString();
-        this.leadAssignedToSelectedValue = document.getElementById("leadAssignedToSelectedValue").value.toString();
         this.leadStatusSelectedValue = document.getElementById("leadStatusSelectedValue").value.toString();
-        this.leadStatus = document.getElementById("leadStatusSelectedValue").value.toString();
+        this.leadEncodedBySelectedValue = parseInt(document.getElementById("leadEncodedBySelectedValue").value.toString());
+        this.leadAssignedToSelectedValue = parseInt(document.getElementById("leadAssignedToSelectedValue").value.toString());
     };
     // get lead data
     LeadDetailComponent.prototype.getLeadValue = function () {
@@ -117,9 +102,8 @@ var LeadDetailComponent = (function () {
             ContactPhoneNo: document.getElementById("leadContactNumber").value,
             ReferredBy: document.getElementById("leadReferredBy").value,
             Remarks: document.getElementById("leadRemarks").value,
-            // EncodedByUserId: this.leadEncodedByUserId.toString(),
             AssignedToUserId: assignedToUserIdValue,
-            LeadStatus: this.leadStatus,
+            LeadStatus: this.leadStatusSelectedValue,
         };
         return dataObject;
     };
@@ -163,8 +147,8 @@ var LeadDetailComponent = (function () {
         this.leadService.getLeadById(this.getIdUrlParameter());
     };
     // activity line list
-    LeadDetailComponent.prototype.getListActivity = function () {
-        this.activityCollectionView = new wijmo.collections.CollectionView(this.leadService.getListActivityByLeadId(this.getIdUrlParameter()));
+    LeadDetailComponent.prototype.getListActivity = function (isLoadActivityOnly) {
+        this.activityCollectionView = new wijmo.collections.CollectionView(this.leadService.getListActivityByLeadId(this.getIdUrlParameter(), isLoadActivityOnly));
         this.activityCollectionView.pageSize = 15;
         this.activityCollectionView.trackChanges = true;
     };
@@ -182,7 +166,7 @@ var LeadDetailComponent = (function () {
             this.activityNoOfHoursSelectedValue = "0";
             document.getElementById("activityAmount").value = "0";
             this.activityAmount = "0";
-            this.activityStatusSelectedValue = "Open";
+            this.activityStatusSelectedValue = "OPEN";
         }
         else {
             this.activityDetailModalString = "Edit";

@@ -49,6 +49,9 @@ var LeadService = (function () {
                     }
                 }
             }
+            else {
+                document.getElementById("btn-hidden-finished-load").click();
+            }
         });
         return userObservableArray;
     };
@@ -91,21 +94,24 @@ var LeadService = (function () {
         this.http.get(url, this.options).subscribe(function (response) {
             var results = response.json();
             if (results != null) {
-                document.getElementById("leadDateValue").value = results.LeadDate;
-                document.getElementById("leadNumber").value = results.LeadNumber;
-                document.getElementById("leadName").value = results.LeadName;
-                document.getElementById("leadAddress").value = results.Address;
-                document.getElementById("leadContactPerson").value = results.ContactPerson;
-                document.getElementById("leadContactPosition").value = results.ContactPosition;
-                document.getElementById("leadContactEmail").value = results.ContactEmail;
-                document.getElementById("leadContactNumber").value = results.ContactPhoneNo;
-                document.getElementById("leadReferredBy").value = results.ReferredBy;
-                document.getElementById("leadRemarks").value = results.Remarks;
-                document.getElementById("leadEncodedBySelectedValue").value = results.EncodedByUser;
-                document.getElementById("leadAssignedToSelectedValue").value = results.AssignedToUser;
-                document.getElementById("leadStatusSelectedValue").value = results.LeadStatus;
-                document.getElementById("btn-hidden-selectedValue-data").click();
-                document.getElementById("btn-hidden-complete-loading").click();
+                document.getElementById("btn-hidden-finished-load").click();
+                setTimeout(function () {
+                    document.getElementById("leadDateValue").value = results.LeadDate;
+                    document.getElementById("leadNumber").value = results.LeadNumber;
+                    document.getElementById("leadName").value = results.LeadName;
+                    document.getElementById("leadAddress").value = results.Address;
+                    document.getElementById("leadContactPerson").value = results.ContactPerson;
+                    document.getElementById("leadContactPosition").value = results.ContactPosition;
+                    document.getElementById("leadContactEmail").value = results.ContactEmail;
+                    document.getElementById("leadContactNumber").value = results.ContactPhoneNo;
+                    document.getElementById("leadReferredBy").value = results.ReferredBy;
+                    document.getElementById("leadRemarks").value = results.Remarks;
+                    document.getElementById("leadEncodedBySelectedValue").value = results.EncodedByUserId;
+                    document.getElementById("leadAssignedToSelectedValue").value = results.AssignedToUserId;
+                    document.getElementById("leadStatusSelectedValue").value = results.LeadStatus;
+                    document.getElementById("btn-hidden-selectedValue-data").click();
+                    document.getElementById("btn-hidden-complete-loading").click();
+                }, 200);
             }
             else {
                 alert("No Data");
@@ -168,7 +174,7 @@ var LeadService = (function () {
         });
     };
     // list activity by lead Id
-    LeadService.prototype.getListActivityByLeadId = function (leadId) {
+    LeadService.prototype.getListActivityByLeadId = function (leadId, isLoadActivityOnly) {
         var url = "http://api.innosoft.ph/api/activity/list/byLeadId/" + leadId;
         var activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
@@ -197,7 +203,12 @@ var LeadService = (function () {
                     });
                 }
             }
-            document.getElementById("btn-hidden-complete-loading").click();
+            if (!isLoadActivityOnly) {
+                document.getElementById("btn-hidden-encoded-user-data").click();
+            }
+            else {
+                document.getElementById("btn-hidden-complete-loading").click();
+            }
         });
         return activityObservableArray;
     };

@@ -24,11 +24,16 @@ var ContinuityComponent = (function () {
         this.isContinuityStartDateSelected = true;
         this.isContinuityEndDateSelected = true;
         this.continuityFilter = '';
-        this.continuityDeliverySelectedIndex = -1;
-        this.continuityCustomerSelectedIndex = -1;
-        this.continuityProductSelectedIndex = -1;
+        // public continuityCustomerObservableArray: wijmo.collections.ObservableArray;
+        // public continuityCustomerSelectedIndex = -1;
+        // public continuityCustomerSelectedValue: String;
+        // public continuityProductObservableArray: wijmo.collections.ObservableArray;
+        // public continuityProductSelectedIndex = -1;
+        // public continuityProductSelectedValue: String;
         this.continuityStatusArray = ['OPEN', 'EXPIRED'];
-        this.continuityStatusSelectedIndex = -1;
+        this.continuityStatusSelectedValue = "OPEN";
+        this.isFinishLoading = false;
+        this.isLoading = true;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -40,6 +45,13 @@ var ContinuityComponent = (function () {
     ContinuityComponent.prototype.completeLoading = function () {
         this.slimLoadingBarService.complete();
     };
+    ContinuityComponent.prototype.finishedLoad = function () {
+        this.isFinishLoading = true;
+        this.isLoading = false;
+        document.getElementById("btnSaveContinuity").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+        document.getElementById("btnSaveContinuity").disabled = false;
+        document.getElementById("btnCloseContinuity").disabled = false;
+    };
     // continuity date ranged
     ContinuityComponent.prototype.setContinuityDateRanged = function () {
         this.continuityStartDateValue = new Date();
@@ -47,7 +59,6 @@ var ContinuityComponent = (function () {
         this.continuityDateValue = new Date();
         this.continuityExpiryDateValue = new Date();
         this.getContinuityData();
-        this.getListDeliveryServiceData();
     };
     // continuity date on value changed
     ContinuityComponent.prototype.continuityDateOnValueChanged = function () {
@@ -116,76 +127,63 @@ var ContinuityComponent = (function () {
     // delivery data
     ContinuityComponent.prototype.getListDeliveryServiceData = function () {
         this.continuityDeliveryObservableArray = this.continuityService.getListDeliveryData();
-        this.getListCustomer();
+        // this.getListCustomer();
     };
     // delivery selected index changed
     ContinuityComponent.prototype.cboContinuityDeliverySelectedIndexChanged = function () {
-        if (this.continuityDeliverySelectedIndex >= 0) {
-            this.continuityDeliveryId = this.continuityDeliveryObservableArray[this.continuityDeliverySelectedIndex].Id;
-            this.continuityCustomerSelectedValue = this.continuityDeliveryObservableArray[this.continuityDeliverySelectedIndex].Customer;
-            this.continuityProductSelectedValue = this.continuityDeliveryObservableArray[this.continuityDeliverySelectedIndex].Product;
-        }
-        else {
-            this.continuityDeliveryId = 0;
-        }
+        this.continuityDeliveryId = this.continuityDeliverySelectedValue;
     };
-    // list customer data
-    ContinuityComponent.prototype.getListCustomer = function () {
-        this.continuityCustomerObservableArray = this.continuityService.getListArticleData(2);
-        this.getListProduct();
-    };
-    // customer selected index changed
-    ContinuityComponent.prototype.cboContinuityCustomerSelectedIndexChanged = function () {
-        if (this.continuityCustomerSelectedIndex >= 0) {
-            this.continuitCustomerId = this.continuityCustomerObservableArray[this.continuityCustomerSelectedIndex].Id;
-        }
-        else {
-            this.continuitCustomerId = 0;
-        }
-    };
-    // list product data
-    ContinuityComponent.prototype.getListProduct = function () {
-        this.continuityProductObservableArray = this.continuityService.getListArticleData(1);
-    };
-    // product selected index changed
-    ContinuityComponent.prototype.cboContinuityProductSelectedIndexChanged = function () {
-        if (this.continuityProductSelectedIndex >= 0) {
-            this.continuitProductId = this.continuityProductObservableArray[this.continuityProductSelectedIndex].Id;
-        }
-        else {
-            this.continuitProductId = 0;
-        }
-    };
+    // // list customer data
+    // public getListCustomer() {
+    //   this.continuityCustomerObservableArray = this.continuityService.getListArticleData(2);
+    //   this.getListProduct();
+    // }
+    // // customer selected index changed
+    // public cboContinuityCustomerSelectedIndexChanged() {
+    //   if (this.continuityCustomerSelectedIndex >= 0) {
+    //     this.continuitCustomerId = this.continuityCustomerObservableArray[this.continuityCustomerSelectedIndex].Id;
+    //   } else {
+    //     this.continuitCustomerId = 0;
+    //   }
+    // }
+    // // list product data
+    // public getListProduct() {
+    //   this.continuityProductObservableArray = this.continuityService.getListArticleData(1);
+    // }
+    // // product selected index changed
+    // public cboContinuityProductSelectedIndexChanged() {
+    //   if (this.continuityProductSelectedIndex >= 0) {
+    //     this.continuitProductId = this.continuityProductObservableArray[this.continuityProductSelectedIndex].Id;
+    //   } else {
+    //     this.continuitProductId = 0;
+    //   }
+    // }
     // add continuity click
     ContinuityComponent.prototype.btnContinuityDetailClick = function (add) {
-        document.getElementById("btnSaveContinuity").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-        document.getElementById("btnSaveContinuity").disabled = false;
-        document.getElementById("btnCloseContinuity").disabled = false;
+        this.isFinishLoading = false;
+        this.isLoading = true;
+        document.getElementById("btnSaveContinuity").disabled = true;
+        document.getElementById("btnCloseContinuity").disabled = true;
+        this.getListDeliveryServiceData();
         if (add) {
+            this.isAdd = false;
             this.continuityDetailModalString = "Add";
             this.continuityId = 0;
             this.continuityNumber = "--";
             this.continuityDateValue = new Date();
-            this.continuityDeliverySelectedIndex = 0;
-            // this.continuityCustomerSelectedIndex = 0;
-            // this.continuityProductSelectedIndex = 0;
-            this.continuityCustomerSelectedValue = this.continuityCustomerObservableArray[0].Customer;
-            this.continuityProductSelectedValue = this.continuityCustomerObservableArray[0].Product;
             this.continuityExpiryDateValue = new Date();
-            this.continuityStatusSelectedIndex = 0;
             this.continuityStatusSelectedValue = "OPEN";
             this.continuityStatus = "OPEN";
             this.continuityStaffUser = "--";
         }
         else {
+            this.isAdd = true;
             var currentSelectedContinuity = this.continuityCollectionView.currentItem;
             this.continuityDetailModalString = "Edit";
             this.continuityId = currentSelectedContinuity.Id;
             this.continuityNumber = currentSelectedContinuity.ContinuityNumber;
             this.continuityDateValue = new Date(currentSelectedContinuity.ContinuityDate);
-            this.continuityDeliverySelectedValue = currentSelectedContinuity.DeliveryNumber;
-            this.continuityCustomerSelectedValue = currentSelectedContinuity.Customer;
-            this.continuityProductSelectedValue = currentSelectedContinuity.Product;
+            this.continuityDeliverySelectedValue = currentSelectedContinuity.DeliveryId;
             this.continuityExpiryDateValue = new Date(currentSelectedContinuity.ExpiryDate);
             this.continuityStatusSelectedValue = currentSelectedContinuity.ContinuityStatus;
             this.continuityStatus = currentSelectedContinuity.ContinuityStatus;
@@ -194,15 +192,13 @@ var ContinuityComponent = (function () {
     };
     // continuity status selected index changed
     ContinuityComponent.prototype.cboContinuityStatusSelectedIndexChanged = function () {
-        this.continuityStatus = this.continuityStatusArray[this.continuityStatusSelectedIndex];
+        this.continuityStatus = this.continuityStatusSelectedValue;
     };
     // continuity data
     ContinuityComponent.prototype.getContinuityValue = function () {
         var dataObject = {
             ContinuityDate: this.continuityDateValue.toLocaleDateString(),
             DeliveryId: this.continuityDeliveryId,
-            CustomerId: this.continuitCustomerId,
-            ProductId: this.continuitProductId,
             ExpiryDate: this.continuityExpiryDateValue.toLocaleDateString(),
             ContinuityStatus: this.continuityStatus
         };

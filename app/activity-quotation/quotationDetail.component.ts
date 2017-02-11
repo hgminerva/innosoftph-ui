@@ -15,25 +15,15 @@ export class QuotationDetailComponent implements OnInit {
   public quotationDateValue: Date;
   public isQuotationDateSelected = true;
   public quotationLeadObservableArray: wijmo.collections.ObservableArray;
-  public quotationLeadSelectedIndex = -1;
-  public quotationLeadSelectedValue: String;
-  public quotationLeadId: number;
+  public quotationLeadSelectedValue: number;
   public quotationCustomerObservableArray: wijmo.collections.ObservableArray;
-  public quotationCustomerSelectedIndex = -1;
-  public quotationCustomerSelectedValue: String;
-  public quotationCustomerId: number;
+  public quotationCustomerSelectedValue: number;
   public quotationProductObservableArray: wijmo.collections.ObservableArray;
-  public quotationProductSelectedIndex = -1;
-  public quotationProductSelectedValue: String;
-  public quotationProductId: number;
+  public quotationProductSelectedValue: number;
   public quotationEncodedUserObservableArray: wijmo.collections.ObservableArray;
-  public quotationEncodedBySelectedIndex = -1;
-  public quotationEncodedBySelectedValue: String;
-  public quotationEncodedByUserId: number;
+  public quotationEncodedBySelectedValue: number;
   public quotationStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
-  public quotationStatusSelectedIndex = -1;
   public quotationStatusSelectedValue: String;
-  public quotationStatus: String;
   public activityCollectionView: wijmo.collections.CollectionView;
   public activityDetailModalString: String;
   public activityId: number;
@@ -46,12 +36,12 @@ export class QuotationDetailComponent implements OnInit {
   public activityNoOfHours = [
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
   ];
-  public activityNoOfHoursSelectedIndex = 0;
   public activityNoOfHoursSelectedValue: String;
-  public activityStatus = ['Open', 'Close', 'Cancelled'];
-  public activityStatusSelectedIndex = 0;
+  public activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
   public activityStatusSelectedValue: String;
   public activityAmount: String;
+  public isFinishLoading = false;
+  public isLoading = true;
 
   // inject quotation detail service
   constructor(
@@ -78,28 +68,35 @@ export class QuotationDetailComponent implements OnInit {
     this.slimLoadingBarService.complete();
   }
 
+  public finishedLoad() {
+    this.isFinishLoading = true;
+    this.isLoading = false;
+    (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnCloseQuotationDetail")).disabled = false;
+  }
+
   // set selected value for drop down
   public setDropdownSelectedValueData() {
     this.quotationDateValue = new Date((<HTMLInputElement>document.getElementById("quotationDateValue")).value.toString());
-    this.quotationLeadSelectedValue = (<HTMLInputElement>document.getElementById("quotationLeadSelectedValue")).value.toString();
-    this.quotationCustomerSelectedValue = (<HTMLInputElement>document.getElementById("quotationCustomerSelectedValue")).value.toString();
-    this.quotationProductSelectedValue = (<HTMLInputElement>document.getElementById("quotationProductSelectedValue")).value.toString();
-    this.quotationEncodedBySelectedValue = (<HTMLInputElement>document.getElementById("quotationEncodedBySelectedValue")).value.toString();
+    this.quotationLeadSelectedValue = parseInt((<HTMLInputElement>document.getElementById("quotationLeadSelectedValue")).value.toString());
+    this.quotationCustomerSelectedValue = parseInt((<HTMLInputElement>document.getElementById("quotationCustomerSelectedValue")).value.toString());
+    this.quotationProductSelectedValue = parseInt((<HTMLInputElement>document.getElementById("quotationProductSelectedValue")).value.toString());
+    this.quotationEncodedBySelectedValue = parseInt((<HTMLInputElement>document.getElementById("quotationEncodedBySelectedValue")).value.toString());
     this.quotationStatusSelectedValue = (<HTMLInputElement>document.getElementById("quotationStatusSelectedValue")).value.toString();
-    this.quotationStatus = this.quotationStatusSelectedValue;
   }
 
   // quotation date value
   public setQuotationDateValue() {
     this.quotationDateValue = new Date();
     this.activityDateValue = new Date();
-    this.getLeadServiceData();
+    this.getListActivity();    
+    (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnCloseQuotationDetail")).disabled = true;
   }
 
   // list lead
   public getLeadServiceData() {
     this.quotationLeadObservableArray = this.quotationService.getListLeadData("quotationDetail");
-    this.getListActivity();
   }
 
   // list customer article
@@ -138,56 +135,15 @@ export class QuotationDetailComponent implements OnInit {
     }
   }
 
-  // quotation lead selected index changed
-  public cboQuotationLeadSelectedIndexChanged() {
-    if (this.quotationLeadSelectedIndex >= 0) {
-      this.quotationLeadId = this.quotationLeadObservableArray[this.quotationLeadSelectedIndex].Id;
-    } else {
-      this.quotationLeadId = 0;
-    }
-  }
-
-  // quotation customer selected index changed
-  public cboQuotationCustomerSelectedIndexChangedClick() {
-    if (this.quotationCustomerSelectedIndex >= 0) {
-      this.quotationCustomerId = this.quotationCustomerObservableArray[this.quotationCustomerSelectedIndex].Id;
-    } else {
-      this.quotationCustomerId = 0;
-    }
-  }
-
-  // quotation product selected index changed
-  public cboQuotationProductSelectedIndexChangedClick() {
-    if (this.quotationProductSelectedIndex >= 0) {
-      this.quotationProductId = this.quotationProductObservableArray[this.quotationProductSelectedIndex].Id;
-    } else {
-      this.quotationProductId = 0;
-    }
-  }
-
-  // quotation user selected index changed
-  public cboquotationEncodedBySelectedIndexChangedClick() {
-    if (this.quotationEncodedBySelectedIndex >= 0) {
-      this.quotationEncodedByUserId = this.quotationEncodedUserObservableArray[this.quotationEncodedBySelectedIndex].Id;
-    } else {
-      this.quotationEncodedByUserId = 0;
-    }
-  }
-
-  // quotation status selected index changed
-  public cboQuotationStatusSelectedIndexChangedClick() {
-    this.quotationStatus = this.quotationStatusArray[this.quotationStatusSelectedIndex];
-  }
-
   // quotation data
   public getQuotationValue() {
     let dataObject = {
       QuotationDate: this.quotationDateValue.toLocaleDateString(),
-      LeadId: this.quotationLeadId,
-      CustomerId: this.quotationCustomerId,
-      ProductId: this.quotationProductId,
+      LeadId: this.quotationLeadSelectedValue,
+      CustomerId: this.quotationCustomerSelectedValue,
+      ProductId: this.quotationProductSelectedValue,
       Remarks: (<HTMLInputElement>document.getElementById("quotationRemarks")).value,
-      QuotationStatus: this.quotationStatus
+      QuotationStatus: this.quotationStatusSelectedValue
     }
 
     return dataObject;
@@ -261,8 +217,8 @@ export class QuotationDetailComponent implements OnInit {
   public getActivityData() {
     let activityDataObject = {
       ActivityDate: this.activityDateValue.toLocaleDateString(),
-      CustomerId: this.quotationCustomerId,
-      ProductId: this.quotationProductId,
+      CustomerId: this.quotationCustomerSelectedValue,
+      ProductId: this.quotationProductSelectedValue,
       ParticularCategory: this.activityParticularCategorySelectedValue,
       Particulars: (<HTMLInputElement>document.getElementById("activityParticulars")).value,
       NumberOfHours: this.activityNoOfHoursSelectedValue,

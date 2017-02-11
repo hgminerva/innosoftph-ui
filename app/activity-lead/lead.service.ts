@@ -43,6 +43,8 @@ export class LeadService {
                             document.getElementById("btn-hidden-lead-data").click();
                         }
                     }
+                } else {
+                    document.getElementById("btn-hidden-finished-load").click();
                 }
             }
         );
@@ -94,21 +96,24 @@ export class LeadService {
             response => {
                 var results = response.json();
                 if (results != null) {
-                    (<HTMLInputElement>document.getElementById("leadDateValue")).value = results.LeadDate;
-                    (<HTMLInputElement>document.getElementById("leadNumber")).value = results.LeadNumber;
-                    (<HTMLInputElement>document.getElementById("leadName")).value = results.LeadName;
-                    (<HTMLInputElement>document.getElementById("leadAddress")).value = results.Address;
-                    (<HTMLInputElement>document.getElementById("leadContactPerson")).value = results.ContactPerson;
-                    (<HTMLInputElement>document.getElementById("leadContactPosition")).value = results.ContactPosition;
-                    (<HTMLInputElement>document.getElementById("leadContactEmail")).value = results.ContactEmail;
-                    (<HTMLInputElement>document.getElementById("leadContactNumber")).value = results.ContactPhoneNo;
-                    (<HTMLInputElement>document.getElementById("leadReferredBy")).value = results.ReferredBy;
-                    (<HTMLInputElement>document.getElementById("leadRemarks")).value = results.Remarks;
-                    (<HTMLInputElement>document.getElementById("leadEncodedBySelectedValue")).value = results.EncodedByUser;
-                    (<HTMLInputElement>document.getElementById("leadAssignedToSelectedValue")).value = results.AssignedToUser;
-                    (<HTMLInputElement>document.getElementById("leadStatusSelectedValue")).value = results.LeadStatus;
-                    document.getElementById("btn-hidden-selectedValue-data").click();
-                    document.getElementById("btn-hidden-complete-loading").click();
+                    document.getElementById("btn-hidden-finished-load").click();
+                     setTimeout(() => {
+                        (<HTMLInputElement>document.getElementById("leadDateValue")).value = results.LeadDate;
+                        (<HTMLInputElement>document.getElementById("leadNumber")).value = results.LeadNumber;
+                        (<HTMLInputElement>document.getElementById("leadName")).value = results.LeadName;
+                        (<HTMLInputElement>document.getElementById("leadAddress")).value = results.Address;
+                        (<HTMLInputElement>document.getElementById("leadContactPerson")).value = results.ContactPerson;
+                        (<HTMLInputElement>document.getElementById("leadContactPosition")).value = results.ContactPosition;
+                        (<HTMLInputElement>document.getElementById("leadContactEmail")).value = results.ContactEmail;
+                        (<HTMLInputElement>document.getElementById("leadContactNumber")).value = results.ContactPhoneNo;
+                        (<HTMLInputElement>document.getElementById("leadReferredBy")).value = results.ReferredBy;
+                        (<HTMLInputElement>document.getElementById("leadRemarks")).value = results.Remarks;
+                        (<HTMLInputElement>document.getElementById("leadEncodedBySelectedValue")).value = results.EncodedByUserId;
+                        (<HTMLInputElement>document.getElementById("leadAssignedToSelectedValue")).value = results.AssignedToUserId;
+                        (<HTMLInputElement>document.getElementById("leadStatusSelectedValue")).value = results.LeadStatus;
+                        document.getElementById("btn-hidden-selectedValue-data").click();
+                        document.getElementById("btn-hidden-complete-loading").click();
+                    }, 200);
                 } else {
                     alert("No Data");
                     this.router.navigate(["/lead"]);
@@ -180,7 +185,7 @@ export class LeadService {
     }
 
     // list activity by lead Id
-    public getListActivityByLeadId(leadId: number): wijmo.collections.ObservableArray {
+    public getListActivityByLeadId(leadId: number, isLoadActivityOnly: Boolean): wijmo.collections.ObservableArray {
         let url = "http://api.innosoft.ph/api/activity/list/byLeadId/" + leadId;
         let activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
@@ -211,7 +216,11 @@ export class LeadService {
                     }
                 }
 
-                document.getElementById("btn-hidden-complete-loading").click();
+                if (!isLoadActivityOnly) {
+                    document.getElementById("btn-hidden-encoded-user-data").click();
+                } else {
+                    document.getElementById("btn-hidden-complete-loading").click();
+                }
             }
         );
 
