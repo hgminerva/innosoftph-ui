@@ -25,12 +25,7 @@ var DeliveryDetailComponent = (function () {
         this.vRef = vRef;
         this.slimLoadingBarService = slimLoadingBarService;
         this.deliveryQuotaionSelectedIndex = -1;
-        this.deliveryCustomerSelectedIndex = -1;
-        this.deliveryProductSelectedIndex = -1;
-        this.deliveryTechnicalUserSelectedIndex = -1;
-        this.deliveryFunctionalUserSelectedIndex = -1;
         this.deliveryStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
-        this.deliveryStatusSelectedIndex = 0;
         this.activityParticularCategories = [
             'Delivery'
         ];
@@ -41,6 +36,8 @@ var DeliveryDetailComponent = (function () {
         this.activityNoOfHoursSelectedIndex = 0;
         this.activityStatus = ['Open', 'Close', 'Cancelled'];
         this.activityStatusSelectedIndex = 0;
+        this.isFinishLoading = false;
+        this.isLoading = true;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -51,6 +48,12 @@ var DeliveryDetailComponent = (function () {
     // complete loading
     DeliveryDetailComponent.prototype.completeLoading = function () {
         this.slimLoadingBarService.complete();
+    };
+    DeliveryDetailComponent.prototype.finishedLoad = function () {
+        this.isFinishLoading = true;
+        this.isLoading = false;
+        document.getElementById("btnSaveDeliveryDetail").disabled = false;
+        document.getElementById("btnCloseDeliveryDetail").disabled = false;
     };
     // get url Id parameter
     DeliveryDetailComponent.prototype.getIdUrlParameter = function () {
@@ -65,21 +68,22 @@ var DeliveryDetailComponent = (function () {
         this.deliveryDateValue = new Date();
         this.deliveryMeetingDateValue = new Date();
         this.activityDateValue = new Date();
-        this.getQuotationData();
-        this.getListActivity();
+        this.getListActivity(false);
+        document.getElementById("btnSaveDeliveryDetail").disabled = true;
+        document.getElementById("btnCloseDeliveryDetail").disabled = true;
     };
     // list article
     DeliveryDetailComponent.prototype.getQuotationData = function () {
         this.deliveryQuotaionObservableArray = this.deliveryService.getListQuotationData("deliveryDetail");
     };
-    // list customer article
-    DeliveryDetailComponent.prototype.getCustomerArticleData = function () {
-        this.deliveryCustomerObservableArray = this.deliveryService.getListArticleData("deliveryDetail", 2);
-    };
-    // list product article
-    DeliveryDetailComponent.prototype.getProductArticleData = function () {
-        this.deliveryProductObservableArray = this.deliveryService.getListArticleData("deliveryDetail", 1);
-    };
+    // // list customer article
+    // public getCustomerArticleData() {
+    //   this.deliveryCustomerObservableArray = this.deliveryService.getListArticleData("deliveryDetail", 2);
+    // }
+    // // list product article
+    // public getProductArticleData() {
+    //   this.deliveryProductObservableArray = this.deliveryService.getListArticleData("deliveryDetail", 1);
+    // }
     // list sales user
     DeliveryDetailComponent.prototype.getSalesUserServiceData = function () {
         this.deliverySalesUserObservableArray = this.deliveryService.getListUserData("deliveryDetail", "sales");
@@ -95,72 +99,12 @@ var DeliveryDetailComponent = (function () {
     // set selected value
     DeliveryDetailComponent.prototype.setDropdownSelectedValueData = function () {
         this.deliveryDateValue = new Date(document.getElementById("deliveryDateValue").value.toString());
-        this.deliveryQuotaionSelectedValue = document.getElementById("deliveryQuotaionSelectedValue").value.toString();
-        this.deliveryCustomerSelectedValue = document.getElementById("deliveryCustomerSelectedValue").value.toString();
-        this.deliveryProductSelectedValue = document.getElementById("deliveryProductSelectedValue").value.toString();
+        this.deliveryQuotaionSelectedValue = parseInt(document.getElementById("deliveryQuotaionSelectedValue").value.toString());
         this.deliveryMeetingDateValue = new Date(document.getElementById("deliveryMeetingDateValue").value.toString());
-        this.deliverySalesUserSelectedValue = document.getElementById("deliverySalesUserSelectedValue").value.toString();
-        this.deliveryTechnicalUserSelectedValue = document.getElementById("deliveryTechnicalUserSelectedValue").value.toString();
-        this.deliveryFunctionalUserSelectedValue = document.getElementById("deliveryFunctionalUserSelectedValue").value.toString();
+        this.deliverySalesUserSelectedValue = parseInt(document.getElementById("deliverySalesUserSelectedValue").value.toString());
+        this.deliveryTechnicalUserSelectedValue = parseInt(document.getElementById("deliveryTechnicalUserSelectedValue").value.toString());
+        this.deliveryFunctionalUserSelectedValue = parseInt(document.getElementById("deliveryFunctionalUserSelectedValue").value.toString());
         this.deliveryStatusSelectedValue = document.getElementById("deliveryStatusSelectedValue").value.toString();
-        this.deliveryStatus = document.getElementById("deliveryStatusSelectedValue").value.toString();
-    };
-    // delivery date on value changed
-    DeliveryDetailComponent.prototype.deliveryDateOnValueChanged = function () {
-    };
-    // meeting date on value changed
-    DeliveryDetailComponent.prototype.deliveryMeetingDateOnValueChanged = function () {
-    };
-    // quotation number selected index changed
-    DeliveryDetailComponent.prototype.cboDeliveryQuotaionSelectedIndexChanged = function () {
-        if (this.deliveryQuotaionSelectedIndex >= 0) {
-            this.deliveryQuotationId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].Id;
-            this.deliveryCustomerSelectedValue = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].Customer;
-            this.deliveryProductSelectedValue = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].Product;
-        }
-        else {
-            this.deliveryQuotationId = 0;
-        }
-    };
-    // customer selected index changed
-    DeliveryDetailComponent.prototype.cboDeliveryCustomerSelectedIndexChanged = function () {
-        if (this.deliveryCustomerSelectedIndex >= 0) {
-            this.deliveryCustomerId = this.deliveryCustomerObservableArray[this.deliveryCustomerSelectedIndex].Id;
-        }
-        else {
-            this.deliveryCustomerId = 0;
-        }
-    };
-    // product selected index changed
-    DeliveryDetailComponent.prototype.cboDeliveryProductSelectedIndexChanged = function () {
-        if (this.deliveryProductSelectedIndex >= 0) {
-            this.deliveryProductId = this.deliveryProductObservableArray[this.deliveryProductSelectedIndex].Id;
-        }
-        else {
-            this.deliveryProductId = 0;
-        }
-    };
-    // technical user selected index changed
-    DeliveryDetailComponent.prototype.cboDeliveryTechnicalUserSelectedIndexChanged = function () {
-        if (this.deliveryTechnicalUserSelectedIndex >= 0) {
-            this.deliveryTechnicalUserId = this.deliveryTechnicalUserObservableArray[this.deliveryTechnicalUserSelectedIndex].Id;
-        }
-        else {
-            this.deliveryTechnicalUserId = 0;
-        }
-    };
-    // functionl user selected index changed
-    DeliveryDetailComponent.prototype.cboDeliveryFunctionalUserSelectedIndexChanged = function () {
-        if (this.deliveryFunctionalUserSelectedIndex >= 0) {
-            this.deliveryFunctionalUserId = this.deliveryFunctionalUserObservableArray[this.deliveryFunctionalUserSelectedIndex].Id;
-        }
-        else {
-            this.deliveryFunctionalUserId = 0;
-        }
-    };
-    // status selected index changed
-    DeliveryDetailComponent.prototype.cboStatusSelectedIndexChangedClick = function () {
-        this.deliveryStatus = this.deliveryStatusArray[this.deliveryStatusSelectedIndex];
     };
     // delivery data
     DeliveryDetailComponent.prototype.getDeliveryServiceData = function () {
@@ -186,16 +130,18 @@ var DeliveryDetailComponent = (function () {
     };
     // delivery data
     DeliveryDetailComponent.prototype.getDeliveryValue = function () {
+        var deliveryCustomerId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].CustomerId;
+        var deliveryProductId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].ProductId;
         var dataObject = {
             DeliveryDate: this.deliveryDateValue.toLocaleDateString(),
-            QuotationId: this.deliveryQuotationId,
-            CustomerId: this.deliveryCustomerId,
-            ProductId: this.deliveryProductId,
+            QuotationId: this.deliveryQuotaionSelectedValue,
+            CustomerId: deliveryCustomerId,
+            ProductId: deliveryProductId,
             MeetingDate: this.deliveryMeetingDateValue.toLocaleDateString(),
             Remarks: document.getElementById("deliveryRemarks").value,
-            TechnicalUserId: this.deliveryTechnicalUserId,
-            FunctionalUserId: this.deliveryFunctionalUserId,
-            DeliveryStatus: this.deliveryStatus
+            TechnicalUserId: this.deliveryTechnicalUserSelectedValue,
+            FunctionalUserId: this.deliveryFunctionalUserSelectedValue,
+            DeliveryStatus: this.deliveryStatusSelectedValue
         };
         return dataObject;
     };
@@ -209,8 +155,8 @@ var DeliveryDetailComponent = (function () {
         this.deliveryService.putDeliveryData(this.getIdUrlParameter(), this.getDeliveryValue(), toastr);
     };
     // activity line list
-    DeliveryDetailComponent.prototype.getListActivity = function () {
-        this.activityCollectionView = new wijmo.collections.CollectionView(this.deliveryService.getListActivityByQuotationId(this.getIdUrlParameter()));
+    DeliveryDetailComponent.prototype.getListActivity = function (isLoadActivityOnly) {
+        this.activityCollectionView = new wijmo.collections.CollectionView(this.deliveryService.getListActivityByQuotationId(this.getIdUrlParameter(), isLoadActivityOnly));
         this.activityCollectionView.pageSize = 15;
         this.activityCollectionView.trackChanges = true;
     };
@@ -245,10 +191,12 @@ var DeliveryDetailComponent = (function () {
     };
     // get activity data
     DeliveryDetailComponent.prototype.getActivityData = function () {
+        var deliveryCustomerId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].CustomerId;
+        var deliveryProductId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].ProductId;
         var activityDataObject = {
             ActivityDate: this.activityDateValue.toLocaleDateString(),
-            CustomerId: this.deliveryCustomerId,
-            ProductId: this.deliveryProductId,
+            CustomerId: deliveryCustomerId,
+            ProductId: deliveryProductId,
             ParticularCategory: this.activityParticularCategorySelectedValue,
             Particulars: document.getElementById("activityParticulars").value,
             NumberOfHours: this.activityNoOfHoursSelectedValue,

@@ -81,6 +81,7 @@ export class DeliveryComponent implements OnInit {
 
   // event: delivery start date
   public deliveryStartDateOnValueChanged() {
+    this.startLoading();
     if (!this.isDeliveryStartDateSelected) {
       this.getDeliveryData();
     } else {
@@ -90,6 +91,7 @@ export class DeliveryComponent implements OnInit {
 
   // event: delivery end date
   public deliveryEndDateOnValueChanged() {
+    this.startLoading();
     if (!this.isDeliveryEndDateSelected) {
       this.getDeliveryData();
     } else {
@@ -268,12 +270,12 @@ export class DeliveryComponent implements OnInit {
   public getDeliveryValue() {
     let dataObject = {
       DeliveryDate: this.deliveryDateValue.toLocaleDateString(),
-      QuotationId: this.deliveryQuotationId,
+      QuotationId: this.deliveryQuotaionSelectedValue,
       MeetingDate: this.deliveryMeetingDateValue.toLocaleDateString(),
       Remarks: this.deliveryRemarks,
-      TechnicalUserId: this.deliveryTechnicalUserId,
-      FunctionalUserId: this.deliveryFunctionalUserId,
-      DeliveryStatus: this.deliveryStatus
+      TechnicalUserId: this.deliveryTechnicalUserSelectedValue,
+      FunctionalUserId: this.deliveryFunctionalUserSelectedValue,
+      DeliveryStatus: this.deliveryStatusSelectedValue
     }
 
     return dataObject;

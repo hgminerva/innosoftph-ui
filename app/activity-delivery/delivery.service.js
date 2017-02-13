@@ -36,12 +36,14 @@ var DeliveryService = (function () {
                     quotationObservableArray.push({
                         Id: results[i].Id,
                         QuotationNumberDetail: results[i].QuotationNumber + " - " + results[i].Customer + " (" + results[i].Product + ")",
-                        QuotationNumber: results[i].QuotationNumber
+                        QuotationNumber: results[i].QuotationNumber,
+                        CustomerId: results[i].CustomerId,
+                        ProductId: results[i].ProductId
                     });
                 }
             }
             if (page == "deliveryDetail") {
-                document.getElementById("btn-hidden-customer-data").click();
+                document.getElementById("btn-hidden-sale-user-data").click();
             }
             else {
                 document.getElementById("btn-hidden-technical-user-data").click();
@@ -159,19 +161,20 @@ var DeliveryService = (function () {
         this.http.get(url, this.options).subscribe(function (response) {
             var results = response.json();
             if (results != null) {
-                document.getElementById("deliveryNumber").value = results.DeliveryNumber;
-                document.getElementById("deliveryDateValue").value = results.DeliveryDate;
-                document.getElementById("deliveryQuotaionSelectedValue").value = results.QuotationNumber;
-                document.getElementById("deliveryCustomerSelectedValue").value = results.Customer;
-                document.getElementById("deliveryProductSelectedValue").value = results.Product;
-                document.getElementById("deliveryMeetingDateValue").value = results.MeetingDate;
-                document.getElementById("deliveryRemarks").value = results.Remarks;
-                document.getElementById("deliverySalesUserSelectedValue").value = results.SalesUser;
-                document.getElementById("deliveryTechnicalUserSelectedValue").value = results.TechnicalUser;
-                document.getElementById("deliveryFunctionalUserSelectedValue").value = results.FunctionalUser;
-                document.getElementById("deliveryStatusSelectedValue").value = results.DeliveryStatus;
-                document.getElementById("btn-hidden-selectedValue-data").click();
-                document.getElementById("btn-hidden-complete-loading").click();
+                document.getElementById("btn-hidden-finished-load").click();
+                setTimeout(function () {
+                    document.getElementById("deliveryNumber").value = results.DeliveryNumber;
+                    document.getElementById("deliveryDateValue").value = results.DeliveryDate;
+                    document.getElementById("deliveryQuotaionSelectedValue").value = results.QuotationId;
+                    document.getElementById("deliveryMeetingDateValue").value = results.MeetingDate;
+                    document.getElementById("deliveryRemarks").value = results.Remarks;
+                    document.getElementById("deliverySalesUserSelectedValue").value = results.SalesUserId;
+                    document.getElementById("deliveryTechnicalUserSelectedValue").value = results.TechnicalUserId;
+                    document.getElementById("deliveryFunctionalUserSelectedValue").value = results.FunctionalUserId;
+                    document.getElementById("deliveryStatusSelectedValue").value = results.DeliveryStatus;
+                    document.getElementById("btn-hidden-selectedValue-data").click();
+                    document.getElementById("btn-hidden-complete-loading").click();
+                }, 200);
             }
             else {
                 alert("No Data");
@@ -234,7 +237,7 @@ var DeliveryService = (function () {
         });
     };
     // list activity by delivery Id
-    DeliveryService.prototype.getListActivityByQuotationId = function (deliveryId) {
+    DeliveryService.prototype.getListActivityByQuotationId = function (deliveryId, isLoadActivityOnly) {
         var url = "http://api.innosoft.ph/api/activity/list/byDeliveryId/" + deliveryId;
         var activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
@@ -263,7 +266,12 @@ var DeliveryService = (function () {
                     });
                 }
             }
-            document.getElementById("btn-hidden-complete-loading").click();
+            if (!isLoadActivityOnly) {
+                document.getElementById("btn-hidden-quotation-data").click();
+            }
+            else {
+                document.getElementById("btn-hidden-complete-loading").click();
+            }
         });
         return activityObservableArray;
     };

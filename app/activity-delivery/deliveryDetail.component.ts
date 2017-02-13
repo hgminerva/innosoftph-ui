@@ -13,34 +13,21 @@ export class DeliveryDetailComponent implements OnInit {
   // global variables
   public deliveryId: number;
   public deliveryDateValue: Date;
+  
   public deliveryQuotaionObservableArray: wijmo.collections.ObservableArray;
   public deliveryQuotaionSelectedIndex = -1;
-  public deliveryCustomerObservableArray: wijmo.collections.ObservableArray;
-  public deliveryCustomerSelectedIndex = -1;
-  public deliveryProductObservableArray: wijmo.collections.ObservableArray;
-  public deliveryProductSelectedIndex = -1;
+  public deliveryQuotaionSelectedValue: number;
   public deliveryMeetingDateValue: Date;
   public deliverySalesUserObservableArray: wijmo.collections.ObservableArray;
+  public deliverySalesUserSelectedValue: number;
   public deliveryTechnicalUserObservableArray: wijmo.collections.ObservableArray;
-  public deliveryTechnicalUserSelectedIndex = -1;
+  public deliveryTechnicalUserSelectedValue: number;
   public deliveryFunctionalUserObservableArray: wijmo.collections.ObservableArray;
-  public deliveryFunctionalUserSelectedIndex = -1;
+  public deliveryFunctionalUserSelectedValue: number;
   public deliveryStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
-  public deliveryStatusSelectedIndex = 0;
-  public deliveryQuotaionSelectedValue: String;
-  public deliveryCustomerSelectedValue: String;
-  public deliveryProductSelectedValue: String;
-  public deliverySalesUserSelectedValue: String;
-  public deliveryTechnicalUserSelectedValue: String;
-  public deliveryFunctionalUserSelectedValue: String;
   public deliveryStatusSelectedValue: String;
-  public deliveryQuotationId: number;
-  public deliveryCustomerId: number;
-  public deliveryProductId: number;
   public deliveryRemarks: String;
-  public deliveryTechnicalUserId: number;
-  public deliveryFunctionalUserId: number;
-  public deliveryStatus: String;
+
   public activityCollectionView: wijmo.collections.CollectionView;
   public activityDetailModalString: String;
   public activityId: number;
@@ -59,6 +46,8 @@ export class DeliveryDetailComponent implements OnInit {
   public activityStatusSelectedIndex = 0;
   public activityStatusSelectedValue: String;
   public activityAmount: String;
+  public isFinishLoading = false;
+  public isLoading = true;
 
   // inject quotation detail service
   constructor(
@@ -85,6 +74,13 @@ export class DeliveryDetailComponent implements OnInit {
     this.slimLoadingBarService.complete();
   }
 
+  public finishedLoad() {
+    this.isFinishLoading = true;
+    this.isLoading = false;
+    (<HTMLButtonElement>document.getElementById("btnSaveDeliveryDetail")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnCloseDeliveryDetail")).disabled = false;
+  }
+
   // get url Id parameter
   public getIdUrlParameter() {
     this.activatedRoute.params.subscribe(params => {
@@ -99,8 +95,9 @@ export class DeliveryDetailComponent implements OnInit {
     this.deliveryDateValue = new Date();
     this.deliveryMeetingDateValue = new Date();
     this.activityDateValue = new Date();
-    this.getQuotationData();
-    this.getListActivity();
+    this.getListActivity(false);
+    (<HTMLButtonElement>document.getElementById("btnSaveDeliveryDetail")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnCloseDeliveryDetail")).disabled = true;
   }
 
   // list article
@@ -108,15 +105,15 @@ export class DeliveryDetailComponent implements OnInit {
     this.deliveryQuotaionObservableArray = this.deliveryService.getListQuotationData("deliveryDetail");
   }
 
-  // list customer article
-  public getCustomerArticleData() {
-    this.deliveryCustomerObservableArray = this.deliveryService.getListArticleData("deliveryDetail", 2);
-  }
+  // // list customer article
+  // public getCustomerArticleData() {
+  //   this.deliveryCustomerObservableArray = this.deliveryService.getListArticleData("deliveryDetail", 2);
+  // }
 
-  // list product article
-  public getProductArticleData() {
-    this.deliveryProductObservableArray = this.deliveryService.getListArticleData("deliveryDetail", 1);
-  }
+  // // list product article
+  // public getProductArticleData() {
+  //   this.deliveryProductObservableArray = this.deliveryService.getListArticleData("deliveryDetail", 1);
+  // }
 
   // list sales user
   public getSalesUserServiceData() {
@@ -136,79 +133,14 @@ export class DeliveryDetailComponent implements OnInit {
   // set selected value
   public setDropdownSelectedValueData() {
     this.deliveryDateValue = new Date((<HTMLInputElement>document.getElementById("deliveryDateValue")).value.toString());
-    this.deliveryQuotaionSelectedValue = (<HTMLInputElement>document.getElementById("deliveryQuotaionSelectedValue")).value.toString();
-    this.deliveryCustomerSelectedValue = (<HTMLInputElement>document.getElementById("deliveryCustomerSelectedValue")).value.toString();
-    this.deliveryProductSelectedValue = (<HTMLInputElement>document.getElementById("deliveryProductSelectedValue")).value.toString();
+    this.deliveryQuotaionSelectedValue = parseInt((<HTMLInputElement>document.getElementById("deliveryQuotaionSelectedValue")).value.toString());
     this.deliveryMeetingDateValue = new Date((<HTMLInputElement>document.getElementById("deliveryMeetingDateValue")).value.toString());
-    this.deliverySalesUserSelectedValue = (<HTMLInputElement>document.getElementById("deliverySalesUserSelectedValue")).value.toString();
-    this.deliveryTechnicalUserSelectedValue = (<HTMLInputElement>document.getElementById("deliveryTechnicalUserSelectedValue")).value.toString();
-    this.deliveryFunctionalUserSelectedValue = (<HTMLInputElement>document.getElementById("deliveryFunctionalUserSelectedValue")).value.toString();
+    this.deliverySalesUserSelectedValue =  parseInt((<HTMLInputElement>document.getElementById("deliverySalesUserSelectedValue")).value.toString());
+    this.deliveryTechnicalUserSelectedValue =  parseInt((<HTMLInputElement>document.getElementById("deliveryTechnicalUserSelectedValue")).value.toString());
+    this.deliveryFunctionalUserSelectedValue =  parseInt((<HTMLInputElement>document.getElementById("deliveryFunctionalUserSelectedValue")).value.toString());
     this.deliveryStatusSelectedValue = (<HTMLInputElement>document.getElementById("deliveryStatusSelectedValue")).value.toString();
-    this.deliveryStatus = (<HTMLInputElement>document.getElementById("deliveryStatusSelectedValue")).value.toString();
   }
-
-  // delivery date on value changed
-  public deliveryDateOnValueChanged() {
-
-  }
-
-  // meeting date on value changed
-  public deliveryMeetingDateOnValueChanged() {
-
-  }
-
-  // quotation number selected index changed
-  public cboDeliveryQuotaionSelectedIndexChanged() {
-    if (this.deliveryQuotaionSelectedIndex >= 0) {
-      this.deliveryQuotationId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].Id;
-      this.deliveryCustomerSelectedValue = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].Customer;
-      this.deliveryProductSelectedValue = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].Product;
-    } else {
-      this.deliveryQuotationId = 0;
-    }
-  }
-
-  // customer selected index changed
-  public cboDeliveryCustomerSelectedIndexChanged() {
-    if (this.deliveryCustomerSelectedIndex >= 0) {
-      this.deliveryCustomerId = this.deliveryCustomerObservableArray[this.deliveryCustomerSelectedIndex].Id;
-    } else {
-      this.deliveryCustomerId = 0;
-    }
-  }
-
-  // product selected index changed
-  public cboDeliveryProductSelectedIndexChanged() {
-    if (this.deliveryProductSelectedIndex >= 0) {
-      this.deliveryProductId = this.deliveryProductObservableArray[this.deliveryProductSelectedIndex].Id;
-    } else {
-      this.deliveryProductId = 0;
-    }
-  }
-
-  // technical user selected index changed
-  public cboDeliveryTechnicalUserSelectedIndexChanged() {
-    if (this.deliveryTechnicalUserSelectedIndex >= 0) {
-      this.deliveryTechnicalUserId = this.deliveryTechnicalUserObservableArray[this.deliveryTechnicalUserSelectedIndex].Id;
-    } else {
-      this.deliveryTechnicalUserId = 0;
-    }
-  }
-
-  // functionl user selected index changed
-  public cboDeliveryFunctionalUserSelectedIndexChanged() {
-    if (this.deliveryFunctionalUserSelectedIndex >= 0) {
-      this.deliveryFunctionalUserId = this.deliveryFunctionalUserObservableArray[this.deliveryFunctionalUserSelectedIndex].Id;
-    } else {
-      this.deliveryFunctionalUserId = 0;
-    }
-  }
-
-  // status selected index changed
-  public cboStatusSelectedIndexChangedClick() {
-    this.deliveryStatus = this.deliveryStatusArray[this.deliveryStatusSelectedIndex];
-  }
-
+  
   // delivery data
   public getDeliveryServiceData() {
     this.deliveryService.getDeliveryById(this.getIdUrlParameter());
@@ -234,16 +166,18 @@ export class DeliveryDetailComponent implements OnInit {
 
   // delivery data
   public getDeliveryValue() {
+    let deliveryCustomerId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].CustomerId;
+    let deliveryProductId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].ProductId;
     let dataObject = {
       DeliveryDate: this.deliveryDateValue.toLocaleDateString(),
-      QuotationId: this.deliveryQuotationId,
-      CustomerId: this.deliveryCustomerId,
-      ProductId: this.deliveryProductId,
+      QuotationId: this.deliveryQuotaionSelectedValue,
+      CustomerId: deliveryCustomerId,
+      ProductId: deliveryProductId,
       MeetingDate: this.deliveryMeetingDateValue.toLocaleDateString(),
       Remarks: (<HTMLInputElement>document.getElementById("deliveryRemarks")).value,
-      TechnicalUserId: this.deliveryTechnicalUserId,
-      FunctionalUserId: this.deliveryFunctionalUserId,
-      DeliveryStatus: this.deliveryStatus
+      TechnicalUserId: this.deliveryTechnicalUserSelectedValue,
+      FunctionalUserId: this.deliveryFunctionalUserSelectedValue,
+      DeliveryStatus: this.deliveryStatusSelectedValue
     }
 
     return dataObject;
@@ -260,8 +194,8 @@ export class DeliveryDetailComponent implements OnInit {
   }
 
   // activity line list
-  public getListActivity() {
-    this.activityCollectionView = new wijmo.collections.CollectionView(this.deliveryService.getListActivityByQuotationId(this.getIdUrlParameter()));
+  public getListActivity(isLoadActivityOnly: Boolean) {
+    this.activityCollectionView = new wijmo.collections.CollectionView(this.deliveryService.getListActivityByQuotationId(this.getIdUrlParameter(), isLoadActivityOnly));
     this.activityCollectionView.pageSize = 15;
     this.activityCollectionView.trackChanges = true;
   }
@@ -297,10 +231,12 @@ export class DeliveryDetailComponent implements OnInit {
 
   // get activity data
   public getActivityData() {
+    let deliveryCustomerId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].CustomerId;
+    let deliveryProductId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].ProductId;
     let activityDataObject = {
       ActivityDate: this.activityDateValue.toLocaleDateString(),
-      CustomerId: this.deliveryCustomerId,
-      ProductId: this.deliveryProductId,
+      CustomerId: deliveryCustomerId,
+      ProductId: deliveryProductId,
       ParticularCategory: this.activityParticularCategorySelectedValue,
       Particulars: (<HTMLInputElement>document.getElementById("activityParticulars")).value,
       NumberOfHours: this.activityNoOfHoursSelectedValue,

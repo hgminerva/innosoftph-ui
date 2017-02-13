@@ -31,13 +31,15 @@ export class DeliveryService {
                         quotationObservableArray.push({
                             Id: results[i].Id,
                             QuotationNumberDetail: results[i].QuotationNumber + " - " + results[i].Customer + " (" + results[i].Product + ")",
-                            QuotationNumber: results[i].QuotationNumber
+                            QuotationNumber: results[i].QuotationNumber,
+                            CustomerId: results[i].CustomerId,
+                            ProductId: results[i].ProductId
                         });
                     }
                 }
 
                 if (page == "deliveryDetail") {
-                    document.getElementById("btn-hidden-customer-data").click();
+                    document.getElementById("btn-hidden-sale-user-data").click();
                 } else {
                     document.getElementById("btn-hidden-technical-user-data").click();
                 }
@@ -167,19 +169,20 @@ export class DeliveryService {
             response => {
                 var results = response.json();
                 if (results != null) {
-                    (<HTMLInputElement>document.getElementById("deliveryNumber")).value = results.DeliveryNumber;
-                    (<HTMLInputElement>document.getElementById("deliveryDateValue")).value = results.DeliveryDate;
-                    (<HTMLInputElement>document.getElementById("deliveryQuotaionSelectedValue")).value = results.QuotationNumber;
-                    (<HTMLInputElement>document.getElementById("deliveryCustomerSelectedValue")).value = results.Customer;
-                    (<HTMLInputElement>document.getElementById("deliveryProductSelectedValue")).value = results.Product;
-                    (<HTMLInputElement>document.getElementById("deliveryMeetingDateValue")).value = results.MeetingDate;
-                    (<HTMLInputElement>document.getElementById("deliveryRemarks")).value = results.Remarks;
-                    (<HTMLInputElement>document.getElementById("deliverySalesUserSelectedValue")).value = results.SalesUser;
-                    (<HTMLInputElement>document.getElementById("deliveryTechnicalUserSelectedValue")).value = results.TechnicalUser;
-                    (<HTMLInputElement>document.getElementById("deliveryFunctionalUserSelectedValue")).value = results.FunctionalUser;
-                    (<HTMLInputElement>document.getElementById("deliveryStatusSelectedValue")).value = results.DeliveryStatus;
-                    document.getElementById("btn-hidden-selectedValue-data").click();
-                    document.getElementById("btn-hidden-complete-loading").click();
+                    document.getElementById("btn-hidden-finished-load").click();
+                    setTimeout(() => {
+                        (<HTMLInputElement>document.getElementById("deliveryNumber")).value = results.DeliveryNumber;
+                        (<HTMLInputElement>document.getElementById("deliveryDateValue")).value = results.DeliveryDate;
+                        (<HTMLInputElement>document.getElementById("deliveryQuotaionSelectedValue")).value = results.QuotationId;
+                        (<HTMLInputElement>document.getElementById("deliveryMeetingDateValue")).value = results.MeetingDate;
+                        (<HTMLInputElement>document.getElementById("deliveryRemarks")).value = results.Remarks;
+                        (<HTMLInputElement>document.getElementById("deliverySalesUserSelectedValue")).value = results.SalesUserId;
+                        (<HTMLInputElement>document.getElementById("deliveryTechnicalUserSelectedValue")).value = results.TechnicalUserId;
+                        (<HTMLInputElement>document.getElementById("deliveryFunctionalUserSelectedValue")).value = results.FunctionalUserId;
+                        (<HTMLInputElement>document.getElementById("deliveryStatusSelectedValue")).value = results.DeliveryStatus;
+                        document.getElementById("btn-hidden-selectedValue-data").click();
+                        document.getElementById("btn-hidden-complete-loading").click();
+                    }, 200);
                 } else {
                     alert("No Data");
                     this.router.navigate(["/delivery"]);
@@ -251,7 +254,7 @@ export class DeliveryService {
     }
 
     // list activity by delivery Id
-    public getListActivityByQuotationId(deliveryId: number): wijmo.collections.ObservableArray {
+    public getListActivityByQuotationId(deliveryId: number, isLoadActivityOnly: Boolean): wijmo.collections.ObservableArray {
         let url = "http://api.innosoft.ph/api/activity/list/byDeliveryId/" + deliveryId;
         let activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
@@ -282,7 +285,13 @@ export class DeliveryService {
                     }
                 }
 
-                document.getElementById("btn-hidden-complete-loading").click();
+                if (!isLoadActivityOnly) {
+                    document.getElementById("btn-hidden-quotation-data").click();
+                } else {
+                    document.getElementById("btn-hidden-complete-loading").click();
+                }
+
+
             }
         );
 

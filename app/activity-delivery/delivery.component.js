@@ -56,6 +56,7 @@ var DeliveryComponent = (function () {
     };
     // event: delivery start date
     DeliveryComponent.prototype.deliveryStartDateOnValueChanged = function () {
+        this.startLoading();
         if (!this.isDeliveryStartDateSelected) {
             this.getDeliveryData();
         }
@@ -65,6 +66,7 @@ var DeliveryComponent = (function () {
     };
     // event: delivery end date
     DeliveryComponent.prototype.deliveryEndDateOnValueChanged = function () {
+        this.startLoading();
         if (!this.isDeliveryEndDateSelected) {
             this.getDeliveryData();
         }
@@ -219,12 +221,12 @@ var DeliveryComponent = (function () {
     DeliveryComponent.prototype.getDeliveryValue = function () {
         var dataObject = {
             DeliveryDate: this.deliveryDateValue.toLocaleDateString(),
-            QuotationId: this.deliveryQuotationId,
+            QuotationId: this.deliveryQuotaionSelectedValue,
             MeetingDate: this.deliveryMeetingDateValue.toLocaleDateString(),
             Remarks: this.deliveryRemarks,
-            TechnicalUserId: this.deliveryTechnicalUserId,
-            FunctionalUserId: this.deliveryFunctionalUserId,
-            DeliveryStatus: this.deliveryStatus
+            TechnicalUserId: this.deliveryTechnicalUserSelectedValue,
+            FunctionalUserId: this.deliveryFunctionalUserSelectedValue,
+            DeliveryStatus: this.deliveryStatusSelectedValue
         };
         return dataObject;
     };
