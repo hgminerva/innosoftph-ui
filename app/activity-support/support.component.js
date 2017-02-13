@@ -150,8 +150,8 @@ var SupportActivityComponent = (function () {
         document.getElementById("btnSaveSupport").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
         document.getElementById("btnSaveSupport").disabled = true;
         document.getElementById("btnCloseSupport").disabled = true;
-        this.getListCustomer();
         this.supportCustomerSelectedIndex = 0;
+        this.getListCustomer();
     };
     // support values
     SupportActivityComponent.prototype.getSupportObjectValue = function () {
@@ -212,16 +212,16 @@ var SupportActivityComponent = (function () {
     // support customer selected index changed
     SupportActivityComponent.prototype.cboSupportCustomerSelectedIndexChangedClick = function () {
         if (typeof this.supportCustomerSelectedValue != 'undefined') {
-            this.getListContinuity();
+            this.getListContinuity(true);
         }
     };
     // list continuuity
-    SupportActivityComponent.prototype.getListContinuity = function () {
+    SupportActivityComponent.prototype.getListContinuity = function (isSelectedCustomerOnly) {
         var customerId = this.supportCustomerObservableArray[this.supportCustomerSelectedIndex].CustomerId;
         if (typeof this.supportCustomerSelectedValue != 'undefined') {
             customerId = this.supportCustomerSelectedValue;
         }
-        this.supportContinuityObservableArray = this.supportService.getListContinuityData("support", customerId);
+        this.supportContinuityObservableArray = this.supportService.getListContinuityData("support", customerId, isSelectedCustomerOnly);
     };
     // assigned to user list
     SupportActivityComponent.prototype.getListAssignedToUser = function () {

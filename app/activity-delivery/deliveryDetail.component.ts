@@ -13,7 +13,6 @@ export class DeliveryDetailComponent implements OnInit {
   // global variables
   public deliveryId: number;
   public deliveryDateValue: Date;
-  
   public deliveryQuotaionObservableArray: wijmo.collections.ObservableArray;
   public deliveryQuotaionSelectedIndex = -1;
   public deliveryQuotaionSelectedValue: number;
@@ -27,7 +26,6 @@ export class DeliveryDetailComponent implements OnInit {
   public deliveryStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
   public deliveryStatusSelectedValue: String;
   public deliveryRemarks: String;
-
   public activityCollectionView: wijmo.collections.CollectionView;
   public activityDetailModalString: String;
   public activityId: number;
@@ -104,16 +102,6 @@ export class DeliveryDetailComponent implements OnInit {
   public getQuotationData() {
     this.deliveryQuotaionObservableArray = this.deliveryService.getListQuotationData("deliveryDetail");
   }
-
-  // // list customer article
-  // public getCustomerArticleData() {
-  //   this.deliveryCustomerObservableArray = this.deliveryService.getListArticleData("deliveryDetail", 2);
-  // }
-
-  // // list product article
-  // public getProductArticleData() {
-  //   this.deliveryProductObservableArray = this.deliveryService.getListArticleData("deliveryDetail", 1);
-  // }
 
   // list sales user
   public getSalesUserServiceData() {

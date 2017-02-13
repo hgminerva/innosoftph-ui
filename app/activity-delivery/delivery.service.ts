@@ -290,8 +290,6 @@ export class DeliveryService {
                 } else {
                     document.getElementById("btn-hidden-complete-loading").click();
                 }
-
-
             }
         );
 

@@ -12,10 +12,14 @@ import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 export class SupportDetailComponent implements OnInit {
   // global variables
   public supportId: number;
+  public supportNumber: String;
   public supportDateValue: Date;
+  public supportCustomerObservableArray: wijmo.collections.ObservableArray;
+  public supportCustomerSelectedIndex = 0;
+  public supportCustomerSelectedValue: number;
   public supportContinuityObservableArray: wijmo.collections.ObservableArray;
-  public supportContinuitySelectedIndex = -1;
-  public supportContinuitySelectedValue: String;
+  public supportContinuitySelectedIndex = 0;
+  public supportContinuitySelectedValue: number;
   public supportIssueCategoryArray = [
     'New Installation',
     'Software Bug',
@@ -28,41 +32,25 @@ export class SupportDetailComponent implements OnInit {
     'Progam Update',
     'Data Archive'
   ];
-  public supportIssueCategorySelectedIndex = 0;
   public supportIssueCategorySelectedValue: String;
   public supportIssue: String;
-  public supportCustomerObservableArray: wijmo.collections.ObservableArray;
-  public supportCustomerSelectedIndex = -1;
-  public supportCustomerSelectedValue: String;
-  public supportProductObservableArray: wijmo.collections.ObservableArray;
-  public supportProductSelectedIndex = -1;
-  public supportProductSelectedValue: String;
   public supportSeverityArray = [
     'High (3hrs. resolution)',
     'Moderate (1 day resolution)',
     'Low (2 day resolution)',
     'Gossip'
   ];
-  public supportSeveritySelectedIndex = 0;
   public supportSeveritySelectedValue: String;
   public supportCaller: String;
   public supportRemarks: String;
   public supportScreenShotURL: String;
   public supportEncodedUserObservableArray: wijmo.collections.ObservableArray;
-  public supportEncodedBySelectedValue: String;
+  public supportEncodedBySelectedValue: number;
   public supportAssignedUserObservableArray: wijmo.collections.ObservableArray;
-  public supportAssignedToSelectedIndex = -1;
-  public supportAssignedToSelectedValue: String;
-  public supportStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
-  public supportStatusSelectedIndex = 0;
-  public supportStatusSelectedValue: String;
+  public supportAssignedToSelectedValue: number;
   public supportAssignedToUserId: number;
-  public supportContinuityId: number;
-  public supportIssueCategory: String;
-  public supportCustomerId: number;
-  public supportProductId: number;
-  public supportSeverity: String;
-  public supportSupportStatus: String;
+  public supportStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
+  public supportStatusSelectedValue: String;
   public activityCollectionView: wijmo.collections.CollectionView;
   public activityDetailModalString: String;
   public activityId: number;
@@ -79,17 +67,16 @@ export class SupportDetailComponent implements OnInit {
     'Progam Update',
     'Data Archive'
   ];
-  public activityParticularCategorySelectedIndex = 0;
   public activityParticularCategorySelectedValue: String;
   public activityNoOfHours = [
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
   ];
-  public activityNoOfHoursSelectedIndex = 0;
   public activityNoOfHoursSelectedValue: String;
   public activityStatus = ['Open', 'Close', 'Cancelled'];
-  public activityStatusSelectedIndex = 0;
   public activityStatusSelectedValue: String;
   public activityAmount: String;
+  public isFinishLoading = false;
+  public isLoading = true;
 
   // inject lead detail service
   constructor(
@@ -116,32 +103,50 @@ export class SupportDetailComponent implements OnInit {
     this.slimLoadingBarService.complete();
   }
 
+  public finishedLoad() {
+    this.isFinishLoading = true;
+    this.isLoading = false;
+    (<HTMLButtonElement>document.getElementById("btnSaveSupportDetail")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnCloseSupportDetail")).disabled = false;
+  }
+
   // lead date ranged
   public setContinuityDateValue() {
     this.activityDateValue = new Date();
     this.supportDateValue = new Date();
-    this.getListContinuityData();
-    this.getListActivity();
-  }
-
-  // support date value changed
-  public supportDateOnValueChanged() {
-
-  }
-
-  // list lead
-  public getListContinuityData() {
-    this.supportContinuityObservableArray = this.supportService.getListContinuityData("supportDetail");
+    (<HTMLButtonElement>document.getElementById("btnSaveSupportDetail")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnCloseSupportDetail")).disabled = true;
+    this.getListActivity(false);
   }
 
   // list customer
   public getListCustomerData() {
-    this.supportCustomerObservableArray = this.supportService.getListArticleData("supportDetail", 2);
+    this.supportCustomerObservableArray = this.supportService.getContuinityCustomerData("supportDetail");
   }
 
-  // list product
-  public getListProductData() {
-    this.supportProductObservableArray = this.supportService.getListArticleData("supportDetail", 1);
+  // support customer selected index changed
+  public cboSupportCustomerSelectedIndexChangedClick() {
+    if (typeof this.supportCustomerSelectedValue != 'undefined') {
+      this.getListContinuityData(true);
+    }
+  }
+
+  // list Continuity
+  public getListContinuityData(isSelectedCustomerOnly: Boolean) {
+    if (typeof this.supportCustomerObservableArray[this.supportCustomerSelectedIndex] != 'undefined') {
+      let customerId = this.supportCustomerObservableArray[this.supportCustomerSelectedIndex].CustomerId;
+      if (typeof this.supportCustomerSelectedValue != 'undefined') {
+        customerId = this.supportCustomerSelectedValue;
+      }
+
+      this.supportContinuityObservableArray = this.supportService.getListContinuityData("supportDetail", customerId, isSelectedCustomerOnly);
+    };
+  }
+
+  public cboSupportContinuitySelectedIndexChanged() {
+    if (typeof this.supportContinuityObservableArray[this.supportContinuitySelectedIndex] != 'undefined') {
+
+    }
   }
 
   // encoded to user list
@@ -162,65 +167,15 @@ export class SupportDetailComponent implements OnInit {
   // drop down data
   public setDropdownSelectedValueData() {
     this.supportDateValue = new Date((<HTMLInputElement>document.getElementById("supportDateValue")).value.toString());
-    this.supportContinuitySelectedValue = (<HTMLInputElement>document.getElementById("supportContinuitySelectedValue")).value.toString();
+    this.supportCustomerSelectedValue = parseInt((<HTMLInputElement>document.getElementById("supportCustomerSelectedValue")).value.toString());
     this.supportIssueCategorySelectedValue = (<HTMLInputElement>document.getElementById("supportIssueCategorySelectedValue")).value.toString();
-    this.supportCustomerSelectedValue = (<HTMLInputElement>document.getElementById("supportCustomerSelectedValue")).value.toString();
-    this.supportProductSelectedValue = (<HTMLInputElement>document.getElementById("supportProductSelectedValue")).value.toString();
     this.supportSeveritySelectedValue = (<HTMLInputElement>document.getElementById("supportSeveritySelectedValue")).value.toString();
-    this.supportEncodedBySelectedValue = (<HTMLInputElement>document.getElementById("supportEncodedBySelectedValue")).value.toString();
-    this.supportAssignedToSelectedValue = (<HTMLInputElement>document.getElementById("supportAssignedToSelectedValue")).value.toString();
+    this.supportEncodedBySelectedValue = parseInt((<HTMLInputElement>document.getElementById("supportEncodedBySelectedValue")).value.toString());
+    this.supportAssignedToSelectedValue = parseInt((<HTMLInputElement>document.getElementById("supportAssignedToSelectedValue")).value.toString());
     this.supportStatusSelectedValue = (<HTMLInputElement>document.getElementById("supportStatusSelectedValue")).value.toString();
-  }
-
-  // support continuuity selected index changed
-  public cboSupportContinuitySelectedIndexChanged() {
-    if (this.supportContinuitySelectedIndex >= 0) {
-      this.supportContinuityId = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].Id;
-    } else {
-      this.supportContinuityId = 0;
-    }
-  }
-
-  // support issue category selected index changed
-  public cboSupportIssueCategorySelectedIndexChangedClick() {
-    this.supportIssueCategory = this.supportIssueCategoryArray[this.supportIssueCategorySelectedIndex];
-  }
-
-  // support customer selected index changed
-  public cboSupportCustomerSelectedIndexChangedClick() {
-    if (this.supportCustomerSelectedIndex >= 0) {
-      this.supportCustomerId = this.supportCustomerObservableArray[this.supportCustomerSelectedIndex].Id;
-    } else {
-      this.supportCustomerId = 0;
-    }
-  }
-
-  // support product selected index changed
-  public cboSupportProductSelectedIndexChangedClick() {
-    if (this.supportProductSelectedIndex >= 0) {
-      this.supportProductId = this.supportProductObservableArray[this.supportProductSelectedIndex].Id;
-    } else {
-      this.supportProductId = 0;
-    }
-  }
-
-  // support severity selected index changed
-  public cboSupportSeveritySelectedIndexChangedClick() {
-    this.supportSeverity = this.supportSeverityArray[this.supportSeveritySelectedIndex];
-  }
-
-  // support assigned to selected index changed
-  public cboAssignedToSelectedIndexChangedClick() {
-    if (this.supportAssignedToSelectedIndex >= 0) {
-      this.supportAssignedToUserId = this.supportAssignedUserObservableArray[this.supportAssignedToSelectedIndex].Id;
-    } else {
-      this.supportAssignedToUserId = 0;
-    }
-  }
-
-  // support status to selected index changed
-  public cboSupportStatusSelectedIndexChangedClick() {
-    this.supportSupportStatus = this.supportStatusArray[this.supportStatusSelectedIndex];
+    setTimeout(() => {
+      this.supportContinuitySelectedValue = parseInt((<HTMLInputElement>document.getElementById("supportContinuitySelectedValue")).value.toString());
+    }, 1000);
   }
 
   // support values
@@ -230,19 +185,20 @@ export class SupportDetailComponent implements OnInit {
       assignedToUserIdValue = this.supportAssignedToUserId.toString();
     }
 
+    let productId = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].ProductId;
     let dataObject = {
       SupportDate: this.supportDateValue.toLocaleDateString(),
-      ContinuityId: this.supportContinuityId,
-      IssueCategory: this.supportIssueCategory,
+      ContinuityId: this.supportContinuitySelectedValue,
+      IssueCategory: this.supportIssueCategorySelectedValue,
       Issue: (<HTMLInputElement>document.getElementById("supportIssue")).value,
-      CustomerId: this.supportCustomerId,
-      ProductId: this.supportProductId,
-      Severity: this.supportSeverity,
+      CustomerId: this.supportCustomerSelectedValue,
+      ProductId: productId,
+      Severity: this.supportSeveritySelectedValue,
       Caller: (<HTMLInputElement>document.getElementById("supportCaller")).value,
       Remarks: (<HTMLInputElement>document.getElementById("supportRemarks")).value,
       ScreenShotURL: (<HTMLInputElement>document.getElementById("supportScreenShotURL")).value,
       AssignedToUserId: assignedToUserIdValue,
-      SupportStatus: this.supportSupportStatus
+      SupportStatus: this.supportStatusSelectedValue
     }
 
     return dataObject;
@@ -286,8 +242,8 @@ export class SupportDetailComponent implements OnInit {
   }
 
   // activity line list
-  public getListActivity() {
-    this.activityCollectionView = new wijmo.collections.CollectionView(this.supportService.getListActivityBySupportId(this.getIdUrlParameter()));
+  public getListActivity(isLoadActivityOnly: Boolean) {
+    this.activityCollectionView = new wijmo.collections.CollectionView(this.supportService.getListActivityBySupportId(this.getIdUrlParameter(), isLoadActivityOnly));
     this.activityCollectionView.pageSize = 15;
     this.activityCollectionView.trackChanges = true;
   }
@@ -323,10 +279,11 @@ export class SupportDetailComponent implements OnInit {
 
   // get activity data
   public getActivityData() {
+    let productId = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].ProductId;
     let activityDataObject = {
       ActivityDate: this.activityDateValue.toLocaleDateString(),
-      CustomerId: this.supportCustomerId,
-      ProductId: this.supportProductId,
+      CustomerId: this.supportCustomerSelectedValue,
+      ProductId: productId,
       ParticularCategory: this.activityParticularCategorySelectedValue,
       Particulars: (<HTMLInputElement>document.getElementById("activityParticulars")).value,
       NumberOfHours: this.activityNoOfHoursSelectedValue,

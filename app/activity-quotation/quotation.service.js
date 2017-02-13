@@ -148,7 +148,6 @@ var QuotationService = (function () {
                     document.getElementById("quotationNumber").value = results.QuotationNumber;
                     document.getElementById("quotationLeadSelectedValue").value = results.LeadId;
                     document.getElementById("quotationCustomerSelectedValue").value = results.CustomerId;
-                    document.getElementById("quotationProductSelectedValue").value = results.ProductId;
                     document.getElementById("quotationEncodedBySelectedValue").value = results.EncodedByUserId;
                     document.getElementById("quotationRemarks").value = results.Remarks;
                     document.getElementById("quotationStatusSelectedValue").value = results.QuotationStatus;

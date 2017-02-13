@@ -76,14 +76,6 @@ var DeliveryDetailComponent = (function () {
     DeliveryDetailComponent.prototype.getQuotationData = function () {
         this.deliveryQuotaionObservableArray = this.deliveryService.getListQuotationData("deliveryDetail");
     };
-    // // list customer article
-    // public getCustomerArticleData() {
-    //   this.deliveryCustomerObservableArray = this.deliveryService.getListArticleData("deliveryDetail", 2);
-    // }
-    // // list product article
-    // public getProductArticleData() {
-    //   this.deliveryProductObservableArray = this.deliveryService.getListArticleData("deliveryDetail", 1);
-    // }
     // list sales user
     DeliveryDetailComponent.prototype.getSalesUserServiceData = function () {
         this.deliverySalesUserObservableArray = this.deliveryService.getListUserData("deliveryDetail", "sales");

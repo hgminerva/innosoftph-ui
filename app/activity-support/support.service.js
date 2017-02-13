@@ -40,6 +40,8 @@ var SupportService = (function () {
                 }
             }
             if (page == "supportDetail") {
+                console.log("wee");
+                document.getElementById("btn-hidden-continuity-data").click();
             }
             else {
                 if (page == "support") {
@@ -82,7 +84,7 @@ var SupportService = (function () {
         return articleObservableArray;
     };
     // list continuity by status
-    SupportService.prototype.getListContinuityData = function (page, customerId) {
+    SupportService.prototype.getListContinuityData = function (page, customerId, isSelectedCustomerOnly) {
         var continuityObservableArray = new wijmo.collections.ObservableArray();
         var url = "http://api.innosoft.ph/api/continuity/list/byCustomerId/byContinuityStatus/" + customerId;
         this.http.get(url, this.options).subscribe(function (response) {
@@ -94,15 +96,20 @@ var SupportService = (function () {
                         ContinuityNumberDetail: results[i].ContinuityNumber + " - " + results[i].Product + " (Exp: " + results[i].ExpiryDate + ")",
                         ContinuityNumber: results[i].ContinuityNumber,
                         Customer: results[i].Customer,
+                        ProductId: results[i].ProductId,
                         Product: results[i].Product,
                     });
                 }
             }
             if (page == "supportDetail") {
-                document.getElementById("btn-hidden-customer-data").click();
+                if (!isSelectedCustomerOnly) {
+                    document.getElementById("btn-hidden-encoded-by-user-data").click();
+                }
             }
             else {
-                document.getElementById("btn-hidden-assigned-to-user-data").click();
+                if (!isSelectedCustomerOnly) {
+                    document.getElementById("btn-hidden-assigned-to-user-data").click();
+                }
             }
         });
         return continuityObservableArray;
@@ -182,22 +189,24 @@ var SupportService = (function () {
         this.http.get(url, this.options).subscribe(function (response) {
             var results = response.json();
             if (results != null) {
-                document.getElementById("supportNumber").value = results.SupportNumber;
-                document.getElementById("supportDateValue").value = results.SupportDate;
-                document.getElementById("supportContinuitySelectedValue").value = results.ContinuityNumber;
-                document.getElementById("supportIssueCategorySelectedValue").value = results.IssueCategory;
-                document.getElementById("supportIssue").value = results.Issue;
-                document.getElementById("supportCustomerSelectedValue").value = results.Customer;
-                document.getElementById("supportProductSelectedValue").value = results.Product;
-                document.getElementById("supportSeveritySelectedValue").value = results.Severity;
-                document.getElementById("supportCaller").value = results.Caller;
-                document.getElementById("supportRemarks").value = results.Remarks;
-                document.getElementById("supportScreenShotURL").value = results.ScreenShotURL;
-                document.getElementById("supportEncodedBySelectedValue").value = results.EncodedByUser;
-                document.getElementById("supportAssignedToSelectedValue").value = results.AssignedToUser;
-                document.getElementById("supportStatusSelectedValue").value = results.SupportStatus;
-                document.getElementById("btn-hidden-selectedValue-data").click();
-                document.getElementById("btn-hidden-complete-loading").click();
+                document.getElementById("btn-hidden-finished-load").click();
+                setTimeout(function () {
+                    document.getElementById("supportNumber").value = results.SupportNumber;
+                    document.getElementById("supportDateValue").value = results.SupportDate;
+                    document.getElementById("supportContinuitySelectedValue").value = results.ContinuityId;
+                    document.getElementById("supportIssueCategorySelectedValue").value = results.IssueCategory;
+                    document.getElementById("supportIssue").value = results.Issue;
+                    document.getElementById("supportCustomerSelectedValue").value = results.CustomerId;
+                    document.getElementById("supportSeveritySelectedValue").value = results.Severity;
+                    document.getElementById("supportCaller").value = results.Caller;
+                    document.getElementById("supportRemarks").value = results.Remarks;
+                    document.getElementById("supportScreenShotURL").value = results.ScreenShotURL;
+                    document.getElementById("supportEncodedBySelectedValue").value = results.EncodedByUserId;
+                    document.getElementById("supportAssignedToSelectedValue").value = results.AssignedToUserId;
+                    document.getElementById("supportStatusSelectedValue").value = results.SupportStatus;
+                    document.getElementById("btn-hidden-selectedValue-data").click();
+                    document.getElementById("btn-hidden-complete-loading").click();
+                }, 200);
             }
             else {
                 alert("No Data");
@@ -261,7 +270,7 @@ var SupportService = (function () {
         });
     };
     // list activity by support Id
-    SupportService.prototype.getListActivityBySupportId = function (supportId) {
+    SupportService.prototype.getListActivityBySupportId = function (supportId, isLoadActivityOnly) {
         var url = "http://api.innosoft.ph/api/activity/list/bySupportId/" + supportId;
         var activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
@@ -290,7 +299,12 @@ var SupportService = (function () {
                     });
                 }
             }
-            document.getElementById("btn-hidden-complete-loading").click();
+            if (!isLoadActivityOnly) {
+                document.getElementById("btn-hidden-customer-data").click();
+            }
+            else {
+                document.getElementById("btn-hidden-complete-loading").click();
+            }
         });
         return activityObservableArray;
     };

@@ -24,7 +24,8 @@ var SupportDetailComponent = (function () {
         this.toastr = toastr;
         this.vRef = vRef;
         this.slimLoadingBarService = slimLoadingBarService;
-        this.supportContinuitySelectedIndex = -1;
+        this.supportCustomerSelectedIndex = 0;
+        this.supportContinuitySelectedIndex = 0;
         this.supportIssueCategoryArray = [
             'New Installation',
             'Software Bug',
@@ -37,19 +38,13 @@ var SupportDetailComponent = (function () {
             'Progam Update',
             'Data Archive'
         ];
-        this.supportIssueCategorySelectedIndex = 0;
-        this.supportCustomerSelectedIndex = -1;
-        this.supportProductSelectedIndex = -1;
         this.supportSeverityArray = [
             'High (3hrs. resolution)',
             'Moderate (1 day resolution)',
             'Low (2 day resolution)',
             'Gossip'
         ];
-        this.supportSeveritySelectedIndex = 0;
-        this.supportAssignedToSelectedIndex = -1;
         this.supportStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
-        this.supportStatusSelectedIndex = 0;
         this.activityParticularCategories = [
             'New Installation',
             'Software Bug',
@@ -62,13 +57,12 @@ var SupportDetailComponent = (function () {
             'Progam Update',
             'Data Archive'
         ];
-        this.activityParticularCategorySelectedIndex = 0;
         this.activityNoOfHours = [
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
         ];
-        this.activityNoOfHoursSelectedIndex = 0;
         this.activityStatus = ['Open', 'Close', 'Cancelled'];
-        this.activityStatusSelectedIndex = 0;
+        this.isFinishLoading = false;
+        this.isLoading = true;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -80,27 +74,44 @@ var SupportDetailComponent = (function () {
     SupportDetailComponent.prototype.completeLoading = function () {
         this.slimLoadingBarService.complete();
     };
+    SupportDetailComponent.prototype.finishedLoad = function () {
+        this.isFinishLoading = true;
+        this.isLoading = false;
+        document.getElementById("btnSaveSupportDetail").disabled = false;
+        document.getElementById("btnCloseSupportDetail").disabled = false;
+    };
     // lead date ranged
     SupportDetailComponent.prototype.setContinuityDateValue = function () {
         this.activityDateValue = new Date();
         this.supportDateValue = new Date();
-        this.getListContinuityData();
-        this.getListActivity();
-    };
-    // support date value changed
-    SupportDetailComponent.prototype.supportDateOnValueChanged = function () {
-    };
-    // list lead
-    SupportDetailComponent.prototype.getListContinuityData = function () {
-        this.supportContinuityObservableArray = this.supportService.getListContinuityData("supportDetail");
+        document.getElementById("btnSaveSupportDetail").disabled = true;
+        document.getElementById("btnCloseSupportDetail").disabled = true;
+        this.getListActivity(false);
     };
     // list customer
     SupportDetailComponent.prototype.getListCustomerData = function () {
-        this.supportCustomerObservableArray = this.supportService.getListArticleData("supportDetail", 2);
+        this.supportCustomerObservableArray = this.supportService.getContuinityCustomerData("supportDetail");
     };
-    // list product
-    SupportDetailComponent.prototype.getListProductData = function () {
-        this.supportProductObservableArray = this.supportService.getListArticleData("supportDetail", 1);
+    // support customer selected index changed
+    SupportDetailComponent.prototype.cboSupportCustomerSelectedIndexChangedClick = function () {
+        if (typeof this.supportCustomerSelectedValue != 'undefined') {
+            this.getListContinuityData(true);
+        }
+    };
+    // list Continuity
+    SupportDetailComponent.prototype.getListContinuityData = function (isSelectedCustomerOnly) {
+        if (typeof this.supportCustomerObservableArray[this.supportCustomerSelectedIndex] != 'undefined') {
+            var customerId = this.supportCustomerObservableArray[this.supportCustomerSelectedIndex].CustomerId;
+            if (typeof this.supportCustomerSelectedValue != 'undefined') {
+                customerId = this.supportCustomerSelectedValue;
+            }
+            this.supportContinuityObservableArray = this.supportService.getListContinuityData("supportDetail", customerId, isSelectedCustomerOnly);
+        }
+        ;
+    };
+    SupportDetailComponent.prototype.cboSupportContinuitySelectedIndexChanged = function () {
+        if (typeof this.supportContinuityObservableArray[this.supportContinuitySelectedIndex] != 'undefined') {
+        }
     };
     // encoded to user list
     SupportDetailComponent.prototype.getListEncodedByUserData = function () {
@@ -116,63 +127,17 @@ var SupportDetailComponent = (function () {
     };
     // drop down data
     SupportDetailComponent.prototype.setDropdownSelectedValueData = function () {
+        var _this = this;
         this.supportDateValue = new Date(document.getElementById("supportDateValue").value.toString());
-        this.supportContinuitySelectedValue = document.getElementById("supportContinuitySelectedValue").value.toString();
+        this.supportCustomerSelectedValue = parseInt(document.getElementById("supportCustomerSelectedValue").value.toString());
         this.supportIssueCategorySelectedValue = document.getElementById("supportIssueCategorySelectedValue").value.toString();
-        this.supportCustomerSelectedValue = document.getElementById("supportCustomerSelectedValue").value.toString();
-        this.supportProductSelectedValue = document.getElementById("supportProductSelectedValue").value.toString();
         this.supportSeveritySelectedValue = document.getElementById("supportSeveritySelectedValue").value.toString();
-        this.supportEncodedBySelectedValue = document.getElementById("supportEncodedBySelectedValue").value.toString();
-        this.supportAssignedToSelectedValue = document.getElementById("supportAssignedToSelectedValue").value.toString();
+        this.supportEncodedBySelectedValue = parseInt(document.getElementById("supportEncodedBySelectedValue").value.toString());
+        this.supportAssignedToSelectedValue = parseInt(document.getElementById("supportAssignedToSelectedValue").value.toString());
         this.supportStatusSelectedValue = document.getElementById("supportStatusSelectedValue").value.toString();
-    };
-    // support continuuity selected index changed
-    SupportDetailComponent.prototype.cboSupportContinuitySelectedIndexChanged = function () {
-        if (this.supportContinuitySelectedIndex >= 0) {
-            this.supportContinuityId = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].Id;
-        }
-        else {
-            this.supportContinuityId = 0;
-        }
-    };
-    // support issue category selected index changed
-    SupportDetailComponent.prototype.cboSupportIssueCategorySelectedIndexChangedClick = function () {
-        this.supportIssueCategory = this.supportIssueCategoryArray[this.supportIssueCategorySelectedIndex];
-    };
-    // support customer selected index changed
-    SupportDetailComponent.prototype.cboSupportCustomerSelectedIndexChangedClick = function () {
-        if (this.supportCustomerSelectedIndex >= 0) {
-            this.supportCustomerId = this.supportCustomerObservableArray[this.supportCustomerSelectedIndex].Id;
-        }
-        else {
-            this.supportCustomerId = 0;
-        }
-    };
-    // support product selected index changed
-    SupportDetailComponent.prototype.cboSupportProductSelectedIndexChangedClick = function () {
-        if (this.supportProductSelectedIndex >= 0) {
-            this.supportProductId = this.supportProductObservableArray[this.supportProductSelectedIndex].Id;
-        }
-        else {
-            this.supportProductId = 0;
-        }
-    };
-    // support severity selected index changed
-    SupportDetailComponent.prototype.cboSupportSeveritySelectedIndexChangedClick = function () {
-        this.supportSeverity = this.supportSeverityArray[this.supportSeveritySelectedIndex];
-    };
-    // support assigned to selected index changed
-    SupportDetailComponent.prototype.cboAssignedToSelectedIndexChangedClick = function () {
-        if (this.supportAssignedToSelectedIndex >= 0) {
-            this.supportAssignedToUserId = this.supportAssignedUserObservableArray[this.supportAssignedToSelectedIndex].Id;
-        }
-        else {
-            this.supportAssignedToUserId = 0;
-        }
-    };
-    // support status to selected index changed
-    SupportDetailComponent.prototype.cboSupportStatusSelectedIndexChangedClick = function () {
-        this.supportSupportStatus = this.supportStatusArray[this.supportStatusSelectedIndex];
+        setTimeout(function () {
+            _this.supportContinuitySelectedValue = parseInt(document.getElementById("supportContinuitySelectedValue").value.toString());
+        }, 1000);
     };
     // support values
     SupportDetailComponent.prototype.getSupportObjectValue = function () {
@@ -180,19 +145,20 @@ var SupportDetailComponent = (function () {
         if (this.supportAssignedToUserId > 0) {
             assignedToUserIdValue = this.supportAssignedToUserId.toString();
         }
+        var productId = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].ProductId;
         var dataObject = {
             SupportDate: this.supportDateValue.toLocaleDateString(),
-            ContinuityId: this.supportContinuityId,
-            IssueCategory: this.supportIssueCategory,
+            ContinuityId: this.supportContinuitySelectedValue,
+            IssueCategory: this.supportIssueCategorySelectedValue,
             Issue: document.getElementById("supportIssue").value,
-            CustomerId: this.supportCustomerId,
-            ProductId: this.supportProductId,
-            Severity: this.supportSeverity,
+            CustomerId: this.supportCustomerSelectedValue,
+            ProductId: productId,
+            Severity: this.supportSeveritySelectedValue,
             Caller: document.getElementById("supportCaller").value,
             Remarks: document.getElementById("supportRemarks").value,
             ScreenShotURL: document.getElementById("supportScreenShotURL").value,
             AssignedToUserId: assignedToUserIdValue,
-            SupportStatus: this.supportSupportStatus
+            SupportStatus: this.supportStatusSelectedValue
         };
         return dataObject;
     };
@@ -232,8 +198,8 @@ var SupportDetailComponent = (function () {
         }, 100);
     };
     // activity line list
-    SupportDetailComponent.prototype.getListActivity = function () {
-        this.activityCollectionView = new wijmo.collections.CollectionView(this.supportService.getListActivityBySupportId(this.getIdUrlParameter()));
+    SupportDetailComponent.prototype.getListActivity = function (isLoadActivityOnly) {
+        this.activityCollectionView = new wijmo.collections.CollectionView(this.supportService.getListActivityBySupportId(this.getIdUrlParameter(), isLoadActivityOnly));
         this.activityCollectionView.pageSize = 15;
         this.activityCollectionView.trackChanges = true;
     };
@@ -268,10 +234,11 @@ var SupportDetailComponent = (function () {
     };
     // get activity data
     SupportDetailComponent.prototype.getActivityData = function () {
+        var productId = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].ProductId;
         var activityDataObject = {
             ActivityDate: this.activityDateValue.toLocaleDateString(),
-            CustomerId: this.supportCustomerId,
-            ProductId: this.supportProductId,
+            CustomerId: this.supportCustomerSelectedValue,
+            ProductId: productId,
             ParticularCategory: this.activityParticularCategorySelectedValue,
             Particulars: document.getElementById("activityParticulars").value,
             NumberOfHours: this.activityNoOfHoursSelectedValue,

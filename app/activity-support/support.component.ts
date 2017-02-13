@@ -176,8 +176,8 @@ export class SupportActivityComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnSaveSupport")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
     (<HTMLButtonElement>document.getElementById("btnSaveSupport")).disabled = true;
     (<HTMLButtonElement>document.getElementById("btnCloseSupport")).disabled = true;
-    this.getListCustomer();
     this.supportCustomerSelectedIndex = 0;
+    this.getListCustomer();
   }
 
   // support values
@@ -247,18 +247,18 @@ export class SupportActivityComponent implements OnInit {
   // support customer selected index changed
   public cboSupportCustomerSelectedIndexChangedClick() {
     if (typeof this.supportCustomerSelectedValue != 'undefined') {
-      this.getListContinuity();
+      this.getListContinuity(true);
     }
   }
 
   // list continuuity
-  public getListContinuity() {
+  public getListContinuity(isSelectedCustomerOnly: Boolean) {
     let customerId = this.supportCustomerObservableArray[this.supportCustomerSelectedIndex].CustomerId;
     if (typeof this.supportCustomerSelectedValue != 'undefined') {
       customerId = this.supportCustomerSelectedValue;
     }
 
-    this.supportContinuityObservableArray = this.supportService.getListContinuityData("support", customerId);
+    this.supportContinuityObservableArray = this.supportService.getListContinuityData("support", customerId, isSelectedCustomerOnly);
   }
 
   // assigned to user list
