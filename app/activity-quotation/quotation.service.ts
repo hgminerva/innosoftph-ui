@@ -158,6 +158,7 @@ export class QuotationService {
                         (<HTMLInputElement>document.getElementById("quotationNumber")).value = results.QuotationNumber;
                         (<HTMLInputElement>document.getElementById("quotationLeadSelectedValue")).value = results.LeadId;
                         (<HTMLInputElement>document.getElementById("quotationCustomerSelectedValue")).value = results.CustomerId;
+                        (<HTMLInputElement>document.getElementById("quotationProductSelectedValue")).value = results.ProductId;
                         (<HTMLInputElement>document.getElementById("quotationEncodedBySelectedValue")).value = results.EncodedByUserId;
                         (<HTMLInputElement>document.getElementById("quotationRemarks")).value = results.Remarks;
                         (<HTMLInputElement>document.getElementById("quotationStatusSelectedValue")).value = results.QuotationStatus;
