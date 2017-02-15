@@ -10,7 +10,6 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 import * as wjFlexGrid from 'wijmo/wijmo.angular2.grid';
 import * as wjInput from 'wijmo/wijmo.angular2.input';
-// import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 // components
 import { AppComponent } from './app.component';
@@ -34,6 +33,7 @@ import { DeliveryDetailComponent } from './activity-delivery/deliveryDetail.comp
 import { ContinuityComponent } from './activity-continuity/continuity.component';
 import { SupportActivityComponent } from './activity-support/support.component';
 import { SupportDetailComponent } from './activity-support/supportDetail.component';
+import { ActivityComponent } from './activity/activity.component';
 
 // services
 import { LoginService } from './security-login/login.service';
@@ -67,7 +67,8 @@ const appRoutes: Routes = [
   { path: 'deliveryDetail/:id', component: DeliveryDetailComponent },
   { path: 'continuity', component: ContinuityComponent },
   { path: 'supportActivity', component: SupportActivityComponent },
-  { path: 'supportDetail/:id', component: SupportDetailComponent }
+  { path: 'supportDetail/:id', component: SupportDetailComponent },
+  { path: 'activity', component: ActivityComponent },
 ];
 
 // module
@@ -106,7 +107,8 @@ const appRoutes: Routes = [
     DeliveryDetailComponent,
     ContinuityComponent,
     SupportActivityComponent,
-    SupportDetailComponent
+    SupportDetailComponent,
+    ActivityComponent
   ],
   providers: [
     LoginService,
@@ -118,11 +120,7 @@ const appRoutes: Routes = [
     DeliveryService,
     ContinuityService,
     SupportService,
-    ToastsManager,
-    // [{
-    //   provide: LocationStrategy, 
-    //   useClass: HashLocationStrategy
-    // }]
+    ToastsManager
   ],
   bootstrap: [
     AppComponent

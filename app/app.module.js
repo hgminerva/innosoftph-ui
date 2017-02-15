@@ -20,7 +20,6 @@ var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
 var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
 var wjFlexGrid = require('wijmo/wijmo.angular2.grid');
 var wjInput = require('wijmo/wijmo.angular2.input');
-// import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 // components
 var app_component_1 = require('./app.component');
 var header_component_1 = require('./shared-header/header.component');
@@ -43,6 +42,7 @@ var deliveryDetail_component_1 = require('./activity-delivery/deliveryDetail.com
 var continuity_component_1 = require('./activity-continuity/continuity.component');
 var support_component_2 = require('./activity-support/support.component');
 var supportDetail_component_1 = require('./activity-support/supportDetail.component');
+var activity_component_1 = require('./activity/activity.component');
 // services
 var login_service_1 = require('./security-login/login.service');
 var customer_service_1 = require('./setup-customer/customer.service');
@@ -74,7 +74,8 @@ var appRoutes = [
     { path: 'deliveryDetail/:id', component: deliveryDetail_component_1.DeliveryDetailComponent },
     { path: 'continuity', component: continuity_component_1.ContinuityComponent },
     { path: 'supportActivity', component: support_component_2.SupportActivityComponent },
-    { path: 'supportDetail/:id', component: supportDetail_component_1.SupportDetailComponent }
+    { path: 'supportDetail/:id', component: supportDetail_component_1.SupportDetailComponent },
+    { path: 'activity', component: activity_component_1.ActivityComponent },
 ];
 // module
 var AppModule = (function () {
@@ -116,7 +117,8 @@ var AppModule = (function () {
                 deliveryDetail_component_1.DeliveryDetailComponent,
                 continuity_component_1.ContinuityComponent,
                 support_component_2.SupportActivityComponent,
-                supportDetail_component_1.SupportDetailComponent
+                supportDetail_component_1.SupportDetailComponent,
+                activity_component_1.ActivityComponent
             ],
             providers: [
                 login_service_1.LoginService,
@@ -128,7 +130,7 @@ var AppModule = (function () {
                 delivery_service_1.DeliveryService,
                 continuity_service_1.ContinuityService,
                 support_service_1.SupportService,
-                ng2_toastr_2.ToastsManager,
+                ng2_toastr_2.ToastsManager
             ],
             bootstrap: [
                 app_component_1.AppComponent
