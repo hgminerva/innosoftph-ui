@@ -156,8 +156,9 @@ var SupportActivityComponent = (function () {
     // support values
     SupportActivityComponent.prototype.getSupportObjectValue = function () {
         var assignedToUserIdValue = "NULL";
-        if (this.supportAssignedToUserId > 0) {
-            assignedToUserIdValue = this.supportAssignedToUserId.toString();
+        console.log(this.supportAssignedToSelectedValue);
+        if (this.supportAssignedToSelectedValue != null) {
+            assignedToUserIdValue = this.supportAssignedToSelectedValue.toString();
         }
         var dataObject = {
             SupportDate: this.supportDateValue.toLocaleDateString(),

@@ -183,8 +183,9 @@ export class SupportActivityComponent implements OnInit {
   // support values
   public getSupportObjectValue() {
     let assignedToUserIdValue = "NULL";
-    if (this.supportAssignedToUserId > 0) {
-      assignedToUserIdValue = this.supportAssignedToUserId.toString();
+    console.log(this.supportAssignedToSelectedValue);
+    if (this.supportAssignedToSelectedValue != null) {
+      assignedToUserIdValue = this.supportAssignedToSelectedValue.toString();
     }
 
     let dataObject = {

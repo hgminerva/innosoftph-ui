@@ -142,8 +142,8 @@ var SupportDetailComponent = (function () {
     // support values
     SupportDetailComponent.prototype.getSupportObjectValue = function () {
         var assignedToUserIdValue = "NULL";
-        if (this.supportAssignedToUserId > 0) {
-            assignedToUserIdValue = this.supportAssignedToUserId.toString();
+        if (this.supportAssignedToSelectedValue != null) {
+            assignedToUserIdValue = this.supportAssignedToSelectedValue.toString();
         }
         var productId = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].ProductId;
         var dataObject = {

@@ -181,8 +181,8 @@ export class SupportDetailComponent implements OnInit {
   // support values
   public getSupportObjectValue() {
     let assignedToUserIdValue = "NULL";
-    if (this.supportAssignedToUserId > 0) {
-      assignedToUserIdValue = this.supportAssignedToUserId.toString();
+    if (this.supportAssignedToSelectedValue != null) {
+      assignedToUserIdValue = this.supportAssignedToSelectedValue.toString();
     }
 
     let productId = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].ProductId;
