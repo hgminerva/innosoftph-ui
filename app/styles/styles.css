@@ -304,10 +304,11 @@ a.client-links {
 
 a.client-links > .thumbnail {
     border-radius: 0px;
+    margin-bottom: 0px;
 }
 
 a.client-links:hover > .thumbnail {
-    box-shadow: 5px 5px 15px 0px #808080;;
+    box-shadow: 5px 5px 15px 0px #808080;
     transition: 0.5s all;
 }
 
