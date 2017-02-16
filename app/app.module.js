@@ -53,6 +53,7 @@ var quotation_service_1 = require('./activity-quotation/quotation.service');
 var delivery_service_1 = require('./activity-delivery/delivery.service');
 var continuity_service_1 = require('./activity-continuity/continuity.service');
 var support_service_1 = require('./activity-support/support.service');
+var activity_service_1 = require('./activity/activity.service');
 // paths and Routes
 var appRoutes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -130,7 +131,8 @@ var AppModule = (function () {
                 delivery_service_1.DeliveryService,
                 continuity_service_1.ContinuityService,
                 support_service_1.SupportService,
-                ng2_toastr_2.ToastsManager
+                ng2_toastr_2.ToastsManager,
+                activity_service_1.ActivityService
             ],
             bootstrap: [
                 app_component_1.AppComponent

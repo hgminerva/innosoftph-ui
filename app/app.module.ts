@@ -45,6 +45,7 @@ import { QuotationService } from './activity-quotation/quotation.service';
 import { DeliveryService } from './activity-delivery/delivery.service';
 import { ContinuityService } from './activity-continuity/continuity.service';
 import { SupportService } from './activity-support/support.service';
+import { ActivityService } from './activity/activity.service';
 
 // paths and Routes
 const appRoutes: Routes = [
@@ -120,7 +121,8 @@ const appRoutes: Routes = [
     DeliveryService,
     ContinuityService,
     SupportService,
-    ToastsManager
+    ToastsManager,
+    ActivityService
   ],
   bootstrap: [
     AppComponent
