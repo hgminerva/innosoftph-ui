@@ -207,6 +207,7 @@ export class ActivityComponent implements OnInit {
       } else {
         this.hasNoActivity = true;
         this.hasActivity = false;
+        (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = true;
       }
     }
   }

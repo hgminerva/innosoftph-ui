@@ -189,6 +189,7 @@ var ActivityComponent = (function () {
             else {
                 this.hasNoActivity = true;
                 this.hasActivity = false;
+                document.getElementById("btnActivitySave").disabled = true;
             }
         }
     };
