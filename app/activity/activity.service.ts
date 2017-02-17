@@ -19,7 +19,7 @@ export class ActivityService {
         private toastr: ToastsManager
     ) { }
 
-    // list activity by document and by date ranged (start date and end date) 
+    // list activity by document and by date ranged (start date and end date)  
     public getListActivityData(documentType: String, activityStartDate: Date, activityEndDate: Date): wijmo.collections.ObservableArray {
         let url = "http://api.innosoft.ph/api/activity/list/byDocument/byDateRanged/" + documentType + "/" + activityStartDate.toDateString() + "/" + activityEndDate.toDateString();
         let activityObservableArray = new wijmo.collections.ObservableArray();

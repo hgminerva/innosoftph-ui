@@ -27,7 +27,7 @@ var ActivityService = (function () {
     }
     // list activity by document and by date ranged (start date and end date)
     ActivityService.prototype.getListActivityData = function (documentType, activityStartDate, activityEndDate) {
-        var url = "http://localhost:22626/api/activity/list/byDocument/byDateRanged/" + documentType + "/" + activityStartDate.toDateString() + "/" + activityEndDate.toDateString();
+        var url = "http://api.innosoft.ph/api/activity/list/byDocument/byDateRanged/" + documentType + "/" + activityStartDate.toDateString() + "/" + activityEndDate.toDateString();
         var activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
