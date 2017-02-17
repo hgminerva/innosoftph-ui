@@ -76,7 +76,7 @@ export class LeadService {
                             EncodedByUserId: results[i].EncodedByUserId,
                             EncodedByUser: results[i].EncodedByUser,
                             AssignedToUserId: results[i].AssignedToUserId,
-                            AssignedToUser: results[i].AssignedToUser,
+                            AssignedToUser: results[i].AssignedToUser == null ? " " : results[i].AssignedToUser,
                             LeadStatus: results[i].LeadStatus
                         });
                     }

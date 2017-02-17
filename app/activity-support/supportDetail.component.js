@@ -60,7 +60,7 @@ var SupportDetailComponent = (function () {
         this.activityNoOfHours = [
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
         ];
-        this.activityStatus = ['Open', 'Close', 'Cancelled'];
+        this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
         this.isFinishLoading = false;
         this.isLoading = true;
         this.toastr.setRootViewContainerRef(vRef);
@@ -217,7 +217,7 @@ var SupportDetailComponent = (function () {
             this.activityNoOfHoursSelectedValue = "0";
             document.getElementById("activityAmount").value = "0";
             this.activityAmount = "0";
-            this.activityStatusSelectedValue = "Open";
+            this.activityStatusSelectedValue = "OPEN";
         }
         else {
             this.activityDetailModalString = "Edit";

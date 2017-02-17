@@ -40,7 +40,7 @@ export class DeliveryDetailComponent implements OnInit {
   ];
   public activityNoOfHoursSelectedIndex = 0;
   public activityNoOfHoursSelectedValue: String;
-  public activityStatus = ['Open', 'Close', 'Cancelled'];
+  public activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
   public activityStatusSelectedIndex = 0;
   public activityStatusSelectedValue: String;
   public activityAmount: String;

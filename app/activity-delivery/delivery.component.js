@@ -26,8 +26,6 @@ var DeliveryComponent = (function () {
         this.deliveryFilter = '';
         this.deliveryStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
         this.deliveryStatusSelectedValue = "OPEN";
-        // public deliveryCustomerSelectedValue: String;
-        // public deliveryProductSelectedValue: String;
         this.isFinishLoading = false;
         this.isLoading = true;
         this.toastr.setRootViewContainerRef(vRef);
@@ -131,8 +129,6 @@ var DeliveryComponent = (function () {
         document.getElementById("btnCloseDelivery").disabled = true;
         this.deliveryDateValue = new Date();
         this.getListQuotation();
-        // this.deliveryCustomerSelectedValue = "";
-        // this.deliveryProductSelectedValue = "";
     };
     // delivery date on value changed
     DeliveryComponent.prototype.deliveryDateOnValueChanged = function () {
@@ -146,33 +142,6 @@ var DeliveryComponent = (function () {
     DeliveryComponent.prototype.cboDeliveryQuotaionSelectedIndexChanged = function () {
         this.deliveryQuotationId = this.deliveryQuotaionSelectedValue;
     };
-    // // list customer data
-    // public getListCustomer() {
-    //   this.deliveryCustomerObservableArray = this.deliveryService.getListArticleData("delivery", 2);
-    //   this.getListProduct();
-    // }
-    // // customer selected index changed
-    // public cboDeliveryCustomerSelectedIndexChanged() {
-    //   if (this.deliveryCustomerSelectedIndex >= 0) {
-    //     this.deliveryCustomerId = this.deliveryCustomerObservableArray[this.deliveryCustomerSelectedIndex].Id;
-    //   } else {
-    //     this.deliveryCustomerId = 0;
-    //   }
-    // }
-    // // list product data
-    // public getListProduct() {
-    //   this.deliveryProductObservableArray = this.deliveryService.getListArticleData("delivery", 1);
-    //   this.deliveryMeetingDateValue = new Date();
-    //   this.getListUsers();
-    // }
-    // // product selected index changed
-    // public cboDeliveryProductSelectedIndexChanged() {
-    //   if (this.deliveryProductSelectedIndex >= 0) {
-    //     this.deliveryProductId = this.deliveryProductObservableArray[this.deliveryProductSelectedIndex].Id;
-    //   } else {
-    //     this.deliveryProductId = 0;
-    //   }
-    // }
     // meeting date on value changed
     DeliveryComponent.prototype.deliveryMeetingDateOnValueChanged = function () {
     };

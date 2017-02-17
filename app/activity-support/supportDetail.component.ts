@@ -72,7 +72,7 @@ export class SupportDetailComponent implements OnInit {
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
   ];
   public activityNoOfHoursSelectedValue: String;
-  public activityStatus = ['Open', 'Close', 'Cancelled'];
+  public activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
   public activityStatusSelectedValue: String;
   public activityAmount: String;
   public isFinishLoading = false;
@@ -262,7 +262,7 @@ export class SupportDetailComponent implements OnInit {
       this.activityNoOfHoursSelectedValue = "0";
       (<HTMLInputElement>document.getElementById("activityAmount")).value = "0";
       this.activityAmount = "0";
-      this.activityStatusSelectedValue = "Open";
+      this.activityStatusSelectedValue = "OPEN";
     } else {
       this.activityDetailModalString = "Edit";
       let currentSelectedActivity = this.activityCollectionView.currentItem;

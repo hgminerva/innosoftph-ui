@@ -126,6 +126,8 @@ var ActivityComponent = (function () {
             return (item.Document.toLowerCase().indexOf(this.activityFilter.toLowerCase()) > -1) ||
                 (item.Particulars.toLowerCase().indexOf(this.activityFilter.toLowerCase()) > -1) ||
                 (item.Activity.toLowerCase().indexOf(this.activityFilter.toLowerCase()) > -1) ||
+                (item.EncodedBy.toLowerCase().indexOf(this.activityFilter.toLowerCase()) > -1) ||
+                (item.HeaderStatus.toLowerCase().indexOf(this.activityFilter.toLowerCase()) > -1) ||
                 (item.StaffUser.toLowerCase().indexOf(this.activityFilter.toLowerCase()) > -1);
         }
         return true;

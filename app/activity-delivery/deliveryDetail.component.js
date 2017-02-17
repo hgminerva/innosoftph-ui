@@ -34,7 +34,7 @@ var DeliveryDetailComponent = (function () {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
         ];
         this.activityNoOfHoursSelectedIndex = 0;
-        this.activityStatus = ['Open', 'Close', 'Cancelled'];
+        this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
         this.activityStatusSelectedIndex = 0;
         this.isFinishLoading = false;
         this.isLoading = true;

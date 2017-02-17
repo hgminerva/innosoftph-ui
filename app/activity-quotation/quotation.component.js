@@ -179,7 +179,6 @@ var QuotationComponent = (function () {
         if (this.quotationFilter) {
             return (item.QuotationNumber.toLowerCase().indexOf(this.quotationFilter.toLowerCase()) > -1) ||
                 (item.Customer.toLowerCase().indexOf(this.quotationFilter.toLowerCase()) > -1) ||
-                (item.Product.toLowerCase().indexOf(this.quotationFilter.toLowerCase()) > -1) ||
                 (item.Remarks.toLowerCase().indexOf(this.quotationFilter.toLowerCase()) > -1) ||
                 (item.QuotationStatus.toLowerCase().indexOf(this.quotationFilter.toLowerCase()) > -1) ||
                 (item.EncodedByUser.toLowerCase().indexOf(this.quotationFilter.toLowerCase()) > -1);

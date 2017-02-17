@@ -21,7 +21,7 @@ export class ActivityService {
 
     // list activity by document and by date ranged (start date and end date)
     public getListActivityData(documentType: String, activityStartDate: Date, activityEndDate: Date): wijmo.collections.ObservableArray {
-        let url = "http://api.innosoft.ph/api/activity/list/byDocument/byDateRanged/" + documentType + "/" + activityStartDate.toDateString() + "/" + activityEndDate.toDateString();
+        let url = "http://localhost:22626/api/activity/list/byDocument/byDateRanged/" + documentType + "/" + activityStartDate.toDateString() + "/" + activityEndDate.toDateString();
         let activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
@@ -45,6 +45,8 @@ export class ActivityService {
                             NumberOfHours: results[i].NumberOfHours,
                             ActivityAmount: results[i].ActivityAmount,
                             ActivityStatus: results[i].ActivityStatus,
+                            HeaderStatus: results[i].HeaderStatus,
+                            EncodedBy: results[i].EncodedBy,
                         });
                     }
                 }

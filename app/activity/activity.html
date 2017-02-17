@@ -88,27 +88,29 @@
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="80">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                            <button class="btn btn-primary btn-xs btn-block" (click)="btnActivityPrintClick()">
+                            <button class="btn btn-info btn-xs btn-block" (click)="btnActivityPrintClick()">
                                 <i class="fa fa-print fa-fw"></i> Print
                             </button>
                         </template>
                     </wj-flex-grid-column>
-                    <wj-flex-grid-column [isReadOnly]="true" [binding]="'Document'" [width]="'1*'">
+                    <wj-flex-grid-column [isReadOnly]="true" [binding]="'Document'" [width]="130">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
                             <button class="btn btn-default btn-xs btn-block" (click)="btnDocumentClick()" >
                                 {{ '' }} {{cell.item.Document}} {{ '' }}
                             </button>
                         </template>
                     </wj-flex-grid-column>
-                    <!--<wj-flex-grid-column [header]="'Document No.'" [binding]="'DocumentNumber'" [isReadOnly]="true" [width]="'1*'">
-                    </wj-flex-grid-column>-->
-                    <wj-flex-grid-column [header]="'Date'" [binding]="'ActivityDate'" [isReadOnly]="true" [width]="'0.7*'">
+                    <wj-flex-grid-column [header]="'Date'" [binding]="'ActivityDate'" [isReadOnly]="true" [width]="90">
                     </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'Particulars'" [binding]="'Particulars'" [isReadOnly]="true" [width]="'2*'">
+                    <wj-flex-grid-column [header]="'Particulars'" [binding]="'Particulars'" [isReadOnly]="true" [width]="170">
                     </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'Activity'" [binding]="'Activity'" [isReadOnly]="true" [width]="'2*'">
+                    <wj-flex-grid-column [header]="'Activity'" [binding]="'Activity'" [isReadOnly]="true" [width]="170">
                     </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'Staff'" [binding]="'StaffUser'" [isReadOnly]="true" [width]="'1*'">
+                    <wj-flex-grid-column [header]="'Encoded By'" [binding]="'EncodedBy'" [isReadOnly]="true" [width]="150">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Assigned To'" [binding]="'StaffUser'" [isReadOnly]="true" [width]="150">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Status'" [binding]="'HeaderStatus'" [isReadOnly]="true" [width]="110">
                     </wj-flex-grid-column>
                 </wj-flex-grid>
             </div>
@@ -146,8 +148,8 @@
             </div>
             <div class="modal-body">
                 <div *ngIf="hasNoActivity" align="center">
-                    <div class="alert alert-danger">
-                        No Activity
+                    <div style="text-align: center; color: darkred">
+                        <b><label> No Activity! </label></b>
                     </div>
                 </div>
                 <div *ngIf="hasActivity">
