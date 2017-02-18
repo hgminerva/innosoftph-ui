@@ -38,13 +38,13 @@ var LoginService = (function () {
                 _this.router.navigate(['/dashboard']);
             }, 500);
         }, function (error) {
-            _this.toastr.error('Username or Password is Incorrect. Please try again.', 'Login Failed');
+            _this.toastr.error('Please try again.', 'Login Failed');
             document.getElementById("login").innerHTML = "Login";
             document.getElementById("login").disabled = false;
         });
     };
     LoginService = __decorate([
-        core_1.Injectable(), 
+        core_1.Injectable(),
         __metadata('design:paramtypes', [router_1.Router, http_1.Http, ng2_toastr_1.ToastsManager])
     ], LoginService);
     return LoginService;
