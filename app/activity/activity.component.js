@@ -45,7 +45,7 @@ var ActivityComponent = (function () {
         this.activityNoOfHours = [
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
         ];
-        this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
+        this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED'];
         this.hasNoActivity = false;
         this.hasActivity = true;
         this.toastr.setRootViewContainerRef(vRef);
@@ -318,7 +318,7 @@ var ActivityComponent = (function () {
         core_1.Component({
             selector: 'my-activity',
             templateUrl: 'app/activity/activity.html'
-        }), 
+        }),
         __metadata('design:paramtypes', [activity_service_1.ActivityService, router_1.Router, ng2_toastr_1.ToastsManager, core_1.ViewContainerRef, ng2_slim_loading_bar_1.SlimLoadingBarService])
     ], ActivityComponent);
     return ActivityComponent;

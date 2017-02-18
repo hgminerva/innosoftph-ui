@@ -44,7 +44,7 @@ var SupportDetailComponent = (function () {
             'Low (2 day resolution)',
             'Gossip'
         ];
-        this.supportStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
+        this.supportStatusArray = ['OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED'];
         this.activityParticularCategories = [
             'New Installation',
             'Software Bug',
@@ -60,7 +60,7 @@ var SupportDetailComponent = (function () {
         this.activityNoOfHours = [
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
         ];
-        this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
+        this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED'];
         this.isFinishLoading = false;
         this.isLoading = true;
         this.toastr.setRootViewContainerRef(vRef);
@@ -299,7 +299,7 @@ var SupportDetailComponent = (function () {
         core_1.Component({
             selector: 'my-activity-support-detail',
             templateUrl: 'app/activity-support/supportDetail.html'
-        }), 
+        }),
         __metadata('design:paramtypes', [support_service_1.SupportService, router_1.Router, router_1.ActivatedRoute, core_1.Renderer, core_1.ElementRef, ng2_toastr_1.ToastsManager, core_1.ViewContainerRef, ng2_slim_loading_bar_1.SlimLoadingBarService])
     ], SupportDetailComponent);
     return SupportDetailComponent;

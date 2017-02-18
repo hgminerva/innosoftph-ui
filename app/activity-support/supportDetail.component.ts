@@ -49,7 +49,7 @@ export class SupportDetailComponent implements OnInit {
   public supportAssignedUserObservableArray: wijmo.collections.ObservableArray;
   public supportAssignedToSelectedValue: number;
   public supportAssignedToUserId: number;
-  public supportStatusArray = ['OPEN', 'DONE', 'WAITING FOR CLIENT', 'CLOSE', 'CANCELLED'];
+  public supportStatusArray = ['OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED'];
   public supportStatusSelectedValue: String;
   public activityCollectionView: wijmo.collections.CollectionView;
   public activityDetailModalString: String;
@@ -72,7 +72,7 @@ export class SupportDetailComponent implements OnInit {
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
   ];
   public activityNoOfHoursSelectedValue: String;
-  public activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
+  public activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED'];
   public activityStatusSelectedValue: String;
   public activityAmount: String;
   public isFinishLoading = false;

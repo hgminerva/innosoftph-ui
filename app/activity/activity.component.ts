@@ -44,7 +44,7 @@ export class ActivityComponent implements OnInit {
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
   ];
   public activityNoOfHoursSelectedValue: String;
-  public activityStatus = ['OPEN', 'DONE', 'WAITING FOR CLIENT', 'CLOSE', 'CANCELLED'];
+  public activityStatus = ['OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED'];
   public activityStatusSelectedValue: String;
   public activityAmount: String;
   public hasNoActivity = false;
