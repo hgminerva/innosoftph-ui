@@ -33,7 +33,7 @@ export class LoginService {
                 }, 500);
             },
             error => {
-                this.toastr.error('Username or Password is Incorrect. Please try again.', 'Login Failed');
+                this.toastr.error('Please try again.', 'Login Failed');
                 (<HTMLButtonElement>document.getElementById("login")).innerHTML = "Login";
                 (<HTMLButtonElement>document.getElementById("login")).disabled = false;
             }
