@@ -206,14 +206,14 @@
                             <wj-flex-grid [itemsSource]="activityCollectionView" [selectionMode]="3" style="border-radius: 0px;" [frozenColumns]="3">
                                 <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="60">
                                     <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                                        <button class="btn btn-primary btn-xs btn-block" (click)="btnActivityDetailModal(false)" data-toggle="modal" data-target="#activity-detail-modal">
+                                        <button class="btn btn-primary btn-xs btn-block" (click)="btnActivityDetailModal(false)" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#activity-detail-modal">
                                             <i class="fa fa-edit fa-fw"></i> Edit
                                         </button>
                                     </template>
                                 </wj-flex-grid-column>
                                 <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="80">
                                     <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                                        <button class="btn btn-danger btn-xs btn-block" (click)="btnActivityDeleteConfirmationModal()" data-toggle="modal" data-target="#activity-delete-confirmation-modal">
+                                        <button class="btn btn-danger btn-xs btn-block" (click)="btnActivityDeleteConfirmationModal()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#activity-delete-confirmation-modal">
                                             <i class="fa fa-trash fa-fw"></i> Delete
                                         </button>
                                     </template>
@@ -372,7 +372,7 @@
 <button id="btn-hidden-assigned-to-user-data" [hidden]="true" (click)="getListAssignedToUserData()"></button>
 <button id="btn-hidden-support-data" [hidden]="true" (click)="getSupportServiceData()"></button>
 <button id="btn-hidden-selectedValue-data" [hidden]="true" (click)="setDropdownSelectedValueData()"></button>
-<button id="btn-hidden-activity-delete-modal" [hidden]="true" data-toggle="modal" data-target="#activity-delete-confirmation-modal"></button>
-<button id="btn-hidden-activity-detail-modal" [hidden]="true" data-toggle="modal" data-target="#activity-detail-modal"></button>
+<button id="btn-hidden-activity-delete-modal" [hidden]="true" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#activity-delete-confirmation-modal"></button>
+<button id="btn-hidden-activity-detail-modal" [hidden]="true" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#activity-detail-modal"></button>
 <button id="btn-hidden-activity-data" [hidden]="true" (click)="getListActivity(true)"></button>
 <button id="btn-hidden-finished-load" [hidden]="true" (click)="finishedLoad()"></button>

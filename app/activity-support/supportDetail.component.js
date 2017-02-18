@@ -299,7 +299,7 @@ var SupportDetailComponent = (function () {
         core_1.Component({
             selector: 'my-activity-support-detail',
             templateUrl: 'app/activity-support/supportDetail.html'
-        }),
+        }), 
         __metadata('design:paramtypes', [support_service_1.SupportService, router_1.Router, router_1.ActivatedRoute, core_1.Renderer, core_1.ElementRef, ng2_toastr_1.ToastsManager, core_1.ViewContainerRef, ng2_slim_loading_bar_1.SlimLoadingBarService])
     ], SupportDetailComponent);
     return SupportDetailComponent;
