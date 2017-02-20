@@ -26,21 +26,7 @@ var ActivityComponent = (function () {
         this.documentArray = ['Lead', 'Quotation', 'Delivery', 'Support', 'Software Development'];
         this.documentSelectedValue = 'Lead';
         this.activityFilter = '';
-        this.activityParticularCategories = [
-            'Lead',
-            'Quotation',
-            'Delivery',
-            'New Installation',
-            'Software Bug',
-            'Data Tracing',
-            'New Feature',
-            'Data Tracing',
-            'Hardware or Infrastructure Problem',
-            'Retraining',
-            'Reinstallation',
-            'Progam Update',
-            'Data Archive'
-        ];
+        this.activityParticularCategories = [''];
         this.activityParticularCategorySelectedIndex = 0;
         this.activityNoOfHours = [
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
@@ -156,6 +142,50 @@ var ActivityComponent = (function () {
         document.getElementById("btnActivitySave").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
         document.getElementById("btnActivitySave").disabled = false;
         document.getElementById("btnActivityClose").disabled = false;
+        var currentSelectedActivity = this.activityCollectionView.currentItem;
+        if (currentSelectedActivity.LeadId > 0) {
+            this.activityParticularCategories = ['Lead'];
+        }
+        else {
+            if (currentSelectedActivity.QuotationId > 0) {
+                this.activityParticularCategories = ['Quotation'];
+            }
+            else {
+                if (currentSelectedActivity.DeliveryId > 0) {
+                    this.activityParticularCategories = ['Delivery'];
+                }
+                else {
+                    if (currentSelectedActivity.SupportId > 0) {
+                        this.activityParticularCategories = [
+                            'New Installation',
+                            'Software Bug',
+                            'Data Tracing',
+                            'New Feature',
+                            'Data Tracing',
+                            'Hardware or Infrastructure Problem',
+                            'Retraining',
+                            'Reinstallation',
+                            'Progam Update',
+                            'Data Archive'
+                        ];
+                    }
+                    else {
+                        if (currentSelectedActivity.SoftwareDevelopmentId > 0) {
+                            this.activityParticularCategories = [
+                                'Report',
+                                'Form',
+                                'Query',
+                                'Module',
+                                'Others'
+                            ];
+                        }
+                        else {
+                            this.activityParticularCategories = [''];
+                        }
+                    }
+                }
+            }
+        }
         if (add) {
             this.hasNoActivity = false;
             this.hasActivity = true;
@@ -172,20 +202,19 @@ var ActivityComponent = (function () {
             }, 200);
         }
         else {
-            var currentSelectedActivity_1 = this.activityCollectionView.currentItem;
-            if (currentSelectedActivity_1.Id > 0) {
+            if (currentSelectedActivity.Id > 0) {
                 this.hasNoActivity = false;
                 this.hasActivity = true;
                 setTimeout(function () {
                     _this.activityDetailModalString = "Edit";
-                    _this.activityId = currentSelectedActivity_1.Id;
-                    _this.activityDateValue = new Date(currentSelectedActivity_1.ActivityDate);
-                    _this.activityParticularCategorySelectedValue = currentSelectedActivity_1.ParticularCategory;
-                    document.getElementById("activityParticulars").value = currentSelectedActivity_1.Activity;
-                    _this.activityNoOfHoursSelectedValue = currentSelectedActivity_1.NumberOfHours;
-                    document.getElementById("activityAmount").value = currentSelectedActivity_1.ActivityAmount.toLocaleString();
-                    _this.activityAmount = currentSelectedActivity_1.ActivityAmount.toLocaleString();
-                    _this.activityStatusSelectedValue = currentSelectedActivity_1.ActivityStatus;
+                    _this.activityId = currentSelectedActivity.Id;
+                    _this.activityDateValue = new Date(currentSelectedActivity.ActivityDate);
+                    _this.activityParticularCategorySelectedValue = currentSelectedActivity.ParticularCategory;
+                    document.getElementById("activityParticulars").value = currentSelectedActivity.Activity;
+                    _this.activityNoOfHoursSelectedValue = currentSelectedActivity.NumberOfHours;
+                    document.getElementById("activityAmount").value = currentSelectedActivity.ActivityAmount.toLocaleString();
+                    _this.activityAmount = currentSelectedActivity.ActivityAmount.toLocaleString();
+                    _this.activityStatusSelectedValue = currentSelectedActivity.ActivityStatus;
                 }, 200);
             }
             else {

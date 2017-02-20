@@ -23,21 +23,7 @@ export class ActivityComponent implements OnInit {
   public activityDetailModalString: String;
   public activityId: number;
   public activityDateValue: Date;
-  public activityParticularCategories = [
-    'Lead',
-    'Quotation',
-    'Delivery',
-    'New Installation',
-    'Software Bug',
-    'Data Tracing',
-    'New Feature',
-    'Data Tracing',
-    'Hardware or Infrastructure Problem',
-    'Retraining',
-    'Reinstallation',
-    'Progam Update',
-    'Data Archive'
-  ];
+  public activityParticularCategories = [''];
   public activityParticularCategorySelectedIndex = 0;
   public activityParticularCategorySelectedValue: String;
   public activityNoOfHours = [
@@ -176,6 +162,46 @@ export class ActivityComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = false;
     (<HTMLButtonElement>document.getElementById("btnActivityClose")).disabled = false;
 
+    let currentSelectedActivity = this.activityCollectionView.currentItem;
+    if (currentSelectedActivity.LeadId > 0) {
+      this.activityParticularCategories = ['Lead'];
+    } else {
+      if (currentSelectedActivity.QuotationId > 0) {
+        this.activityParticularCategories = ['Quotation'];
+      } else {
+        if (currentSelectedActivity.DeliveryId > 0) {
+          this.activityParticularCategories = ['Delivery'];
+        } else {
+          if (currentSelectedActivity.SupportId > 0) {
+            this.activityParticularCategories = [
+              'New Installation',
+              'Software Bug',
+              'Data Tracing',
+              'New Feature',
+              'Data Tracing',
+              'Hardware or Infrastructure Problem',
+              'Retraining',
+              'Reinstallation',
+              'Progam Update',
+              'Data Archive'
+            ];
+          } else {
+            if (currentSelectedActivity.SoftwareDevelopmentId > 0) {
+              this.activityParticularCategories = [
+                'Report',
+                'Form',
+                'Query',
+                'Module',
+                'Others'
+              ];
+            } else {
+              this.activityParticularCategories = [''];
+            }
+          }
+        }
+      }
+    }
+
     if (add) {
       this.hasNoActivity = false;
       this.hasActivity = true;
@@ -191,7 +217,6 @@ export class ActivityComponent implements OnInit {
         this.activityStatusSelectedValue = "OPEN";
       }, 200);
     } else {
-      let currentSelectedActivity = this.activityCollectionView.currentItem;
       if (currentSelectedActivity.Id > 0) {
         this.hasNoActivity = false;
         this.hasActivity = true;
