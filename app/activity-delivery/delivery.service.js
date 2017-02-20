@@ -262,7 +262,8 @@ var DeliveryService = (function () {
                         LeadId: results[i].LeadId,
                         QuotationId: results[i].QuotationId,
                         DeliveryId: results[i].DeliveryId,
-                        SupportId: results[i].SupportId
+                        SupportId: results[i].SupportId,
+                        SoftwareDevelopmentId: results[i].SoftwareDevelopmentId
                     });
                 }
             }

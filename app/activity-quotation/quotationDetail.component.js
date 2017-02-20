@@ -66,7 +66,7 @@ var QuotationDetailComponent = (function () {
     QuotationDetailComponent.prototype.setQuotationDateValue = function () {
         this.quotationDateValue = new Date();
         this.activityDateValue = new Date();
-        this.getListActivity();
+        this.getListActivity(false);
         document.getElementById("btnSaveQuotationDetail").disabled = true;
         document.getElementById("btnCloseQuotationDetail").disabled = true;
     };
@@ -144,8 +144,8 @@ var QuotationDetailComponent = (function () {
         }, 100);
     };
     // activity line list
-    QuotationDetailComponent.prototype.getListActivity = function () {
-        this.activityCollectionView = new wijmo.collections.CollectionView(this.quotationService.getListActivityByQuotationId(this.getIdUrlParameter()));
+    QuotationDetailComponent.prototype.getListActivity = function (isLoadActivityOnly) {
+        this.activityCollectionView = new wijmo.collections.CollectionView(this.quotationService.getListActivityByQuotationId(this.getIdUrlParameter(), isLoadActivityOnly));
         this.activityCollectionView.pageSize = 15;
         this.activityCollectionView.trackChanges = true;
     };
@@ -193,6 +193,7 @@ var QuotationDetailComponent = (function () {
             QuotationId: this.getIdUrlParameter(),
             DeliveryId: "NULL",
             SupportId: "NULL",
+            SoftwareDevelopmentId: "NULL",
             LeadStatus: this.activityStatusSelectedValue
         };
         return activityDataObject;

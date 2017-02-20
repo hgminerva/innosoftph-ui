@@ -198,6 +198,7 @@ var DeliveryDetailComponent = (function () {
             QuotationId: "NULL",
             DeliveryId: this.getIdUrlParameter(),
             SupportId: "NULL",
+            SoftwareDevelopmentId: "NULL",
             LeadStatus: this.activityStatusSelectedValue
         };
         return activityDataObject;

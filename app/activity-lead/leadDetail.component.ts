@@ -236,6 +236,7 @@ export class LeadDetailComponent implements OnInit {
       QuotationId: "NULL",
       DeliveryId: "NULL",
       SupportId: "NULL",
+      SoftwareDevelopmentId: "NULL",
       LeadStatus: this.activityStatusSelectedValue
     }
 

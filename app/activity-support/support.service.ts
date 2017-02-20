@@ -36,8 +36,6 @@ export class SupportService {
                 }
 
                 if (page == "supportDetail") {
-                    console.log("wee");
-
                     document.getElementById("btn-hidden-continuity-data").click();
                 } else {
                     if (page == "support") {
@@ -319,7 +317,8 @@ export class SupportService {
                             LeadId: results[i].LeadId,
                             QuotationId: results[i].QuotationId,
                             DeliveryId: results[i].DeliveryId,
-                            SupportId: results[i].SupportId
+                            SupportId: results[i].SupportId,
+                            SoftwareDevelopmentId: results[i].SoftwareDevelopmentId
                         });
                     }
                 }

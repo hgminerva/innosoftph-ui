@@ -40,7 +40,6 @@ var SupportService = (function () {
                 }
             }
             if (page == "supportDetail") {
-                console.log("wee");
                 document.getElementById("btn-hidden-continuity-data").click();
             }
             else {
@@ -295,7 +294,8 @@ var SupportService = (function () {
                         LeadId: results[i].LeadId,
                         QuotationId: results[i].QuotationId,
                         DeliveryId: results[i].DeliveryId,
-                        SupportId: results[i].SupportId
+                        SupportId: results[i].SupportId,
+                        SoftwareDevelopmentId: results[i].SoftwareDevelopmentId
                     });
                 }
             }

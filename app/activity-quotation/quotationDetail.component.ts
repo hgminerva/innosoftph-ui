@@ -89,7 +89,7 @@ export class QuotationDetailComponent implements OnInit {
   public setQuotationDateValue() {
     this.quotationDateValue = new Date();
     this.activityDateValue = new Date();
-    this.getListActivity();    
+    this.getListActivity(false);    
     (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).disabled = true;
     (<HTMLButtonElement>document.getElementById("btnCloseQuotationDetail")).disabled = true;
   }
@@ -178,8 +178,8 @@ export class QuotationDetailComponent implements OnInit {
   }
 
   // activity line list
-  public getListActivity() {
-    this.activityCollectionView = new wijmo.collections.CollectionView(this.quotationService.getListActivityByQuotationId(this.getIdUrlParameter()));
+  public getListActivity(isLoadActivityOnly: Boolean) {
+    this.activityCollectionView = new wijmo.collections.CollectionView(this.quotationService.getListActivityByQuotationId(this.getIdUrlParameter(), isLoadActivityOnly));
     this.activityCollectionView.pageSize = 15;
     this.activityCollectionView.trackChanges = true;
   }
@@ -228,6 +228,7 @@ export class QuotationDetailComponent implements OnInit {
       QuotationId: this.getIdUrlParameter(),
       DeliveryId: "NULL",
       SupportId: "NULL",
+      SoftwareDevelopmentId: "NULL",
       LeadStatus: this.activityStatusSelectedValue
     }
 

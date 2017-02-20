@@ -23,7 +23,7 @@ var ActivityComponent = (function () {
         this.slimLoadingBarService = slimLoadingBarService;
         this.isActivtyStartDateSelected = true;
         this.isActivtyEndDateSelected = true;
-        this.documentArray = ['Lead', 'Quotation', 'Delivery', 'Support'];
+        this.documentArray = ['Lead', 'Quotation', 'Delivery', 'Support', 'Software Development'];
         this.documentSelectedValue = 'Lead';
         this.activityFilter = '';
         this.activityParticularCategories = [
@@ -222,6 +222,10 @@ var ActivityComponent = (function () {
         if (currentSelectedActivity.SupportId > 0) {
             supportId = currentSelectedActivity.SupportId;
         }
+        var softwareDevelopmentId = "NULL";
+        if (currentSelectedActivity.SoftwareDevelopmentId > 0) {
+            softwareDevelopmentId = currentSelectedActivity.SoftwareDevelopmentId;
+        }
         var activityDataObject = {
             ActivityDate: this.activityDateValue.toLocaleDateString(),
             CustomerId: customerId,
@@ -235,6 +239,7 @@ var ActivityComponent = (function () {
             QuotationId: quotationId,
             DeliveryId: deliveryId,
             SupportId: supportId,
+            SoftwareDevelopmentId: softwareDevelopmentId,
             LeadStatus: this.activityStatusSelectedValue
         };
         return activityDataObject;
@@ -304,7 +309,13 @@ var ActivityComponent = (function () {
                         this.router.navigate(['/supportDetail', currentSelectedActivity.SupportId]);
                     }
                     else {
-                        this.toastr.error('', 'No Document');
+                        if (currentSelectedActivity.SoftwareDevelopmentId > 0) {
+                            this.startLoading();
+                            this.router.navigate(['/softwareDevelopmentDetail', currentSelectedActivity.SoftwareDevelopmentId]);
+                        }
+                        else {
+                            this.toastr.error('', 'No Document');
+                        }
                     }
                 }
             }

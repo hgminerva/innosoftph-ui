@@ -15,7 +15,7 @@ export class ActivityComponent implements OnInit {
   public isActivtyStartDateSelected = true;
   public activityEndDateValue: Date;
   public isActivtyEndDateSelected = true;
-  public documentArray = ['Lead', 'Quotation', 'Delivery', 'Support'];
+  public documentArray = ['Lead', 'Quotation', 'Delivery', 'Support', 'Software Development'];
   public documentSelectedValue = 'Lead';
   public activityCollectionView: wijmo.collections.CollectionView;
   public activityFilter = '';
@@ -248,6 +248,11 @@ export class ActivityComponent implements OnInit {
       supportId = currentSelectedActivity.SupportId;
     }
 
+    let softwareDevelopmentId = "NULL";
+    if (currentSelectedActivity.SoftwareDevelopmentId > 0) {
+      softwareDevelopmentId = currentSelectedActivity.SoftwareDevelopmentId;
+    }
+
     let activityDataObject = {
       ActivityDate: this.activityDateValue.toLocaleDateString(),
       CustomerId: customerId,
@@ -261,6 +266,7 @@ export class ActivityComponent implements OnInit {
       QuotationId: quotationId,
       DeliveryId: deliveryId,
       SupportId: supportId,
+      SoftwareDevelopmentId: softwareDevelopmentId,
       LeadStatus: this.activityStatusSelectedValue
     }
 
@@ -330,7 +336,12 @@ export class ActivityComponent implements OnInit {
             this.startLoading()
             this.router.navigate(['/supportDetail', currentSelectedActivity.SupportId]);
           } else {
-            this.toastr.error('', 'No Document');
+            if (currentSelectedActivity.SoftwareDevelopmentId > 0) {
+              this.startLoading()
+              this.router.navigate(['/softwareDevelopmentDetail', currentSelectedActivity.SoftwareDevelopmentId]);
+            } else {
+              this.toastr.error('', 'No Document');
+            }
           }
         }
       }

@@ -196,6 +196,7 @@ var LeadDetailComponent = (function () {
             QuotationId: "NULL",
             DeliveryId: "NULL",
             SupportId: "NULL",
+            SoftwareDevelopmentId: "NULL",
             LeadStatus: this.activityStatusSelectedValue
         };
         return activityDataObject;

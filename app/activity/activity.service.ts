@@ -39,6 +39,7 @@ export class ActivityService {
                             QuotationId: results[i].QuotationId == null ? 0 : results[i].QuotationId,
                             DeliveryId: results[i].DeliveryId == null ? 0 : results[i].DeliveryId,
                             SupportId: results[i].SupportId == null ? 0 : results[i].SupportId,
+                            SoftwareDevelopmentId: results[i].SoftwareDevelopmentId == null ? 0 : results[i].SoftwareDevelopmentId,
                             CustomerId: results[i].CustomerId == null ? 0 : results[i].CustomerId,
                             ProductId: results[i].ProductId == null ? 0 : results[i].ProductId,
                             ParticularCategory: results[i].ParticularCategory,

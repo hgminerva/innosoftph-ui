@@ -43,6 +43,9 @@ var continuity_component_1 = require('./activity-continuity/continuity.component
 var support_component_2 = require('./activity-support/support.component');
 var supportDetail_component_1 = require('./activity-support/supportDetail.component');
 var activity_component_1 = require('./activity/activity.component');
+var project_component_1 = require('./activity-project/project.component');
+var softwareDevelopment_component_1 = require('./activity-software-development/softwareDevelopment.component');
+var softwareDevelopmentDetail_component_1 = require('./activity-software-development/softwareDevelopmentDetail.component');
 // services
 var login_service_1 = require('./security-login/login.service');
 var customer_service_1 = require('./setup-customer/customer.service');
@@ -54,6 +57,8 @@ var delivery_service_1 = require('./activity-delivery/delivery.service');
 var continuity_service_1 = require('./activity-continuity/continuity.service');
 var support_service_1 = require('./activity-support/support.service');
 var activity_service_1 = require('./activity/activity.service');
+var project_service_1 = require('./activity-project/project.service');
+var softwareDevelopment_service_1 = require('./activity-software-development/softwareDevelopment.service');
 // paths and Routes
 var appRoutes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -77,6 +82,9 @@ var appRoutes = [
     { path: 'supportActivity', component: support_component_2.SupportActivityComponent },
     { path: 'supportDetail/:id', component: supportDetail_component_1.SupportDetailComponent },
     { path: 'activity', component: activity_component_1.ActivityComponent },
+    { path: 'project', component: project_component_1.ProjectComponent },
+    { path: 'softwareDevelopment', component: softwareDevelopment_component_1.SoftwareDevelopmentComponent },
+    { path: 'softwareDevelopmentDetail/:id', component: softwareDevelopmentDetail_component_1.SoftwareDevelopmentDetailComponent }
 ];
 // module
 var AppModule = (function () {
@@ -119,7 +127,10 @@ var AppModule = (function () {
                 continuity_component_1.ContinuityComponent,
                 support_component_2.SupportActivityComponent,
                 supportDetail_component_1.SupportDetailComponent,
-                activity_component_1.ActivityComponent
+                activity_component_1.ActivityComponent,
+                project_component_1.ProjectComponent,
+                softwareDevelopment_component_1.SoftwareDevelopmentComponent,
+                softwareDevelopmentDetail_component_1.SoftwareDevelopmentDetailComponent
             ],
             providers: [
                 login_service_1.LoginService,
@@ -132,7 +143,9 @@ var AppModule = (function () {
                 continuity_service_1.ContinuityService,
                 support_service_1.SupportService,
                 ng2_toastr_2.ToastsManager,
-                activity_service_1.ActivityService
+                activity_service_1.ActivityService,
+                project_service_1.ProjectService,
+                softwareDevelopment_service_1.SoftwareDevelopmentService
             ],
             bootstrap: [
                 app_component_1.AppComponent

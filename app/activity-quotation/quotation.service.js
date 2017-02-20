@@ -218,7 +218,7 @@ var QuotationService = (function () {
         });
     };
     // list activity by quotation Id
-    QuotationService.prototype.getListActivityByQuotationId = function (quotationId) {
+    QuotationService.prototype.getListActivityByQuotationId = function (quotationId, isLoadActivityOnly) {
         var url = "http://api.innosoft.ph/api/activity/list/byQuotationId/" + quotationId;
         var activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
@@ -243,11 +243,17 @@ var QuotationService = (function () {
                         LeadId: results[i].LeadId,
                         QuotationId: results[i].QuotationId,
                         DeliveryId: results[i].DeliveryId,
-                        SupportId: results[i].SupportId
+                        SupportId: results[i].SupportId,
+                        SoftwareDevelopmentId: results[i].SoftwareDevelopmentId
                     });
                 }
             }
-            document.getElementById("btn-hidden-lead-data").click();
+            if (!isLoadActivityOnly) {
+                document.getElementById("btn-hidden-lead-data").click();
+            }
+            else {
+                document.getElementById("btn-hidden-complete-loading").click();
+            }
         });
         return activityObservableArray;
     };

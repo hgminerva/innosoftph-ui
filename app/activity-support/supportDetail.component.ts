@@ -293,6 +293,7 @@ export class SupportDetailComponent implements OnInit {
       QuotationId: "NULL",
       DeliveryId: "NULL",
       SupportId: this.getIdUrlParameter(),
+      SoftwareDevelopmentId: "NULL",
       LeadStatus: this.activityStatusSelectedValue
     }
 

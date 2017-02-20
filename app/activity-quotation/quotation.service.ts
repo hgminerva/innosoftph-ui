@@ -237,7 +237,7 @@ export class QuotationService {
     }
 
     // list activity by quotation Id
-    public getListActivityByQuotationId(quotationId: number): wijmo.collections.ObservableArray {
+    public getListActivityByQuotationId(quotationId: number, isLoadActivityOnly: Boolean): wijmo.collections.ObservableArray {
         let url = "http://api.innosoft.ph/api/activity/list/byQuotationId/" + quotationId;
         let activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
@@ -263,12 +263,17 @@ export class QuotationService {
                             LeadId: results[i].LeadId,
                             QuotationId: results[i].QuotationId,
                             DeliveryId: results[i].DeliveryId,
-                            SupportId: results[i].SupportId
+                            SupportId: results[i].SupportId,
+                            SoftwareDevelopmentId: results[i].SoftwareDevelopmentId
                         });
                     }
                 }
 
-                document.getElementById("btn-hidden-lead-data").click();
+                if (!isLoadActivityOnly) {
+                    document.getElementById("btn-hidden-lead-data").click();
+                } else {
+                    document.getElementById("btn-hidden-complete-loading").click();
+                }
             }
         );
 

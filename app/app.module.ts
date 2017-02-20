@@ -34,6 +34,9 @@ import { ContinuityComponent } from './activity-continuity/continuity.component'
 import { SupportActivityComponent } from './activity-support/support.component';
 import { SupportDetailComponent } from './activity-support/supportDetail.component';
 import { ActivityComponent } from './activity/activity.component';
+import { ProjectComponent } from './activity-project/project.component';
+import { SoftwareDevelopmentComponent } from './activity-software-development/softwareDevelopment.component';
+import { SoftwareDevelopmentDetailComponent } from './activity-software-development/softwareDevelopmentDetail.component';
 
 // services
 import { LoginService } from './security-login/login.service';
@@ -46,6 +49,8 @@ import { DeliveryService } from './activity-delivery/delivery.service';
 import { ContinuityService } from './activity-continuity/continuity.service';
 import { SupportService } from './activity-support/support.service';
 import { ActivityService } from './activity/activity.service';
+import { ProjectService } from './activity-project/project.service';
+import { SoftwareDevelopmentService } from './activity-software-development/softwareDevelopment.service';
 
 // paths and Routes
 const appRoutes: Routes = [
@@ -70,6 +75,9 @@ const appRoutes: Routes = [
   { path: 'supportActivity', component: SupportActivityComponent },
   { path: 'supportDetail/:id', component: SupportDetailComponent },
   { path: 'activity', component: ActivityComponent },
+  { path: 'project', component: ProjectComponent },
+  { path: 'softwareDevelopment', component: SoftwareDevelopmentComponent },
+  { path: 'softwareDevelopmentDetail/:id', component: SoftwareDevelopmentDetailComponent }
 ];
 
 // module
@@ -109,7 +117,10 @@ const appRoutes: Routes = [
     ContinuityComponent,
     SupportActivityComponent,
     SupportDetailComponent,
-    ActivityComponent
+    ActivityComponent,
+    ProjectComponent,
+    SoftwareDevelopmentComponent,
+    SoftwareDevelopmentDetailComponent
   ],
   providers: [
     LoginService,
@@ -122,7 +133,9 @@ const appRoutes: Routes = [
     ContinuityService,
     SupportService,
     ToastsManager,
-    ActivityService
+    ActivityService,
+    ProjectService,
+    SoftwareDevelopmentService
   ],
   bootstrap: [
     AppComponent

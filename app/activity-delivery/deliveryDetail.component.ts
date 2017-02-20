@@ -234,6 +234,7 @@ export class DeliveryDetailComponent implements OnInit {
       QuotationId: "NULL",
       DeliveryId: this.getIdUrlParameter(),
       SupportId: "NULL",
+      SoftwareDevelopmentId: "NULL",
       LeadStatus: this.activityStatusSelectedValue
     }
 
