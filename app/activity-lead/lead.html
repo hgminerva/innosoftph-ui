@@ -117,119 +117,154 @@
 <div class="modal fade" id="lead-detail-modal" role="dialog">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title">Add Lead</h4>
-            </div>
-            <div class="modal-body">
-                <div *ngIf="isLoading" align="center">
-                    <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
+            <form (ngSubmit)="btnSaveLead()" #leadForm="ngForm">
+                <div class="modal-header">
+                    <h4 class="modal-title">Add Lead</h4>
                 </div>
-                <div *ngIf="isFinishLoading">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-horizontal">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4">Lead Date</label>
-                                    <div class="col-sm-8">
-                                        <wj-input-date
-                                            [(value)]="leadDateValue" 
-                                            [format]="'MMM dd, yyyy'"
-                                            (valueChanged)="leadDateOnValueChanged()"
-                                            style="width: 100%; border-radius: 0px;">
-                                        </wj-input-date>
+                <div class="modal-body">
+                    <div *ngIf="isLoading" align="center">
+                        <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
+                    </div>
+                    <div *ngIf="isFinishLoading">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Lead Date</label>
+                                        <div class="col-sm-8">
+                                            <wj-input-date
+                                                [(value)]="leadDateValue" 
+                                                [format]="'MMM dd, yyyy'"
+                                                (valueChanged)="leadDateOnValueChanged()"
+                                                style="width: 100%; border-radius: 0px; padding-left: 3px; border-left: 5px solid #42A948;">
+                                            </wj-input-date>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4">Lead Name</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" [(ngModel)]="leadName" class="form-control" id="leadName" name="leadName" placeholder="Lead Name" />
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Lead Name</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" [(ngModel)]="leadName" class="form-control" id="leadName" name="leadName" #LeadName="ngModel" placeholder="Lead Name" required/>
+                                            <div [hidden]="LeadName.valid || LeadName.pristine" class="alert alert-danger">
+                                                <b>Lead Name</b> Field is Required! Please provide "NA" if there are no data to be saved.
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4">Address</label>
-                                    <div class="col-sm-8">
-                                        <textarea [(ngModel)]="leadAddress" class="form-control" rows="3" id="leadAddress" name="leadAddress" placeholder="Address" ></textarea>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Address</label>
+                                        <div class="col-sm-8">
+                                            <textarea [(ngModel)]="leadAddress" class="form-control" rows="3" id="leadAddress" name="leadAddress" #Address="ngModel" placeholder="Address" required></textarea>
+                                            <div [hidden]="Address.valid || Address.pristine" class="alert alert-danger">
+                                                <b>Address</b> Field is Required! Please provide "NA" if there are no data to be saved.
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4">Contact Person</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" [(ngModel)]="leadContactPerson" class="form-control" id="leadContactPerson" name="leadContactPerson" placeholder="Contact Person" />
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Contact Person</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" [(ngModel)]="leadContactPerson" class="form-control" id="leadContactPerson" name="leadContactPerson" #ContactPerson="ngModel"  placeholder="Contact Person" required/>
+                                            <div [hidden]="ContactPerson.valid || ContactPerson.pristine" class="alert alert-danger">
+                                                <b>Contact Person</b> Field is Required! Please provide "NA" if there are no data to be saved.
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4">Contact Position</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" [(ngModel)]="leadContactPosition" class="form-control" id="leadContactPosition" name="leadContactPosition" placeholder="Contact Position" />
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Contact Position</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" [(ngModel)]="leadContactPosition" class="form-control" id="leadContactPosition" name="leadContactPosition"  #ContactPosition="ngModel" placeholder="Contact Position" required/>
+                                            <div [hidden]="ContactPosition.valid || ContactPosition.pristine" class="alert alert-danger">
+                                                <b>Contact Position</b> Field is Required! Please provide "NA" if there are no data to be saved.
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4">Contact Email</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" [(ngModel)]="leadContactEmail" class="form-control" id="leadContactEmail" name="leadContactEmail" placeholder="Contact Email" />
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Contact Email</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" [(ngModel)]="leadContactEmail" class="form-control" id="leadContactEmail" name="leadContactEmail" #ContactEmail="ngModel" placeholder="Contact Email" required/>
+                                            <div [hidden]="ContactEmail.valid || ContactEmail.pristine" class="alert alert-danger">
+                                                <b>Contact Email</b> Field is Required! Please provide "NA" if there are no data to be saved.
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4">Contact Numbers</label>
-                                    <div class="col-sm-8">
-                                        <textarea class="form-control" [(ngModel)]="leadContactNumber" rows="3" id="leadContactNumber" name="leadContactNumber" placeholder="Contact Numbers"></textarea>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Contact Numbers</label>
+                                        <div class="col-sm-8">
+                                            <textarea class="form-control" [(ngModel)]="leadContactNumber" rows="3" id="leadContactNumber" name="leadContactNumber" #ContactPhoneNo="ngModel" placeholder="Contact Numbers" required></textarea>
+                                            <div [hidden]="ContactPhoneNo.valid || ContactPhoneNo.pristine" class="alert alert-danger">
+                                                <b>Contact Numbers</b> Field is Required! Please provide "NA" if there are no data to be saved.
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-horizontal">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4">Referred By</label>
-                                    <div class="col-sm-8">
-                                        <input type="text" [(ngModel)]="leadReferredBy" class="form-control" id="leadReferredBy" name="leadReferredBy" placeholder="Referred By" />
+                            <div class="col-md-6">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Referred By</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" [(ngModel)]="leadReferredBy" class="form-control" id="leadReferredBy" name="leadReferredBy" #ReferredBy="ngModel" placeholder="Referred By" required/>
+                                            <div [hidden]="ReferredBy.valid || ReferredBy.pristine" class="alert alert-danger">
+                                                <b>Referred By</b> Field is Required! Please provide "NA" if there are no data to be saved.
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4">Assigned To</label>
-                                    <div class="col-sm-8">
-                                        <wj-combo-box 
-                                            [itemsSource]="leadAssignedUserObservableArray" 
-                                            [placeholder]="'Select User'"
-                                            [displayMemberPath]="'FullName'" 
-                                            [selectedValuePath]="'Id'"
-                                            [(selectedValue)]="leadAssignedToSelectedValue"
-                                            [isEditable]="true"
-                                            [isRequired]="false"
-                                            (selectedIndexChanged)="cboAssignedToSelectedIndexChangedClick()"
-                                            style="width: 100%; border-radius: 0px;">
-                                        </wj-combo-box>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Assigned To</label>
+                                        <div class="col-sm-8">
+                                            <div [ngStyle]="{'border-left' : getBorderColor()}">
+                                                 <wj-combo-box 
+                                                    [itemsSource]="leadAssignedUserObservableArray" 
+                                                    [placeholder]="'Select User'"
+                                                    [displayMemberPath]="'FullName'" 
+                                                    [selectedValuePath]="'Id'"
+                                                    [(selectedValue)]="leadAssignedToSelectedValue"
+                                                    [isEditable]="true"
+                                                    [isRequired]="false"
+                                                    (selectedIndexChanged)="cboAssignedToSelectedIndexChangedClick()"
+                                                    style="width: 100%; border-radius: 0px; padding-left: 3px;">
+                                                </wj-combo-box>
+                                            </div>
+                                            <div *ngIf="isValidNullValues">
+                                                <div class="alert alert-info">
+                                                    The <b>Assigned To</b> field allows a null value.
+                                                    When the set value in the combo box is not in the list, 
+                                                    it will automatically set as a null value. 
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4">Remarks</label>
-                                    <div class="col-sm-8">
-                                        <textarea [(ngModel)]="leadRemarks" class="form-control" rows="5" id="leadRemarks" name="leadRemarks"  placeholder="Remarks"></textarea>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Remarks</label>
+                                        <div class="col-sm-8">
+                                            <textarea [(ngModel)]="leadRemarks" class="form-control" rows="5" id="leadRemarks" name="leadRemarks" #Remarks="ngModel" placeholder="Remarks" required></textarea>
+                                            <div [hidden]="Remarks.valid || Remarks.pristine" class="alert alert-danger">
+                                                <b>Remarks</b> Field is Required! Please provide "NA" if there are no data to be saved.
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label class="control-label col-sm-4">Status</label>
-                                    <div class="col-sm-8">
-                                        <wj-combo-box 
-                                            [itemsSource]="leadStatusArray" 
-                                            [placeholder]="'Select Status'"
-                                            [isEditable]="false"
-                                            [isRequired]="true"
-                                            [(selectedValue)]="leadStatusSelectedValue"
-                                            (selectedIndexChanged)="cboStatusSelectedIndexChangedClick()"
-                                            style="width: 100%; border-radius: 0px;">
-                                        </wj-combo-box>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Status</label>
+                                        <div class="col-sm-8">
+                                            <wj-combo-box 
+                                                [itemsSource]="leadStatusArray" 
+                                                [placeholder]="'Select Status'"
+                                                [isEditable]="false"
+                                                [isRequired]="true"
+                                                [(selectedValue)]="leadStatusSelectedValue"
+                                                (selectedIndexChanged)="cboStatusSelectedIndexChangedClick()"
+                                                style="width: 100%; border-radius: 0px; padding-left: 3px; border-left: 5px solid #42A948;">
+                                            </wj-combo-box>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="modal-footer" align="right">
-                <button type="button" id="btnSaveLead"  class="btn btn-primary" (click)="btnSaveLead()"><i class="fa fa-save fa-fw"></i> Save</button>
-                <button type="button" id="btnCloseLead" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
-            </div>
+                <div class="modal-footer" align="right">
+                    <button type="submit" id="btnSaveLead" class="btn btn-primary" [disabled]="!leadForm.form.valid"><i class="fa fa-save fa-fw"></i> Save</button>
+                    <button type="button" id="btnCloseLead" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

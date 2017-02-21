@@ -132,6 +132,32 @@ var LeadComponent = (function () {
     // event: assigned to
     LeadComponent.prototype.cboAssignedToSelectedIndexChangedClick = function () {
         this.leadAssignedToUserId = this.leadAssignedToSelectedValue;
+        this.validNull = true;
+        // if ((typeof this.leadAssignedToUserId == 'undefined') || (this.leadAssignedToUserId == null)) {
+        if (this.leadAssignedToUserId == null) {
+            this.valid = false;
+            this.getBorderColor();
+            this.isValidNullValues = true;
+        }
+        else {
+            this.valid = true;
+            this.getBorderColor();
+            this.isValidNullValues = false;
+        }
+    };
+    // css classes
+    LeadComponent.prototype.getBorderColor = function () {
+        if (this.valid == true) {
+            return '5px solid #42A948';
+        }
+        else {
+            if (this.validNull == true) {
+                return '5px solid #42A948';
+            }
+            else {
+                return '5px solid #a94442';
+            }
+        }
     };
     // event: status
     LeadComponent.prototype.cboStatusSelectedIndexChangedClick = function () {

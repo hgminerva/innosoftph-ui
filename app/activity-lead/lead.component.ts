@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { LeadService } from './lead.service';
+import { Lead } from './lead';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
@@ -36,6 +37,9 @@ export class LeadComponent implements OnInit {
   public leadToFilter: any;
   public isFinishLoading = false;
   public isLoading = true;
+  public valid: Boolean;
+  public validNull: Boolean;
+  public isValidNullValues: Boolean;
 
   // inject lead service
   constructor(
@@ -157,9 +161,37 @@ export class LeadComponent implements OnInit {
     this.leadAssignedUserObservableArray = this.leadService.getListUserData("lead", "");
   }
 
+  public isValidFormField: Boolean;
+
+
   // event: assigned to
   public cboAssignedToSelectedIndexChangedClick() {
-      this.leadAssignedToUserId = this.leadAssignedToSelectedValue;
+    this.leadAssignedToUserId = this.leadAssignedToSelectedValue;
+    this.validNull = true;
+    // if ((typeof this.leadAssignedToUserId == 'undefined') || (this.leadAssignedToUserId == null)) {
+    if (this.leadAssignedToUserId == null) {
+      this.valid = false;
+      this.getBorderColor();
+      this.isValidNullValues = true;
+      // (<HTMLButtonElement>document.getElementById("btnSaveLead")).disabled = true;
+    } else {
+      this.valid = true;
+      this.getBorderColor();
+      this.isValidNullValues = false;
+    }
+  }
+
+  // css classes
+  public getBorderColor() {
+    if (this.valid == true) {
+      return '5px solid #42A948';
+    } else {
+      if (this.validNull == true) {
+        return '5px solid #42A948';
+      } else {
+        return '5px solid #a94442';
+      }
+    }
   }
 
   // event: status

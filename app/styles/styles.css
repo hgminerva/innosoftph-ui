@@ -121,6 +121,7 @@ p.copyright {
 .custom-grid,
 .modal-content,
 .well,
+.alert,
 .input-group-addon {
     border-radius: 0px;
 }
@@ -829,4 +830,20 @@ textarea {
     transform: translate3d(0, -300px, 0);
     opacity: 1;
     transition: all 0.5s;
+}
+
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
+
+.valid-dropdown  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.invalid-dropdown {
+  border-left: 5px solid #a94442; /* red */
 }
