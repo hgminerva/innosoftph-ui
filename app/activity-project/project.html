@@ -5,3 +5,278 @@
         </div>
     </div>
 </div>
+<div class="custom-content-a">
+    <div class="container">
+        <div class="well well-sm">
+            <a routerLink="/dashboard">Dashboard</a> &nbsp; / &nbsp; Projects
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <table border="0" style="width: 100%;">
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
+                                <input type="text" class="form-control" placeholder="filter" [(ngModel)]="filter" />
+                            </div>
+                        </td>
+                        <td align="right">
+                            <button class="btn btn-primary" (click)="btnProjectDetailClick(true)" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#project-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
+                            <button class="btn btn-danger" routerLink="/dashboard"><i class="fa fa-close fa-fw"></i> Close</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-heading">
+               <table border="0" style="width: 100%;">
+                    <tr>
+                        <td style="width: 30%;">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
+                                <wj-input-date
+                                    [(value)]="projectStartDateValue" 
+                                    [max]="projectEndDateValue"
+                                    [format]="'MMM dd, yyyy'"
+                                    (valueChanged)="projectStartDateOnValueChanged()"
+                                    style="border-radius: 0px;">
+                                </wj-input-date>
+                            </div>
+                        </td>
+                        <td style="width: 30%;">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
+                                <wj-input-date
+                                    [(value)]="projectEndDateValue" 
+                                    [min]="projectStartDateValue"
+                                    [format]="'MMM dd, yyyy'"
+                                    (valueChanged)="projectEndDateOnValueChanged()"
+                                    style="border-radius: 0px;">
+                                </wj-input-date>
+                            </div>
+                        </td>
+                        <td style="width: 40%;"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-body">
+                 <wj-flex-grid [itemsSource]="projectCollectionView" [selectionMode]="3" style="border-radius: 0px;" [frozenColumns]="2">
+                    <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="60">
+                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                            <button class="btn btn-primary btn-xs btn-block" (click)="btnProjectDetailClick(false)" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#project-detail-modal">
+                                <i class="fa fa-edit fa-fw"></i> Edit
+                            </button>
+                        </template>
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="80">
+                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                            <button class="btn btn-danger btn-xs btn-block" (click)="btnDeleteProjectClick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#project-delete-confirmation-modal">
+                                <i class="fa fa-trash fa-fw"></i> Delete
+                            </button>
+                        </template>
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Project No.'" [binding]="'ProjectNumber'" [isReadOnly]="true" [width]="'1.5*'">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Project Date'" [binding]="'ProjectDate'" [isReadOnly]="true" [width]="'1.5*'">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Name'" [binding]="'ProjectName'" [isReadOnly]="true" [width]="'3*'">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Customer'" [binding]="'Customer'" [isReadOnly]="true" [width]="'3*'">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Encoded By'" [binding]="'EncodedByUser'" [isReadOnly]="true" [width]="'2*'">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Project Manager'" [binding]="'ProjectManagerUser'" [isReadOnly]="true" [width]="'2*'">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Status'" [binding]="'ProjectStatus'" [isReadOnly]="true" [width]="'1.5*'">
+                    </wj-flex-grid-column>
+                </wj-flex-grid>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-12 btn-group" id="">
+                        <button type="button" class="btn btn-default" (click)="projectCollectionView.moveToFirstPage()">
+                            <span class="glyphicon glyphicon-fast-backward"></span> First
+                        </button>
+                        <button type="button" class="btn btn-default" (click)="projectCollectionView.moveToPreviousPage()">
+                            <span class="glyphicon glyphicon-step-backward"></span> Previous
+                        </button>
+                        <button type="button" class="btn btn-default" disabled  style="width:100px">
+                            {{ projectCollectionView.pageIndex + 1 }} / {{ projectCollectionView.pageCount }}
+                        </button>
+                        <button type="button" class="btn btn-default" (click)="projectCollectionView.moveToNextPage()">
+                            Next <span class="glyphicon glyphicon-step-forward"></span>
+                        </button>
+                        <button type="button" class="btn btn-default" (click)="projectCollectionView.moveToLastPage()">
+                            Last <span class="glyphicon glyphicon-fast-forward"></span>
+                        </button>
+                    </div> 
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- project detail modal -->
+<div class="modal fade" id="project-detail-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ projectDetailModalString }} Project</h4>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="isLoading" align="center">
+                    <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
+                </div>
+                <div *ngIf="isFinishLoading">
+                    <div class="form-horizontal">
+                        <div *ngIf="isAdd">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Project No.</label>
+                                <div class="col-sm-8">
+                                    <input type="text" [disabled]="true" [(ngModel)]="projectNumber" class="form-control" id="projectNumber" name="projectNumber" placeholder="Project Number" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Project Date</label>
+                            <div class="col-sm-8">
+                                <wj-input-date
+                                    [(value)]="projectDateValue" 
+                                    [format]="'MMM dd, yyyy'"
+                                    style="width: 100%; border-radius: 0px;">
+                                </wj-input-date>
+                            </div>
+                        </div>
+                         <div class="form-group">
+                            <label class="control-label col-sm-4">Project Name</label>
+                            <div class="col-sm-8">
+                                <input type="text" [(ngModel)]="projectName" class="form-control" id="projectName" name="projectName" placeholder="Project Name" />
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Type</label>
+                            <div class="col-sm-8">
+                                <wj-combo-box 
+                                    [itemsSource]="projectTypeObservableArray" 
+                                    [placeholder]="'Select Project Type'"
+                                    [isEditable]="false"
+                                    [isRequired]="true"
+                                    [(selectedValue)]="projectTypeSelectedValue"
+                                    style="width: 100%; border-radius: 0px;">
+                                </wj-combo-box>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Customer</label>
+                            <div class="col-sm-8">
+                                <wj-combo-box 
+                                    [itemsSource]="projectCustomerObservableArray" 
+                                    [placeholder]="'Select Customer'"
+                                    [displayMemberPath]="'Article'" 
+                                    [selectedValuePath]="'Id'"
+                                    [isEditable]="false"
+                                    [isRequired]="true"
+                                    [(selectedValue)]="projectCustomerSelectedValue"
+                                    style="width: 100%; border-radius: 0px;">
+                                </wj-combo-box>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Particulars</label>
+                            <div class="col-sm-8">
+                                <textarea [(ngModel)]="projectParticulars" class="form-control" rows="3" id="projectParticulars" name="projectParticulars" placeholder="Particulars" ></textarea>
+                            </div>
+                        </div>
+                        <div *ngIf="isAdd">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Encoded By</label>
+                                <div class="col-sm-8">
+                                    <input type="text" [disabled]="true" [(ngModel)]="projectEncodedByUser" class="form-control" id="projectEncodedByUser" name="projectEncodedByUser" placeholder="Staff" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Project Manager</label>
+                            <div class="col-sm-8">
+                                <wj-combo-box 
+                                    [itemsSource]="projectManagerObservableArray" 
+                                    [placeholder]="'Select User'"
+                                    [displayMemberPath]="'FullName'" 
+                                    [selectedValuePath]="'Id'"
+                                    [isEditable]="false"
+                                    [isRequired]="true"
+                                    [(selectedValue)]="projectManagerSelectedValue"
+                                    style="width: 100%; border-radius: 0px;">
+                                </wj-combo-box>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Project Start Date</label>
+                            <div class="col-sm-8">
+                                <wj-input-date
+                                    [(value)]="projectStartDateDataValue" 
+                                    [format]="'MMM dd, yyyy'"
+                                    style="width: 100%; border-radius: 0px;">
+                                </wj-input-date>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Project End Date</label>
+                            <div class="col-sm-8">
+                                <wj-input-date
+                                    [(value)]="projectEndDateDataValue" 
+                                    [format]="'MMM dd, yyyy'"
+                                    style="width: 100%; border-radius: 0px;">
+                                </wj-input-date>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Status</label>
+                            <div class="col-sm-8">
+                                <wj-combo-box 
+                                    [itemsSource]="projectStatusArray" 
+                                    [placeholder]="'Select Status'"
+                                    [isEditable]="false"
+                                    [isRequired]="true"
+                                    [(selectedValue)]="projectStatusSelectedValue"
+                                    style="width: 100%; border-radius: 0px;">
+                                </wj-combo-box>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" align="right">
+                <button type="button" id="btnSaveProject"  class="btn btn-primary" (click)="btnSaveProject()"><i class="fa fa-save fa-fw"></i> Save</button>
+                <button type="button" id="btnCloseProject" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- delete modal -->
+<div class="modal fade" id="project-delete-confirmation-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete</h4>
+            </div>
+            <div class="modal-body">
+                Delete Project?
+            </div>
+            <div class="modal-footer" align="right">
+                <button type="button" id="btnDeleteProject" class="btn btn-danger" (click)="btnDeleteConfirmProjectClick()"><i class="fa fa-trash fa-fw"></i> Delete</button>
+                <button type="button" id="btnDeleteCloseProject" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- hidden elements to execute functions in API services -->
+<button id="btn-hidden-start-loading" [hidden]="true" (click)="startLoading()"></button>
+<button id="btn-hidden-complete-loading" [hidden]="true" (click)="completeLoading()"></button>
+<button id="btn-hidden-project-detail-modal" [hidden]="true" data-toggle="modal" data-target="#project-detail-modal"></button>
+<button id="btn-hidden-project-delete-modal" [hidden]="true" data-toggle="modal" data-target="#project-delete-confirmation-modal"></button>
+<button id="btn-hidden-customer-data" [hidden]="true" (click)="getListCustomerServiceData()"></button>
+<button id="btn-hidden-user-data" [hidden]="true" (click)="getListUserServiceData()"></button>
+<button id="btn-hidden-project-data" [hidden]="true" (click)="getProjectData()"></button>
+<button id="btn-hidden-finished-load" [hidden]="true" (click)="finishedLoad()"></button>
