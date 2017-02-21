@@ -132,7 +132,7 @@ var SupportDetailComponent = (function () {
         this.supportCustomerSelectedValue = parseInt(document.getElementById("supportCustomerSelectedValue").value.toString());
         this.supportIssueCategorySelectedValue = document.getElementById("supportIssueCategorySelectedValue").value.toString();
         this.supportSeveritySelectedValue = document.getElementById("supportSeveritySelectedValue").value.toString();
-        this.supportEncodedBySelectedValue = parseInt(document.getElementById("supportEncodedBySelectedValue").value.toString());
+        // this.supportEncodedBySelectedValue = parseInt((<HTMLInputElement>document.getElementById("supportEncodedBySelectedValue")).value.toString());
         this.supportAssignedToSelectedValue = parseInt(document.getElementById("supportAssignedToSelectedValue").value.toString());
         this.supportStatusSelectedValue = document.getElementById("supportStatusSelectedValue").value.toString();
         setTimeout(function () {

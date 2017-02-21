@@ -200,7 +200,7 @@ var SupportService = (function () {
                     document.getElementById("supportCaller").value = results.Caller;
                     document.getElementById("supportRemarks").value = results.Remarks;
                     document.getElementById("supportScreenShotURL").value = results.ScreenShotURL;
-                    document.getElementById("supportEncodedBySelectedValue").value = results.EncodedByUserId;
+                    document.getElementById("supportEncodedBySelectedValue").value = results.EncodedByUser;
                     document.getElementById("supportAssignedToSelectedValue").value = results.AssignedToUserId;
                     document.getElementById("supportStatusSelectedValue").value = results.SupportStatus;
                     document.getElementById("btn-hidden-selectedValue-data").click();

@@ -106,7 +106,7 @@ var LeadService = (function () {
                     document.getElementById("leadContactNumber").value = results.ContactPhoneNo;
                     document.getElementById("leadReferredBy").value = results.ReferredBy;
                     document.getElementById("leadRemarks").value = results.Remarks;
-                    document.getElementById("leadEncodedBySelectedValue").value = results.EncodedByUserId;
+                    document.getElementById("leadEncodedBySelectedValue").value = results.EncodedByUser;
                     document.getElementById("leadAssignedToSelectedValue").value = results.AssignedToUserId;
                     document.getElementById("leadStatusSelectedValue").value = results.LeadStatus;
                     document.getElementById("btn-hidden-selectedValue-data").click();

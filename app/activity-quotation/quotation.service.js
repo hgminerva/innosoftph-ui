@@ -149,7 +149,7 @@ var QuotationService = (function () {
                     document.getElementById("quotationLeadSelectedValue").value = results.LeadId;
                     document.getElementById("quotationCustomerSelectedValue").value = results.CustomerId;
                     document.getElementById("quotationProductSelectedValue").value = results.ProductId;
-                    document.getElementById("quotationEncodedBySelectedValue").value = results.EncodedByUserId;
+                    document.getElementById("quotationEncodedBySelectedValue").value = results.EncodedByUser;
                     document.getElementById("quotationRemarks").value = results.Remarks;
                     document.getElementById("quotationStatusSelectedValue").value = results.QuotationStatus;
                     document.getElementById("btn-hidden-selectedValue-data").click();

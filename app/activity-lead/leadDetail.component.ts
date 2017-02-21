@@ -23,7 +23,8 @@ export class LeadDetailComponent implements OnInit {
   public leadAssignedToUserId: number;
   public leadReferredBy: String;
   public leadEncodedUserObservableArray: wijmo.collections.ObservableArray;
-  public leadEncodedBySelectedValue: number;
+  // public leadEncodedBySelectedValue: number;
+  public leadEncodedBySelectedValue: String;
   public leadAssignedUserObservableArray: wijmo.collections.ObservableArray;
   public leadAssignedToSelectedValue: number;
   public leadRemarks: String;
@@ -115,7 +116,7 @@ export class LeadDetailComponent implements OnInit {
   public setDropdownSelectedValueData() {
     this.leadDateValue = new Date((<HTMLInputElement>document.getElementById("leadDateValue")).value.toString());
     this.leadStatusSelectedValue = (<HTMLInputElement>document.getElementById("leadStatusSelectedValue")).value.toString();
-    this.leadEncodedBySelectedValue = parseInt((<HTMLInputElement>document.getElementById("leadEncodedBySelectedValue")).value.toString());
+    // this.leadEncodedBySelectedValue = parseInt((<HTMLInputElement>document.getElementById("leadEncodedBySelectedValue")).value.toString());
     this.leadAssignedToSelectedValue = parseInt((<HTMLInputElement>document.getElementById("leadAssignedToSelectedValue")).value.toString());
   }
 

@@ -176,7 +176,7 @@ export class DeliveryService {
                         (<HTMLInputElement>document.getElementById("deliveryQuotaionSelectedValue")).value = results.QuotationId;
                         (<HTMLInputElement>document.getElementById("deliveryMeetingDateValue")).value = results.MeetingDate;
                         (<HTMLInputElement>document.getElementById("deliveryRemarks")).value = results.Remarks;
-                        (<HTMLInputElement>document.getElementById("deliverySalesUserSelectedValue")).value = results.SalesUserId;
+                        (<HTMLInputElement>document.getElementById("deliverySalesUserSelectedValue")).value = results.SalesUser;
                         (<HTMLInputElement>document.getElementById("deliveryTechnicalUserSelectedValue")).value = results.TechnicalUserId;
                         (<HTMLInputElement>document.getElementById("deliveryFunctionalUserSelectedValue")).value = results.FunctionalUserId;
                         (<HTMLInputElement>document.getElementById("deliveryStatusSelectedValue")).value = results.DeliveryStatus;

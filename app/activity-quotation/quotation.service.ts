@@ -159,7 +159,7 @@ export class QuotationService {
                         (<HTMLInputElement>document.getElementById("quotationLeadSelectedValue")).value = results.LeadId;
                         (<HTMLInputElement>document.getElementById("quotationCustomerSelectedValue")).value = results.CustomerId;
                         (<HTMLInputElement>document.getElementById("quotationProductSelectedValue")).value = results.ProductId;
-                        (<HTMLInputElement>document.getElementById("quotationEncodedBySelectedValue")).value = results.EncodedByUserId;
+                        (<HTMLInputElement>document.getElementById("quotationEncodedBySelectedValue")).value = results.EncodedByUser;
                         (<HTMLInputElement>document.getElementById("quotationRemarks")).value = results.Remarks;
                         (<HTMLInputElement>document.getElementById("quotationStatusSelectedValue")).value = results.QuotationStatus;
                         document.getElementById("btn-hidden-selectedValue-data").click();

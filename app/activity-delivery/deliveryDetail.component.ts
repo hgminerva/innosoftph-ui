@@ -18,7 +18,8 @@ export class DeliveryDetailComponent implements OnInit {
   public deliveryQuotaionSelectedValue: number;
   public deliveryMeetingDateValue: Date;
   public deliverySalesUserObservableArray: wijmo.collections.ObservableArray;
-  public deliverySalesUserSelectedValue: number;
+  // public deliverySalesUserSelectedValue: number;
+  public deliverySalesUserSelectedValue: String;
   public deliveryTechnicalUserObservableArray: wijmo.collections.ObservableArray;
   public deliveryTechnicalUserSelectedValue: number;
   public deliveryFunctionalUserObservableArray: wijmo.collections.ObservableArray;
@@ -123,7 +124,7 @@ export class DeliveryDetailComponent implements OnInit {
     this.deliveryDateValue = new Date((<HTMLInputElement>document.getElementById("deliveryDateValue")).value.toString());
     this.deliveryQuotaionSelectedValue = parseInt((<HTMLInputElement>document.getElementById("deliveryQuotaionSelectedValue")).value.toString());
     this.deliveryMeetingDateValue = new Date((<HTMLInputElement>document.getElementById("deliveryMeetingDateValue")).value.toString());
-    this.deliverySalesUserSelectedValue =  parseInt((<HTMLInputElement>document.getElementById("deliverySalesUserSelectedValue")).value.toString());
+    // this.deliverySalesUserSelectedValue =  parseInt((<HTMLInputElement>document.getElementById("deliverySalesUserSelectedValue")).value.toString());
     this.deliveryTechnicalUserSelectedValue =  parseInt((<HTMLInputElement>document.getElementById("deliveryTechnicalUserSelectedValue")).value.toString());
     this.deliveryFunctionalUserSelectedValue =  parseInt((<HTMLInputElement>document.getElementById("deliveryFunctionalUserSelectedValue")).value.toString());
     this.deliveryStatusSelectedValue = (<HTMLInputElement>document.getElementById("deliveryStatusSelectedValue")).value.toString();

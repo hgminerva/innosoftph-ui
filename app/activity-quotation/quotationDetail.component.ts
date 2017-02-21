@@ -21,7 +21,8 @@ export class QuotationDetailComponent implements OnInit {
   public quotationProductObservableArray: wijmo.collections.ObservableArray;
   public quotationProductSelectedValue: number;
   public quotationEncodedUserObservableArray: wijmo.collections.ObservableArray;
-  public quotationEncodedBySelectedValue: number;
+  // public quotationEncodedBySelectedValue: number;
+  public quotationEncodedBySelectedValue: String;
   public quotationStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
   public quotationStatusSelectedValue: String;
   public activityCollectionView: wijmo.collections.CollectionView;
@@ -81,7 +82,7 @@ export class QuotationDetailComponent implements OnInit {
     this.quotationLeadSelectedValue = parseInt((<HTMLInputElement>document.getElementById("quotationLeadSelectedValue")).value.toString());
     this.quotationCustomerSelectedValue = parseInt((<HTMLInputElement>document.getElementById("quotationCustomerSelectedValue")).value.toString());
     this.quotationProductSelectedValue = parseInt((<HTMLInputElement>document.getElementById("quotationProductSelectedValue")).value.toString());
-    this.quotationEncodedBySelectedValue = parseInt((<HTMLInputElement>document.getElementById("quotationEncodedBySelectedValue")).value.toString());
+    // this.quotationEncodedBySelectedValue = parseInt((<HTMLInputElement>document.getElementById("quotationEncodedBySelectedValue")).value.toString());
     this.quotationStatusSelectedValue = (<HTMLInputElement>document.getElementById("quotationStatusSelectedValue")).value.toString();
   }
 

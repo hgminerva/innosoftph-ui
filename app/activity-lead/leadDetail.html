@@ -92,7 +92,13 @@
                                         <input type="text" [(ngModel)]="leadReferredBy" class="form-control" id="leadReferredBy" name="leadReferredBy" placeholder="Referred By" />
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                 <div class="form-group">
+                                    <label class="control-label col-sm-4">Encoded By</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" [(ngModel)]="leadEncodedBySelectedValue" [disabled]="true" class="form-control" id="leadEncodedBySelectedValue" name="leadEncodedBySelectedValue" placeholder="Staff" />
+                                    </div>
+                                </div>
+                                <!--<div class="form-group">
                                     <label class="control-label col-sm-4">Encoded By</label>
                                     <div class="col-sm-8">
                                         <wj-combo-box 
@@ -108,7 +114,7 @@
                                         </wj-combo-box>
                                         <input type="hidden" class="form-control" id="leadEncodedBySelectedValue" />
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Assigned To</label>
                                     <div class="col-sm-8">

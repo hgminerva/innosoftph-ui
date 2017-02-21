@@ -59,7 +59,7 @@ var QuotationDetailComponent = (function () {
         this.quotationLeadSelectedValue = parseInt(document.getElementById("quotationLeadSelectedValue").value.toString());
         this.quotationCustomerSelectedValue = parseInt(document.getElementById("quotationCustomerSelectedValue").value.toString());
         this.quotationProductSelectedValue = parseInt(document.getElementById("quotationProductSelectedValue").value.toString());
-        this.quotationEncodedBySelectedValue = parseInt(document.getElementById("quotationEncodedBySelectedValue").value.toString());
+        // this.quotationEncodedBySelectedValue = parseInt((<HTMLInputElement>document.getElementById("quotationEncodedBySelectedValue")).value.toString());
         this.quotationStatusSelectedValue = document.getElementById("quotationStatusSelectedValue").value.toString();
     };
     // quotation date value

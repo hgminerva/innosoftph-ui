@@ -117,7 +117,7 @@
 
 <!-- project detail modal -->
 <div class="modal fade" id="project-detail-modal" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">{{ projectDetailModalString }} Project</h4>
@@ -127,119 +127,127 @@
                     <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
                 </div>
                 <div *ngIf="isFinishLoading">
-                    <div class="form-horizontal">
-                        <div *ngIf="isAdd">
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Project No.</label>
-                                <div class="col-sm-8">
-                                    <input type="text" [disabled]="true" [(ngModel)]="projectNumber" class="form-control" id="projectNumber" name="projectNumber" placeholder="Project Number" />
+                     <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-horizontal">
+                                <div *ngIf="isAdd">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Project No.</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" [disabled]="true" [(ngModel)]="projectNumber" class="form-control" id="projectNumber" name="projectNumber" placeholder="Project Number" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Project Date</label>
+                                    <div class="col-sm-8">
+                                        <wj-input-date
+                                            [(value)]="projectDateValue" 
+                                            [format]="'MMM dd, yyyy'"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-input-date>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Project Name</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" [(ngModel)]="projectName" class="form-control" id="projectName" name="projectName" placeholder="Project Name" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Type</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box 
+                                            [itemsSource]="projectTypeObservableArray" 
+                                            [placeholder]="'Select Project Type'"
+                                            [isEditable]="false"
+                                            [isRequired]="true"
+                                            [(selectedValue)]="projectTypeSelectedValue"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-combo-box>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Customer</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box 
+                                            [itemsSource]="projectCustomerObservableArray" 
+                                            [placeholder]="'Select Customer'"
+                                            [displayMemberPath]="'Article'" 
+                                            [selectedValuePath]="'Id'"
+                                            [isEditable]="false"
+                                            [isRequired]="true"
+                                            [(selectedValue)]="projectCustomerSelectedValue"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-combo-box>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Particulars</label>
+                                    <div class="col-sm-8">
+                                        <textarea [(ngModel)]="projectParticulars" class="form-control" rows="3" id="projectParticulars" name="projectParticulars" placeholder="Particulars" ></textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Project Date</label>
-                            <div class="col-sm-8">
-                                <wj-input-date
-                                    [(value)]="projectDateValue" 
-                                    [format]="'MMM dd, yyyy'"
-                                    style="width: 100%; border-radius: 0px;">
-                                </wj-input-date>
-                            </div>
-                        </div>
-                         <div class="form-group">
-                            <label class="control-label col-sm-4">Project Name</label>
-                            <div class="col-sm-8">
-                                <input type="text" [(ngModel)]="projectName" class="form-control" id="projectName" name="projectName" placeholder="Project Name" />
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Type</label>
-                            <div class="col-sm-8">
-                                <wj-combo-box 
-                                    [itemsSource]="projectTypeObservableArray" 
-                                    [placeholder]="'Select Project Type'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [(selectedValue)]="projectTypeSelectedValue"
-                                    style="width: 100%; border-radius: 0px;">
-                                </wj-combo-box>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Customer</label>
-                            <div class="col-sm-8">
-                                <wj-combo-box 
-                                    [itemsSource]="projectCustomerObservableArray" 
-                                    [placeholder]="'Select Customer'"
-                                    [displayMemberPath]="'Article'" 
-                                    [selectedValuePath]="'Id'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [(selectedValue)]="projectCustomerSelectedValue"
-                                    style="width: 100%; border-radius: 0px;">
-                                </wj-combo-box>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Particulars</label>
-                            <div class="col-sm-8">
-                                <textarea [(ngModel)]="projectParticulars" class="form-control" rows="3" id="projectParticulars" name="projectParticulars" placeholder="Particulars" ></textarea>
-                            </div>
-                        </div>
-                        <div *ngIf="isAdd">
-                            <div class="form-group">
-                                <label class="control-label col-sm-4">Encoded By</label>
-                                <div class="col-sm-8">
-                                    <input type="text" [disabled]="true" [(ngModel)]="projectEncodedByUser" class="form-control" id="projectEncodedByUser" name="projectEncodedByUser" placeholder="Staff" />
+                        <div class="col-md-6">
+                            <div class="form-horizontal">
+                                <div *ngIf="isAdd">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Encoded By</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" [disabled]="true" [(ngModel)]="projectEncodedByUser" class="form-control" id="projectEncodedByUser" name="projectEncodedByUser" placeholder="Staff" />
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Project Manager</label>
-                            <div class="col-sm-8">
-                                <wj-combo-box 
-                                    [itemsSource]="projectManagerObservableArray" 
-                                    [placeholder]="'Select User'"
-                                    [displayMemberPath]="'FullName'" 
-                                    [selectedValuePath]="'Id'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [(selectedValue)]="projectManagerSelectedValue"
-                                    style="width: 100%; border-radius: 0px;">
-                                </wj-combo-box>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Project Start Date</label>
-                            <div class="col-sm-8">
-                                <wj-input-date
-                                    [(value)]="projectStartDateDataValue" 
-                                    [format]="'MMM dd, yyyy'"
-                                    style="width: 100%; border-radius: 0px;">
-                                </wj-input-date>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Project End Date</label>
-                            <div class="col-sm-8">
-                                <wj-input-date
-                                    [(value)]="projectEndDateDataValue" 
-                                    [format]="'MMM dd, yyyy'"
-                                    style="width: 100%; border-radius: 0px;">
-                                </wj-input-date>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Status</label>
-                            <div class="col-sm-8">
-                                <wj-combo-box 
-                                    [itemsSource]="projectStatusArray" 
-                                    [placeholder]="'Select Status'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [(selectedValue)]="projectStatusSelectedValue"
-                                    style="width: 100%; border-radius: 0px;">
-                                </wj-combo-box>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Project Manager</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box 
+                                            [itemsSource]="projectManagerObservableArray" 
+                                            [placeholder]="'Select User'"
+                                            [displayMemberPath]="'FullName'" 
+                                            [selectedValuePath]="'Id'"
+                                            [isEditable]="false"
+                                            [isRequired]="true"
+                                            [(selectedValue)]="projectManagerSelectedValue"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-combo-box>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Project Start Date</label>
+                                    <div class="col-sm-8">
+                                        <wj-input-date
+                                            [(value)]="projectStartDateDataValue" 
+                                            [format]="'MMM dd, yyyy'"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-input-date>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Project End Date</label>
+                                    <div class="col-sm-8">
+                                        <wj-input-date
+                                            [(value)]="projectEndDateDataValue" 
+                                            [format]="'MMM dd, yyyy'"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-input-date>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Status</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box 
+                                            [itemsSource]="projectStatusArray" 
+                                            [placeholder]="'Select Status'"
+                                            [isEditable]="false"
+                                            [isRequired]="true"
+                                            [(selectedValue)]="projectStatusSelectedValue"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-combo-box>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

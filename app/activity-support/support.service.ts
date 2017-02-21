@@ -213,7 +213,7 @@ export class SupportService {
                         (<HTMLInputElement>document.getElementById("supportCaller")).value = results.Caller;
                         (<HTMLInputElement>document.getElementById("supportRemarks")).value = results.Remarks;
                         (<HTMLInputElement>document.getElementById("supportScreenShotURL")).value = results.ScreenShotURL;
-                        (<HTMLInputElement>document.getElementById("supportEncodedBySelectedValue")).value = results.EncodedByUserId;
+                        (<HTMLInputElement>document.getElementById("supportEncodedBySelectedValue")).value = results.EncodedByUser;
                         (<HTMLInputElement>document.getElementById("supportAssignedToSelectedValue")).value = results.AssignedToUserId;
                         (<HTMLInputElement>document.getElementById("supportStatusSelectedValue")).value = results.SupportStatus;
                         document.getElementById("btn-hidden-selectedValue-data").click();

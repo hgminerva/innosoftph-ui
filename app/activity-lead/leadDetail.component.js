@@ -83,7 +83,7 @@ var LeadDetailComponent = (function () {
     LeadDetailComponent.prototype.setDropdownSelectedValueData = function () {
         this.leadDateValue = new Date(document.getElementById("leadDateValue").value.toString());
         this.leadStatusSelectedValue = document.getElementById("leadStatusSelectedValue").value.toString();
-        this.leadEncodedBySelectedValue = parseInt(document.getElementById("leadEncodedBySelectedValue").value.toString());
+        // this.leadEncodedBySelectedValue = parseInt((<HTMLInputElement>document.getElementById("leadEncodedBySelectedValue")).value.toString());
         this.leadAssignedToSelectedValue = parseInt(document.getElementById("leadAssignedToSelectedValue").value.toString());
     };
     // get lead data

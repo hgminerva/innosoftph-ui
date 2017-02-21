@@ -45,7 +45,8 @@ export class SupportDetailComponent implements OnInit {
   public supportRemarks: String;
   public supportScreenShotURL: String;
   public supportEncodedUserObservableArray: wijmo.collections.ObservableArray;
-  public supportEncodedBySelectedValue: number;
+  // public supportEncodedBySelectedValue: number;
+  public supportEncodedBySelectedValue: String;
   public supportAssignedUserObservableArray: wijmo.collections.ObservableArray;
   public supportAssignedToSelectedValue: number;
   public supportAssignedToUserId: number;
@@ -170,7 +171,7 @@ export class SupportDetailComponent implements OnInit {
     this.supportCustomerSelectedValue = parseInt((<HTMLInputElement>document.getElementById("supportCustomerSelectedValue")).value.toString());
     this.supportIssueCategorySelectedValue = (<HTMLInputElement>document.getElementById("supportIssueCategorySelectedValue")).value.toString();
     this.supportSeveritySelectedValue = (<HTMLInputElement>document.getElementById("supportSeveritySelectedValue")).value.toString();
-    this.supportEncodedBySelectedValue = parseInt((<HTMLInputElement>document.getElementById("supportEncodedBySelectedValue")).value.toString());
+    // this.supportEncodedBySelectedValue = parseInt((<HTMLInputElement>document.getElementById("supportEncodedBySelectedValue")).value.toString());
     this.supportAssignedToSelectedValue = parseInt((<HTMLInputElement>document.getElementById("supportAssignedToSelectedValue")).value.toString());
     this.supportStatusSelectedValue = (<HTMLInputElement>document.getElementById("supportStatusSelectedValue")).value.toString();
     setTimeout(() => {

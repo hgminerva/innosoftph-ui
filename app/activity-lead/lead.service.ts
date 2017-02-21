@@ -108,7 +108,7 @@ export class LeadService {
                         (<HTMLInputElement>document.getElementById("leadContactNumber")).value = results.ContactPhoneNo;
                         (<HTMLInputElement>document.getElementById("leadReferredBy")).value = results.ReferredBy;
                         (<HTMLInputElement>document.getElementById("leadRemarks")).value = results.Remarks;
-                        (<HTMLInputElement>document.getElementById("leadEncodedBySelectedValue")).value = results.EncodedByUserId;
+                        (<HTMLInputElement>document.getElementById("leadEncodedBySelectedValue")).value = results.EncodedByUser;
                         (<HTMLInputElement>document.getElementById("leadAssignedToSelectedValue")).value = results.AssignedToUserId;
                         (<HTMLInputElement>document.getElementById("leadStatusSelectedValue")).value = results.LeadStatus;
                         document.getElementById("btn-hidden-selectedValue-data").click();
