@@ -31,6 +31,7 @@ export class SoftwareDevelopmentComponent implements OnInit {
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
   ];
   public softwareDevelopmentNoOfHoursSelectedValue = "0";
+  public softwareDevelopmentAssignedToUserId: number;
 
   // inject softwareDevelopment service
   constructor(
@@ -161,24 +162,59 @@ export class SoftwareDevelopmentComponent implements OnInit {
     this.getListProject();
   }
 
+  // get software development data
+  public getSoftwareDevelopmentDataValue() {
+    let softwareDevelopmentAssignedToUserIdValue = "NULL";
+    if (this.softwareDevelopmentAssignedUserSelectedValue != null) {
+      softwareDevelopmentAssignedToUserIdValue = this.softwareDevelopmentAssignedUserSelectedValue.toString();
+    }
+
+    let dataObject = {
+      SoftDevDate: this.softwareDevelopmentDateValue.toLocaleDateString(),
+      ProjectId: this.softwareDevelopmentProjectSelectedValue,
+      Task: (<HTMLButtonElement>document.getElementById("softwareDevelopmentTask")).value,
+      Remarks: (<HTMLButtonElement>document.getElementById("softwareDevelopmentRemarks")).value,
+      NumberOfHours: this.softwareDevelopmentNoOfHoursSelectedValue,
+      AssignedToUserId: softwareDevelopmentAssignedToUserIdValue,
+      SoftDevStatus: this.softwareDevelopmentStatusSelectedValue
+    }
+
+    return dataObject;
+  }
+
   // edit software development
   public btnEditSoftwareDevelopment() {
-
+    document.getElementById("btn-hidden-start-loading").click();
+    let currentSelectedSoftwareDevelopment = this.softwareDevelopmentCollectionView.currentItem;
+    this.router.navigate(['/softwareDevelopmentDetail', currentSelectedSoftwareDevelopment.Id]);
   }
 
   // delete software development
   public btnDeleteSoftwareDevelopmentClick() {
-
+    (<HTMLButtonElement>document.getElementById("btnDeleteSoftwareDevelopment")).innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
+    (<HTMLButtonElement>document.getElementById("btnDeleteSoftwareDevelopment")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnDeleteCloseSoftwareDevelopment")).disabled = false;
   }
 
   // delete confirm software development
   public btnDeleteConfirmSoftwareDevelopmentClick() {
-
+    this.startLoading();
+    let toastr: ToastsManager;
+    (<HTMLButtonElement>document.getElementById("btnDeleteSoftwareDevelopment")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
+    (<HTMLButtonElement>document.getElementById("btnDeleteSoftwareDevelopment")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnDeleteCloseSoftwareDevelopment")).disabled = true;
+    let currentSelectedSoftwareDevelopment = this.softwareDevelopmentCollectionView.currentItem;
+    this.softwareDevelopmentService.deleteSoftwareDevelopmentData(currentSelectedSoftwareDevelopment.Id, toastr);
   }
 
   // save software development
   public btnSaveSoftwareDevelopment() {
-
+    this.startLoading();
+    let toastr: ToastsManager;
+    (<HTMLButtonElement>document.getElementById("btnSaveSoftwareDevelopment")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
+    (<HTMLButtonElement>document.getElementById("btnSaveSoftwareDevelopment")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnCloseSoftwareDevelopment")).disabled = true;
+    this.softwareDevelopmentService.postSoftwareDevelopmentData(this.getSoftwareDevelopmentDataValue(), toastr);
   }
 
   // initialization

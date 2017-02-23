@@ -5,3 +5,316 @@
         </div>
     </div>
 </div>
+<div class="custom-content-a">
+    <div class="container">
+         <div class="well well-sm">
+            <a routerLink="/dashboard">Dashboard</a> &nbsp; / &nbsp; <a routerLink="/softwareDevelopment" (click)="startLoading()">Software Development </a> &nbsp; / &nbsp; Software Development Detail
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                 <table border="0" style="width: 100%;">
+                    <tr>
+                        <td align="right">
+                            <button class="btn btn-primary" id="btnSaveSoftwareDevelopmentDetail" name="btnSaveSoftwareDevelopmentDetail" (click)="btnSaveSoftwareDevelopmentDetailClick()"><i class="fa fa-save fa-fw"></i> Save</button>
+                            <button class="btn btn-danger" id="btnCloseSoftwareDevelopmentDetail" name="btnCloseSoftwareDevelopmentDetail" routerLink="/softwareDevelopment" (click)="startLoading()"><i class="fa fa-close fa-fw"></i> Close</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-body"> 
+                <div *ngIf="isLoading" align="center">
+                    <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
+                </div>
+                <div *ngIf="isFinishLoading">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">SoftDev Number</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" [(ngModel)]="softwareDevelopmentSelectedValue" [disabled]="true" class="form-control" id="softwareDevelopmentSelectedValue" name="softwareDevelopmentSelectedValue" placeholder="SoftDev Number" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">SoftDev Date</label>
+                                    <div class="col-sm-8">
+                                        <wj-input-date
+                                            [(value)]="softwareDevelopmentDateValue" 
+                                            [format]="'MMM dd, yyyy'"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-input-date>
+                                        <input type="hidden" class="form-control" id="softwareDevelopmentDateValue" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Project Number</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box 
+                                            [itemsSource]="softwareDevelopmentProjectObservableArray" 
+                                            [placeholder]="'Select Project Number'"
+                                            [displayMemberPath]="'ProjectNumberDetail'" 
+                                            [selectedValuePath]="'Id'"
+                                            [(selectedValue)]="softwareDevelopmentProjectSelectedValue"
+                                            [(selectedIndex)]="softwareDevelopmentProjectSelectedIndex"
+                                            [isEditable]="false"
+                                            [isRequired]="true"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-combo-box>
+                                        <input type="hidden" class="form-control" id="softwareDevelopmentProjectSelectedValue" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Task</label>
+                                    <div class="col-sm-8">
+                                        <textarea [(ngModel)]="softwareDevelopmentTask" class="form-control" rows="5" id="softwareDevelopmentTask" name="softwareDevelopmentTask"  placeholder="Remarks"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Remarks</label>
+                                    <div class="col-sm-8">
+                                        <textarea [(ngModel)]="softwareDevelopmentRemarks" class="form-control" rows="5" id="softwareDevelopmentRemarks" name="softwareDevelopmentRemarks"  placeholder="Remarks"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">No. of Hours</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box 
+                                            [itemsSource]="softwareDevelopmentNoOfHoursArray" 
+                                            [placeholder]="'Select No. of Hours'"
+                                            [isEditable]="false"
+                                            [isRequired]="true"
+                                            [(selectedValue)]="softwareDevelopmentNoOfHoursSelectedValue"
+                                            style="width: 30%; border-radius: 0px;">
+                                        </wj-combo-box>
+                                        <input type="hidden" class="form-control" id="softwareDevelopmentNoOfHoursSelectedValue" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Encoded By</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" [(ngModel)]="softwareDevelopmentEncodedBySelectedValue" [disabled]="true" class="form-control" id="softwareDevelopmentEncodedBySelectedValue" name="softwareDevelopmentEncodedBySelectedValue" placeholder="Staff" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Assigned To</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box 
+                                            [itemsSource]="softwareDevelopmentAssignedUserObservableArray" 
+                                            [placeholder]="'Select User'"
+                                            [displayMemberPath]="'FullName'" 
+                                            [selectedValuePath]="'Id'"
+                                            [(selectedValue)]="softwareDevelopmentAssignedUserSelectedValue"
+                                            [isEditable]="true"
+                                            [isRequired]="false"
+                                            style="width: 100%; border-radius: 0px; padding-left: 3px;">
+                                        </wj-combo-box>
+                                        <input type="hidden" class="form-control" id="softwareDevelopmentAssignedUserSelectedValue" />
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Status</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box 
+                                            [itemsSource]="softwareDevelopmentStatusArray" 
+                                            [placeholder]="'Select Status'"
+                                            [isEditable]="false"
+                                            [isRequired]="true"
+                                            [(selectedValue)]="softwareDevelopmentStatusSelectedValue"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-combo-box>
+                                        <input type="hidden" class="form-control" id="softwareDevelopmentStatusSelectedValue" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <table border="0" style="width: 100%;">
+                                <tr>
+                                    <td>
+                                        <h4> Activity  </h4>
+                                    </td>
+                                    <td align="right">
+                                        <button class="btn btn-primary" (click)="btnActivityDetailModal(true)" data-toggle="modal"  data-backdrop="static" data-keyboard="false" data-target="#activity-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <div class="panel-body">
+                            <wj-flex-grid [itemsSource]="activityCollectionView" [selectionMode]="3" style="border-radius: 0px;" [frozenColumns]="3">
+                                <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="60">
+                                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                                        <button class="btn btn-primary btn-xs btn-block" (click)="btnActivityDetailModal(false)" data-toggle="modal"  data-backdrop="static" data-keyboard="false" data-target="#activity-detail-modal">
+                                            <i class="fa fa-edit fa-fw"></i> Edit
+                                        </button>
+                                    </template>
+                                </wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="80">
+                                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                                        <button class="btn btn-danger btn-xs btn-block" (click)="btnActivityDeleteConfirmationModal()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#activity-delete-confirmation-modal">
+                                            <i class="fa fa-trash fa-fw"></i> Delete
+                                        </button>
+                                    </template>
+                                </wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="Print" [isReadOnly]="true" [isContentHtml]="true" [width]="70">
+                                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                                        <button class="btn btn-primary btn-xs btn-block" (click)="btnActivityPrintClick()">
+                                            <i class="fa fa-print fa-fw"></i> Print
+                                        </button>
+                                    </template>
+                                </wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Activity No.'" [binding]="'ActivityNumber'" [isReadOnly]="true" [width]="'1*'">
+                                </wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Activity Date'" [binding]="'ActivityDate'" [isReadOnly]="true" [width]="'1*'">
+                                </wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Staff'" [binding]="'StaffUser'" [isReadOnly]="true" [width]="'2*'">
+                                </wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Particualrs'" [binding]="'Particulars'" [isReadOnly]="true" [width]="'2.5*'">
+                                </wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Status'" [binding]="'ActivityStatus'" [isReadOnly]="true" [width]="'1.5*'">
+                                </wj-flex-grid-column>
+                            </wj-flex-grid>
+                        </div>
+                        <div class="panel-footer">
+                            <div class="row">
+                                <div class="col-sm-12 btn-group" id="">
+                                    <button type="button" class="btn btn-default" (click)="activityCollectionView.moveToFirstPage()">
+                                        <span class="glyphicon glyphicon-fast-backward"></span> First
+                                    </button>
+                                    <button type="button" class="btn btn-default" (click)="activityCollectionView.moveToPreviousPage()">
+                                        <span class="glyphicon glyphicon-step-backward"></span> Previous
+                                    </button>
+                                    <button type="button" class="btn btn-default" disabled  style="width:100px">
+                                        {{ activityCollectionView.pageIndex + 1 }} / {{ activityCollectionView.pageCount }}
+                                    </button>
+                                    <button type="button" class="btn btn-default" (click)="activityCollectionView.moveToNextPage()">
+                                        Next <span class="glyphicon glyphicon-step-forward"></span>
+                                    </button>
+                                    <button type="button" class="btn btn-default" (click)="activityCollectionView.moveToLastPage()">
+                                        Last <span class="glyphicon glyphicon-fast-forward"></span>
+                                    </button>
+                                </div> 
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- activity  detail modal -->
+<div class="modal fade" id="activity-detail-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ activityDetailModalString }} Activity</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Activity Date</label>
+                        <div class="col-sm-8">
+                                <wj-input-date
+                                [(value)]="activityDateValue" 
+                                [format]="'MMM dd, yyyy'"
+                                style="width: 100%; border-radius: 0px;">
+                            </wj-input-date>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Particular Category</label>
+                        <div class="col-sm-8">
+                                <wj-combo-box 
+                                [itemsSource]="activityParticularCategories" 
+                                [placeholder]="'Select Particular Category'"
+                                [isEditable]="false"
+                                [isRequired]="true"
+                                [(selectedValue)]="activityParticularCategorySelectedValue"
+                                style="width: 100%; border-radius: 0px;">
+                            </wj-combo-box>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Particulars</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" rows="3" id="activityParticulars" name="Particulars" placeholder="Particulars"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">No. of Hours</label>
+                        <div class="col-sm-8">
+                            <wj-combo-box 
+                                [itemsSource]="activityNoOfHours" 
+                                [placeholder]="'Select No. of Hours'"
+                                [isEditable]="false"
+                                [isRequired]="true"
+                                [(selectedValue)]="activityNoOfHoursSelectedValue"
+                                style="width: 30%; border-radius: 0px;">
+                            </wj-combo-box>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Amount</label>
+                        <div class="col-sm-8">
+                            <input type="text" style="text-align: right;" [(ngModel)]="activityAmount" (keypress)="onKeyPressOnlyDecimalNumberKey($event)" (blur)="onBlurOnlyDecimalNumberKey()" class="form-control" id="activityAmount" name="" placeholder="0.00" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Status</label>
+                        <div class="col-sm-8">
+                            <wj-combo-box 
+                                [itemsSource]="activityStatus" 
+                                [placeholder]="'Select Status'"
+                                [isEditable]="false"
+                                [isRequired]="true"
+                                [(selectedValue)]="activityStatusSelectedValue"
+                                style="width: 100%; border-radius: 0px;">
+                            </wj-combo-box>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" align="right">
+                <button type="button" class="btn btn-primary" id="btnActivitySave" (click)="btnActivitySaveClick()"><i class="fa fa-save fa-fw"></i> Save</button>
+                <button type="button" class="btn btn-danger" id="btnActivityClose" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- delete modal -->
+<div class="modal fade" id="activity-delete-confirmation-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete</h4>
+            </div>
+            <div class="modal-body">
+                Delete Activity?
+            </div>
+            <div class="modal-footer" align="right">
+                <button type="button" class="btn btn-danger" id="btnActivityDeleteConfirmation" (click)="btnActivityDeleteConfirmationClick()"><i class="fa fa-trash fa-fw"></i> Delete</button>
+                <button type="button" class="btn btn-default" id="btnActivityCloseDeleteConfirmation" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- hidden elements to execute functions in API services -->
+<button id="btn-hidden-start-loading" [hidden]="true" (click)="startLoading()"></button>
+<button id="btn-hidden-complete-loading" [hidden]="true" (click)="completeLoading()"></button>
+<button id="btn-hidden-project-data" [hidden]="true" (click)="getListProject()"></button>
+<button id="btn-hidden-user-data" [hidden]="true" (click)="getListUser()"></button>
+<button id="btn-hidden-software-development-data" [hidden]="true" (click)="getSoftwareDevelopmentServiceData()"></button>
+<button id="btn-hidden-selectedValue-data" [hidden]="true" (click)="setDropdownSelectedValueData()"></button>
+<button id="btn-hidden-activity-delete-modal" [hidden]="true" data-toggle="modal" data-target="#activity-delete-confirmation-modal"></button>
+<button id="btn-hidden-activity-detail-modal" [hidden]="true" data-toggle="modal" data-target="#activity-detail-modal"></button>
+<button id="btn-hidden-activity-data" [hidden]="true" (click)="getListActivity(true)"></button>
+<button id="btn-hidden-finished-load" [hidden]="true" (click)="finishedLoad()"></button>

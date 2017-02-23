@@ -140,17 +140,53 @@ var SoftwareDevelopmentComponent = (function () {
         this.softwareDevelopmentDateValue = new Date();
         this.getListProject();
     };
+    // get software development data
+    SoftwareDevelopmentComponent.prototype.getSoftwareDevelopmentDataValue = function () {
+        var softwareDevelopmentAssignedToUserIdValue = "NULL";
+        if (this.softwareDevelopmentAssignedUserSelectedValue != null) {
+            softwareDevelopmentAssignedToUserIdValue = this.softwareDevelopmentAssignedUserSelectedValue.toString();
+        }
+        var dataObject = {
+            SoftDevDate: this.softwareDevelopmentDateValue.toLocaleDateString(),
+            ProjectId: this.softwareDevelopmentProjectSelectedValue,
+            Task: document.getElementById("softwareDevelopmentTask").value,
+            Remarks: document.getElementById("softwareDevelopmentRemarks").value,
+            NumberOfHours: this.softwareDevelopmentNoOfHoursSelectedValue,
+            AssignedToUserId: softwareDevelopmentAssignedToUserIdValue,
+            SoftDevStatus: this.softwareDevelopmentStatusSelectedValue
+        };
+        return dataObject;
+    };
     // edit software development
     SoftwareDevelopmentComponent.prototype.btnEditSoftwareDevelopment = function () {
+        document.getElementById("btn-hidden-start-loading").click();
+        var currentSelectedSoftwareDevelopment = this.softwareDevelopmentCollectionView.currentItem;
+        this.router.navigate(['/softwareDevelopmentDetail', currentSelectedSoftwareDevelopment.Id]);
     };
     // delete software development
     SoftwareDevelopmentComponent.prototype.btnDeleteSoftwareDevelopmentClick = function () {
+        document.getElementById("btnDeleteSoftwareDevelopment").innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
+        document.getElementById("btnDeleteSoftwareDevelopment").disabled = false;
+        document.getElementById("btnDeleteCloseSoftwareDevelopment").disabled = false;
     };
     // delete confirm software development
     SoftwareDevelopmentComponent.prototype.btnDeleteConfirmSoftwareDevelopmentClick = function () {
+        this.startLoading();
+        var toastr;
+        document.getElementById("btnDeleteSoftwareDevelopment").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
+        document.getElementById("btnDeleteSoftwareDevelopment").disabled = true;
+        document.getElementById("btnDeleteCloseSoftwareDevelopment").disabled = true;
+        var currentSelectedSoftwareDevelopment = this.softwareDevelopmentCollectionView.currentItem;
+        this.softwareDevelopmentService.deleteSoftwareDevelopmentData(currentSelectedSoftwareDevelopment.Id, toastr);
     };
     // save software development
     SoftwareDevelopmentComponent.prototype.btnSaveSoftwareDevelopment = function () {
+        this.startLoading();
+        var toastr;
+        document.getElementById("btnSaveSoftwareDevelopment").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
+        document.getElementById("btnSaveSoftwareDevelopment").disabled = true;
+        document.getElementById("btnCloseSoftwareDevelopment").disabled = true;
+        this.softwareDevelopmentService.postSoftwareDevelopmentData(this.getSoftwareDevelopmentDataValue(), toastr);
     };
     // initialization
     SoftwareDevelopmentComponent.prototype.ngOnInit = function () {
