@@ -16,6 +16,8 @@ var DashboardComponent = (function () {
     function DashboardComponent(router, slimLoadingBarService) {
         this.router = router;
         this.slimLoadingBarService = slimLoadingBarService;
+        this.isLoadingDashboard = true;
+        this.isFinishedLoadingDashboard = false;
     }
     // start loading
     DashboardComponent.prototype.startLoading = function () {
@@ -28,8 +30,15 @@ var DashboardComponent = (function () {
     };
     // initialization
     DashboardComponent.prototype.ngOnInit = function () {
+        var _this = this;
         if (!localStorage.getItem('access_token')) {
             this.router.navigate(['login']);
+        }
+        else {
+            setTimeout(function () {
+                _this.isLoadingDashboard = false;
+                _this.isFinishedLoadingDashboard = true;
+            }, 500);
         }
     };
     DashboardComponent = __decorate([

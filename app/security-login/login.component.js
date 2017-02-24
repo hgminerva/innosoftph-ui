@@ -11,17 +11,28 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
 var ng2_toastr_1 = require('ng2-toastr/ng2-toastr');
+var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
 // inject services
 var login_service_1 = require('./login.service');
 var LoginComponent = (function () {
     // constructor
-    function LoginComponent(router, loginService, toastr, vRef) {
+    function LoginComponent(router, loginService, toastr, vRef, slimLoadingBarService) {
         this.router = router;
         this.loginService = loginService;
         this.toastr = toastr;
         this.vRef = vRef;
+        this.slimLoadingBarService = slimLoadingBarService;
         this.toastr.setRootViewContainerRef(vRef);
     }
+    // start loading
+    LoginComponent.prototype.startLoading = function () {
+        this.slimLoadingBarService.progress = 30;
+        this.slimLoadingBarService.start();
+    };
+    // complete loading
+    LoginComponent.prototype.completeLoading = function () {
+        this.slimLoadingBarService.complete();
+    };
     // login with login services injected
     LoginComponent.prototype.login = function (username, password, toastr) {
         document.getElementById("login").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Logging in";
@@ -39,7 +50,7 @@ var LoginComponent = (function () {
             selector: 'my-login',
             templateUrl: 'app/security-login/login.html'
         }), 
-        __metadata('design:paramtypes', [router_1.Router, login_service_1.LoginService, ng2_toastr_1.ToastsManager, core_1.ViewContainerRef])
+        __metadata('design:paramtypes', [router_1.Router, login_service_1.LoginService, ng2_toastr_1.ToastsManager, core_1.ViewContainerRef, ng2_slim_loading_bar_1.SlimLoadingBarService])
     ], LoginComponent);
     return LoginComponent;
 }());

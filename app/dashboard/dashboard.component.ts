@@ -8,6 +8,9 @@ import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 })
 
 export class DashboardComponent implements OnInit {
+  public isLoadingDashboard = true;
+  public isFinishedLoadingDashboard = false;
+
   // constructor
   constructor(
     private router: Router,
@@ -29,6 +32,11 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
     if (!localStorage.getItem('access_token')) {
       this.router.navigate(['login']);
+    } else {
+      setTimeout(() => {
+        this.isLoadingDashboard = false;
+        this.isFinishedLoadingDashboard = true;
+      }, 500);
     }
   }
 }

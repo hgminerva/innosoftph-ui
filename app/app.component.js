@@ -22,18 +22,6 @@ var AppComponent = (function () {
         this.isLoggedIn = true;
         this.isLoggedInDropdown = false;
     }
-    // logout
-    AppComponent.prototype.logout = function () {
-        var _this = this;
-        localStorage.removeItem('access_token');
-        localStorage.removeItem('expires_in');
-        localStorage.removeItem('token_type');
-        localStorage.removeItem('userName');
-        location.reload();
-        setTimeout(function () {
-            _this.router.navigate(['/home']);
-        }, 500);
-    };
     // start loading
     AppComponent.prototype.startLoading = function () {
         this.slimLoadingBarService.progress = 30;
@@ -43,8 +31,38 @@ var AppComponent = (function () {
     AppComponent.prototype.completeLoading = function () {
         this.slimLoadingBarService.complete();
     };
-    // initialization
-    AppComponent.prototype.ngOnInit = function () {
+    // logout
+    AppComponent.prototype.logout = function () {
+        var _this = this;
+        document.getElementById("btnLogout").disabled = true;
+        document.getElementById("btnLogoutClose").disabled = true;
+        document.getElementById("btnLogout").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Logging out";
+        localStorage.removeItem('access_token');
+        localStorage.removeItem('expires_in');
+        localStorage.removeItem('token_type');
+        localStorage.removeItem('userName');
+        setTimeout(function () {
+            document.getElementById("btn-hidden-logout-modal").click();
+            _this.router.navigate(['/home']);
+            _this.headerCurrentUserChanges();
+        }, 500);
+    };
+    // logout changes
+    AppComponent.prototype.logoutChanges = function () {
+        document.getElementById("btnLogout").disabled = false;
+        document.getElementById("btnLogoutClose").disabled = false;
+        document.getElementById("btnLogout").innerHTML = "<i class='fa fa-power-off fa-fw'></i> Logout";
+    };
+    // login changes
+    AppComponent.prototype.loginChanges = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.router.navigate(['/dashboard']);
+            _this.headerCurrentUserChanges();
+        }, 500);
+    };
+    // header changes
+    AppComponent.prototype.headerCurrentUserChanges = function () {
         if (localStorage.getItem('access_token')) {
             var currentUser = localStorage.getItem('userName');
             this.headerLogin = "YOU  <i class='fa fa-caret-down fa-fw'></i>";
@@ -55,7 +73,13 @@ var AppComponent = (function () {
         else {
             this.headerLogin = "LOGIN";
             this.headerCurrentLoggedInUser = "Please Login";
+            this.isLoggedIn = true;
+            this.isLoggedInDropdown = false;
         }
+    };
+    // initialization
+    AppComponent.prototype.ngOnInit = function () {
+        this.headerCurrentUserChanges();
     };
     AppComponent = __decorate([
         core_1.Component({

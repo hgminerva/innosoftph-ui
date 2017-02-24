@@ -43,7 +43,7 @@
                         <li><a href="#" [innerHTML]="headerCurrentLoggedInUser" routerLink="/dashboard"></a></li>
                         <li class="divider"></li>
                         <li><a routerLink="/dashboard"><i class="fa fa-dashboard fa-fw"></i> &nbsp; Dashboard</a></li>
-                        <li><a (click)="logout()" routerLink="/dashboard"><i class="fa fa-power-off fa-fw"></i> &nbsp; Logout</a></li>
+                        <li><a href="" data-toggle="modal" data-backdrop="static" data-target="#logout-modal" (click)="logoutChanges()"><i class="fa fa-power-off fa-fw"></i> &nbsp; Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -51,5 +51,30 @@
     </div>
 </nav>
 <ng2-slim-loading-bar [height]="'3px'"></ng2-slim-loading-bar>
+
+<!-- logout modal -->
+<div class="modal fade" id="logout-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Logout</h4>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to logout?
+            </div>
+            <div class="modal-footer" align="right">
+                <button type="button" id="btnLogout" class="btn btn-primary" (click)="logout()"><i class="fa fa-power-off fa-fw"></i> Logout</button>
+                <button type="button" id="btnLogoutClose" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- hidden elements to execute functions in API services -->
+<button id="btn-hidden-login-changes" [hidden]="true" (click)="loginChanges()"></button>
+<button id="btn-hidden-start-loading" [hidden]="true" (click)="startLoading()"></button>
+<button id="btn-hidden-complete-loading" [hidden]="true" (click)="completeLoading()"></button>
+<button id="btn-hidden-logout-modal" [hidden]="true" data-toggle="modal" data-backdrop="static" data-target="#logout-modal"></button>
+
 <router-outlet></router-outlet>
 <my-footer></my-footer>

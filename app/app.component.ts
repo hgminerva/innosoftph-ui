@@ -17,18 +17,6 @@ export class AppComponent implements OnInit {
   public isLoggedIn = true;
   public isLoggedInDropdown = false;
 
-  // logout
-  public logout() {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('expires_in');
-    localStorage.removeItem('token_type');
-    localStorage.removeItem('userName');
-    location.reload();
-    setTimeout(() => {
-      this.router.navigate(['/home']);
-    }, 500);
-  }
-
   // start loading
   public startLoading() {
     this.slimLoadingBarService.progress = 30;
@@ -40,8 +28,39 @@ export class AppComponent implements OnInit {
     this.slimLoadingBarService.complete();
   }
 
-  // initialization
-  ngOnInit() {
+  // logout
+  public logout() {
+    (<HTMLButtonElement>document.getElementById("btnLogout")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnLogoutClose")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnLogout")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Logging out";
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('expires_in');
+    localStorage.removeItem('token_type');
+    localStorage.removeItem('userName');
+    setTimeout(() => {
+      document.getElementById("btn-hidden-logout-modal").click();
+      this.router.navigate(['/home']);
+      this.headerCurrentUserChanges();
+    }, 500);
+  }
+
+  // logout changes
+  public logoutChanges() {
+    (<HTMLButtonElement>document.getElementById("btnLogout")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnLogoutClose")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnLogout")).innerHTML = "<i class='fa fa-power-off fa-fw'></i> Logout";
+  }
+
+  // login changes
+  public loginChanges() {
+    setTimeout(() => {
+      this.router.navigate(['/dashboard']);
+      this.headerCurrentUserChanges();
+    }, 500);
+  }
+
+  // header changes
+  public headerCurrentUserChanges() {
     if (localStorage.getItem('access_token')) {
       let currentUser = localStorage.getItem('userName');
       this.headerLogin = "YOU  <i class='fa fa-caret-down fa-fw'></i>";
@@ -51,6 +70,13 @@ export class AppComponent implements OnInit {
     } else {
       this.headerLogin = "LOGIN";
       this.headerCurrentLoggedInUser = "Please Login";
+      this.isLoggedIn = true;
+      this.isLoggedInDropdown = false;
     }
+  }
+
+  // initialization
+  ngOnInit() {
+    this.headerCurrentUserChanges();
   }
 }
