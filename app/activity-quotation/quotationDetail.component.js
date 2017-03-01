@@ -234,6 +234,10 @@ var QuotationDetailComponent = (function () {
         var currentSelectedActivity = this.activityCollectionView.currentItem;
         window.open('http://api.innosoft.ph/RepActivityTicket/activityTicket?activityId=' + currentSelectedActivity.Id, "_target");
     };
+    // show menu
+    QuotationDetailComponent.prototype.showMenu = function () {
+        document.getElementById("showTop").click();
+    };
     // initialization
     QuotationDetailComponent.prototype.ngOnInit = function () {
         if (!localStorage.getItem('access_token')) {

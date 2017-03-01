@@ -1,7 +1,11 @@
 <div class="content-section-b">
     <div class="section-heading-custom">
         <div class="container">
+            <button class="menu-button pull-right" (click)="showMenu()"><i class="fa fa-bars fa-3x"></i></button>
             <h1 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: #fff; font-size: 35px;">SUPPORT</h1>
+            <p class="lead">
+                List of Supports
+            </p>
         </div>
     </div>
 </div>
@@ -76,19 +80,21 @@
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="'Support No.'" [binding]="'SupportNumber'" [isReadOnly]="true" [width]="'1.6*'">
                     </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'Date'" [binding]="'SupportDate'" [isReadOnly]="true" [width]="'1.3*'">
+                    <wj-flex-grid-column [header]="'Date'" [binding]="'SupportDate'" [isReadOnly]="true" [width]="'1.2*'">
                     </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'Customer'" [binding]="'Customer'" [isReadOnly]="true" [width]="'1.8*'">
+                    <wj-flex-grid-column [header]="'Customer'" [binding]="'Customer'" [isReadOnly]="true" [width]="'1.6*'">
                     </wj-flex-grid-column>
-                     <wj-flex-grid-column [header]="'Product'" [binding]="'Product'" [isReadOnly]="true" [width]="'1.8*'">
+                     <wj-flex-grid-column [header]="'Product'" [binding]="'Product'" [isReadOnly]="true" [width]="'1.6*'">
                     </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'Issue'" [binding]="'Issue'" [isReadOnly]="true" [width]="'1.9*'">
+                    <wj-flex-grid-column [header]="'Issue'" [binding]="'Issue'" [isReadOnly]="true" [width]="'1.7*'">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Type'" [binding]="'SupportType'" [isReadOnly]="true" [width]="'1.2*'">
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="'Encoded By'" [binding]="'EncodedByUser'" [isReadOnly]="true" [width]="'1.5*'">
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="'Assigned To'" [binding]="'AssignedToUser'" [isReadOnly]="true" [width]="'1.5*'">
                     </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'Remarks'" [binding]="'Remarks'" [isReadOnly]="true" [width]="'1.9*'">
+                    <wj-flex-grid-column [header]="'Remarks'" [binding]="'Remarks'" [isReadOnly]="true" [width]="'1.6*'">
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="'Status'" [binding]="'SupportStatus'" [isReadOnly]="true" [width]="'1.5*'">
                     </wj-flex-grid-column>
@@ -193,6 +199,19 @@
                                     <label class="control-label col-sm-4">Issue</label>
                                     <div class="col-sm-8">
                                         <textarea [(ngModel)]="supportIssue" class="form-control" rows="5" id="supportIssue" name="supportIssue"  placeholder="Issue"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Support Type</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box 
+                                            [itemsSource]="supportTypeArray" 
+                                            [placeholder]="'Select Type'"
+                                            [isEditable]="false"
+                                            [isRequired]="true"
+                                            [(selectedValue)]="supportTypeSelectedValue"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-combo-box>
                                     </div>
                                 </div>
                                 <div class="form-group">

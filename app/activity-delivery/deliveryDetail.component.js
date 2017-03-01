@@ -239,6 +239,10 @@ var DeliveryDetailComponent = (function () {
         var currentSelectedActivity = this.activityCollectionView.currentItem;
         window.open('http://api.innosoft.ph/RepActivityTicket/activityTicket?activityId=' + currentSelectedActivity.Id, "_target");
     };
+    // show menu
+    DeliveryDetailComponent.prototype.showMenu = function () {
+        document.getElementById("showTop").click();
+    };
     // initialization
     DeliveryDetailComponent.prototype.ngOnInit = function () {
         if (!localStorage.getItem('access_token')) {

@@ -38,6 +38,8 @@ var SupportActivityComponent = (function () {
             'Data Archive'
         ];
         this.supportIssueCategorySelectedValue = "New Installation";
+        this.supportTypeArray = ["Technical", "Functional"];
+        this.supportTypeSelectedValue = "Technical";
         this.supportSeverityArray = [
             'High (3hrs. resolution)',
             'Moderate (1 day resolution)',
@@ -156,7 +158,6 @@ var SupportActivityComponent = (function () {
     // support values
     SupportActivityComponent.prototype.getSupportObjectValue = function () {
         var assignedToUserIdValue = "NULL";
-        console.log(this.supportAssignedToSelectedValue);
         if (this.supportAssignedToSelectedValue != null) {
             assignedToUserIdValue = this.supportAssignedToSelectedValue.toString();
         }
@@ -166,6 +167,7 @@ var SupportActivityComponent = (function () {
             IssueCategory: this.supportIssueCategorySelectedValue,
             Issue: this.supportIssue,
             CustomerId: this.supportCustomerSelectedValue,
+            SupportType: this.supportTypeSelectedValue,
             Severity: this.supportSeveritySelectedValue,
             Caller: this.supportCaller,
             Remarks: this.supportRemarks,
@@ -227,6 +229,10 @@ var SupportActivityComponent = (function () {
     // assigned to user list
     SupportActivityComponent.prototype.getListAssignedToUser = function () {
         this.supportAssignedUserObservableArray = this.supportService.getListUserData("support", "assignedToUser");
+    };
+    // show menu
+    SupportActivityComponent.prototype.showMenu = function () {
+        document.getElementById("showTop").click();
     };
     // initialization
     SupportActivityComponent.prototype.ngOnInit = function () {

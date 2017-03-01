@@ -1,7 +1,11 @@
 <div class="content-section-b">
     <div class="section-heading-custom">
         <div class="container">
+            <button class="menu-button pull-right" (click)="showMenu()"><i class="fa fa-bars fa-3x"></i></button>
             <h1 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: #fff; font-size: 35px;">LEADS</h1>
+            <p class="lead">
+                List of Leads
+            </p>
         </div>
     </div>
 </div>
@@ -35,7 +39,6 @@
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
                                 <wj-input-date
                                     [(value)]="leadStartDateValue" 
-                                    [max]="leadEndDateValue"
                                     [format]="'MMM dd, yyyy'"
                                     (valueChanged)="leadStartDateOnValueChanged()"
                                     style="border-radius: 0px;">
@@ -47,7 +50,6 @@
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
                                 <wj-input-date
                                     [(value)]="leadEndDateValue" 
-                                    [min]="leadStartDateValue"
                                     [format]="'MMM dd, yyyy'"
                                     (valueChanged)="leadEndDateOnValueChanged()"
                                     style="border-radius: 0px;">

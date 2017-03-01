@@ -16,7 +16,7 @@
                 <!--<li>
                     <a routerLink="/home">HOME</a>
                 </li>-->
-                <li class="dropdown">
+                <!--<li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">HOME <i class="fa fa-caret-down fa-fw"></i></a>
                     <ul class="dropdown-menu">
                          <li><a routerLink="/home"><i class="fa fa-desktop fa-fw"></i> &nbsp; POS</a></li>
@@ -24,6 +24,9 @@
                         <li><a routerLink="/home"><i class="fa fa-laptop fa-fw"></i> &nbsp; HRIS</a></li>
                         <li><a routerLink="/home"><i class="fa fa-tablet fa-fw"></i> &nbsp; Easyfis</a></li>
                     </ul>
+                </li>-->
+                <li>
+                    <a routerLink="/home">HOME</a>
                 </li>
                 <li>
                     <a routerLink="/about">ABOUT</a>
@@ -70,10 +73,65 @@
     </div>
 </div>
 
+<nav class="cbp-spmenu cbp-spmenu-horizontal cbp-spmenu-top" id="cbp-spmenu-s3">
+    <div class="container">
+        <div class="top-menus">
+            <div class="row">
+                <div class="col-md-2">
+                    <h3 style="color: #2e6da4;">Sales</h3>
+                    <button routerLink="/lead" (click)="showMenu()" class="btn btn-primary btn-menus btn-lg btn-block"> Leads</button>
+                    <button routerLink="/quotation" (click)="showMenu()"  class="btn btn-primary btn-menus btn-lg btn-block"> Quotation</button>
+                    <button routerLink="/delivery" (click)="showMenu()"  class="btn btn-primary btn-menus btn-lg btn-block"> Kick-Off</button>
+                    <button routerLink="/activity" (click)="showMenu()"  class="btn btn-primary btn-menus btn-lg btn-block"> Activities</button>
+                    <button  class="btn btn-primary btn-menus btn-lg btn-block"> Reports</button>
+                    <br />
+                </div>
+                <div class="col-md-2">
+                    <h3 style="color: #2e6da4;">Support</h3>
+                    <button routerLink="/delivery" (click)="showMenu()"  class="btn btn-primary btn-menus btn-lg btn-block"> Product Delivery</button>
+                    <button routerLink="/continuity" (click)="showMenu()"  class="btn btn-primary btn-menus btn-lg btn-block"> BCS</button>
+                    <button routerLink="/supportActivity" (click)="showMenu()"  class="btn btn-primary btn-menus btn-lg btn-block"> Support</button>
+                    <button routerLink="/activity" (click)="showMenu()"  class="btn btn-primary btn-menus btn-lg btn-block"> Activities</button>
+                    <button class="btn btn-primary btn-menus btn-lg btn-block"> Reports</button>
+                    <br />
+                </div>
+                <div class="col-md-3">
+                    <h3 style="color: #2e6da4;">Soft-Dev</h3>
+                    <button routerLink="/project" (click)="showMenu()"  class="btn btn-primary btn-menus btn-lg btn-block"> Project</button>
+                    <button routerLink="/softwareDevelopment" (click)="showMenu()"  class="btn btn-primary btn-menus btn-lg btn-block"> Software Development</button>
+                    <button routerLink="/activity" (click)="showMenu()"  class="btn btn-primary btn-menus btn-lg btn-block"> Activities</button>
+                    <button class="btn btn-primary btn-menus btn-lg btn-block"> Reports</button>
+                    <br />
+                </div>
+                <div class="col-md-3">
+                    <h3 style="color: #2e6da4;">Admin</h3>
+                    <button class="btn btn-primary btn-menus btn-lg btn-block"> Request to Purchase</button>
+                    <button class="btn btn-primary btn-menus btn-lg btn-block"> Request for Payment</button>
+                    <button class="btn btn-primary btn-menus btn-lg btn-block"> Leave Application</button>
+                    <button class="btn btn-primary btn-menus btn-lg btn-block"> OT Application</button>
+                    <button class="btn btn-primary btn-menus btn-lg btn-block"> Memo</button>
+                    <button class="btn btn-primary btn-menus btn-lg btn-block"> Reports</button>
+                    <br />
+                </div>
+                <div class="col-md-2">
+                    <h3 style="color: #3f903f;">Setup</h3>
+                    <button routerLink="/customer" (click)="showMenu()"  class="btn btn-success btn-menus2 btn-lg btn-block"> Customer</button>
+                    <button routerLink="/product" (click)="showMenu()"  class="btn btn-success btn-menus2 btn-lg btn-block"> Product</button>
+                    <button routerLink="/user" (click)="showMenu()"  class="btn btn-success btn-menus2 btn-lg btn-block"> User</button>
+                    <hr />
+                    <button class="btn btn-danger btn-menus3 btn-lg btn-block" (click)="showMenu()"><i class="fa fa-close fa-fw"></i> Close</button>
+                    <br />
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
 <!-- hidden elements to execute functions in API services -->
 <button id="btn-hidden-login-changes" [hidden]="true" (click)="loginChanges()"></button>
 <button id="btn-hidden-start-loading" [hidden]="true" (click)="startLoading()"></button>
 <button id="btn-hidden-complete-loading" [hidden]="true" (click)="completeLoading()"></button>
+<button [hidden]="true" id="showTop"></button>
 <button id="btn-hidden-logout-modal" [hidden]="true" data-toggle="modal" data-backdrop="static" data-target="#logout-modal"></button>
 
 <router-outlet></router-outlet>

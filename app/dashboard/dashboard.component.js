@@ -13,9 +13,10 @@ var router_1 = require('@angular/router');
 var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
 var DashboardComponent = (function () {
     // constructor
-    function DashboardComponent(router, slimLoadingBarService) {
+    function DashboardComponent(router, slimLoadingBarService, elementRef) {
         this.router = router;
         this.slimLoadingBarService = slimLoadingBarService;
+        this.elementRef = elementRef;
         this.isLoadingDashboard = true;
         this.isFinishedLoadingDashboard = false;
     }
@@ -27,6 +28,10 @@ var DashboardComponent = (function () {
     // complete loading
     DashboardComponent.prototype.completeLoading = function () {
         this.slimLoadingBarService.complete();
+    };
+    // show menu
+    DashboardComponent.prototype.showMenu = function () {
+        document.getElementById("showTop").click();
     };
     // initialization
     DashboardComponent.prototype.ngOnInit = function () {
@@ -46,7 +51,7 @@ var DashboardComponent = (function () {
             selector: 'my-dashboard',
             templateUrl: 'app/dashboard/dashboard.html'
         }), 
-        __metadata('design:paramtypes', [router_1.Router, ng2_slim_loading_bar_1.SlimLoadingBarService])
+        __metadata('design:paramtypes', [router_1.Router, ng2_slim_loading_bar_1.SlimLoadingBarService, core_1.ElementRef])
     ], DashboardComponent);
     return DashboardComponent;
 }());

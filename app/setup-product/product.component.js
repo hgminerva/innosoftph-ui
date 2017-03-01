@@ -75,6 +75,10 @@ var ProductComponent = (function () {
         }
         return true;
     };
+    // show menu
+    ProductComponent.prototype.showMenu = function () {
+        document.getElementById("showTop").click();
+    };
     // initialization
     ProductComponent.prototype.ngOnInit = function () {
         this.getProductList();

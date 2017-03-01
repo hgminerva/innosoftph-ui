@@ -83,6 +83,11 @@ export class ProductComponent {
     return true;
   }
 
+  // show menu
+  public showMenu() {
+      document.getElementById("showTop").click();
+  }
+  
   // initialization
   ngOnInit() {
     this.getProductList();

@@ -273,6 +273,11 @@ export class ContinuityComponent {
     this.continuityService.deleteContinuityData(currentSelectedContinuity.Id, toastr);
   }
 
+  // show menu
+  public showMenu() {
+      document.getElementById("showTop").click();
+  }
+  
   // initialization
   ngOnInit() {
     this.setContinuityDateRanged();

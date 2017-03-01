@@ -40,6 +40,8 @@ export class LeadComponent implements OnInit {
   public valid: Boolean;
   public validNull: Boolean;
   public isValidNullValues: Boolean;
+  public isStartDateClicked = false;
+  public isEndDateClicked = false;
 
   // inject lead service
   constructor(
@@ -90,6 +92,7 @@ export class LeadComponent implements OnInit {
 
   // lead service data
   public getLeadData() {
+    this.startLoading();
     this.leadCollectionView = new wijmo.collections.CollectionView(this.leadService.getListLeadData(this.leadStartDateValue, this.leadEndDateValue));
     this.leadCollectionView.filter = this.filterFunction.bind(this);
     this.leadCollectionView.pageSize = 15;
@@ -132,8 +135,13 @@ export class LeadComponent implements OnInit {
   // event: lead start date
   public leadStartDateOnValueChanged() {
     if (!this.isLeadStartDateSelected) {
-      document.getElementById("btn-hidden-start-loading").click();
-      this.getLeadData();
+      if(this.isStartDateClicked) {
+        document.getElementById("btn-hidden-start-loading").click();
+        this.getLeadData();
+      } 
+      else {
+        this.isStartDateClicked = true;
+      }
     } else {
       this.isLeadStartDateSelected = false;
     }
@@ -142,8 +150,13 @@ export class LeadComponent implements OnInit {
   // event: lead end date
   public leadEndDateOnValueChanged() {
     if (!this.isLeadEndDateSelected) {
-      document.getElementById("btn-hidden-start-loading").click();
-      this.getLeadData();
+       if(this.isEndDateClicked) {
+          document.getElementById("btn-hidden-start-loading").click();
+          this.getLeadData();
+       }
+       else {
+          this.isEndDateClicked = true;
+       }
     } else {
       this.isLeadEndDateSelected = false;
     }
@@ -267,6 +280,11 @@ export class LeadComponent implements OnInit {
     this.leadService.deleteLeadData(currentSelectedLead.Id, toastr);
   }
 
+  // show menu
+  public showMenu() {
+      document.getElementById("showTop").click();
+  }
+  
   // initialization
   ngOnInit() {
     this.setLeadDateRanged();

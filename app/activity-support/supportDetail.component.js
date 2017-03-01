@@ -38,6 +38,7 @@ var SupportDetailComponent = (function () {
             'Progam Update',
             'Data Archive'
         ];
+        this.supportTypeArray = ["Technical", "Functional"];
         this.supportSeverityArray = [
             'High (3hrs. resolution)',
             'Moderate (1 day resolution)',
@@ -131,6 +132,7 @@ var SupportDetailComponent = (function () {
         this.supportDateValue = new Date(document.getElementById("supportDateValue").value.toString());
         this.supportCustomerSelectedValue = parseInt(document.getElementById("supportCustomerSelectedValue").value.toString());
         this.supportIssueCategorySelectedValue = document.getElementById("supportIssueCategorySelectedValue").value.toString();
+        this.supportTypeSelectedValue = document.getElementById("supportTypeSelectedValue").value.toString();
         this.supportSeveritySelectedValue = document.getElementById("supportSeveritySelectedValue").value.toString();
         // this.supportEncodedBySelectedValue = parseInt((<HTMLInputElement>document.getElementById("supportEncodedBySelectedValue")).value.toString());
         this.supportAssignedToSelectedValue = parseInt(document.getElementById("supportAssignedToSelectedValue").value.toString());
@@ -153,6 +155,7 @@ var SupportDetailComponent = (function () {
             Issue: document.getElementById("supportIssue").value,
             CustomerId: this.supportCustomerSelectedValue,
             ProductId: productId,
+            SupportType: this.supportTypeSelectedValue,
             Severity: this.supportSeveritySelectedValue,
             Caller: document.getElementById("supportCaller").value,
             Remarks: document.getElementById("supportRemarks").value,
@@ -288,6 +291,10 @@ var SupportDetailComponent = (function () {
     SupportDetailComponent.prototype.btnActivityPrintClick = function () {
         var currentSelectedActivity = this.activityCollectionView.currentItem;
         window.open('http://api.innosoft.ph/RepActivityTicket/activityTicket?activityId=' + currentSelectedActivity.Id, "_target");
+    };
+    // show menu
+    SupportDetailComponent.prototype.showMenu = function () {
+        document.getElementById("showTop").click();
     };
     // initialization
     SupportDetailComponent.prototype.ngOnInit = function () {

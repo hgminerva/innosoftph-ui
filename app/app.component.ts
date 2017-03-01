@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
@@ -9,7 +9,11 @@ import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 export class AppComponent implements OnInit {
   // inject router
-  constructor(private router: Router, private slimLoadingBarService: SlimLoadingBarService) { }
+  constructor(
+    private router: Router, 
+    private elementRef: ElementRef,
+    private slimLoadingBarService: SlimLoadingBarService
+  ) { }
 
   // global variables
   public headerLogin = "";
@@ -75,8 +79,31 @@ export class AppComponent implements OnInit {
     }
   }
 
+  // show menu
+  public showMenu() {
+      document.getElementById("showTop").click();
+  }
+
+  // show menu
+  public selectedMenu() {
+    this.startLoading();
+    document.getElementById("showTop").click();
+  }
+
   // initialization
   ngOnInit() {
     this.headerCurrentUserChanges();
+  }
+
+  ngAfterViewInit() {
+    var s = document.createElement("script");
+    s.type = "text/javascript";
+    s.src = "app/scripts/classie.js";
+    this.elementRef.nativeElement.appendChild(s);
+
+    var s2 = document.createElement("script");
+    s2.type = "text/javascript";
+    s2.src = "app/scripts/scripts.js";
+    this.elementRef.nativeElement.appendChild(s2);
   }
 }

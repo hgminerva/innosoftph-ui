@@ -199,6 +199,10 @@ var DeliveryComponent = (function () {
         };
         return dataObject;
     };
+    // show menu
+    DeliveryComponent.prototype.showMenu = function () {
+        document.getElementById("showTop").click();
+    };
     // save delivery
     DeliveryComponent.prototype.btnSaveDelivery = function () {
         this.startLoading();

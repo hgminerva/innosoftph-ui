@@ -242,6 +242,11 @@ export class DeliveryComponent implements OnInit {
     return dataObject;
   }
 
+  // show menu
+  public showMenu() {
+      document.getElementById("showTop").click();
+  }
+  
   // save delivery
   public btnSaveDelivery() {
     this.startLoading();

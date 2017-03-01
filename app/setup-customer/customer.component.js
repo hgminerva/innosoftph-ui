@@ -75,6 +75,10 @@ var CustomerComponent = (function () {
         }
         return true;
     };
+    // show menu
+    CustomerComponent.prototype.showMenu = function () {
+        document.getElementById("showTop").click();
+    };
     // initialization
     CustomerComponent.prototype.ngOnInit = function () {
         this.getListCustomer();

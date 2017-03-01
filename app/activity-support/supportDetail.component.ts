@@ -34,6 +34,8 @@ export class SupportDetailComponent implements OnInit {
   ];
   public supportIssueCategorySelectedValue: String;
   public supportIssue: String;
+  public supportTypeArray = [ "Technical", "Functional" ];
+  public supportTypeSelectedValue: String;
   public supportSeverityArray = [
     'High (3hrs. resolution)',
     'Moderate (1 day resolution)',
@@ -170,6 +172,7 @@ export class SupportDetailComponent implements OnInit {
     this.supportDateValue = new Date((<HTMLInputElement>document.getElementById("supportDateValue")).value.toString());
     this.supportCustomerSelectedValue = parseInt((<HTMLInputElement>document.getElementById("supportCustomerSelectedValue")).value.toString());
     this.supportIssueCategorySelectedValue = (<HTMLInputElement>document.getElementById("supportIssueCategorySelectedValue")).value.toString();
+    this.supportTypeSelectedValue = (<HTMLInputElement>document.getElementById("supportTypeSelectedValue")).value.toString();
     this.supportSeveritySelectedValue = (<HTMLInputElement>document.getElementById("supportSeveritySelectedValue")).value.toString();
     // this.supportEncodedBySelectedValue = parseInt((<HTMLInputElement>document.getElementById("supportEncodedBySelectedValue")).value.toString());
     this.supportAssignedToSelectedValue = parseInt((<HTMLInputElement>document.getElementById("supportAssignedToSelectedValue")).value.toString());
@@ -194,6 +197,7 @@ export class SupportDetailComponent implements OnInit {
       Issue: (<HTMLInputElement>document.getElementById("supportIssue")).value,
       CustomerId: this.supportCustomerSelectedValue,
       ProductId: productId,
+      SupportType: this.supportTypeSelectedValue,
       Severity: this.supportSeveritySelectedValue,
       Caller: (<HTMLInputElement>document.getElementById("supportCaller")).value,
       Remarks: (<HTMLInputElement>document.getElementById("supportRemarks")).value,
@@ -340,6 +344,11 @@ export class SupportDetailComponent implements OnInit {
     window.open('http://api.innosoft.ph/RepActivityTicket/activityTicket?activityId=' + currentSelectedActivity.Id, "_target");
   }
 
+  // show menu
+  public showMenu() {
+      document.getElementById("showTop").click();
+  }
+  
   // initialization
   public ngOnInit(): any {
     if (!localStorage.getItem('access_token')) {

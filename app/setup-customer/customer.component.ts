@@ -83,6 +83,11 @@ export class CustomerComponent implements OnInit {
     return true;
   }
 
+  // show menu
+  public showMenu() {
+      document.getElementById("showTop").click();
+  }
+  
   // initialization
   ngOnInit() {
     this.getListCustomer();

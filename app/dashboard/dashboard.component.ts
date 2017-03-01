@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
@@ -14,7 +14,8 @@ export class DashboardComponent implements OnInit {
   // constructor
   constructor(
     private router: Router,
-    private slimLoadingBarService: SlimLoadingBarService
+    private slimLoadingBarService: SlimLoadingBarService,
+    private elementRef: ElementRef
   ) { }
 
   // start loading
@@ -26,6 +27,11 @@ export class DashboardComponent implements OnInit {
   // complete loading
   public completeLoading() {
     this.slimLoadingBarService.complete();
+  }
+
+  // show menu
+  public showMenu() {
+      document.getElementById("showTop").click();
   }
 
   // initialization

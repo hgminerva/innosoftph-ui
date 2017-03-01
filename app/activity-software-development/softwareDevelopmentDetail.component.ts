@@ -273,6 +273,11 @@ export class SoftwareDevelopmentDetailComponent implements OnInit {
     window.open('http://api.innosoft.ph/RepActivityTicket/activityTicket?activityId=' + currentSelectedActivity.Id, "_target");
   }
 
+  // show menu
+  public showMenu() {
+      document.getElementById("showTop").click();
+  }
+  
   // initialization
   public ngOnInit(): any {
     if (!localStorage.getItem('access_token')) {

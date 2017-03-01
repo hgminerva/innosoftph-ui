@@ -29,6 +29,8 @@ var LeadComponent = (function () {
         this.leadFilter = '';
         this.isFinishLoading = false;
         this.isLoading = true;
+        this.isStartDateClicked = false;
+        this.isEndDateClicked = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -63,6 +65,7 @@ var LeadComponent = (function () {
     };
     // lead service data
     LeadComponent.prototype.getLeadData = function () {
+        this.startLoading();
         this.leadCollectionView = new wijmo.collections.CollectionView(this.leadService.getListLeadData(this.leadStartDateValue, this.leadEndDateValue));
         this.leadCollectionView.filter = this.filterFunction.bind(this);
         this.leadCollectionView.pageSize = 15;
@@ -102,8 +105,13 @@ var LeadComponent = (function () {
     // event: lead start date
     LeadComponent.prototype.leadStartDateOnValueChanged = function () {
         if (!this.isLeadStartDateSelected) {
-            document.getElementById("btn-hidden-start-loading").click();
-            this.getLeadData();
+            if (this.isStartDateClicked) {
+                document.getElementById("btn-hidden-start-loading").click();
+                this.getLeadData();
+            }
+            else {
+                this.isStartDateClicked = true;
+            }
         }
         else {
             this.isLeadStartDateSelected = false;
@@ -112,8 +120,13 @@ var LeadComponent = (function () {
     // event: lead end date
     LeadComponent.prototype.leadEndDateOnValueChanged = function () {
         if (!this.isLeadEndDateSelected) {
-            document.getElementById("btn-hidden-start-loading").click();
-            this.getLeadData();
+            if (this.isEndDateClicked) {
+                document.getElementById("btn-hidden-start-loading").click();
+                this.getLeadData();
+            }
+            else {
+                this.isEndDateClicked = true;
+            }
         }
         else {
             this.isLeadEndDateSelected = false;
@@ -222,6 +235,10 @@ var LeadComponent = (function () {
         document.getElementById("btnDeleteCloseLead").disabled = true;
         var currentSelectedLead = this.leadCollectionView.currentItem;
         this.leadService.deleteLeadData(currentSelectedLead.Id, toastr);
+    };
+    // show menu
+    LeadComponent.prototype.showMenu = function () {
+        document.getElementById("showTop").click();
     };
     // initialization
     LeadComponent.prototype.ngOnInit = function () {

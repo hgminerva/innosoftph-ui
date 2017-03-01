@@ -8,10 +8,19 @@ h1, h2, h3 {
 }
 
 .section-heading-custom {
-    padding-top: 65px;
+    padding-top: 85px;
+    padding-bottom: 40px;
+    width: 100%;
+    background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(../images/backgrounds/vector1.jpg) no-repeat center center;
+    background-size: cover;
+    color: #fff;
+}
+
+.featuring-product-header {
+    padding-top: 20px;
     padding-bottom: 20px;
     width: 100%;
-    background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(../images/backgrounds/picjumbo2.jpg) no-repeat center center;
+    background: url(../images/backgrounds/vector1.jpg) no-repeat center center;
     background-size: cover;
     color: #fff;
 }
@@ -36,7 +45,7 @@ h1, h2, h3 {
     color: #fff;
     width: 100%;
     padding: 50px 0;
-    background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ),url(../images/backgrounds/apple3.jpg) no-repeat center center;
+    background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ),url(../images/backgrounds/vector2.jpg) no-repeat center center;
     background-size: cover;
 }
 
@@ -52,7 +61,7 @@ h1, h2, h3 {
     color: #fff;
     width: 100%;
     padding: 50px 0;
-    background: url(../images/backgrounds/testimonials.jpg) no-repeat center center;
+    background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ),url(../images/backgrounds/vector3.jpg) no-repeat center center;
     background-size: cover;
 }
 
@@ -115,9 +124,15 @@ p.copyright {
     margin: 15px 0 0;
 }
 
+
+.panel {
+    border-radius: 0px;
+    border: 0.2px solid lightgray;
+    box-shadow: 5px 5px 15px -5px #808080;
+}
+
 .form-control,
 .btn,
-.panel,
 .custom-grid,
 .modal-content,
 .well,
@@ -140,7 +155,7 @@ p.copyright {
 }
 
 .navbar-default .navbar-brand > img {
-    height: 45px
+    height: 40px
 }
 
 .navbar-default .navbar-brand:hover,
@@ -150,8 +165,8 @@ p.copyright {
 
 .navbar-default .navbar-nav > li > a {
     color: #777;
-    padding-top: 20px;
-    padding-bottom: 20px;
+    padding-top: 17.5px;
+    padding-bottom: 17.5px;
     font-weight: 700;
 }
 
@@ -160,7 +175,7 @@ p.copyright {
     background-color: #eaeaea;
     border-bottom: 5px solid #d9534f;
     transition: 0.3s all;
-    padding-bottom: 15px;
+    padding-bottom: 12.5px;
 }
 
 .navbar-default .navbar-nav > li > a:focus  {
@@ -168,7 +183,7 @@ p.copyright {
     background-color: #eaeaea;
     border-bottom: 5px solid #2e6da4;
     transition: 0.3s all;
-    padding-bottom: 15px;
+    padding-bottom: 12.5px;
 }
 
 .navbar-default .navbar-toggle {
@@ -273,7 +288,7 @@ p.copyright {
     }
 
     .section-heading-custom {
-        padding-top: 65px;
+        padding-top: 75px;
         padding-bottom: 10px;
     }
 }
@@ -846,4 +861,148 @@ textarea {
 
 .invalid-dropdown {
   border-left: 5px solid #a94442; /* red */
+}
+/* General styles for all menus */
+.cbp-spmenu {
+	background: #fff;
+	position: fixed;
+    border-bottom: 5px solid #a94442; 
+}
+
+/* Orientation-dependent styles for the content of the menu */
+
+.cbp-spmenu-horizontal {
+	width: 100%;
+	height: 500px;
+	left: 0;
+	z-index: 1000;
+	overflow: scroll;
+}
+
+/* Vertical menu that slides from the left or right */
+
+.cbp-spmenu-left.cbp-spmenu-open {
+	left: 0px;
+}
+
+.cbp-spmenu-right.cbp-spmenu-open {
+	right: 0px;
+}
+
+/* Horizontal menu that slides from the top or bottom */
+
+.cbp-spmenu-top {
+	top: -500px;
+}
+
+.cbp-spmenu-bottom {
+	bottom: -150px;
+}
+
+.cbp-spmenu-top.cbp-spmenu-open {
+	top: 0px;
+}
+
+.cbp-spmenu-bottom.cbp-spmenu-open {
+	bottom: 0px;
+}
+
+/* Push classes applied to the body */
+
+.cbp-spmenu-push {
+	overflow-x: hidden;
+	position: relative;
+	left: 0;
+}
+
+.cbp-spmenu-push-toright {
+	left: 240px;
+}
+
+.cbp-spmenu-push-toleft {
+	left: -240px;
+}
+
+/* Transitions */
+
+.cbp-spmenu,
+.cbp-spmenu-push {
+	-webkit-transition: all 0.3s ease;
+	-moz-transition: all 0.3s ease;
+	transition: all 0.3s ease;
+}
+
+/* Example media queries */
+
+@media screen and (max-width: 55.1875em){
+
+	.cbp-spmenu-horizontal {
+		font-size: 75%;
+		height: 500px;
+	}
+
+	.cbp-spmenu-top {
+		top: -500px;
+	}
+
+	.cbp-spmenu-bottom {
+		bottom: -110px;
+	}
+
+}
+
+@media screen and (max-height: 26.375em){
+
+	.cbp-spmenu-vertical {
+		font-size: 90%;
+		width: 190px;
+	}
+
+	.cbp-spmenu-left,
+	.cbp-spmenu-push-toleft {
+		left: -190px;
+	}
+
+	.cbp-spmenu-right {
+		right: -190px;
+	}
+
+	.cbp-spmenu-push-toright {
+		left: 190px;
+	}
+}
+
+.menu-button {
+    margin-top: 20px;
+    background: transparent;
+    color: white;
+    border: none;
+}
+
+.btn-menu-close {
+
+}
+
+.top-menus {
+    margin-top: 70px;
+}
+
+
+.btn-menus {
+    background-color: #fff;
+    transition: 1s all;
+    color: #2e6da4;
+}
+
+.btn-menus2 {
+    background-color: #fff;
+    transition: 1s all;
+    color: #3f903f;
+}
+
+.btn-menus3 {
+    background-color: #fff;
+    transition: 1s all;
+    color: #d9534f;
+    border: none;
 }

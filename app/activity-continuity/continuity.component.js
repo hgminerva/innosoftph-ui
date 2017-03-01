@@ -234,6 +234,10 @@ var ContinuityComponent = (function () {
         var currentSelectedContinuity = this.continuityCollectionView.currentItem;
         this.continuityService.deleteContinuityData(currentSelectedContinuity.Id, toastr);
     };
+    // show menu
+    ContinuityComponent.prototype.showMenu = function () {
+        document.getElementById("showTop").click();
+    };
     // initialization
     ContinuityComponent.prototype.ngOnInit = function () {
         this.setContinuityDateRanged();

@@ -188,6 +188,10 @@ var SoftwareDevelopmentComponent = (function () {
         document.getElementById("btnCloseSoftwareDevelopment").disabled = true;
         this.softwareDevelopmentService.postSoftwareDevelopmentData(this.getSoftwareDevelopmentDataValue(), toastr);
     };
+    // show menu
+    SoftwareDevelopmentComponent.prototype.showMenu = function () {
+        document.getElementById("showTop").click();
+    };
     // initialization
     SoftwareDevelopmentComponent.prototype.ngOnInit = function () {
         this.setSoftwareDevelopmentDateRanged();

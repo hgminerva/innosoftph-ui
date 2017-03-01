@@ -1,7 +1,11 @@
 <div class="content-section-b">
     <div class="section-heading-custom">
         <div class="container">
+            <button class="menu-button pull-right" (click)="showMenu()"><i class="fa fa-bars fa-3x"></i></button>
             <h1 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: #fff; font-size: 35px;">SUPPORT DETAIL</h1>
+            <p class="lead">
+                Support Header Detail and Activities
+            </p>
         </div>
     </div>
 </div>
@@ -100,6 +104,20 @@
                                     <label class="control-label col-sm-4">Issue</label>
                                     <div class="col-sm-8">
                                         <textarea [(ngModel)]="supportIssue" class="form-control" rows="5" id="supportIssue" name="supportIssue"  placeholder="Issue"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Support Type</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box 
+                                            [itemsSource]="supportTypeArray" 
+                                            [placeholder]="'Select Type'"
+                                            [isEditable]="false"
+                                            [isRequired]="true"
+                                            [(selectedValue)]="supportTypeSelectedValue"
+                                            style="width: 100%; border-radius: 0px;">
+                                        </wj-combo-box>
+                                        <input type="hidden" class="form-control" id="supportTypeSelectedValue" />
                                     </div>
                                 </div>
                                 <div class="form-group">

@@ -165,6 +165,7 @@ var SupportService = (function () {
                         Customer: results[i].Customer,
                         ProductId: results[i].ProductId,
                         Product: results[i].Product,
+                        SupportType: results[i].SupportType,
                         Severity: results[i].Severity,
                         Caller: results[i].Caller,
                         Remarks: results[i].Remarks,
@@ -196,6 +197,7 @@ var SupportService = (function () {
                     document.getElementById("supportIssueCategorySelectedValue").value = results.IssueCategory;
                     document.getElementById("supportIssue").value = results.Issue;
                     document.getElementById("supportCustomerSelectedValue").value = results.CustomerId;
+                    document.getElementById("supportTypeSelectedValue").value = results.SupportType;
                     document.getElementById("supportSeveritySelectedValue").value = results.Severity;
                     document.getElementById("supportCaller").value = results.Caller;
                     document.getElementById("supportRemarks").value = results.Remarks;

@@ -185,6 +185,10 @@ var QuotationComponent = (function () {
         }
         return true;
     };
+    // show menu
+    QuotationComponent.prototype.showMenu = function () {
+        document.getElementById("showTop").click();
+    };
     // initialization
     QuotationComponent.prototype.ngOnInit = function () {
         this.setQuotationDateRanged();

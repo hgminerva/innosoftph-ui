@@ -72,6 +72,10 @@ var UserComponent = (function () {
         }
         return true;
     };
+    // show menu
+    UserComponent.prototype.showMenu = function () {
+        document.getElementById("showTop").click();
+    };
     // initialization
     UserComponent.prototype.ngOnInit = function () {
         this.getListUser();

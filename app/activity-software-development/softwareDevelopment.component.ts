@@ -217,6 +217,11 @@ export class SoftwareDevelopmentComponent implements OnInit {
     this.softwareDevelopmentService.postSoftwareDevelopmentData(this.getSoftwareDevelopmentDataValue(), toastr);
   }
 
+  // show menu
+  public showMenu() {
+      document.getElementById("showTop").click();
+  }
+  
   // initialization
   ngOnInit() {
     this.setSoftwareDevelopmentDateRanged();

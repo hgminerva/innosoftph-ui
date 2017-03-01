@@ -38,6 +38,8 @@ export class SupportActivityComponent implements OnInit {
   ];
   public supportIssueCategorySelectedValue = "New Installation";
   public supportIssue: String;
+  public supportTypeArray = [ "Technical", "Functional" ];
+  public supportTypeSelectedValue = "Technical";
   public supportSeverityArray = [
     'High (3hrs. resolution)',
     'Moderate (1 day resolution)',
@@ -183,7 +185,6 @@ export class SupportActivityComponent implements OnInit {
   // support values
   public getSupportObjectValue() {
     let assignedToUserIdValue = "NULL";
-    console.log(this.supportAssignedToSelectedValue);
     if (this.supportAssignedToSelectedValue != null) {
       assignedToUserIdValue = this.supportAssignedToSelectedValue.toString();
     }
@@ -194,6 +195,7 @@ export class SupportActivityComponent implements OnInit {
       IssueCategory: this.supportIssueCategorySelectedValue,
       Issue: this.supportIssue,
       CustomerId: this.supportCustomerSelectedValue,
+      SupportType: this.supportTypeSelectedValue,
       Severity: this.supportSeveritySelectedValue,
       Caller: this.supportCaller,
       Remarks: this.supportRemarks,
@@ -267,6 +269,11 @@ export class SupportActivityComponent implements OnInit {
     this.supportAssignedUserObservableArray = this.supportService.getListUserData("support", "assignedToUser");
   }
 
+  // show menu
+  public showMenu() {
+      document.getElementById("showTop").click();
+  }
+  
   // initialization
   ngOnInit() {
     this.setSupportDateRanged();

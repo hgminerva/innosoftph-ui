@@ -174,6 +174,7 @@ export class SupportService {
                             Customer: results[i].Customer,
                             ProductId: results[i].ProductId,
                             Product: results[i].Product,
+                            SupportType: results[i].SupportType,
                             Severity: results[i].Severity,
                             Caller: results[i].Caller,
                             Remarks: results[i].Remarks,
@@ -209,6 +210,7 @@ export class SupportService {
                         (<HTMLInputElement>document.getElementById("supportIssueCategorySelectedValue")).value = results.IssueCategory;
                         (<HTMLInputElement>document.getElementById("supportIssue")).value = results.Issue;
                         (<HTMLInputElement>document.getElementById("supportCustomerSelectedValue")).value = results.CustomerId;
+                        (<HTMLInputElement>document.getElementById("supportTypeSelectedValue")).value = results.SupportType;
                         (<HTMLInputElement>document.getElementById("supportSeveritySelectedValue")).value = results.Severity;
                         (<HTMLInputElement>document.getElementById("supportCaller")).value = results.Caller;
                         (<HTMLInputElement>document.getElementById("supportRemarks")).value = results.Remarks;

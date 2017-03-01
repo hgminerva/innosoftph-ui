@@ -13,8 +13,9 @@ var router_1 = require('@angular/router');
 var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
 var AppComponent = (function () {
     // inject router
-    function AppComponent(router, slimLoadingBarService) {
+    function AppComponent(router, elementRef, slimLoadingBarService) {
         this.router = router;
+        this.elementRef = elementRef;
         this.slimLoadingBarService = slimLoadingBarService;
         // global variables
         this.headerLogin = "";
@@ -77,16 +78,35 @@ var AppComponent = (function () {
             this.isLoggedInDropdown = false;
         }
     };
+    // show menu
+    AppComponent.prototype.showMenu = function () {
+        document.getElementById("showTop").click();
+    };
+    // show menu
+    AppComponent.prototype.selectedMenu = function () {
+        this.startLoading();
+        document.getElementById("showTop").click();
+    };
     // initialization
     AppComponent.prototype.ngOnInit = function () {
         this.headerCurrentUserChanges();
+    };
+    AppComponent.prototype.ngAfterViewInit = function () {
+        var s = document.createElement("script");
+        s.type = "text/javascript";
+        s.src = "app/scripts/classie.js";
+        this.elementRef.nativeElement.appendChild(s);
+        var s2 = document.createElement("script");
+        s2.type = "text/javascript";
+        s2.src = "app/scripts/scripts.js";
+        this.elementRef.nativeElement.appendChild(s2);
     };
     AppComponent = __decorate([
         core_1.Component({
             selector: 'my-app',
             templateUrl: 'app/shared-header/header.html'
         }), 
-        __metadata('design:paramtypes', [router_1.Router, ng2_slim_loading_bar_1.SlimLoadingBarService])
+        __metadata('design:paramtypes', [router_1.Router, core_1.ElementRef, ng2_slim_loading_bar_1.SlimLoadingBarService])
     ], AppComponent);
     return AppComponent;
 }());
