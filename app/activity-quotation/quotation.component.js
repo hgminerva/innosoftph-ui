@@ -32,8 +32,18 @@ var QuotationComponent = (function () {
         this.isEndDateClicked = false;
         this.fliterQuotationStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
         this.filterQuotationStatusSelectedValue = "OPEN";
+        this.quotationStatusClicked = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
+    QuotationComponent.prototype.filterQuotationStatusSelectedIndexChangedClick = function () {
+        if (this.quotationStatusClicked) {
+            this.startLoading();
+            this.getQuotationData();
+        }
+        else {
+            this.quotationStatusClicked = true;
+        }
+    };
     // start loading
     QuotationComponent.prototype.startLoading = function () {
         this.slimLoadingBarService.progress = 30;
@@ -90,7 +100,7 @@ var QuotationComponent = (function () {
     };
     // get quotation data
     QuotationComponent.prototype.getQuotationData = function () {
-        this.quotationCollectionView = new wijmo.collections.CollectionView(this.quotationService.getListQuotationData(this.quotationStartDateValue, this.quotationEndDateValue));
+        this.quotationCollectionView = new wijmo.collections.CollectionView(this.quotationService.getListQuotationData(this.quotationStartDateValue, this.quotationEndDateValue, this.filterQuotationStatusSelectedValue));
         this.quotationCollectionView.filter = this.filterFunction.bind(this);
         this.quotationCollectionView.pageSize = 15;
         this.quotationCollectionView.trackChanges = true;

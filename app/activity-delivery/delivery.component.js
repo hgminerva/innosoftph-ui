@@ -32,6 +32,7 @@ var DeliveryComponent = (function () {
         this.filterDeliveryStatusSelectedValue = "OPEN";
         this.isStartDateClicked = false;
         this.isEndDateClicked = false;
+        this.deliveryStatusClicked = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -94,9 +95,18 @@ var DeliveryComponent = (function () {
         }
         this.getDeliveryData();
     };
+    DeliveryComponent.prototype.filterDeliveryStatusSelectedIndexChangedClick = function () {
+        if (this.deliveryStatusClicked) {
+            this.startLoading();
+            this.getDeliveryData();
+        }
+        else {
+            this.deliveryStatusClicked = true;
+        }
+    };
     // delivery data
     DeliveryComponent.prototype.getDeliveryData = function () {
-        this.deliveryCollectionView = new wijmo.collections.CollectionView(this.deliveryService.getListDeliveryData(this.deliveryStartDateValue, this.deliveryEndDateValue));
+        this.deliveryCollectionView = new wijmo.collections.CollectionView(this.deliveryService.getListDeliveryData(this.deliveryStartDateValue, this.deliveryEndDateValue, this.filterDeliveryStatusSelectedValue));
         this.deliveryCollectionView.filter = this.filterFunction.bind(this);
         this.deliveryCollectionView.pageSize = 15;
         this.deliveryCollectionView.trackChanges = true;

@@ -56,8 +56,8 @@ var LeadService = (function () {
         return userObservableArray;
     };
     // list lead by date ranged (start date and end date)
-    LeadService.prototype.getListLeadData = function (leadStartDate, leadEndDate) {
-        var url = "http://api.innosoft.ph/api/lead/list/byLeadDateRange/" + leadStartDate.toDateString() + "/" + leadEndDate.toDateString();
+    LeadService.prototype.getListLeadData = function (leadStartDate, leadEndDate, leadStatus) {
+        var url = "http://api.innosoft.ph/api/lead/list/byLeadDateRange/" + leadStartDate.toDateString() + "/" + leadEndDate.toDateString() + "/" + leadStatus;
         var leadObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());

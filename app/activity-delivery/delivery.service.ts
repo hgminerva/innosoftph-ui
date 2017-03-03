@@ -124,8 +124,8 @@ export class DeliveryService {
     }
 
     // list delivery by date ranged (start date and end date)
-    public getListDeliveryData(deliveryStartDate: Date, deliveryEndDate: Date): wijmo.collections.ObservableArray {
-        let url = "http://api.innosoft.ph/api/delivery/list/byDeliveryDateRange/" + deliveryStartDate.toDateString() + "/" + deliveryEndDate.toDateString();
+    public getListDeliveryData(deliveryStartDate: Date, deliveryEndDate: Date, status: String): wijmo.collections.ObservableArray {
+        let url = "http://api.innosoft.ph/api/delivery/list/byDeliveryDateRange/" + deliveryStartDate.toDateString() + "/" + deliveryEndDate.toDateString() + "/" + status;
         let deliveryObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {

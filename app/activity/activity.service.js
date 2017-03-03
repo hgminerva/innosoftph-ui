@@ -25,6 +25,24 @@ var ActivityService = (function () {
         });
         this.options = new http_1.RequestOptions({ headers: this.headers });
     }
+    // list user
+    ActivityService.prototype.getListUserData = function () {
+        var userObservableArray = new wijmo.collections.ObservableArray();
+        var url = "http://api.innosoft.ph/api/user/list";
+        this.http.get(url, this.options).subscribe(function (response) {
+            var results = new wijmo.collections.ObservableArray(response.json());
+            for (var i = 0; i <= results.length - 1; i++) {
+                if (results.length > 0) {
+                    userObservableArray.push({
+                        Id: results[i].Id,
+                        FullName: results[i].FullName
+                    });
+                }
+            }
+            document.getElementById("btn-hidden-finished-load").click();
+        });
+        return userObservableArray;
+    };
     // list activity by document and by date ranged (start date and end date)  
     ActivityService.prototype.getListActivityData = function (documentType, activityStartDate, activityEndDate) {
         var url = "http://api.innosoft.ph/api/activity/list/byDocument/byDateRanged/" + documentType + "/" + activityStartDate.toDateString() + "/" + activityEndDate.toDateString();
@@ -57,6 +75,8 @@ var ActivityService = (function () {
                 }
             }
             document.getElementById("btn-hidden-complete-loading").click();
+            document.getElementById("btnRefresh").disabled = false;
+            document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-refresh fa-fw'></i> Refresh";
         });
         return activityObservableArray;
     };

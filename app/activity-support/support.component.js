@@ -57,8 +57,28 @@ var SupportActivityComponent = (function () {
         this.isEndDateClicked = false;
         this.fliterSupportTypeArray = ['ALL', 'Technical', 'Functional'];
         this.filterSupportTypeSelectedValue = "ALL";
+        this.supportStatusClicked = false;
+        this.supportTypeClicked = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
+    SupportActivityComponent.prototype.filterSupportStatusSelectedIndexChangedClick = function () {
+        if (this.supportStatusClicked) {
+            this.startLoading();
+            this.getSupportData();
+        }
+        else {
+            this.supportStatusClicked = true;
+        }
+    };
+    SupportActivityComponent.prototype.filterSupportTypeSelectedIndexChangedClick = function () {
+        if (this.supportTypeClicked) {
+            this.startLoading();
+            this.getSupportData();
+        }
+        else {
+            this.supportTypeClicked = true;
+        }
+    };
     // start loading
     SupportActivityComponent.prototype.startLoading = function () {
         this.slimLoadingBarService.progress = 30;
@@ -122,7 +142,7 @@ var SupportActivityComponent = (function () {
     };
     // support data
     SupportActivityComponent.prototype.getSupportData = function () {
-        this.supportCollectionView = new wijmo.collections.CollectionView(this.supportService.getListSupportData(this.supportStartDateValue, this.supportEndDateValue));
+        this.supportCollectionView = new wijmo.collections.CollectionView(this.supportService.getListSupportData(this.supportStartDateValue, this.supportEndDateValue, this.filterSupportStatusSelectedValue, this.filterSupportTypeSelectedValue));
         this.supportCollectionView.filter = this.filterFunction.bind(this);
         this.supportCollectionView.pageSize = 15;
         this.supportCollectionView.trackChanges = true;

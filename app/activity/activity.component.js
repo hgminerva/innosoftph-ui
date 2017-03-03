@@ -23,7 +23,7 @@ var ActivityComponent = (function () {
         this.slimLoadingBarService = slimLoadingBarService;
         this.isActivtyStartDateSelected = true;
         this.isActivtyEndDateSelected = true;
-        this.documentArray = ['Lead', 'Quotation', 'Delivery', 'Support', 'Software Development'];
+        this.documentArray = ['Lead', 'Quotation', 'Delivery', 'Support', 'Support - Technical', 'Support - Functional', 'Software Development'];
         this.documentSelectedValue = 'Lead';
         this.activityFilter = '';
         this.activityParticularCategories = [''];
@@ -34,6 +34,14 @@ var ActivityComponent = (function () {
         this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED'];
         this.hasNoActivity = false;
         this.hasActivity = true;
+        this.activityStatusesArray = ['ALL', 'OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED'];
+        this.activityStatusesSelectedValue = "OPEN";
+        this.isStartDateClicked = false;
+        this.isEndDateClicked = false;
+        this.isActivityDocumentClicked = false;
+        this.isSupport = false;
+        this.isFinishLoading = false;
+        this.isLoading = true;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -46,14 +54,24 @@ var ActivityComponent = (function () {
         this.slimLoadingBarService.complete();
     };
     ActivityComponent.prototype.setActivityDateRanged = function () {
+        this.startLoading();
         this.activityStartDateValue = new Date();
         this.activityEndDateValue = new Date();
         this.activityDateValue = new Date();
         this.getListActivity();
     };
+    ActivityComponent.prototype.getAssignedUser = function () {
+        this.activityAssignedUserObservableArray = this.activityService.getListUserData();
+    };
     ActivityComponent.prototype.activityStartDateOnValueChanged = function () {
         if (!this.isActivtyStartDateSelected) {
-            this.getActivityData();
+            if (this.isStartDateClicked) {
+                this.startLoading();
+                this.getActivityData();
+            }
+            else {
+                this.isStartDateClicked = true;
+            }
         }
         else {
             this.isActivtyStartDateSelected = false;
@@ -61,14 +79,33 @@ var ActivityComponent = (function () {
     };
     ActivityComponent.prototype.activityEndDateOnValueChanged = function () {
         if (!this.isActivtyEndDateSelected) {
-            this.getActivityData();
+            if (this.isEndDateClicked) {
+                this.startLoading();
+                this.getActivityData();
+            }
+            else {
+                this.isEndDateClicked = true;
+            }
         }
         else {
             this.isActivtyEndDateSelected = false;
         }
     };
+    ActivityComponent.prototype.finishedLoad = function () {
+        this.isFinishLoading = true;
+        this.isLoading = false;
+        document.getElementById("btnActivitySave").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+        document.getElementById("btnActivitySave").disabled = false;
+        document.getElementById("btnActivityClose").disabled = false;
+    };
     ActivityComponent.prototype.cboDocumentSelectedIndexChangedClick = function () {
-        this.getActivityData();
+        if (this.isActivityDocumentClicked) {
+            this.startLoading();
+            this.getActivityData();
+        }
+        else {
+            this.isActivityDocumentClicked = true;
+        }
     };
     // list activity
     ActivityComponent.prototype.getListActivity = function () {
@@ -144,18 +181,26 @@ var ActivityComponent = (function () {
         document.getElementById("btnActivityClose").disabled = false;
         var currentSelectedActivity = this.activityCollectionView.currentItem;
         if (currentSelectedActivity.LeadId > 0) {
+            this.isSupport = false;
             this.activityParticularCategories = ['Lead'];
         }
         else {
             if (currentSelectedActivity.QuotationId > 0) {
+                this.isSupport = false;
                 this.activityParticularCategories = ['Quotation'];
             }
             else {
                 if (currentSelectedActivity.DeliveryId > 0) {
+                    this.isSupport = false;
                     this.activityParticularCategories = ['Delivery'];
                 }
                 else {
                     if (currentSelectedActivity.SupportId > 0) {
+                        document.getElementById("btnActivitySave").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                        document.getElementById("btnActivitySave").disabled = true;
+                        document.getElementById("btnActivityClose").disabled = true;
+                        this.isSupport = true;
+                        this.getAssignedUser();
                         this.activityParticularCategories = [
                             'New Installation',
                             'Software Bug',
@@ -171,6 +216,7 @@ var ActivityComponent = (function () {
                     }
                     else {
                         if (currentSelectedActivity.SoftwareDevelopmentId > 0) {
+                            this.isSupport = false;
                             this.activityParticularCategories = [
                                 'Report',
                                 'Form',
@@ -257,6 +303,7 @@ var ActivityComponent = (function () {
         }
         var activityDataObject = {
             ActivityDate: this.activityDateValue.toLocaleDateString(),
+            StaffUserId: this.activityAssignedToSelectedValue,
             CustomerId: customerId,
             ProductId: productId,
             ParticularCategory: this.activityParticularCategorySelectedValue,
@@ -349,6 +396,13 @@ var ActivityComponent = (function () {
                 }
             }
         }
+    };
+    // refresh grid
+    ActivityComponent.prototype.refreshGrid = function () {
+        this.startLoading();
+        document.getElementById("btnRefresh").disabled = true;
+        document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+        this.getActivityData();
     };
     ActivityComponent.prototype.backClicked = function () {
         window.history.back();

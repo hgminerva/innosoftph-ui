@@ -135,6 +135,14 @@ var SupportService = (function () {
                     if (userType == "assignedToUser") {
                         document.getElementById("btn-hidden-support-data").click();
                     }
+                    else {
+                        if (userType == "activityAssignedToUser") {
+                            document.getElementById("btn-hidden--activity-finished-load").click();
+                            document.getElementById("btnActivitySave").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                            document.getElementById("btnActivitySave").disabled = false;
+                            document.getElementById("btnActivityClose").disabled = false;
+                        }
+                    }
                 }
             }
             else {
@@ -146,8 +154,8 @@ var SupportService = (function () {
         return userObservableArray;
     };
     // list support by date ranged (start date and end date)
-    SupportService.prototype.getListSupportData = function (supportStartDate, supportEndDate) {
-        var url = "http://api.innosoft.ph/api/support/list/bySupportDateRange/" + supportStartDate.toDateString() + "/" + supportEndDate.toDateString();
+    SupportService.prototype.getListSupportData = function (supportStartDate, supportEndDate, status, supportType) {
+        var url = "http://api.innosoft.ph/api/support/list/bySupportDateRange/" + supportStartDate.toDateString() + "/" + supportEndDate.toDateString() + "/" + status + "/" + supportType;
         var supportObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
@@ -307,6 +315,7 @@ var SupportService = (function () {
             if (!isLoadActivityOnly) {
                 document.getElementById("btn-hidden-customer-data").click();
             }
+            document.getElementById("btn-hidden-activity-staffUser").click();
         });
         return activityObservableArray;
     };

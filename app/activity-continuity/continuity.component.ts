@@ -45,6 +45,7 @@ export class ContinuityComponent {
   public filterContinuityStatusSelectedValue = "OPEN";
   public isStartDateClicked = false;
   public isEndDateClicked = false;
+  public continuityStatusClicked = false;
 
   // inject continuity service
   constructor(
@@ -126,9 +127,19 @@ export class ContinuityComponent {
     }
   }
 
+  public filterContinuityStatusSelectedIndexChangedClick() {
+    if (this.continuityStatusClicked) {
+      this.startLoading();
+      this.getContinuityData();
+    }
+    else {
+      this.continuityStatusClicked = true;
+    }
+  }
+
   // continuity data
   public getContinuityData() {
-    this.continuityCollectionView = new wijmo.collections.CollectionView(this.continuityService.getListContinuityData(this.continuityStartDateValue, this.continuityEndDateValue));
+    this.continuityCollectionView = new wijmo.collections.CollectionView(this.continuityService.getListContinuityData(this.continuityStartDateValue, this.continuityEndDateValue, this.filterContinuityStatusSelectedValue));
     this.continuityCollectionView.filter = this.filterFunction.bind(this);
     this.continuityCollectionView.pageSize = 15;
     this.continuityCollectionView.trackChanges = true;

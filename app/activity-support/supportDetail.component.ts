@@ -34,7 +34,7 @@ export class SupportDetailComponent implements OnInit {
   ];
   public supportIssueCategorySelectedValue: String;
   public supportIssue: String;
-  public supportTypeArray = [ "Technical", "Functional" ];
+  public supportTypeArray = ["Technical", "Functional"];
   public supportTypeSelectedValue: String;
   public supportSeverityArray = [
     'High (3hrs. resolution)',
@@ -80,6 +80,11 @@ export class SupportDetailComponent implements OnInit {
   public activityAmount: String;
   public isFinishLoading = false;
   public isLoading = true;
+  public activityAssignedUserObservableArray: wijmo.collections.ObservableArray;
+  public activityAssignedToSelectedValue: number;
+  public isSupport = false;
+  public isActivityFinishLoading = false;
+  public isActivityLoading = true;
 
   // inject lead detail service
   constructor(
@@ -111,6 +116,14 @@ export class SupportDetailComponent implements OnInit {
     this.isLoading = false;
     (<HTMLButtonElement>document.getElementById("btnSaveSupportDetail")).disabled = false;
     (<HTMLButtonElement>document.getElementById("btnCloseSupportDetail")).disabled = false;
+  }
+
+  public activityFinishedLoad() {
+    this.isActivityFinishLoading = true;
+    this.isActivityLoading = false;
+    (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+    (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnActivityClose")).disabled = false;
   }
 
   // lead date ranged
@@ -160,6 +173,10 @@ export class SupportDetailComponent implements OnInit {
   // assigned to user list
   public getListAssignedToUserData() {
     this.supportAssignedUserObservableArray = this.supportService.getListUserData("supportDetail", "assignedToUser");
+  }
+
+  public getAssignedUser() {
+    this.activityAssignedUserObservableArray = this.supportService.getListUserData("supportDetail", "activityAssignedToUser");
   }
 
   // get service data
@@ -255,9 +272,6 @@ export class SupportDetailComponent implements OnInit {
 
   // activity line detail modal  
   public btnActivityDetailModal(add: boolean) {
-    (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-    (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = false;
-    (<HTMLButtonElement>document.getElementById("btnActivityClose")).disabled = false;
     if (add) {
       this.activityDetailModalString = "Add";
       this.activityId = 0;
@@ -279,6 +293,7 @@ export class SupportDetailComponent implements OnInit {
       (<HTMLInputElement>document.getElementById("activityAmount")).value = currentSelectedActivity.ActivityAmount.toLocaleString();
       this.activityAmount = currentSelectedActivity.ActivityAmount.toLocaleString();
       this.activityStatusSelectedValue = currentSelectedActivity.ActivityStatus;
+      this.activityAssignedToSelectedValue = currentSelectedActivity.StaffUserId;
     }
   }
 
@@ -287,6 +302,7 @@ export class SupportDetailComponent implements OnInit {
     let productId = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].ProductId;
     let activityDataObject = {
       ActivityDate: this.activityDateValue.toLocaleDateString(),
+      StaffUserId: this.activityAssignedToSelectedValue,
       CustomerId: this.supportCustomerSelectedValue,
       ProductId: productId,
       ParticularCategory: this.activityParticularCategorySelectedValue,
@@ -344,9 +360,9 @@ export class SupportDetailComponent implements OnInit {
 
   // show menu
   public showMenu() {
-      document.getElementById("showTop").click();
+    document.getElementById("showTop").click();
   }
-  
+
   public backClicked() {
     window.history.back();
   }

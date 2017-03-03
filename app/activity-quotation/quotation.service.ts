@@ -112,8 +112,8 @@ export class QuotationService {
     }
 
     // list quotation by date ranged (start date and end date)
-    public getListQuotationData(quotationStartDate: Date, quotationEndDate: Date): wijmo.collections.ObservableArray {
-        let url = "http://api.innosoft.ph/api/quotation/list/byQuotationDateRange/" + quotationStartDate.toDateString() + "/" + quotationEndDate.toDateString();
+    public getListQuotationData(quotationStartDate: Date, quotationEndDate: Date, quotationStatus: String): wijmo.collections.ObservableArray {
+        let url = "http://api.innosoft.ph/api/quotation/list/byQuotationDateRange/" + quotationStartDate.toDateString() + "/" + quotationEndDate.toDateString() + "/" + quotationStatus;
         let quotationObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {

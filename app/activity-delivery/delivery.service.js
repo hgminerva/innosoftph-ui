@@ -121,8 +121,8 @@ var DeliveryService = (function () {
         return userObservableArray;
     };
     // list delivery by date ranged (start date and end date)
-    DeliveryService.prototype.getListDeliveryData = function (deliveryStartDate, deliveryEndDate) {
-        var url = "http://api.innosoft.ph/api/delivery/list/byDeliveryDateRange/" + deliveryStartDate.toDateString() + "/" + deliveryEndDate.toDateString();
+    DeliveryService.prototype.getListDeliveryData = function (deliveryStartDate, deliveryEndDate, status) {
+        var url = "http://api.innosoft.ph/api/delivery/list/byDeliveryDateRange/" + deliveryStartDate.toDateString() + "/" + deliveryEndDate.toDateString() + "/" + status;
         var deliveryObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());

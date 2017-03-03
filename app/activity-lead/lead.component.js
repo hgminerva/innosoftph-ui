@@ -33,6 +33,7 @@ var LeadComponent = (function () {
         this.isEndDateClicked = false;
         this.fliterLeadStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
         this.filterLeadStatusSelectedValue = "OPEN";
+        this.leadStatusClicked = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
     LeadComponent.prototype.backClicked = function () {
@@ -54,9 +55,6 @@ var LeadComponent = (function () {
         document.getElementById("btnSaveLead").disabled = false;
         document.getElementById("btnCloseLead").disabled = false;
     };
-    LeadComponent.prototype.backClicked = function () {
-        window.history.back();
-    };
     // lead dates
     LeadComponent.prototype.setLeadDateRanged = function () {
         this.startLoading();
@@ -74,10 +72,19 @@ var LeadComponent = (function () {
     };
     // lead service data
     LeadComponent.prototype.getLeadData = function () {
-        this.leadCollectionView = new wijmo.collections.CollectionView(this.leadService.getListLeadData(this.leadStartDateValue, this.leadEndDateValue));
+        this.leadCollectionView = new wijmo.collections.CollectionView(this.leadService.getListLeadData(this.leadStartDateValue, this.leadEndDateValue, this.filterLeadStatusSelectedValue));
         this.leadCollectionView.filter = this.filterFunction.bind(this);
         this.leadCollectionView.pageSize = 15;
         this.leadCollectionView.trackChanges = true;
+    };
+    LeadComponent.prototype.filterLeadStatusSelectedIndexChangedClick = function () {
+        if (this.leadStatusClicked) {
+            this.startLoading();
+            this.getLeadData();
+        }
+        else {
+            this.leadStatusClicked = true;
+        }
     };
     Object.defineProperty(LeadComponent.prototype, "filter", {
         // filter

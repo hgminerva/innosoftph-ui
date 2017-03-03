@@ -107,8 +107,8 @@ var QuotationService = (function () {
         return userObservableArray;
     };
     // list quotation by date ranged (start date and end date)
-    QuotationService.prototype.getListQuotationData = function (quotationStartDate, quotationEndDate) {
-        var url = "http://api.innosoft.ph/api/quotation/list/byQuotationDateRange/" + quotationStartDate.toDateString() + "/" + quotationEndDate.toDateString();
+    QuotationService.prototype.getListQuotationData = function (quotationStartDate, quotationEndDate, quotationStatus) {
+        var url = "http://api.innosoft.ph/api/quotation/list/byQuotationDateRange/" + quotationStartDate.toDateString() + "/" + quotationEndDate.toDateString() + "/" + quotationStatus;
         var quotationObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());

@@ -96,8 +96,8 @@ export class ContinuityService {
     }
 
     // list continuity by date ranged (start date and end date)
-    public getListContinuityData(continuityStartDate: Date, continuityEndDate: Date): wijmo.collections.ObservableArray {
-        let url = "http://api.innosoft.ph/api/continuity/list/byContinuityDateRange/" + continuityStartDate.toDateString() + "/" + continuityEndDate.toDateString();
+    public getListContinuityData(continuityStartDate: Date, continuityEndDate: Date, status: String): wijmo.collections.ObservableArray {
+        let url = "http://api.innosoft.ph/api/continuity/list/byContinuityDateRange/" + continuityStartDate.toDateString() + "/" + continuityEndDate.toDateString() + "/" + status;
         let continuityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {

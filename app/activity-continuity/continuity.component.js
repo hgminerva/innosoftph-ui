@@ -38,6 +38,7 @@ var ContinuityComponent = (function () {
         this.filterContinuityStatusSelectedValue = "OPEN";
         this.isStartDateClicked = false;
         this.isEndDateClicked = false;
+        this.continuityStatusClicked = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -101,9 +102,18 @@ var ContinuityComponent = (function () {
             this.isContinuityEndDateSelected = false;
         }
     };
+    ContinuityComponent.prototype.filterContinuityStatusSelectedIndexChangedClick = function () {
+        if (this.continuityStatusClicked) {
+            this.startLoading();
+            this.getContinuityData();
+        }
+        else {
+            this.continuityStatusClicked = true;
+        }
+    };
     // continuity data
     ContinuityComponent.prototype.getContinuityData = function () {
-        this.continuityCollectionView = new wijmo.collections.CollectionView(this.continuityService.getListContinuityData(this.continuityStartDateValue, this.continuityEndDateValue));
+        this.continuityCollectionView = new wijmo.collections.CollectionView(this.continuityService.getListContinuityData(this.continuityStartDateValue, this.continuityEndDateValue, this.filterContinuityStatusSelectedValue));
         this.continuityCollectionView.filter = this.filterFunction.bind(this);
         this.continuityCollectionView.pageSize = 15;
         this.continuityCollectionView.trackChanges = true;

@@ -34,6 +34,7 @@ export class QuotationComponent implements OnInit {
   public isEndDateClicked = false;
   public fliterQuotationStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
   public filterQuotationStatusSelectedValue = "OPEN";
+  public quotationStatusClicked = false;
 
   // inject quotation service
   constructor(
@@ -44,6 +45,16 @@ export class QuotationComponent implements OnInit {
     private slimLoadingBarService: SlimLoadingBarService
   ) {
     this.toastr.setRootViewContainerRef(vRef);
+  }
+
+  public filterQuotationStatusSelectedIndexChangedClick() {
+    if (this.quotationStatusClicked) {
+      this.startLoading();
+      this.getQuotationData();
+    }
+    else {
+      this.quotationStatusClicked = true;
+    }
   }
 
   // start loading
@@ -106,7 +117,7 @@ export class QuotationComponent implements OnInit {
 
   // get quotation data
   public getQuotationData() {
-    this.quotationCollectionView = new wijmo.collections.CollectionView(this.quotationService.getListQuotationData(this.quotationStartDateValue, this.quotationEndDateValue));
+    this.quotationCollectionView = new wijmo.collections.CollectionView(this.quotationService.getListQuotationData(this.quotationStartDateValue, this.quotationEndDateValue, this.filterQuotationStatusSelectedValue));
     this.quotationCollectionView.filter = this.filterFunction.bind(this);
     this.quotationCollectionView.pageSize = 15;
     this.quotationCollectionView.trackChanges = true;

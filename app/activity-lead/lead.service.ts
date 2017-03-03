@@ -19,7 +19,6 @@ export class LeadService {
         private toastr: ToastsManager
     ) { }
 
-
     // list user
     public getListUserData(page: String, userType: String): wijmo.collections.ObservableArray {
         let userObservableArray = new wijmo.collections.ObservableArray();
@@ -54,8 +53,8 @@ export class LeadService {
     }
 
     // list lead by date ranged (start date and end date)
-    public getListLeadData(leadStartDate: Date, leadEndDate: Date): wijmo.collections.ObservableArray {
-        let url = "http://api.innosoft.ph/api/lead/list/byLeadDateRange/" + leadStartDate.toDateString() + "/" + leadEndDate.toDateString();
+    public getListLeadData(leadStartDate: Date, leadEndDate: Date, leadStatus: String): wijmo.collections.ObservableArray {
+        let url = "http://api.innosoft.ph/api/lead/list/byLeadDateRange/" + leadStartDate.toDateString() + "/" + leadEndDate.toDateString() + "/" + leadStatus;
         let leadObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {

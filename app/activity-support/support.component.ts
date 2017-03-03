@@ -38,7 +38,7 @@ export class SupportActivityComponent implements OnInit {
   ];
   public supportIssueCategorySelectedValue = "New Installation";
   public supportIssue: String;
-  public supportTypeArray = [ "Technical", "Functional" ];
+  public supportTypeArray = ["Technical", "Functional"];
   public supportTypeSelectedValue = "Technical";
   public supportSeverityArray = [
     'High (3hrs. resolution)',
@@ -64,6 +64,8 @@ export class SupportActivityComponent implements OnInit {
   public isEndDateClicked = false;
   public fliterSupportTypeArray = ['ALL', 'Technical', 'Functional'];
   public filterSupportTypeSelectedValue = "ALL";
+  public supportStatusClicked = false;
+  public supportTypeClicked = false;
 
   // inject support service
   constructor(
@@ -74,6 +76,26 @@ export class SupportActivityComponent implements OnInit {
     private slimLoadingBarService: SlimLoadingBarService
   ) {
     this.toastr.setRootViewContainerRef(vRef);
+  }
+
+  public filterSupportStatusSelectedIndexChangedClick() {
+    if (this.supportStatusClicked) {
+      this.startLoading();
+      this.getSupportData();
+    }
+    else {
+      this.supportStatusClicked = true;
+    }
+  }
+
+  public filterSupportTypeSelectedIndexChangedClick() {
+    if (this.supportTypeClicked) {
+      this.startLoading();
+      this.getSupportData();
+    }
+    else {
+      this.supportTypeClicked = true;
+    }
   }
 
   // start loading
@@ -145,7 +167,7 @@ export class SupportActivityComponent implements OnInit {
 
   // support data
   public getSupportData() {
-    this.supportCollectionView = new wijmo.collections.CollectionView(this.supportService.getListSupportData(this.supportStartDateValue, this.supportEndDateValue));
+    this.supportCollectionView = new wijmo.collections.CollectionView(this.supportService.getListSupportData(this.supportStartDateValue, this.supportEndDateValue, this.filterSupportStatusSelectedValue, this.filterSupportTypeSelectedValue));
     this.supportCollectionView.filter = this.filterFunction.bind(this);
     this.supportCollectionView.pageSize = 15;
     this.supportCollectionView.trackChanges = true;
@@ -296,9 +318,9 @@ export class SupportActivityComponent implements OnInit {
 
   // show menu
   public showMenu() {
-      document.getElementById("showTop").click();
+    document.getElementById("showTop").click();
   }
-  
+
   public backClicked() {
     window.history.back();
   }

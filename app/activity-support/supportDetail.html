@@ -223,7 +223,7 @@
                             <h4> Activity  </h4>
                         </td>
                         <td align="right">
-                            <button class="btn btn-primary" (click)="btnActivityDetailModal(true)" data-toggle="modal" data-target="#activity-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
+                            <button class="btn btn-primary" (click)="btnActivityDetailModal(true)" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#activity-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
                         </td>
                     </tr>
                 </table>
@@ -346,6 +346,26 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label class="control-label col-sm-4">Assigned To</label>
+                        <div class="col-sm-8">
+                            <div *ngIf="isActivityLoading">
+                                <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
+                            </div>
+                            <div *ngIf="isActivityFinishLoading">
+                                <wj-combo-box 
+                                    [itemsSource]="activityAssignedUserObservableArray" 
+                                    [placeholder]="'Select User'"
+                                    [displayMemberPath]="'FullName'" 
+                                    [selectedValuePath]="'Id'"
+                                    [(selectedValue)]="activityAssignedToSelectedValue"
+                                    [isEditable]="false"
+                                    [isRequired]="true"
+                                    style="width: 100%; border-radius: 0px; padding-left: 3px;">
+                                </wj-combo-box>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="control-label col-sm-4">Status</label>
                         <div class="col-sm-8">
                             <wj-combo-box 
@@ -399,3 +419,5 @@
 <button id="btn-hidden-activity-detail-modal" [hidden]="true" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#activity-detail-modal"></button>
 <button id="btn-hidden-activity-data" [hidden]="true" (click)="getListActivity(true)"></button>
 <button id="btn-hidden-finished-load" [hidden]="true" (click)="finishedLoad()"></button>
+<button id="btn-hidden-activity-staffUser" [hidden]="true" (click)="getAssignedUser()"></button>
+<button id="btn-hidden--activity-finished-load" [hidden]="true" (click)="activityFinishedLoad()"></button>

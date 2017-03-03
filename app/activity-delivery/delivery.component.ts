@@ -39,6 +39,7 @@ export class DeliveryComponent implements OnInit {
   public filterDeliveryStatusSelectedValue = "OPEN";
   public isStartDateClicked = false;
   public isEndDateClicked = false;
+  public deliveryStatusClicked = false;
 
   // inject delivery service
   constructor(
@@ -117,9 +118,19 @@ export class DeliveryComponent implements OnInit {
     this.getDeliveryData();
   }
 
+  public filterDeliveryStatusSelectedIndexChangedClick() {
+    if (this.deliveryStatusClicked) {
+      this.startLoading();
+      this.getDeliveryData();
+    }
+    else {
+      this.deliveryStatusClicked = true;
+    }
+  }
+
   // delivery data
   public getDeliveryData() {
-    this.deliveryCollectionView = new wijmo.collections.CollectionView(this.deliveryService.getListDeliveryData(this.deliveryStartDateValue, this.deliveryEndDateValue));
+    this.deliveryCollectionView = new wijmo.collections.CollectionView(this.deliveryService.getListDeliveryData(this.deliveryStartDateValue, this.deliveryEndDateValue, this.filterDeliveryStatusSelectedValue));
     this.deliveryCollectionView.filter = this.filterFunction.bind(this);
     this.deliveryCollectionView.pageSize = 15;
     this.deliveryCollectionView.trackChanges = true;
@@ -185,7 +196,7 @@ export class DeliveryComponent implements OnInit {
 
   // quotation number selected index changed
   public cboDeliveryQuotaionSelectedIndexChanged() {
-      this.deliveryQuotationId = this.deliveryQuotaionSelectedValue;
+    this.deliveryQuotationId = this.deliveryQuotaionSelectedValue;
   }
 
   // meeting date on value changed
@@ -204,12 +215,12 @@ export class DeliveryComponent implements OnInit {
 
   // technical user selected index changed
   public cboDeliveryTechnicalUserSelectedIndexChanged() {
-      this.deliveryTechnicalUserId = this.deliveryTechnicalUserSelectedValue;
+    this.deliveryTechnicalUserId = this.deliveryTechnicalUserSelectedValue;
   }
 
   // functionl user selected index changed
   public cboDeliveryFunctionalUserSelectedIndexChanged() {
-      this.deliveryFunctionalUserId = this.deliveryFunctionalUserSelectedValue;
+    this.deliveryFunctionalUserId = this.deliveryFunctionalUserSelectedValue;
   }
 
   // status selected index changed
@@ -258,9 +269,9 @@ export class DeliveryComponent implements OnInit {
 
   // show menu
   public showMenu() {
-      document.getElementById("showTop").click();
+    document.getElementById("showTop").click();
   }
-  
+
   // save delivery
   public btnSaveDelivery() {
     let toastr: ToastsManager;

@@ -38,7 +38,6 @@
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
                                 <wj-input-date
                                     [(value)]="activityStartDateValue" 
-                                    [max]="activityEndDateValue"
                                     [format]="'MMM dd, yyyy'"
                                     (valueChanged)="activityStartDateOnValueChanged()"
                                     style="border-radius: 0px;">
@@ -50,7 +49,6 @@
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
                                 <wj-input-date
                                     [(value)]="activityEndDateValue" 
-                                    [min]="activityStartDateValue"
                                     [format]="'MMM dd, yyyy'"
                                     (valueChanged)="activityEndDateOnValueChanged()"
                                     style="border-radius: 0px;">
@@ -71,6 +69,30 @@
                                 </wj-combo-box>
                             </div>
                         </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-heading">
+                <table border="0" style="width: 100%;">
+                    <tr>
+                        <td style="width: 40%;">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-question-circle-o fa-fw"></i> Status</span>
+                                <wj-combo-box 
+                                    [itemsSource]="activityStatusesArray" 
+                                    [placeholder]="'Select Document'"
+                                    [isEditable]="false"
+                                    [isRequired]="true"
+                                    [(selectedValue)]="activityStatusesSelectedValue"
+                                    style="width: 100%; border-radius: 0px;">
+                                </wj-combo-box>
+                            </div>
+                        </td>
+                        <td style="width: 1%;"></td>
+                         <td style="width: 9%;">
+                            <button class="btn btn-default btn-sm btn-block" id="btnRefresh" (click)="refreshGrid()"><i class="fa fa-refresh fa-fw"></i> Refresh</button>
+                        </td>
+                        <td style="width: 50%;"></td>
                     </tr>
                 </table>
             </div>
@@ -206,6 +228,28 @@
                                 <input type="text" style="text-align: right;" [(ngModel)]="activityAmount" (keypress)="onKeyPressOnlyDecimalNumberKey($event)" (blur)="onBlurOnlyDecimalNumberKey()" class="form-control" id="activityAmount" name="" placeholder="0.00" />
                             </div>
                         </div>
+                        <div *ngIf="isSupport">
+                            <div class="form-group">
+                                <label class="control-label col-sm-4">Assigned To</label>
+                                <div class="col-sm-8">
+                                    <div *ngIf="isLoading" align="center">
+                                        <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
+                                    </div>
+                                    <div *ngIf="isFinishLoading">
+                                        <wj-combo-box 
+                                            [itemsSource]="activityAssignedUserObservableArray" 
+                                            [placeholder]="'Select User'"
+                                            [displayMemberPath]="'FullName'" 
+                                            [selectedValuePath]="'Id'"
+                                            [(selectedValue)]="activityAssignedToSelectedValue"
+                                            [isEditable]="true"
+                                            [isRequired]="false"
+                                            style="width: 100%; border-radius: 0px; padding-left: 3px;">
+                                        </wj-combo-box>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Status</label>
                             <div class="col-sm-8">
@@ -254,3 +298,4 @@
 <button id="btn-hidden-activity-delete-modal" [hidden]="true" data-toggle="modal" data-target="#activity-delete-confirmation-modal"></button>
 <button id="btn-hidden-activity-detail-modal" [hidden]="true" data-toggle="modal" data-target="#activity-detail-modal"></button>
 <button id="btn-hidden-activity-data" [hidden]="true" (click)="getListActivity()"></button>
+<button id="btn-hidden-finished-load" [hidden]="true" (click)="finishedLoad()"></button>

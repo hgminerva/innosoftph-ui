@@ -140,6 +140,13 @@ export class SupportService {
                     } else {
                         if (userType == "assignedToUser") {
                             document.getElementById("btn-hidden-support-data").click();
+                        } else {
+                            if (userType == "activityAssignedToUser") {
+                                document.getElementById("btn-hidden--activity-finished-load").click();
+                                (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                                (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = false;
+                                (<HTMLButtonElement>document.getElementById("btnActivityClose")).disabled = false;
+                            }
                         }
                     }
                 } else {
@@ -154,8 +161,8 @@ export class SupportService {
     }
 
     // list support by date ranged (start date and end date)
-    public getListSupportData(supportStartDate: Date, supportEndDate: Date): wijmo.collections.ObservableArray {
-        let url = "http://api.innosoft.ph/api/support/list/bySupportDateRange/" + supportStartDate.toDateString() + "/" + supportEndDate.toDateString();
+    public getListSupportData(supportStartDate: Date, supportEndDate: Date, status: String, supportType: String): wijmo.collections.ObservableArray {
+        let url = "http://api.innosoft.ph/api/support/list/bySupportDateRange/" + supportStartDate.toDateString() + "/" + supportEndDate.toDateString() + "/" + status + "/" + supportType;
         let supportObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
@@ -333,6 +340,7 @@ export class SupportService {
                     document.getElementById("btn-hidden-customer-data").click();
                 }
 
+                document.getElementById("btn-hidden-activity-staffUser").click();
             }
         );
 

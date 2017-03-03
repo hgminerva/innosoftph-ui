@@ -15,7 +15,7 @@ export class ActivityComponent implements OnInit {
   public isActivtyStartDateSelected = true;
   public activityEndDateValue: Date;
   public isActivtyEndDateSelected = true;
-  public documentArray = ['Lead', 'Quotation', 'Delivery', 'Support', 'Software Development'];
+  public documentArray = ['Lead', 'Quotation', 'Delivery', 'Support', 'Support - Technical', 'Support - Functional', 'Software Development'];
   public documentSelectedValue = 'Lead';
   public activityCollectionView: wijmo.collections.CollectionView;
   public activityFilter = '';
@@ -35,6 +35,16 @@ export class ActivityComponent implements OnInit {
   public activityAmount: String;
   public hasNoActivity = false;
   public hasActivity = true;
+  public activityStatusesArray = ['ALL', 'OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED'];
+  public activityStatusesSelectedValue = "OPEN";
+  public isStartDateClicked = false;
+  public isEndDateClicked = false;
+  public isActivityDocumentClicked = false;
+  public activityAssignedUserObservableArray: wijmo.collections.ObservableArray;
+  public activityAssignedToSelectedValue: number;
+  public isSupport = false;
+  public isFinishLoading = false;
+  public isLoading = true;
 
   // inject lead service
   constructor(
@@ -59,15 +69,26 @@ export class ActivityComponent implements OnInit {
   }
 
   public setActivityDateRanged() {
+    this.startLoading();
     this.activityStartDateValue = new Date();
     this.activityEndDateValue = new Date();
     this.activityDateValue = new Date();
     this.getListActivity();
   }
 
+  public getAssignedUser() {
+    this.activityAssignedUserObservableArray = this.activityService.getListUserData();
+  }
+
   public activityStartDateOnValueChanged() {
     if (!this.isActivtyStartDateSelected) {
-      this.getActivityData();
+      if (this.isStartDateClicked) {
+        this.startLoading();
+        this.getActivityData();
+      }
+      else {
+        this.isStartDateClicked = true;
+      }
     } else {
       this.isActivtyStartDateSelected = false;
     }
@@ -75,14 +96,34 @@ export class ActivityComponent implements OnInit {
 
   public activityEndDateOnValueChanged() {
     if (!this.isActivtyEndDateSelected) {
-      this.getActivityData();
+      if (this.isEndDateClicked) {
+        this.startLoading();
+        this.getActivityData();
+      }
+      else {
+        this.isEndDateClicked = true;
+      }
     } else {
       this.isActivtyEndDateSelected = false;
     }
   }
 
+  public finishedLoad() {
+    this.isFinishLoading = true;
+    this.isLoading = false;
+    (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+    (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnActivityClose")).disabled = false;
+  }
+
   public cboDocumentSelectedIndexChangedClick() {
-    this.getActivityData();
+    if (this.isActivityDocumentClicked) {
+      this.startLoading();
+      this.getActivityData();
+    }
+    else {
+      this.isActivityDocumentClicked = true;
+    }
   }
 
   // list activity
@@ -164,15 +205,23 @@ export class ActivityComponent implements OnInit {
 
     let currentSelectedActivity = this.activityCollectionView.currentItem;
     if (currentSelectedActivity.LeadId > 0) {
+      this.isSupport = false;
       this.activityParticularCategories = ['Lead'];
     } else {
       if (currentSelectedActivity.QuotationId > 0) {
+        this.isSupport = false;
         this.activityParticularCategories = ['Quotation'];
       } else {
         if (currentSelectedActivity.DeliveryId > 0) {
+          this.isSupport = false;
           this.activityParticularCategories = ['Delivery'];
         } else {
           if (currentSelectedActivity.SupportId > 0) {
+            (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+            (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = true;
+            (<HTMLButtonElement>document.getElementById("btnActivityClose")).disabled = true;
+            this.isSupport = true;
+            this.getAssignedUser();
             this.activityParticularCategories = [
               'New Installation',
               'Software Bug',
@@ -187,6 +236,7 @@ export class ActivityComponent implements OnInit {
             ];
           } else {
             if (currentSelectedActivity.SoftwareDevelopmentId > 0) {
+              this.isSupport = false;
               this.activityParticularCategories = [
                 'Report',
                 'Form',
@@ -280,6 +330,7 @@ export class ActivityComponent implements OnInit {
 
     let activityDataObject = {
       ActivityDate: this.activityDateValue.toLocaleDateString(),
+      StaffUserId: this.activityAssignedToSelectedValue,
       CustomerId: customerId,
       ProductId: productId,
       ParticularCategory: this.activityParticularCategorySelectedValue,
@@ -371,6 +422,14 @@ export class ActivityComponent implements OnInit {
         }
       }
     }
+  }
+
+  // refresh grid
+  public refreshGrid() {
+    this.startLoading();
+    (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+    this.getActivityData();
   }
 
   public backClicked() {

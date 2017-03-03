@@ -87,8 +87,8 @@ var ContinuityService = (function () {
         return userObservableArray;
     };
     // list continuity by date ranged (start date and end date)
-    ContinuityService.prototype.getListContinuityData = function (continuityStartDate, continuityEndDate) {
-        var url = "http://api.innosoft.ph/api/continuity/list/byContinuityDateRange/" + continuityStartDate.toDateString() + "/" + continuityEndDate.toDateString();
+    ContinuityService.prototype.getListContinuityData = function (continuityStartDate, continuityEndDate, status) {
+        var url = "http://api.innosoft.ph/api/continuity/list/byContinuityDateRange/" + continuityStartDate.toDateString() + "/" + continuityEndDate.toDateString() + "/" + status;
         var continuityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());

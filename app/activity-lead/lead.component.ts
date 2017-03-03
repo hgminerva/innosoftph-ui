@@ -44,6 +44,7 @@ export class LeadComponent implements OnInit {
   public isEndDateClicked = false;
   public fliterLeadStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
   public filterLeadStatusSelectedValue = "OPEN";
+  public leadStatusClicked = false;
   
   // inject lead service
   constructor(
@@ -79,10 +80,6 @@ export class LeadComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnCloseLead")).disabled = false;
   }
 
-  public backClicked() {
-    window.history.back();
-  }
-
   // lead dates
   public setLeadDateRanged() {
     this.startLoading();
@@ -103,10 +100,20 @@ export class LeadComponent implements OnInit {
 
   // lead service data
   public getLeadData() {
-    this.leadCollectionView = new wijmo.collections.CollectionView(this.leadService.getListLeadData(this.leadStartDateValue, this.leadEndDateValue));
+    this.leadCollectionView = new wijmo.collections.CollectionView(this.leadService.getListLeadData(this.leadStartDateValue, this.leadEndDateValue, this.filterLeadStatusSelectedValue));
     this.leadCollectionView.filter = this.filterFunction.bind(this);
     this.leadCollectionView.pageSize = 15;
     this.leadCollectionView.trackChanges = true;
+  }
+
+  public filterLeadStatusSelectedIndexChangedClick() {
+    if (this.leadStatusClicked) {
+      this.startLoading();
+      this.getLeadData();
+    }
+    else {
+      this.leadStatusClicked = true;
+    }
   }
 
   // filter

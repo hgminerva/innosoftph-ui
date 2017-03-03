@@ -64,6 +64,9 @@ var SupportDetailComponent = (function () {
         this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED'];
         this.isFinishLoading = false;
         this.isLoading = true;
+        this.isSupport = false;
+        this.isActivityFinishLoading = false;
+        this.isActivityLoading = true;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -80,6 +83,13 @@ var SupportDetailComponent = (function () {
         this.isLoading = false;
         document.getElementById("btnSaveSupportDetail").disabled = false;
         document.getElementById("btnCloseSupportDetail").disabled = false;
+    };
+    SupportDetailComponent.prototype.activityFinishedLoad = function () {
+        this.isActivityFinishLoading = true;
+        this.isActivityLoading = false;
+        document.getElementById("btnActivitySave").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+        document.getElementById("btnActivitySave").disabled = false;
+        document.getElementById("btnActivityClose").disabled = false;
     };
     // lead date ranged
     SupportDetailComponent.prototype.setContinuityDateValue = function () {
@@ -121,6 +131,9 @@ var SupportDetailComponent = (function () {
     // assigned to user list
     SupportDetailComponent.prototype.getListAssignedToUserData = function () {
         this.supportAssignedUserObservableArray = this.supportService.getListUserData("supportDetail", "assignedToUser");
+    };
+    SupportDetailComponent.prototype.getAssignedUser = function () {
+        this.activityAssignedUserObservableArray = this.supportService.getListUserData("supportDetail", "activityAssignedToUser");
     };
     // get service data
     SupportDetailComponent.prototype.getSupportServiceData = function () {
@@ -208,9 +221,6 @@ var SupportDetailComponent = (function () {
     };
     // activity line detail modal  
     SupportDetailComponent.prototype.btnActivityDetailModal = function (add) {
-        document.getElementById("btnActivitySave").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-        document.getElementById("btnActivitySave").disabled = false;
-        document.getElementById("btnActivityClose").disabled = false;
         if (add) {
             this.activityDetailModalString = "Add";
             this.activityId = 0;
@@ -233,6 +243,7 @@ var SupportDetailComponent = (function () {
             document.getElementById("activityAmount").value = currentSelectedActivity.ActivityAmount.toLocaleString();
             this.activityAmount = currentSelectedActivity.ActivityAmount.toLocaleString();
             this.activityStatusSelectedValue = currentSelectedActivity.ActivityStatus;
+            this.activityAssignedToSelectedValue = currentSelectedActivity.StaffUserId;
         }
     };
     // get activity data
@@ -240,6 +251,7 @@ var SupportDetailComponent = (function () {
         var productId = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].ProductId;
         var activityDataObject = {
             ActivityDate: this.activityDateValue.toLocaleDateString(),
+            StaffUserId: this.activityAssignedToSelectedValue,
             CustomerId: this.supportCustomerSelectedValue,
             ProductId: productId,
             ParticularCategory: this.activityParticularCategorySelectedValue,

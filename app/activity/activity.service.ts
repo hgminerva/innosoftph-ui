@@ -19,6 +19,30 @@ export class ActivityService {
         private toastr: ToastsManager
     ) { }
 
+
+    // list user
+    public getListUserData(): wijmo.collections.ObservableArray {
+        let userObservableArray = new wijmo.collections.ObservableArray();
+        let url = "http://api.innosoft.ph/api/user/list";
+        this.http.get(url, this.options).subscribe(
+            response => {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                for (var i = 0; i <= results.length - 1; i++) {
+                    if (results.length > 0) {
+                        userObservableArray.push({
+                            Id: results[i].Id,
+                            FullName: results[i].FullName
+                        });
+                    }
+                }
+
+                document.getElementById("btn-hidden-finished-load").click();
+            }
+        );
+
+        return userObservableArray;
+    }
+
     // list activity by document and by date ranged (start date and end date)  
     public getListActivityData(documentType: String, activityStartDate: Date, activityEndDate: Date): wijmo.collections.ObservableArray {
         let url = "http://api.innosoft.ph/api/activity/list/byDocument/byDateRanged/" + documentType + "/" + activityStartDate.toDateString() + "/" + activityEndDate.toDateString();
@@ -53,6 +77,9 @@ export class ActivityService {
                 }
 
                 document.getElementById("btn-hidden-complete-loading").click();
+
+                (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-refresh fa-fw'></i> Refresh";
             }
         );
 
