@@ -51,6 +51,12 @@ var SupportActivityComponent = (function () {
         this.supportStatusSelectedValue = "OPEN";
         this.isFinishLoading = false;
         this.isLoading = true;
+        this.fliterSupportStatusArray = ['ALL', 'OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED'];
+        this.filterSupportStatusSelectedValue = "OPEN";
+        this.isStartDateClicked = false;
+        this.isEndDateClicked = false;
+        this.fliterSupportTypeArray = ['ALL', 'Technical', 'Functional'];
+        this.filterSupportTypeSelectedValue = "ALL";
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -71,6 +77,7 @@ var SupportActivityComponent = (function () {
     };
     // support dates
     SupportActivityComponent.prototype.setSupportDateRanged = function () {
+        this.startLoading();
         this.supportStartDateValue = new Date();
         this.supportEndDateValue = new Date();
         this.supportDateValue = new Date();
@@ -79,8 +86,13 @@ var SupportActivityComponent = (function () {
     // event: support start date
     SupportActivityComponent.prototype.supportStartDateOnValueChanged = function () {
         if (!this.isSupportStartDateSelected) {
-            document.getElementById("btn-hidden-start-loading").click();
-            this.getSupportData();
+            if (this.isStartDateClicked) {
+                this.startLoading();
+                this.getSupportData();
+            }
+            else {
+                this.isStartDateClicked = true;
+            }
         }
         else {
             this.isSupportStartDateSelected = false;
@@ -89,8 +101,13 @@ var SupportActivityComponent = (function () {
     // event: support end date
     SupportActivityComponent.prototype.supportEndDateOnValueChanged = function () {
         if (!this.isSupportEndDateSelected) {
-            document.getElementById("btn-hidden-start-loading").click();
-            this.getSupportData();
+            if (this.isEndDateClicked) {
+                this.startLoading();
+                this.getSupportData();
+            }
+            else {
+                this.isEndDateClicked = true;
+            }
         }
         else {
             this.isSupportEndDateSelected = false;
@@ -230,9 +247,19 @@ var SupportActivityComponent = (function () {
     SupportActivityComponent.prototype.getListAssignedToUser = function () {
         this.supportAssignedUserObservableArray = this.supportService.getListUserData("support", "assignedToUser");
     };
+    // refresh grid
+    SupportActivityComponent.prototype.refreshGrid = function () {
+        this.startLoading();
+        document.getElementById("btnRefresh").disabled = true;
+        document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+        this.getSupportData();
+    };
     // show menu
     SupportActivityComponent.prototype.showMenu = function () {
         document.getElementById("showTop").click();
+    };
+    SupportActivityComponent.prototype.backClicked = function () {
+        window.history.back();
     };
     // initialization
     SupportActivityComponent.prototype.ngOnInit = function () {

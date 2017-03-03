@@ -350,6 +350,9 @@ var ActivityComponent = (function () {
             }
         }
     };
+    ActivityComponent.prototype.backClicked = function () {
+        window.history.back();
+    };
     // initialization
     ActivityComponent.prototype.ngOnInit = function () {
         this.setActivityDateRanged();

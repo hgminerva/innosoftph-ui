@@ -20,6 +20,7 @@ var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
 var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
 var wjFlexGrid = require('wijmo/wijmo.angular2.grid');
 var wjInput = require('wijmo/wijmo.angular2.input');
+var reuse_strategy_1 = require('./reuse-strategy');
 // components
 var app_component_1 = require('./app.component');
 var header_component_1 = require('./shared-header/header.component');
@@ -98,7 +99,7 @@ var AppModule = (function () {
                 forms_1.FormsModule,
                 http_1.HttpModule,
                 ng2_toastr_1.ToastModule,
-                ng2_slim_loading_bar_1.SlimLoadingBarModule.forRoot()
+                ng2_slim_loading_bar_1.SlimLoadingBarModule.forRoot(),
             ],
             declarations: [
                 app_component_1.AppComponent,
@@ -145,7 +146,8 @@ var AppModule = (function () {
                 ng2_toastr_2.ToastsManager,
                 activity_service_1.ActivityService,
                 project_service_1.ProjectService,
-                softwareDevelopment_service_1.SoftwareDevelopmentService
+                softwareDevelopment_service_1.SoftwareDevelopmentService,
+                { provide: router_1.RouteReuseStrategy, useClass: reuse_strategy_1.CustomReuseStrategy }
             ],
             bootstrap: [
                 app_component_1.AppComponent

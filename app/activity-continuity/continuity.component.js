@@ -34,6 +34,10 @@ var ContinuityComponent = (function () {
         this.continuityStatusSelectedValue = "OPEN";
         this.isFinishLoading = false;
         this.isLoading = true;
+        this.fliterContinuityStatusArray = ['ALL', 'OPEN', 'EXPIRED'];
+        this.filterContinuityStatusSelectedValue = "OPEN";
+        this.isStartDateClicked = false;
+        this.isEndDateClicked = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -54,6 +58,7 @@ var ContinuityComponent = (function () {
     };
     // continuity date ranged
     ContinuityComponent.prototype.setContinuityDateRanged = function () {
+        this.startLoading();
         this.continuityStartDateValue = new Date();
         this.continuityEndDateValue = new Date();
         this.continuityDateValue = new Date();
@@ -68,9 +73,14 @@ var ContinuityComponent = (function () {
     };
     // event: continuity start date
     ContinuityComponent.prototype.continuityStartDateOnValueChanged = function () {
-        this.startLoading();
         if (!this.isContinuityStartDateSelected) {
-            this.getContinuityData();
+            if (this.isEndDateClicked) {
+                this.startLoading();
+                this.getContinuityData();
+            }
+            else {
+                this.isEndDateClicked = true;
+            }
         }
         else {
             this.isContinuityStartDateSelected = false;
@@ -78,9 +88,14 @@ var ContinuityComponent = (function () {
     };
     // event: continuity end date
     ContinuityComponent.prototype.continuityEndDateOnValueChanged = function () {
-        this.startLoading();
         if (!this.isContinuityEndDateSelected) {
-            this.getContinuityData();
+            if (this.isStartDateClicked) {
+                this.startLoading();
+                this.getContinuityData();
+            }
+            else {
+                this.isStartDateClicked = true;
+            }
         }
         else {
             this.isContinuityEndDateSelected = false;
@@ -234,9 +249,19 @@ var ContinuityComponent = (function () {
         var currentSelectedContinuity = this.continuityCollectionView.currentItem;
         this.continuityService.deleteContinuityData(currentSelectedContinuity.Id, toastr);
     };
+    // refresh grid
+    ContinuityComponent.prototype.refreshGrid = function () {
+        this.startLoading();
+        document.getElementById("btnRefresh").disabled = true;
+        document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+        this.getContinuityData();
+    };
     // show menu
     ContinuityComponent.prototype.showMenu = function () {
         document.getElementById("showTop").click();
+    };
+    ContinuityComponent.prototype.backClicked = function () {
+        window.history.back();
     };
     // initialization
     ContinuityComponent.prototype.ngOnInit = function () {

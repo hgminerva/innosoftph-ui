@@ -236,7 +236,6 @@ export class SoftwareDevelopmentDetailComponent implements OnInit {
 
   // save activity
   public btnActivitySaveClick() {
-    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
     (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = true;
@@ -259,7 +258,6 @@ export class SoftwareDevelopmentDetailComponent implements OnInit {
 
   // activity delete confirmation click
   public btnActivityDeleteConfirmationClick() {
-    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
     (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).disabled = true;
@@ -271,6 +269,10 @@ export class SoftwareDevelopmentDetailComponent implements OnInit {
   public btnActivityPrintClick() {
     let currentSelectedActivity = this.activityCollectionView.currentItem;
     window.open('http://api.innosoft.ph/RepActivityTicket/activityTicket?activityId=' + currentSelectedActivity.Id, "_target");
+  }
+
+  public backClicked() {
+    window.history.back();
   }
 
   // show menu

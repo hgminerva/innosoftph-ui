@@ -10,17 +10,19 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var router_1 = require('@angular/router');
+var common_1 = require('@angular/common');
 var project_service_1 = require('./project.service');
 var ng2_toastr_1 = require('ng2-toastr/ng2-toastr');
 var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
 var ProjectComponent = (function () {
     // inject project service
-    function ProjectComponent(projectService, router, toastr, vRef, slimLoadingBarService) {
+    function ProjectComponent(projectService, router, toastr, vRef, slimLoadingBarService, location) {
         this.projectService = projectService;
         this.router = router;
         this.toastr = toastr;
         this.vRef = vRef;
         this.slimLoadingBarService = slimLoadingBarService;
+        this.location = location;
         this.isProjectStartDateSelected = true;
         this.isProjectEndDateSelected = true;
         this.projectFilter = '';
@@ -30,8 +32,15 @@ var ProjectComponent = (function () {
         this.projectTypeSelectedValue = "Desktop";
         this.projectStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
         this.projectStatusSelectedValue = "OPEN";
+        this.fliterProjectStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
+        this.filterProjectStatusSelectedValue = "OPEN";
+        this.isStartDateClicked = false;
+        this.isEndDateClicked = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
+    ProjectComponent.prototype.backClicked = function () {
+        this.location.back();
+    };
     // start loading
     ProjectComponent.prototype.startLoading = function () {
         this.slimLoadingBarService.progress = 30;
@@ -76,18 +85,24 @@ var ProjectComponent = (function () {
     };
     // project date ranged
     ProjectComponent.prototype.setProjectDateRanged = function () {
+        this.startLoading();
         this.projectStartDateValue = new Date();
         this.projectEndDateValue = new Date();
         this.projectDateValue = new Date();
         this.projectStartDateDataValue = new Date();
         this.projectEndDateDataValue = new Date();
-        this.getProjectData();
+        this.getListProjectData();
     };
     // event: project start date
     ProjectComponent.prototype.projectStartDateOnValueChanged = function () {
-        this.startLoading();
         if (!this.isProjectStartDateSelected) {
-            this.getProjectData();
+            if (this.isStartDateClicked) {
+                this.startLoading();
+                this.getProjectData();
+            }
+            else {
+                this.isStartDateClicked = true;
+            }
         }
         else {
             this.isProjectStartDateSelected = false;
@@ -95,13 +110,24 @@ var ProjectComponent = (function () {
     };
     // event: project end date
     ProjectComponent.prototype.projectEndDateOnValueChanged = function () {
-        this.startLoading();
         if (!this.isProjectEndDateSelected) {
-            this.getProjectData();
+            if (this.isEndDateClicked) {
+                this.startLoading();
+                this.getProjectData();
+            }
+            else {
+                this.isEndDateClicked = true;
+            }
         }
         else {
             this.isProjectEndDateSelected = false;
         }
+    };
+    ProjectComponent.prototype.getListProjectData = function () {
+        if (!localStorage.getItem('access_token')) {
+            this.router.navigate(['login']);
+        }
+        this.getProjectData();
     };
     // project data
     ProjectComponent.prototype.getProjectData = function () {
@@ -208,6 +234,13 @@ var ProjectComponent = (function () {
         var currentSelectedContinuity = this.projectCollectionView.currentItem;
         this.projectService.deleteProjectData(currentSelectedContinuity.Id, toastr);
     };
+    // refresh grid
+    ProjectComponent.prototype.refreshGrid = function () {
+        this.startLoading();
+        document.getElementById("btnRefresh").disabled = true;
+        document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+        this.getProjectData();
+    };
     // initialization
     ProjectComponent.prototype.ngOnInit = function () {
         this.setProjectDateRanged();
@@ -217,7 +250,7 @@ var ProjectComponent = (function () {
             selector: 'my-project',
             templateUrl: 'app/activity-project/project.html'
         }), 
-        __metadata('design:paramtypes', [project_service_1.ProjectService, router_1.Router, ng2_toastr_1.ToastsManager, core_1.ViewContainerRef, ng2_slim_loading_bar_1.SlimLoadingBarService])
+        __metadata('design:paramtypes', [project_service_1.ProjectService, router_1.Router, ng2_toastr_1.ToastsManager, core_1.ViewContainerRef, ng2_slim_loading_bar_1.SlimLoadingBarService, common_1.Location])
     ], ProjectComponent);
     return ProjectComponent;
 }());

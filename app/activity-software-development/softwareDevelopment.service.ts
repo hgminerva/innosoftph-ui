@@ -104,6 +104,9 @@ export class SoftwareDevelopmentService {
                 }
 
                 document.getElementById("btn-hidden-complete-loading").click();
+
+                (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-refresh fa-fw'></i> Refresh";
             }
         );
 
@@ -152,10 +155,10 @@ export class SoftwareDevelopmentService {
                         this.router.navigate(['/softwareDevelopmentDetail', results]);
                     }, 1000);
                 } else {
+                    this.toastr.error('', 'Something`s went wrong!');
                     (<HTMLButtonElement>document.getElementById("btnSaveSoftwareDevelopment")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                     (<HTMLButtonElement>document.getElementById("btnSaveSoftwareDevelopment")).disabled = false;
                     (<HTMLButtonElement>document.getElementById("btnCloseSoftwareDevelopment")).disabled = false;
-                    this.toastr.error('', 'Something`s went wrong!');
                 }
             },
             error => {
@@ -170,9 +173,10 @@ export class SoftwareDevelopmentService {
         this.http.put(url, JSON.stringify(softwareDevelopmentObject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
-                setTimeout(() => {
-                    this.router.navigate(['/softwareDevelopment']);
-                }, 1000);
+                document.getElementById("btn-hidden-complete-loading").click();
+                (<HTMLButtonElement>document.getElementById("btnSaveSoftwareDevelopmentDetail")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                (<HTMLButtonElement>document.getElementById("btnSaveSoftwareDevelopmentDetail")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnCloseSoftwareDevelopmentDetail")).disabled = false;
             },
             error => {
                 this.toastr.error('', 'Something`s went wrong!');
@@ -236,8 +240,6 @@ export class SoftwareDevelopmentService {
 
                 if (!isLoadActivityOnly) {
                     document.getElementById("btn-hidden-project-data").click();
-                } else {
-                    document.getElementById("btn-hidden-complete-loading").click();
                 }
             }
         );
@@ -255,10 +257,10 @@ export class SoftwareDevelopmentService {
                 document.getElementById("btn-hidden-activity-data").click();
             },
             error => {
+                this.toastr.error('', 'Something`s went wrong!');
                 (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                 (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnActivityClose")).disabled = false;
-                this.toastr.error('', 'Something`s went wrong!');
             }
         )
     }

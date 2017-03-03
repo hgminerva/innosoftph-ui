@@ -189,6 +189,9 @@ export class SupportService {
                 }
 
                 document.getElementById("btn-hidden-complete-loading").click();
+
+                (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-refresh fa-fw'></i> Refresh";
             }
         );
 
@@ -260,9 +263,10 @@ export class SupportService {
         this.http.put(url, JSON.stringify(supportObject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
-                setTimeout(() => {
-                    this.router.navigate(['/supportActivity']);
-                }, 1000);
+                document.getElementById("btn-hidden-complete-loading").click();
+                (<HTMLButtonElement>document.getElementById("btnSaveSupportDetail")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                (<HTMLButtonElement>document.getElementById("btnSaveSupportDetail")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnCloseSupportDetail")).disabled = false;
             },
             error => {
                 this.toastr.error('', 'Save Unsuccessful');
@@ -327,8 +331,6 @@ export class SupportService {
 
                 if (!isLoadActivityOnly) {
                     document.getElementById("btn-hidden-customer-data").click();
-                } else {
-                    document.getElementById("btn-hidden-complete-loading").click();
                 }
 
             }
@@ -347,10 +349,10 @@ export class SupportService {
                 document.getElementById("btn-hidden-activity-data").click();
             },
             error => {
+                this.toastr.error('', 'Something`s went wrong!');
                 (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                 (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnActivityClose")).disabled = false;
-                this.toastr.error('', 'Something`s went wrong!');
             }
         )
     }

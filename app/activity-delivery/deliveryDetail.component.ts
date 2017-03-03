@@ -244,7 +244,6 @@ export class DeliveryDetailComponent implements OnInit {
 
   // save activity
   public btnActivitySaveClick() {
-    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
     (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = true;
@@ -267,7 +266,6 @@ export class DeliveryDetailComponent implements OnInit {
 
   // activity delete confirmation click
   public btnActivityDeleteConfirmationClick() {
-    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
     (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).disabled = true;
@@ -286,6 +284,10 @@ export class DeliveryDetailComponent implements OnInit {
       document.getElementById("showTop").click();
   }
   
+  public backClicked() {
+    window.history.back();
+  }
+
   // initialization
   public ngOnInit(): any {
     if (!localStorage.getItem('access_token')) {

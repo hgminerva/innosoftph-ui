@@ -76,6 +76,9 @@ var UserComponent = (function () {
     UserComponent.prototype.showMenu = function () {
         document.getElementById("showTop").click();
     };
+    UserComponent.prototype.backClicked = function () {
+        window.history.back();
+    };
     // initialization
     UserComponent.prototype.ngOnInit = function () {
         this.getListUser();

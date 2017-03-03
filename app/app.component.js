@@ -43,8 +43,9 @@ var AppComponent = (function () {
         localStorage.removeItem('token_type');
         localStorage.removeItem('userName');
         setTimeout(function () {
-            document.getElementById("btn-hidden-logout-modal").click();
-            _this.router.navigate(['/home']);
+            // document.getElementById("btn-hidden-logout-modal").click();
+            // this.router.navigate(['/home']);
+            location.reload();
             _this.headerCurrentUserChanges();
         }, 500);
     };

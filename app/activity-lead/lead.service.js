@@ -84,6 +84,8 @@ var LeadService = (function () {
                 }
             }
             document.getElementById("btn-hidden-complete-loading").click();
+            document.getElementById("btnRefresh").disabled = false;
+            document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-refresh fa-fw'></i> Refresh";
         });
         return leadObservableArray;
     };
@@ -133,10 +135,10 @@ var LeadService = (function () {
                 }, 1000);
             }
             else {
+                _this.toastr.error('', 'Something`s went wrong!');
                 document.getElementById("btnSaveLead").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                 document.getElementById("btnSaveLead").disabled = false;
                 document.getElementById("btnCloseLead").disabled = false;
-                _this.toastr.error('', 'Something`s went wrong!');
             }
         }, function (error) {
             alert("Error");
@@ -148,9 +150,10 @@ var LeadService = (function () {
         var url = "http://api.innosoft.ph/api/lead/put/" + id;
         this.http.put(url, JSON.stringify(leadObject), this.options).subscribe(function (response) {
             _this.toastr.success('', 'Save Successful');
-            setTimeout(function () {
-                _this.router.navigate(['/lead']);
-            }, 1000);
+            document.getElementById("btn-hidden-complete-loading").click();
+            document.getElementById("btnSaveLeadDetail").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+            document.getElementById("btnSaveLeadDetail").disabled = false;
+            document.getElementById("btnCloseLeadDetail").disabled = false;
         }, function (error) {
             _this.toastr.error('', 'Something`s went wrong!');
             document.getElementById("btnSaveLeadDetail").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
@@ -207,9 +210,6 @@ var LeadService = (function () {
             if (!isLoadActivityOnly) {
                 document.getElementById("btn-hidden-encoded-user-data").click();
             }
-            else {
-                document.getElementById("btn-hidden-complete-loading").click();
-            }
         });
         return activityObservableArray;
     };
@@ -222,10 +222,10 @@ var LeadService = (function () {
             document.getElementById("btn-hidden-activity-detail-modal").click();
             document.getElementById("btn-hidden-activity-data").click();
         }, function (error) {
+            _this.toastr.error('', 'Something`s went wrong!');
             document.getElementById("btnActivitySave").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
             document.getElementById("btnActivitySave").disabled = false;
             document.getElementById("btnActivityClose").disabled = false;
-            _this.toastr.error('', 'Something`s went wrong!');
         });
     };
     // update activity

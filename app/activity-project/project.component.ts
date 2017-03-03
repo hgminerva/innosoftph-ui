@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewContainerRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 import { ProjectService } from './project.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
@@ -38,6 +39,10 @@ export class ProjectComponent {
   public projectEndDateDataValue: Date;
   public projectStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
   public projectStatusSelectedValue = "OPEN";
+  public fliterProjectStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
+  public filterProjectStatusSelectedValue = "OPEN";
+  public isStartDateClicked = false;
+  public isEndDateClicked = false;
 
   // inject project service
   constructor(
@@ -45,9 +50,14 @@ export class ProjectComponent {
     private router: Router,
     private toastr: ToastsManager,
     private vRef: ViewContainerRef,
-    private slimLoadingBarService: SlimLoadingBarService
+    private slimLoadingBarService: SlimLoadingBarService,
+    private location: Location
   ) {
     this.toastr.setRootViewContainerRef(vRef);
+  }
+
+  public backClicked() {
+    this.location.back();
   }
 
   // start loading
@@ -98,19 +108,25 @@ export class ProjectComponent {
 
   // project date ranged
   public setProjectDateRanged() {
+    this.startLoading();
     this.projectStartDateValue = new Date();
     this.projectEndDateValue = new Date();
     this.projectDateValue = new Date();
     this.projectStartDateDataValue = new Date();
     this.projectEndDateDataValue = new Date();
-    this.getProjectData();
+    this.getListProjectData();
   }
 
   // event: project start date
   public projectStartDateOnValueChanged() {
-    this.startLoading();
     if (!this.isProjectStartDateSelected) {
-      this.getProjectData();
+      if (this.isStartDateClicked) {
+        this.startLoading();
+        this.getProjectData();
+      }
+      else {
+        this.isStartDateClicked = true;
+      }
     } else {
       this.isProjectStartDateSelected = false;
     }
@@ -118,12 +134,25 @@ export class ProjectComponent {
 
   // event: project end date
   public projectEndDateOnValueChanged() {
-    this.startLoading();
     if (!this.isProjectEndDateSelected) {
-      this.getProjectData();
+      if (this.isEndDateClicked) {
+        this.startLoading();
+        this.getProjectData();
+      }
+      else {
+        this.isEndDateClicked = true;
+      }
     } else {
       this.isProjectEndDateSelected = false;
     }
+  }
+
+  public getListProjectData() {
+    if (!localStorage.getItem('access_token')) {
+      this.router.navigate(['login']);
+    }
+
+    this.getProjectData();
   }
 
   // project data
@@ -237,6 +266,14 @@ export class ProjectComponent {
     (<HTMLButtonElement>document.getElementById("btnDeleteCloseProject")).disabled = true;
     let currentSelectedContinuity = this.projectCollectionView.currentItem;
     this.projectService.deleteProjectData(currentSelectedContinuity.Id, toastr);
+  }
+
+  // refresh grid
+  public refreshGrid() {
+    this.startLoading();
+    (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+    this.getProjectData();
   }
 
   // initialization

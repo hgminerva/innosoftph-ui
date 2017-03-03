@@ -160,6 +160,10 @@ export class QuotationDetailComponent implements OnInit {
     this.quotationService.putQuotationData(this.getIdUrlParameter(), this.getQuotationValue(), toastr);
   }
 
+  public backClicked() {
+    window.history.back();
+  }
+
   // on key press decimal key
   public onKeyPressOnlyDecimalNumberKey(event: any) {
     let charCode = (event.which) ? event.which : event.keyCode;
@@ -238,7 +242,6 @@ export class QuotationDetailComponent implements OnInit {
 
   // save activity
   public btnActivitySaveClick() {
-    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
     (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = true;
@@ -261,7 +264,6 @@ export class QuotationDetailComponent implements OnInit {
 
   // activity delete confirmation click
   public btnActivityDeleteConfirmationClick() {
-    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
     (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).disabled = true;

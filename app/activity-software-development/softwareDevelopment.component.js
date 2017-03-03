@@ -32,6 +32,10 @@ var SoftwareDevelopmentComponent = (function () {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
         ];
         this.softwareDevelopmentNoOfHoursSelectedValue = "0";
+        this.fliterSoftwareDevelopmentStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
+        this.filterSoftwareDevelopmentStatusSelectedValue = "OPEN";
+        this.isStartDateClicked = false;
+        this.isEndDateClicked = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -52,6 +56,7 @@ var SoftwareDevelopmentComponent = (function () {
     };
     // softwareDevelopment dates
     SoftwareDevelopmentComponent.prototype.setSoftwareDevelopmentDateRanged = function () {
+        this.startLoading();
         this.softwareDevelopmentStartDateValue = new Date();
         this.softwareDevelopmentEndDateValue = new Date();
         this.softwareDevelopmentDateValue = new Date();
@@ -73,8 +78,13 @@ var SoftwareDevelopmentComponent = (function () {
     // event: softwareDevelopment start date
     SoftwareDevelopmentComponent.prototype.softwareDevelopmentStartDateOnValueChanged = function () {
         if (!this.isSoftwareDevelopmentStartDateSelected) {
-            this.startLoading();
-            this.getSoftwareDevelopmentData();
+            if (this.isStartDateClicked) {
+                this.startLoading();
+                this.getSoftwareDevelopmentData();
+            }
+            else {
+                this.isStartDateClicked = true;
+            }
         }
         else {
             this.isSoftwareDevelopmentStartDateSelected = false;
@@ -83,8 +93,13 @@ var SoftwareDevelopmentComponent = (function () {
     // event: softwareDevelopment end date
     SoftwareDevelopmentComponent.prototype.softwareDevelopmentEndDateOnValueChanged = function () {
         if (!this.isSoftwareDevelopmentEndDateSelected) {
-            this.startLoading();
-            this.getSoftwareDevelopmentData();
+            if (this.isEndDateClicked) {
+                this.startLoading();
+                this.getSoftwareDevelopmentData();
+            }
+            else {
+                this.isEndDateClicked = true;
+            }
         }
         else {
             this.isSoftwareDevelopmentEndDateSelected = false;
@@ -171,7 +186,6 @@ var SoftwareDevelopmentComponent = (function () {
     };
     // delete confirm software development
     SoftwareDevelopmentComponent.prototype.btnDeleteConfirmSoftwareDevelopmentClick = function () {
-        this.startLoading();
         var toastr;
         document.getElementById("btnDeleteSoftwareDevelopment").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
         document.getElementById("btnDeleteSoftwareDevelopment").disabled = true;
@@ -181,16 +195,25 @@ var SoftwareDevelopmentComponent = (function () {
     };
     // save software development
     SoftwareDevelopmentComponent.prototype.btnSaveSoftwareDevelopment = function () {
-        this.startLoading();
         var toastr;
         document.getElementById("btnSaveSoftwareDevelopment").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
         document.getElementById("btnSaveSoftwareDevelopment").disabled = true;
         document.getElementById("btnCloseSoftwareDevelopment").disabled = true;
         this.softwareDevelopmentService.postSoftwareDevelopmentData(this.getSoftwareDevelopmentDataValue(), toastr);
     };
+    SoftwareDevelopmentComponent.prototype.backClicked = function () {
+        window.history.back();
+    };
     // show menu
     SoftwareDevelopmentComponent.prototype.showMenu = function () {
         document.getElementById("showTop").click();
+    };
+    // refresh grid
+    SoftwareDevelopmentComponent.prototype.refreshGrid = function () {
+        this.startLoading();
+        document.getElementById("btnRefresh").disabled = true;
+        document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+        this.getSoftwareDevelopmentData();
     };
     // initialization
     SoftwareDevelopmentComponent.prototype.ngOnInit = function () {

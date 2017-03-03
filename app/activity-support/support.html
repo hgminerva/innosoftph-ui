@@ -26,7 +26,7 @@
                         </td>
                         <td align="right">
                             <button class="btn btn-primary" (click)="btnAddSupportClick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#support-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
-                            <button class="btn btn-danger" routerLink="/dashboard"><i class="fa fa-close fa-fw"></i> Close</button>
+                            <button class="btn btn-danger" (click)="backClicked()"><i class="fa fa-close fa-fw"></i> Close</button>
                         </td>
                     </tr>
                 </table>
@@ -39,7 +39,6 @@
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
                                 <wj-input-date
                                     [(value)]="supportStartDateValue" 
-                                    [max]="supportEndDateValue"
                                     [format]="'MMM dd, yyyy'"
                                     (valueChanged)="supportStartDateOnValueChanged()"
                                     style="border-radius: 0px;">
@@ -51,14 +50,48 @@
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
                                 <wj-input-date
                                     [(value)]="supportEndDateValue" 
-                                    [min]="supportStartDateValue"
                                     [format]="'MMM dd, yyyy'"
                                     (valueChanged)="supportEndDateOnValueChanged()"
                                     style="border-radius: 0px;">
                                 </wj-input-date>
                             </div>
+                        </td><td style="width: 30%;">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-question-circle-o fa-fw"></i> Status</span>
+                                 <wj-combo-box 
+                                    [itemsSource]="fliterSupportStatusArray" 
+                                    [placeholder]="'Select Status'"
+                                    [isEditable]="false"
+                                    [isRequired]="true"
+                                    [(selectedValue)]="filterSupportStatusSelectedValue"
+                                    style="width: 100%; border-radius: 0px;">
+                                </wj-combo-box>
+                            </div>
                         </td>
-                        <td style="width: 40%;"></td>
+                        <td style="width: 1%;"></td>
+                        <td style="width: 9%;">
+                            <button class="btn btn-default btn-sm btn-block" id="btnRefresh" (click)="refreshGrid()"><i class="fa fa-refresh fa-fw"></i> Refresh</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-heading">
+                <table border="0" style="width: 100%;">
+                    <tr>
+                        <td style="width: 30%;">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-wrench fa-fw"></i> Support Type</span>
+                                 <wj-combo-box 
+                                    [itemsSource]="fliterSupportTypeArray" 
+                                    [placeholder]="'Select Type'"
+                                    [isEditable]="false"
+                                    [isRequired]="true"
+                                    [(selectedValue)]="filterSupportTypeSelectedValue"
+                                    style="width: 100%; border-radius: 0px;">
+                                </wj-combo-box>
+                            </div>
+                        </td>
+                        <td style="width: 70%;"></td>
                     </tr>
                 </table>
             </div>

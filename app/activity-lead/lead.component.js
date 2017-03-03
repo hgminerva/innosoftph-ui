@@ -31,8 +31,13 @@ var LeadComponent = (function () {
         this.isLoading = true;
         this.isStartDateClicked = false;
         this.isEndDateClicked = false;
+        this.fliterLeadStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
+        this.filterLeadStatusSelectedValue = "OPEN";
         this.toastr.setRootViewContainerRef(vRef);
     }
+    LeadComponent.prototype.backClicked = function () {
+        window.history.back();
+    };
     // start loading
     LeadComponent.prototype.startLoading = function () {
         this.slimLoadingBarService.progress = 30;
@@ -49,8 +54,12 @@ var LeadComponent = (function () {
         document.getElementById("btnSaveLead").disabled = false;
         document.getElementById("btnCloseLead").disabled = false;
     };
+    LeadComponent.prototype.backClicked = function () {
+        window.history.back();
+    };
     // lead dates
     LeadComponent.prototype.setLeadDateRanged = function () {
+        this.startLoading();
         this.leadStartDateValue = new Date();
         this.leadEndDateValue = new Date();
         this.leadDateValue = new Date();
@@ -65,7 +74,6 @@ var LeadComponent = (function () {
     };
     // lead service data
     LeadComponent.prototype.getLeadData = function () {
-        this.startLoading();
         this.leadCollectionView = new wijmo.collections.CollectionView(this.leadService.getListLeadData(this.leadStartDateValue, this.leadEndDateValue));
         this.leadCollectionView.filter = this.filterFunction.bind(this);
         this.leadCollectionView.pageSize = 15;
@@ -106,7 +114,7 @@ var LeadComponent = (function () {
     LeadComponent.prototype.leadStartDateOnValueChanged = function () {
         if (!this.isLeadStartDateSelected) {
             if (this.isStartDateClicked) {
-                document.getElementById("btn-hidden-start-loading").click();
+                this.startLoading();
                 this.getLeadData();
             }
             else {
@@ -121,7 +129,7 @@ var LeadComponent = (function () {
     LeadComponent.prototype.leadEndDateOnValueChanged = function () {
         if (!this.isLeadEndDateSelected) {
             if (this.isEndDateClicked) {
-                document.getElementById("btn-hidden-start-loading").click();
+                this.startLoading();
                 this.getLeadData();
             }
             else {
@@ -186,7 +194,7 @@ var LeadComponent = (function () {
     };
     // btn edit lead
     LeadComponent.prototype.btnEditLead = function () {
-        document.getElementById("btn-hidden-start-loading").click();
+        this.startLoading();
         var currentSelectedLead = this.leadCollectionView.currentItem;
         this.router.navigate(['/leadDetail', currentSelectedLead.Id]);
     };
@@ -213,7 +221,6 @@ var LeadComponent = (function () {
     };
     // btn save lead
     LeadComponent.prototype.btnSaveLead = function () {
-        this.startLoading();
         var toastr;
         document.getElementById("btnSaveLead").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
         document.getElementById("btnSaveLead").disabled = true;
@@ -228,13 +235,19 @@ var LeadComponent = (function () {
     };
     // delete lead
     LeadComponent.prototype.btnDeleteConfirmLeadClick = function () {
-        this.startLoading();
         var toastr;
         document.getElementById("btnDeleteLead").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
         document.getElementById("btnDeleteLead").disabled = true;
         document.getElementById("btnDeleteCloseLead").disabled = true;
         var currentSelectedLead = this.leadCollectionView.currentItem;
         this.leadService.deleteLeadData(currentSelectedLead.Id, toastr);
+    };
+    // refresh grid
+    LeadComponent.prototype.refreshGrid = function () {
+        this.startLoading();
+        document.getElementById("btnRefresh").disabled = true;
+        document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+        this.getLeadData();
     };
     // show menu
     LeadComponent.prototype.showMenu = function () {

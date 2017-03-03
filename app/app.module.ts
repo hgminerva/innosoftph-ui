@@ -1,7 +1,7 @@
 // angular modules and other libraries
 import { NgModule, enableProdMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule, Routes, RouteReuseStrategy } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from "@angular/http";
 import { ToastModule } from 'ng2-toastr/ng2-toastr';
@@ -10,6 +10,7 @@ import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 import * as wjFlexGrid from 'wijmo/wijmo.angular2.grid';
 import * as wjInput from 'wijmo/wijmo.angular2.input';
+import { CustomReuseStrategy } from './reuse-strategy';
 
 // components
 import { AppComponent } from './app.component';
@@ -88,7 +89,7 @@ const appRoutes: Routes = [
     FormsModule,
     HttpModule,
     ToastModule,
-    SlimLoadingBarModule.forRoot()
+    SlimLoadingBarModule.forRoot(),
   ],
   declarations: [
     AppComponent,
@@ -135,7 +136,8 @@ const appRoutes: Routes = [
     ToastsManager,
     ActivityService,
     ProjectService,
-    SoftwareDevelopmentService
+    SoftwareDevelopmentService,
+    { provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
   ],
   bootstrap: [
     AppComponent

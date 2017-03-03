@@ -42,7 +42,9 @@ export class LeadComponent implements OnInit {
   public isValidNullValues: Boolean;
   public isStartDateClicked = false;
   public isEndDateClicked = false;
-
+  public fliterLeadStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
+  public filterLeadStatusSelectedValue = "OPEN";
+  
   // inject lead service
   constructor(
     private leadService: LeadService,
@@ -52,6 +54,10 @@ export class LeadComponent implements OnInit {
     private slimLoadingBarService: SlimLoadingBarService
   ) {
     this.toastr.setRootViewContainerRef(vRef);
+  }
+
+  public backClicked() {
+    window.history.back();
   }
 
   // start loading
@@ -73,8 +79,13 @@ export class LeadComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnCloseLead")).disabled = false;
   }
 
+  public backClicked() {
+    window.history.back();
+  }
+
   // lead dates
   public setLeadDateRanged() {
+    this.startLoading();
     this.leadStartDateValue = new Date();
     this.leadEndDateValue = new Date();
     this.leadDateValue = new Date();
@@ -92,7 +103,6 @@ export class LeadComponent implements OnInit {
 
   // lead service data
   public getLeadData() {
-    this.startLoading();
     this.leadCollectionView = new wijmo.collections.CollectionView(this.leadService.getListLeadData(this.leadStartDateValue, this.leadEndDateValue));
     this.leadCollectionView.filter = this.filterFunction.bind(this);
     this.leadCollectionView.pageSize = 15;
@@ -135,10 +145,10 @@ export class LeadComponent implements OnInit {
   // event: lead start date
   public leadStartDateOnValueChanged() {
     if (!this.isLeadStartDateSelected) {
-      if(this.isStartDateClicked) {
-        document.getElementById("btn-hidden-start-loading").click();
+      if (this.isStartDateClicked) {
+        this.startLoading();
         this.getLeadData();
-      } 
+      }
       else {
         this.isStartDateClicked = true;
       }
@@ -150,13 +160,13 @@ export class LeadComponent implements OnInit {
   // event: lead end date
   public leadEndDateOnValueChanged() {
     if (!this.isLeadEndDateSelected) {
-       if(this.isEndDateClicked) {
-          document.getElementById("btn-hidden-start-loading").click();
-          this.getLeadData();
-       }
-       else {
-          this.isEndDateClicked = true;
-       }
+      if (this.isEndDateClicked) {
+        this.startLoading();
+        this.getLeadData();
+      }
+      else {
+        this.isEndDateClicked = true;
+      }
     } else {
       this.isLeadEndDateSelected = false;
     }
@@ -173,9 +183,6 @@ export class LeadComponent implements OnInit {
   public getListUser() {
     this.leadAssignedUserObservableArray = this.leadService.getListUserData("lead", "");
   }
-
-  public isValidFormField: Boolean;
-
 
   // event: assigned to
   public cboAssignedToSelectedIndexChangedClick() {
@@ -223,7 +230,7 @@ export class LeadComponent implements OnInit {
 
   // btn edit lead
   public btnEditLead() {
-    document.getElementById("btn-hidden-start-loading").click();
+    this.startLoading();
     let currentSelectedLead = this.leadCollectionView.currentItem;
     this.router.navigate(['/leadDetail', currentSelectedLead.Id]);
   }
@@ -254,7 +261,6 @@ export class LeadComponent implements OnInit {
 
   // btn save lead
   public btnSaveLead() {
-    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnSaveLead")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
     (<HTMLButtonElement>document.getElementById("btnSaveLead")).disabled = true;
@@ -271,7 +277,6 @@ export class LeadComponent implements OnInit {
 
   // delete lead
   public btnDeleteConfirmLeadClick() {
-    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnDeleteLead")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
     (<HTMLButtonElement>document.getElementById("btnDeleteLead")).disabled = true;
@@ -280,11 +285,19 @@ export class LeadComponent implements OnInit {
     this.leadService.deleteLeadData(currentSelectedLead.Id, toastr);
   }
 
+  // refresh grid
+  public refreshGrid() {
+    this.startLoading();
+    (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+    this.getLeadData();
+  }
+
   // show menu
   public showMenu() {
-      document.getElementById("showTop").click();
+    document.getElementById("showTop").click();
   }
-  
+
   // initialization
   ngOnInit() {
     this.setLeadDateRanged();

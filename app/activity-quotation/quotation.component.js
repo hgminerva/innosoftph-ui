@@ -28,6 +28,10 @@ var QuotationComponent = (function () {
         this.quotationStatusSelectedValue = "OPEN";
         this.isFinishLoading = false;
         this.isLoading = true;
+        this.isStartDateClicked = false;
+        this.isEndDateClicked = false;
+        this.fliterQuotationStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
+        this.filterQuotationStatusSelectedValue = "OPEN";
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -48,6 +52,7 @@ var QuotationComponent = (function () {
     };
     // quotation dates
     QuotationComponent.prototype.setQuotationDateRanged = function () {
+        this.startLoading();
         this.quotationStartDateValue = new Date();
         this.quotationEndDateValue = new Date();
         this.quotationDateValue = new Date();
@@ -56,8 +61,13 @@ var QuotationComponent = (function () {
     // event: quotation start date
     QuotationComponent.prototype.quotationStartDateOnValueChanged = function () {
         if (!this.isQuotationStartDateSelected) {
-            this.startLoading();
-            this.getQuotationData();
+            if (this.isStartDateClicked) {
+                this.startLoading();
+                this.getQuotationData();
+            }
+            else {
+                this.isStartDateClicked = true;
+            }
         }
         else {
             this.isQuotationStartDateSelected = false;
@@ -66,8 +76,13 @@ var QuotationComponent = (function () {
     // event: quotation end date
     QuotationComponent.prototype.quotationEndDateOnValueChanged = function () {
         if (!this.isQuotationEndDateSelected) {
-            this.startLoading();
-            this.getQuotationData();
+            if (this.isEndDateClicked) {
+                this.startLoading();
+                this.getQuotationData();
+            }
+            else {
+                this.isEndDateClicked = true;
+            }
         }
         else {
             this.isQuotationEndDateSelected = false;
@@ -124,7 +139,6 @@ var QuotationComponent = (function () {
     };
     // delete confirm
     QuotationComponent.prototype.btnDeleteConfirmQuotationClick = function () {
-        this.startLoading();
         var toastr;
         document.getElementById("btnDeleteQuotation").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
         document.getElementById("btnDeleteQuotation").disabled = true;
@@ -144,9 +158,11 @@ var QuotationComponent = (function () {
         };
         return dataObject;
     };
+    QuotationComponent.prototype.backClicked = function () {
+        window.history.back();
+    };
     // save quotation
     QuotationComponent.prototype.btnSaveQuotation = function () {
-        this.startLoading();
         var toastr;
         document.getElementById("btnSaveQuotation").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
         document.getElementById("btnSaveQuotation").disabled = true;
@@ -184,6 +200,13 @@ var QuotationComponent = (function () {
                 (item.EncodedByUser.toLowerCase().indexOf(this.quotationFilter.toLowerCase()) > -1);
         }
         return true;
+    };
+    // refresh grid
+    QuotationComponent.prototype.refreshGrid = function () {
+        this.startLoading();
+        document.getElementById("btnRefresh").disabled = true;
+        document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+        this.getQuotationData();
     };
     // show menu
     QuotationComponent.prototype.showMenu = function () {

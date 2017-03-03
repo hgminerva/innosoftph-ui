@@ -125,7 +125,7 @@ p.copyright {
 }
 
 
-.panel {
+.panel, .well, .dashboardTable {
     border-radius: 0px;
     border: 0.2px solid lightgray;
     box-shadow: 5px 5px 15px -5px #808080;

@@ -1,5 +1,6 @@
 import { Component, OnInit, Renderer, ElementRef, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Location } from '@angular/common';
 import { LeadService } from './lead.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
@@ -63,6 +64,10 @@ export class LeadDetailComponent implements OnInit {
     this.toastr.setRootViewContainerRef(vRef);
   }
 
+  public backClicked() {
+    window.history.back();
+  }
+
   // start loading
   public startLoading() {
     this.slimLoadingBarService.progress = 30;
@@ -80,7 +85,7 @@ export class LeadDetailComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).disabled = false;
     (<HTMLButtonElement>document.getElementById("btnCloseLeadDetail")).disabled = false;
   }
-  
+
   // lead date ranged
   public setLeadDateValue() {
     this.leadDateValue = new Date();
@@ -246,7 +251,6 @@ export class LeadDetailComponent implements OnInit {
 
   // save activity
   public btnActivitySaveClick() {
-    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
     (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = true;
@@ -269,7 +273,6 @@ export class LeadDetailComponent implements OnInit {
 
   // activity delete confirmation click
   public btnActivityDeleteConfirmationClick() {
-    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
     (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).disabled = true;
@@ -285,9 +288,9 @@ export class LeadDetailComponent implements OnInit {
 
   // show menu
   public showMenu() {
-      document.getElementById("showTop").click();
+    document.getElementById("showTop").click();
   }
-  
+
   // initialization
   public ngOnInit(): any {
     if (!localStorage.getItem('access_token')) {

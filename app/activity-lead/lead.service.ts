@@ -19,6 +19,7 @@ export class LeadService {
         private toastr: ToastsManager
     ) { }
 
+
     // list user
     public getListUserData(page: String, userType: String): wijmo.collections.ObservableArray {
         let userObservableArray = new wijmo.collections.ObservableArray();
@@ -83,6 +84,9 @@ export class LeadService {
                 }
 
                 document.getElementById("btn-hidden-complete-loading").click();
+
+                (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-refresh fa-fw'></i> Refresh";
             }
         );
 
@@ -97,7 +101,7 @@ export class LeadService {
                 var results = response.json();
                 if (results != null) {
                     document.getElementById("btn-hidden-finished-load").click();
-                     setTimeout(() => {
+                    setTimeout(() => {
                         (<HTMLInputElement>document.getElementById("leadDateValue")).value = results.LeadDate;
                         (<HTMLInputElement>document.getElementById("leadNumber")).value = results.LeadNumber;
                         (<HTMLInputElement>document.getElementById("leadName")).value = results.LeadName;
@@ -135,10 +139,10 @@ export class LeadService {
                         this.router.navigate(['/leadDetail', results]);
                     }, 1000);
                 } else {
+                    this.toastr.error('', 'Something`s went wrong!');
                     (<HTMLButtonElement>document.getElementById("btnSaveLead")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                     (<HTMLButtonElement>document.getElementById("btnSaveLead")).disabled = false;
                     (<HTMLButtonElement>document.getElementById("btnCloseLead")).disabled = false;
-                    this.toastr.error('', 'Something`s went wrong!');
                 }
             },
             error => {
@@ -153,9 +157,10 @@ export class LeadService {
         this.http.put(url, JSON.stringify(leadObject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
-                setTimeout(() => {
-                    this.router.navigate(['/lead']);
-                }, 1000);
+                document.getElementById("btn-hidden-complete-loading").click();
+                (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                (<HTMLButtonElement>document.getElementById("btnSaveLeadDetail")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnCloseLeadDetail")).disabled = false;
             },
             error => {
                 this.toastr.error('', 'Something`s went wrong!');
@@ -219,8 +224,6 @@ export class LeadService {
 
                 if (!isLoadActivityOnly) {
                     document.getElementById("btn-hidden-encoded-user-data").click();
-                } else {
-                    document.getElementById("btn-hidden-complete-loading").click();
                 }
             }
         );
@@ -238,10 +241,10 @@ export class LeadService {
                 document.getElementById("btn-hidden-activity-data").click();
             },
             error => {
+                this.toastr.error('', 'Something`s went wrong!');
                 (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                 (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnActivityClose")).disabled = false;
-                this.toastr.error('', 'Something`s went wrong!');
             }
         )
     }

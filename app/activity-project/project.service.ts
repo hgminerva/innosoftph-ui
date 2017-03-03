@@ -95,6 +95,9 @@ export class ProjectService {
                 }
 
                 document.getElementById("btn-hidden-complete-loading").click();
+
+                (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-refresh fa-fw'></i> Refresh";
             }
         );
 

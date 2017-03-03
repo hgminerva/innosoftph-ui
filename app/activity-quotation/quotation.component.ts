@@ -22,14 +22,18 @@ export class QuotationComponent implements OnInit {
   public quotationLeadObservableArray: wijmo.collections.ObservableArray;
   public quotationLeadSelectedValue: number;
   public quotationCustomerObservableArray: wijmo.collections.ObservableArray;
-  public quotationCustomerSelectedValue:  number;
+  public quotationCustomerSelectedValue: number;
   public quotationProductObservableArray: wijmo.collections.ObservableArray;
-  public quotationProductSelectedValue:  number;
+  public quotationProductSelectedValue: number;
   public quotationStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
   public quotationStatusSelectedValue = "OPEN";
   public quotationRemarks: String;
   public isFinishLoading = false;
   public isLoading = true;
+  public isStartDateClicked = false;
+  public isEndDateClicked = false;
+  public fliterQuotationStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
+  public filterQuotationStatusSelectedValue = "OPEN";
 
   // inject quotation service
   constructor(
@@ -63,6 +67,7 @@ export class QuotationComponent implements OnInit {
 
   // quotation dates
   public setQuotationDateRanged() {
+    this.startLoading();
     this.quotationStartDateValue = new Date();
     this.quotationEndDateValue = new Date();
     this.quotationDateValue = new Date();
@@ -72,8 +77,13 @@ export class QuotationComponent implements OnInit {
   // event: quotation start date
   public quotationStartDateOnValueChanged() {
     if (!this.isQuotationStartDateSelected) {
-      this.startLoading();
-      this.getQuotationData();
+      if (this.isStartDateClicked) {
+        this.startLoading();
+        this.getQuotationData();
+      }
+      else {
+        this.isStartDateClicked = true;
+      }
     } else {
       this.isQuotationStartDateSelected = false;
     }
@@ -82,8 +92,13 @@ export class QuotationComponent implements OnInit {
   // event: quotation end date
   public quotationEndDateOnValueChanged() {
     if (!this.isQuotationEndDateSelected) {
-      this.startLoading();
-      this.getQuotationData();
+      if (this.isEndDateClicked) {
+        this.startLoading();
+        this.getQuotationData();
+      }
+      else {
+        this.isEndDateClicked = true;
+      }
     } else {
       this.isQuotationEndDateSelected = false;
     }
@@ -149,7 +164,6 @@ export class QuotationComponent implements OnInit {
 
   // delete confirm
   public btnDeleteConfirmQuotationClick() {
-    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnDeleteQuotation")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
     (<HTMLButtonElement>document.getElementById("btnDeleteQuotation")).disabled = true;
@@ -172,9 +186,12 @@ export class QuotationComponent implements OnInit {
     return dataObject;
   }
 
+  public backClicked() {
+    window.history.back();
+  }
+
   // save quotation
   public btnSaveQuotation() {
-    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnSaveQuotation")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
     (<HTMLButtonElement>document.getElementById("btnSaveQuotation")).disabled = true;
@@ -216,11 +233,19 @@ export class QuotationComponent implements OnInit {
     return true;
   }
 
+  // refresh grid
+  public refreshGrid() {
+    this.startLoading();
+    (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+    this.getQuotationData();
+  }
+
   // show menu
   public showMenu() {
-      document.getElementById("showTop").click();
+    document.getElementById("showTop").click();
   }
-  
+
   // initialization
   ngOnInit() {
     this.setQuotationDateRanged();

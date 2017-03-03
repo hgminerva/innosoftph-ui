@@ -38,6 +38,9 @@ var LeadDetailComponent = (function () {
         this.isLoading = true;
         this.toastr.setRootViewContainerRef(vRef);
     }
+    LeadDetailComponent.prototype.backClicked = function () {
+        window.history.back();
+    };
     // start loading
     LeadDetailComponent.prototype.startLoading = function () {
         this.slimLoadingBarService.progress = 30;
@@ -203,7 +206,6 @@ var LeadDetailComponent = (function () {
     };
     // save activity
     LeadDetailComponent.prototype.btnActivitySaveClick = function () {
-        this.startLoading();
         var toastr;
         document.getElementById("btnActivitySave").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
         document.getElementById("btnActivitySave").disabled = true;
@@ -225,7 +227,6 @@ var LeadDetailComponent = (function () {
     };
     // activity delete confirmation click
     LeadDetailComponent.prototype.btnActivityDeleteConfirmationClick = function () {
-        this.startLoading();
         var toastr;
         document.getElementById("btnActivityDeleteConfirmation").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
         document.getElementById("btnActivityDeleteConfirmation").disabled = true;

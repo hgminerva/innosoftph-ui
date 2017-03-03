@@ -35,6 +35,10 @@ export class DeliveryComponent implements OnInit {
   public deliveryStatus: String;
   public isFinishLoading = false;
   public isLoading = true;
+  public fliterDeliveryStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
+  public filterDeliveryStatusSelectedValue = "OPEN";
+  public isStartDateClicked = false;
+  public isEndDateClicked = false;
 
   // inject delivery service
   constructor(
@@ -68,6 +72,7 @@ export class DeliveryComponent implements OnInit {
 
   // delivery date ranged
   public setDeliveryDateRanged() {
+    this.startLoading();
     this.deliveryStartDateValue = new Date();
     this.deliveryEndDateValue = new Date();
     this.getListDelivery();
@@ -75,9 +80,14 @@ export class DeliveryComponent implements OnInit {
 
   // event: delivery start date
   public deliveryStartDateOnValueChanged() {
-    this.startLoading();
     if (!this.isDeliveryStartDateSelected) {
-      this.getDeliveryData();
+      if (this.isStartDateClicked) {
+        this.startLoading();
+        this.getDeliveryData();
+      }
+      else {
+        this.isStartDateClicked = true;
+      }
     } else {
       this.isDeliveryStartDateSelected = false;
     }
@@ -85,9 +95,14 @@ export class DeliveryComponent implements OnInit {
 
   // event: delivery end date
   public deliveryEndDateOnValueChanged() {
-    this.startLoading();
     if (!this.isDeliveryEndDateSelected) {
-      this.getDeliveryData();
+      if (this.isEndDateClicked) {
+        this.startLoading();
+        this.getDeliveryData();
+      }
+      else {
+        this.isEndDateClicked = true;
+      }
     } else {
       this.isDeliveryEndDateSelected = false;
     }
@@ -211,7 +226,6 @@ export class DeliveryComponent implements OnInit {
 
   // delete delivery confirm click
   public btnDeleteConfirmDeliveryClick() {
-    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnDeleteDelivery")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
     (<HTMLButtonElement>document.getElementById("btnDeleteDelivery")).disabled = true;
@@ -249,12 +263,23 @@ export class DeliveryComponent implements OnInit {
   
   // save delivery
   public btnSaveDelivery() {
-    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnSaveDelivery")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
     (<HTMLButtonElement>document.getElementById("btnSaveDelivery")).disabled = true;
     (<HTMLButtonElement>document.getElementById("btnCloseDelivery")).disabled = true;
     this.deliveryService.postDeliveryData(this.getDeliveryValue(), toastr);
+  }
+
+  // refresh grid
+  public refreshGrid() {
+    this.startLoading();
+    (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+    this.getDeliveryData();
+  }
+
+  public backClicked() {
+    window.history.back();
   }
 
   // initialization

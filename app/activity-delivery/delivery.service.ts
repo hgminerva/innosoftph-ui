@@ -156,6 +156,9 @@ export class DeliveryService {
                 }
 
                 document.getElementById("btn-hidden-complete-loading").click();
+
+                (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-refresh fa-fw'></i> Refresh";
             }
         );
 
@@ -222,9 +225,10 @@ export class DeliveryService {
         this.http.put(url, JSON.stringify(deliveryObject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
-                setTimeout(() => {
-                    this.router.navigate(['/delivery']);
-                }, 1000);
+                document.getElementById("btn-hidden-complete-loading").click();
+                (<HTMLButtonElement>document.getElementById("btnSaveDeliveryDetail")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                (<HTMLButtonElement>document.getElementById("btnSaveDeliveryDetail")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnCloseDeliveryDetail")).disabled = false;
             },
             error => {
                 this.toastr.error('', 'Something`s went wrong!');
@@ -288,8 +292,6 @@ export class DeliveryService {
 
                 if (!isLoadActivityOnly) {
                     document.getElementById("btn-hidden-quotation-data").click();
-                } else {
-                    document.getElementById("btn-hidden-complete-loading").click();
                 }
             }
         );
@@ -307,10 +309,10 @@ export class DeliveryService {
                 document.getElementById("btn-hidden-activity-data").click();
             },
             error => {
+                this.toastr.error('', 'Something`s went wrong!');
                 (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                 (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnActivityClose")).disabled = false;
-                this.toastr.error('', 'Something`s went wrong!');
             }
         )
     }

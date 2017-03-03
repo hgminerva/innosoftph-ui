@@ -202,7 +202,6 @@ var SoftwareDevelopmentDetailComponent = (function () {
     };
     // save activity
     SoftwareDevelopmentDetailComponent.prototype.btnActivitySaveClick = function () {
-        this.startLoading();
         var toastr;
         document.getElementById("btnActivitySave").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
         document.getElementById("btnActivitySave").disabled = true;
@@ -224,7 +223,6 @@ var SoftwareDevelopmentDetailComponent = (function () {
     };
     // activity delete confirmation click
     SoftwareDevelopmentDetailComponent.prototype.btnActivityDeleteConfirmationClick = function () {
-        this.startLoading();
         var toastr;
         document.getElementById("btnActivityDeleteConfirmation").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
         document.getElementById("btnActivityDeleteConfirmation").disabled = true;
@@ -235,6 +233,9 @@ var SoftwareDevelopmentDetailComponent = (function () {
     SoftwareDevelopmentDetailComponent.prototype.btnActivityPrintClick = function () {
         var currentSelectedActivity = this.activityCollectionView.currentItem;
         window.open('http://api.innosoft.ph/RepActivityTicket/activityTicket?activityId=' + currentSelectedActivity.Id, "_target");
+    };
+    SoftwareDevelopmentDetailComponent.prototype.backClicked = function () {
+        window.history.back();
     };
     // show menu
     SoftwareDevelopmentDetailComponent.prototype.showMenu = function () {

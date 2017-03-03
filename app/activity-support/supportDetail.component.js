@@ -167,7 +167,7 @@ var SupportDetailComponent = (function () {
     };
     // save support detail
     SupportDetailComponent.prototype.btnSaveSupportDetailClick = function () {
-        document.getElementById("btn-hidden-start-loading").click();
+        this.startLoading();
         var toastr;
         document.getElementById("btnSaveSupportDetail").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
         document.getElementById("btnSaveSupportDetail").disabled = true;
@@ -258,7 +258,6 @@ var SupportDetailComponent = (function () {
     };
     // save activity
     SupportDetailComponent.prototype.btnActivitySaveClick = function () {
-        this.startLoading();
         var toastr;
         document.getElementById("btnActivitySave").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
         document.getElementById("btnActivitySave").disabled = true;
@@ -280,7 +279,6 @@ var SupportDetailComponent = (function () {
     };
     // activity delete confirmation click
     SupportDetailComponent.prototype.btnActivityDeleteConfirmationClick = function () {
-        this.startLoading();
         var toastr;
         document.getElementById("btnActivityDeleteConfirmation").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
         document.getElementById("btnActivityDeleteConfirmation").disabled = true;
@@ -295,6 +293,9 @@ var SupportDetailComponent = (function () {
     // show menu
     SupportDetailComponent.prototype.showMenu = function () {
         document.getElementById("showTop").click();
+    };
+    SupportDetailComponent.prototype.backClicked = function () {
+        window.history.back();
     };
     // initialization
     SupportDetailComponent.prototype.ngOnInit = function () {

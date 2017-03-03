@@ -28,6 +28,10 @@ var DeliveryComponent = (function () {
         this.deliveryStatusSelectedValue = "OPEN";
         this.isFinishLoading = false;
         this.isLoading = true;
+        this.fliterDeliveryStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
+        this.filterDeliveryStatusSelectedValue = "OPEN";
+        this.isStartDateClicked = false;
+        this.isEndDateClicked = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -48,15 +52,21 @@ var DeliveryComponent = (function () {
     };
     // delivery date ranged
     DeliveryComponent.prototype.setDeliveryDateRanged = function () {
+        this.startLoading();
         this.deliveryStartDateValue = new Date();
         this.deliveryEndDateValue = new Date();
         this.getListDelivery();
     };
     // event: delivery start date
     DeliveryComponent.prototype.deliveryStartDateOnValueChanged = function () {
-        this.startLoading();
         if (!this.isDeliveryStartDateSelected) {
-            this.getDeliveryData();
+            if (this.isStartDateClicked) {
+                this.startLoading();
+                this.getDeliveryData();
+            }
+            else {
+                this.isStartDateClicked = true;
+            }
         }
         else {
             this.isDeliveryStartDateSelected = false;
@@ -64,9 +74,14 @@ var DeliveryComponent = (function () {
     };
     // event: delivery end date
     DeliveryComponent.prototype.deliveryEndDateOnValueChanged = function () {
-        this.startLoading();
         if (!this.isDeliveryEndDateSelected) {
-            this.getDeliveryData();
+            if (this.isEndDateClicked) {
+                this.startLoading();
+                this.getDeliveryData();
+            }
+            else {
+                this.isEndDateClicked = true;
+            }
         }
         else {
             this.isDeliveryEndDateSelected = false;
@@ -172,7 +187,6 @@ var DeliveryComponent = (function () {
     };
     // delete delivery confirm click
     DeliveryComponent.prototype.btnDeleteConfirmDeliveryClick = function () {
-        this.startLoading();
         var toastr;
         document.getElementById("btnDeleteDelivery").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
         document.getElementById("btnDeleteDelivery").disabled = true;
@@ -205,12 +219,21 @@ var DeliveryComponent = (function () {
     };
     // save delivery
     DeliveryComponent.prototype.btnSaveDelivery = function () {
-        this.startLoading();
         var toastr;
         document.getElementById("btnSaveDelivery").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
         document.getElementById("btnSaveDelivery").disabled = true;
         document.getElementById("btnCloseDelivery").disabled = true;
         this.deliveryService.postDeliveryData(this.getDeliveryValue(), toastr);
+    };
+    // refresh grid
+    DeliveryComponent.prototype.refreshGrid = function () {
+        this.startLoading();
+        document.getElementById("btnRefresh").disabled = true;
+        document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+        this.getDeliveryData();
+    };
+    DeliveryComponent.prototype.backClicked = function () {
+        window.history.back();
     };
     // initialization
     DeliveryComponent.prototype.ngOnInit = function () {

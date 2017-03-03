@@ -41,6 +41,10 @@ export class ContinuityComponent {
   public isFinishLoading = false;
   public isLoading = true;
   public isAdd: Boolean;
+  public fliterContinuityStatusArray = ['ALL', 'OPEN', 'EXPIRED'];
+  public filterContinuityStatusSelectedValue = "OPEN";
+  public isStartDateClicked = false;
+  public isEndDateClicked = false;
 
   // inject continuity service
   constructor(
@@ -74,6 +78,7 @@ export class ContinuityComponent {
 
   // continuity date ranged
   public setContinuityDateRanged() {
+    this.startLoading();
     this.continuityStartDateValue = new Date();
     this.continuityEndDateValue = new Date();
     this.continuityDateValue = new Date();
@@ -93,9 +98,14 @@ export class ContinuityComponent {
 
   // event: continuity start date
   public continuityStartDateOnValueChanged() {
-    this.startLoading();
     if (!this.isContinuityStartDateSelected) {
-      this.getContinuityData();
+      if (this.isEndDateClicked) {
+        this.startLoading();
+        this.getContinuityData();
+      }
+      else {
+        this.isEndDateClicked = true;
+      }
     } else {
       this.isContinuityStartDateSelected = false;
     }
@@ -103,9 +113,14 @@ export class ContinuityComponent {
 
   // event: continuity end date
   public continuityEndDateOnValueChanged() {
-    this.startLoading();
     if (!this.isContinuityEndDateSelected) {
-      this.getContinuityData();
+      if (this.isStartDateClicked) {
+        this.startLoading();
+        this.getContinuityData();
+      }
+      else {
+        this.isStartDateClicked = true;
+      }
     } else {
       this.isContinuityEndDateSelected = false;
     }
@@ -273,11 +288,23 @@ export class ContinuityComponent {
     this.continuityService.deleteContinuityData(currentSelectedContinuity.Id, toastr);
   }
 
+  // refresh grid
+  public refreshGrid() {
+    this.startLoading();
+    (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+    this.getContinuityData();
+  }
+
   // show menu
   public showMenu() {
       document.getElementById("showTop").click();
   }
   
+  public backClicked() {
+    window.history.back();
+  }
+
   // initialization
   ngOnInit() {
     this.setContinuityDateRanged();

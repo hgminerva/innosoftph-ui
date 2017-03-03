@@ -79,6 +79,9 @@ var CustomerComponent = (function () {
     CustomerComponent.prototype.showMenu = function () {
         document.getElementById("showTop").click();
     };
+    CustomerComponent.prototype.backClicked = function () {
+        window.history.back();
+    };
     // initialization
     CustomerComponent.prototype.ngOnInit = function () {
         this.getListCustomer();

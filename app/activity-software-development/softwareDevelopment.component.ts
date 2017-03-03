@@ -32,6 +32,10 @@ export class SoftwareDevelopmentComponent implements OnInit {
   ];
   public softwareDevelopmentNoOfHoursSelectedValue = "0";
   public softwareDevelopmentAssignedToUserId: number;
+  public fliterSoftwareDevelopmentStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
+  public filterSoftwareDevelopmentStatusSelectedValue = "OPEN";
+  public isStartDateClicked = false;
+  public isEndDateClicked = false;
 
   // inject softwareDevelopment service
   constructor(
@@ -65,6 +69,7 @@ export class SoftwareDevelopmentComponent implements OnInit {
 
   // softwareDevelopment dates
   public setSoftwareDevelopmentDateRanged() {
+    this.startLoading();
     this.softwareDevelopmentStartDateValue = new Date();
     this.softwareDevelopmentEndDateValue = new Date();
     this.softwareDevelopmentDateValue = new Date();
@@ -90,8 +95,13 @@ export class SoftwareDevelopmentComponent implements OnInit {
   // event: softwareDevelopment start date
   public softwareDevelopmentStartDateOnValueChanged() {
     if (!this.isSoftwareDevelopmentStartDateSelected) {
-      this.startLoading();
-      this.getSoftwareDevelopmentData();
+      if (this.isStartDateClicked) {
+        this.startLoading();
+        this.getSoftwareDevelopmentData();
+      }
+      else {
+        this.isStartDateClicked = true;
+      }
     } else {
       this.isSoftwareDevelopmentStartDateSelected = false;
     }
@@ -100,8 +110,13 @@ export class SoftwareDevelopmentComponent implements OnInit {
   // event: softwareDevelopment end date
   public softwareDevelopmentEndDateOnValueChanged() {
     if (!this.isSoftwareDevelopmentEndDateSelected) {
-      this.startLoading();
-      this.getSoftwareDevelopmentData();
+      if (this.isEndDateClicked) {
+        this.startLoading();
+        this.getSoftwareDevelopmentData();
+      }
+      else {
+        this.isEndDateClicked = true;
+      }
     } else {
       this.isSoftwareDevelopmentEndDateSelected = false;
     }
@@ -198,7 +213,6 @@ export class SoftwareDevelopmentComponent implements OnInit {
 
   // delete confirm software development
   public btnDeleteConfirmSoftwareDevelopmentClick() {
-    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnDeleteSoftwareDevelopment")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
     (<HTMLButtonElement>document.getElementById("btnDeleteSoftwareDevelopment")).disabled = true;
@@ -209,7 +223,6 @@ export class SoftwareDevelopmentComponent implements OnInit {
 
   // save software development
   public btnSaveSoftwareDevelopment() {
-    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnSaveSoftwareDevelopment")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
     (<HTMLButtonElement>document.getElementById("btnSaveSoftwareDevelopment")).disabled = true;
@@ -217,11 +230,23 @@ export class SoftwareDevelopmentComponent implements OnInit {
     this.softwareDevelopmentService.postSoftwareDevelopmentData(this.getSoftwareDevelopmentDataValue(), toastr);
   }
 
+  public backClicked() {
+    window.history.back();
+  }
+
   // show menu
   public showMenu() {
       document.getElementById("showTop").click();
   }
   
+  // refresh grid
+  public refreshGrid() {
+    this.startLoading();
+    (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+    this.getSoftwareDevelopmentData();
+  }
+
   // initialization
   ngOnInit() {
     this.setSoftwareDevelopmentDateRanged();

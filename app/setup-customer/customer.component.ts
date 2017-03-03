@@ -88,6 +88,10 @@ export class CustomerComponent implements OnInit {
       document.getElementById("showTop").click();
   }
   
+  public backClicked() {
+    window.history.back();
+  }
+
   // initialization
   ngOnInit() {
     this.getListCustomer();

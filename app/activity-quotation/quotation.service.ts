@@ -139,6 +139,9 @@ export class QuotationService {
                 }
 
                 document.getElementById("btn-hidden-complete-loading").click();
+
+                (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-refresh fa-fw'></i> Refresh";
             }
         );
 
@@ -186,10 +189,10 @@ export class QuotationService {
                         this.router.navigate(['/quotationDetail', results]);
                     }, 1000);
                 } else {
+                    this.toastr.error('', 'Something`s went wrong!');
                     (<HTMLButtonElement>document.getElementById("btnSaveQuotation")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                     (<HTMLButtonElement>document.getElementById("btnSaveQuotation")).disabled = false;
                     (<HTMLButtonElement>document.getElementById("btnCloseQuotation")).disabled = false;
-                    this.toastr.error('', 'Something`s went wrong!');
                 }
             },
             error => {
@@ -204,16 +207,16 @@ export class QuotationService {
         this.http.put(url, JSON.stringify(quotationObject), this.options).subscribe(
             response => {
                 this.toastr.success('', 'Save Successful');
-                setTimeout(() => {
-                    this.router.navigate(['/quotation']);
-                }, 1000);
+                document.getElementById("btn-hidden-complete-loading").click();
+                (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnCloseQuotationDetail")).disabled = false;
             },
             error => {
                 this.toastr.error(error._body.replace(/^"?(.+?)"?$/, '$1'), 'Save Failed');
                 (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                 (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnCloseQuotationDetail")).disabled = false;
-                console.log(error);
             }
         )
     }
@@ -228,10 +231,10 @@ export class QuotationService {
                 document.getElementById("btn-hidden-refresh-grid").click();
             },
             error => {
+                this.toastr.error('', 'Something`s went wrong!');
                 (<HTMLButtonElement>document.getElementById("btnDeleteQuotation")).innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
                 (<HTMLButtonElement>document.getElementById("btnDeleteQuotation")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnDeleteCloseQuotation")).disabled = false;
-                this.toastr.error('', 'Something`s went wrong!');
             }
         )
     }
@@ -271,8 +274,6 @@ export class QuotationService {
 
                 if (!isLoadActivityOnly) {
                     document.getElementById("btn-hidden-lead-data").click();
-                } else {
-                    document.getElementById("btn-hidden-complete-loading").click();
                 }
             }
         );
@@ -290,10 +291,10 @@ export class QuotationService {
                 document.getElementById("btn-hidden-activity-data").click();
             },
             error => {
+                this.toastr.error('', 'Something`s went wrong!');
                 (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                 (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnActivityClose")).disabled = false;
-                this.toastr.error('', 'Something`s went wrong!');
             }
         )
     }

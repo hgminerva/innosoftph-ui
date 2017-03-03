@@ -58,6 +58,12 @@ export class SupportActivityComponent implements OnInit {
   public supportCustomerSelectedIndex: number;
   public isFinishLoading = false;
   public isLoading = true;
+  public fliterSupportStatusArray = ['ALL', 'OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED'];
+  public filterSupportStatusSelectedValue = "OPEN";
+  public isStartDateClicked = false;
+  public isEndDateClicked = false;
+  public fliterSupportTypeArray = ['ALL', 'Technical', 'Functional'];
+  public filterSupportTypeSelectedValue = "ALL";
 
   // inject support service
   constructor(
@@ -91,6 +97,7 @@ export class SupportActivityComponent implements OnInit {
 
   // support dates
   public setSupportDateRanged() {
+    this.startLoading();
     this.supportStartDateValue = new Date();
     this.supportEndDateValue = new Date();
     this.supportDateValue = new Date();
@@ -100,8 +107,13 @@ export class SupportActivityComponent implements OnInit {
   // event: support start date
   public supportStartDateOnValueChanged() {
     if (!this.isSupportStartDateSelected) {
-      document.getElementById("btn-hidden-start-loading").click();
-      this.getSupportData();
+      if (this.isStartDateClicked) {
+        this.startLoading();
+        this.getSupportData();
+      }
+      else {
+        this.isStartDateClicked = true;
+      }
     } else {
       this.isSupportStartDateSelected = false;
     }
@@ -110,8 +122,13 @@ export class SupportActivityComponent implements OnInit {
   // event: support end date
   public supportEndDateOnValueChanged() {
     if (!this.isSupportEndDateSelected) {
-      document.getElementById("btn-hidden-start-loading").click();
-      this.getSupportData();
+      if (this.isEndDateClicked) {
+        this.startLoading();
+        this.getSupportData();
+      }
+      else {
+        this.isEndDateClicked = true;
+      }
     } else {
       this.isSupportEndDateSelected = false;
     }
@@ -269,11 +286,23 @@ export class SupportActivityComponent implements OnInit {
     this.supportAssignedUserObservableArray = this.supportService.getListUserData("support", "assignedToUser");
   }
 
+  // refresh grid
+  public refreshGrid() {
+    this.startLoading();
+    (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+    this.getSupportData();
+  }
+
   // show menu
   public showMenu() {
       document.getElementById("showTop").click();
   }
   
+  public backClicked() {
+    window.history.back();
+  }
+
   // initialization
   ngOnInit() {
     this.setSupportDateRanged();

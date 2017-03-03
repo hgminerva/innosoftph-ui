@@ -79,6 +79,9 @@ var ProductComponent = (function () {
     ProductComponent.prototype.showMenu = function () {
         document.getElementById("showTop").click();
     };
+    ProductComponent.prototype.backClicked = function () {
+        window.history.back();
+    };
     // initialization
     ProductComponent.prototype.ngOnInit = function () {
         this.getProductList();

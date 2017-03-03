@@ -26,7 +26,7 @@
             <br />
             <div class="tab-content">
                 <div id="sales" class="tab-pane fade in active">
-                    <table class="table table-bordered" border="0">
+                    <table class="table table-bordered dashboardTable" border="0">
                         <thead style="background-color: #112540; border: 1px sold #112540; color: #fff;">
                             <tr>
                                 <th style="width: 30%;">
@@ -44,7 +44,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <a routerLink="/lead" class="btn btn-primary btn-lg btn-block" (click)="startLoading()">
+                                    <a routerLink="/lead" class="btn btn-primary btn-lg btn-block">
                                         <i class="fa fa-clipboard fa-3x fa-fw"></i>
                                         <br /><br />
                                         Leads
@@ -56,7 +56,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <a routerLink="/quotation" class="btn btn-primary btn-lg btn-block" (click)="startLoading()">
+                                    <a routerLink="/quotation" class="btn btn-primary btn-lg btn-block">
                                         <i class="fa fa-line-chart fa-3x fa-fw"></i>
                                         <br /><br />
                                         Quotation
@@ -149,7 +149,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <a routerLink="/delivery" class="btn btn-primary btn-lg btn-block" (click)="startLoading()">
+                                    <a routerLink="/delivery" class="btn btn-primary btn-lg btn-block">
                                         <i class="fa fa-users fa-3x fa-fw"></i>
                                         <br /><br />
                                         Kick-Off Meeting
@@ -229,7 +229,7 @@
                     </table>
                 </div>
                 <div id="support" class="tab-pane fade">
-                    <table class="table table-bordered" border="0">
+                    <table class="table table-bordered dashboardTable" border="0">
                         <thead style="background-color: #112540; border: 1px sold #112540; color: #fff;">
                             <tr>
                                 <th style="width: 30%;">
@@ -247,7 +247,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <a routerLink="/delivery" class="btn btn-primary btn-lg btn-block" (click)="startLoading()">
+                                    <a routerLink="/delivery" class="btn btn-primary btn-lg btn-block">
                                         <i class="fa fa-truck fa-3x fa-fw"></i>
                                         <br /><br />
                                         Product Delivery
@@ -259,7 +259,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <a routerLink="/continuity" button class="btn btn-primary btn-lg btn-block" (click)="startLoading()">
+                                    <a routerLink="/continuity" button class="btn btn-primary btn-lg btn-block">
                                         <i class="fa fa-handshake-o fa-3x fa-fw"></i>
                                         <br /><br />
                                         BCS
@@ -300,7 +300,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <a routerLink="/supportActivity" class="btn btn-primary btn-lg btn-block" (click)="startLoading()">
+                                    <a routerLink="/supportActivity" class="btn btn-primary btn-lg btn-block">
                                         <i class="fa fa-volume-control-phone fa-3x fa-fw"></i>
                                         <br /><br />
                                         Support
@@ -338,7 +338,7 @@
                     </table>
                 </div>
                 <div id="soft-dev" class="tab-pane fade">
-                    <table class="table table-bordered" border="0">
+                    <table class="table table-bordered dashboardTable" border="0">
                         <thead style="background-color: #112540; border: 1px sold #112540; color: #fff;">
                             <tr>
                                 <th style="width: 30%;">
@@ -356,7 +356,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <a routerLink="/project" class="btn btn-primary btn-lg btn-block" (click)="startLoading()">
+                                    <a routerLink="/project" class="btn btn-primary btn-lg btn-block">
                                         <i class="fa fa-laptop fa-3x fa-fw"></i>
                                         <br /><br />
                                         Project
@@ -368,7 +368,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <a routerLink="/softwareDevelopment" class="btn btn-primary btn-lg btn-block" (click)="startLoading()">
+                                    <a routerLink="/softwareDevelopment" class="btn btn-primary btn-lg btn-block">
                                         <i class="fa fa-code fa-3x fa-fw"></i>
                                         <br /><br />
                                         Software Development
@@ -406,7 +406,7 @@
                     </table>
                 </div>
                 <div id="admin" class="tab-pane fade">
-                    <table class="table table-bordered" border="0">
+                    <table class="table table-bordered dashboardTable" border="0">
                         <thead style="background-color: #112540; border: 1px sold #112540; color: #fff;">
                             <tr>
                                 <th style="width: 30%;">
@@ -498,27 +498,31 @@
                     </table>
                 </div>
                 <div id="setup" class="tab-pane fade">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <button class="btn btn-success btn-lg btn-block" routerLink="/customer" (click)="startLoading()">
-                                <i class="fa fa-user fa-3x fa-fw"></i>
-                                <br /><br />
-                                Customer
-                            </button>    
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-success btn-lg btn-block" routerLink="/product" (click)="startLoading()">
-                                <i class="fa fa-cubes fa-3x fa-fw"></i>
-                                <br /><br />
-                                Product
-                            </button>    
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-success btn-lg btn-block" routerLink="/user" (click)="startLoading()"> 
-                                <i class="fa fa-key fa-3x fa-fw"></i>
-                                <br /><br />
-                                User
-                            </button>    
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <button class="btn btn-success btn-lg btn-block" routerLink="/customer">
+                                        <i class="fa fa-user fa-3x fa-fw"></i>
+                                        <br /><br />
+                                        Customer
+                                    </button>    
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-success btn-lg btn-block" routerLink="/product">
+                                        <i class="fa fa-cubes fa-3x fa-fw"></i>
+                                        <br /><br />
+                                        Product
+                                    </button>    
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-success btn-lg btn-block" routerLink="/user"> 
+                                        <i class="fa fa-key fa-3x fa-fw"></i>
+                                        <br /><br />
+                                        User
+                                    </button>    
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

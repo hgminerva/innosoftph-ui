@@ -132,6 +132,8 @@ var QuotationService = (function () {
                 }
             }
             document.getElementById("btn-hidden-complete-loading").click();
+            document.getElementById("btnRefresh").disabled = false;
+            document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-refresh fa-fw'></i> Refresh";
         });
         return quotationObservableArray;
     };
@@ -176,10 +178,10 @@ var QuotationService = (function () {
                 }, 1000);
             }
             else {
+                _this.toastr.error('', 'Something`s went wrong!');
                 document.getElementById("btnSaveQuotation").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                 document.getElementById("btnSaveQuotation").disabled = false;
                 document.getElementById("btnCloseQuotation").disabled = false;
-                _this.toastr.error('', 'Something`s went wrong!');
             }
         }, function (error) {
             alert("Error");
@@ -191,15 +193,15 @@ var QuotationService = (function () {
         var url = "http://api.innosoft.ph/api/quotation/put/" + id;
         this.http.put(url, JSON.stringify(quotationObject), this.options).subscribe(function (response) {
             _this.toastr.success('', 'Save Successful');
-            setTimeout(function () {
-                _this.router.navigate(['/quotation']);
-            }, 1000);
+            document.getElementById("btn-hidden-complete-loading").click();
+            document.getElementById("btnSaveQuotationDetail").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+            document.getElementById("btnSaveQuotationDetail").disabled = false;
+            document.getElementById("btnCloseQuotationDetail").disabled = false;
         }, function (error) {
             _this.toastr.error(error._body.replace(/^"?(.+?)"?$/, '$1'), 'Save Failed');
             document.getElementById("btnSaveQuotationDetail").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
             document.getElementById("btnSaveQuotationDetail").disabled = false;
             document.getElementById("btnCloseQuotationDetail").disabled = false;
-            console.log(error);
         });
     };
     // delete quotation
@@ -211,10 +213,10 @@ var QuotationService = (function () {
             document.getElementById("btn-hidden-quotation-delete-modal").click();
             document.getElementById("btn-hidden-refresh-grid").click();
         }, function (error) {
+            _this.toastr.error('', 'Something`s went wrong!');
             document.getElementById("btnDeleteQuotation").innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
             document.getElementById("btnDeleteQuotation").disabled = false;
             document.getElementById("btnDeleteCloseQuotation").disabled = false;
-            _this.toastr.error('', 'Something`s went wrong!');
         });
     };
     // list activity by quotation Id
@@ -251,9 +253,6 @@ var QuotationService = (function () {
             if (!isLoadActivityOnly) {
                 document.getElementById("btn-hidden-lead-data").click();
             }
-            else {
-                document.getElementById("btn-hidden-complete-loading").click();
-            }
         });
         return activityObservableArray;
     };
@@ -266,10 +265,10 @@ var QuotationService = (function () {
             document.getElementById("btn-hidden-activity-detail-modal").click();
             document.getElementById("btn-hidden-activity-data").click();
         }, function (error) {
+            _this.toastr.error('', 'Something`s went wrong!');
             document.getElementById("btnActivitySave").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
             document.getElementById("btnActivitySave").disabled = false;
             document.getElementById("btnActivityClose").disabled = false;
-            _this.toastr.error('', 'Something`s went wrong!');
         });
     };
     // update activity

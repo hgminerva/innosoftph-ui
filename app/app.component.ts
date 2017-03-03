@@ -42,8 +42,9 @@ export class AppComponent implements OnInit {
     localStorage.removeItem('token_type');
     localStorage.removeItem('userName');
     setTimeout(() => {
-      document.getElementById("btn-hidden-logout-modal").click();
-      this.router.navigate(['/home']);
+      // document.getElementById("btn-hidden-logout-modal").click();
+      // this.router.navigate(['/home']);
+      location.reload();
       this.headerCurrentUserChanges();
     }, 500);
   }

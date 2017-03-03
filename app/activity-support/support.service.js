@@ -179,6 +179,8 @@ var SupportService = (function () {
                 }
             }
             document.getElementById("btn-hidden-complete-loading").click();
+            document.getElementById("btnRefresh").disabled = false;
+            document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-refresh fa-fw'></i> Refresh";
         });
         return supportObservableArray;
     };
@@ -244,9 +246,10 @@ var SupportService = (function () {
         var url = "http://api.innosoft.ph/api/support/put/" + id;
         this.http.put(url, JSON.stringify(supportObject), this.options).subscribe(function (response) {
             _this.toastr.success('', 'Save Successful');
-            setTimeout(function () {
-                _this.router.navigate(['/supportActivity']);
-            }, 1000);
+            document.getElementById("btn-hidden-complete-loading").click();
+            document.getElementById("btnSaveSupportDetail").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+            document.getElementById("btnSaveSupportDetail").disabled = false;
+            document.getElementById("btnCloseSupportDetail").disabled = false;
         }, function (error) {
             _this.toastr.error('', 'Save Unsuccessful');
             // this.toastr.error(error._body.replace(/^"?(.+?)"?$/, '$1'), 'Save Failed');
@@ -304,9 +307,6 @@ var SupportService = (function () {
             if (!isLoadActivityOnly) {
                 document.getElementById("btn-hidden-customer-data").click();
             }
-            else {
-                document.getElementById("btn-hidden-complete-loading").click();
-            }
         });
         return activityObservableArray;
     };
@@ -319,10 +319,10 @@ var SupportService = (function () {
             document.getElementById("btn-hidden-activity-detail-modal").click();
             document.getElementById("btn-hidden-activity-data").click();
         }, function (error) {
+            _this.toastr.error('', 'Something`s went wrong!');
             document.getElementById("btnActivitySave").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
             document.getElementById("btnActivitySave").disabled = false;
             document.getElementById("btnActivityClose").disabled = false;
-            _this.toastr.error('', 'Something`s went wrong!');
         });
     };
     // update activity

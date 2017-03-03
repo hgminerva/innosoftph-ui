@@ -373,6 +373,10 @@ export class ActivityComponent implements OnInit {
     }
   }
 
+  public backClicked() {
+    window.history.back();
+  }
+
   // initialization
   ngOnInit() {
     this.setActivityDateRanged();

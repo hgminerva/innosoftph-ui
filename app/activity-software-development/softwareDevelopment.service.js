@@ -100,6 +100,8 @@ var SoftwareDevelopmentService = (function () {
                 }
             }
             document.getElementById("btn-hidden-complete-loading").click();
+            document.getElementById("btnRefresh").disabled = false;
+            document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-refresh fa-fw'></i> Refresh";
         });
         return softwareDevelopmentObservableArray;
     };
@@ -145,10 +147,10 @@ var SoftwareDevelopmentService = (function () {
                 }, 1000);
             }
             else {
+                _this.toastr.error('', 'Something`s went wrong!');
                 document.getElementById("btnSaveSoftwareDevelopment").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                 document.getElementById("btnSaveSoftwareDevelopment").disabled = false;
                 document.getElementById("btnCloseSoftwareDevelopment").disabled = false;
-                _this.toastr.error('', 'Something`s went wrong!');
             }
         }, function (error) {
             alert("Error");
@@ -160,9 +162,10 @@ var SoftwareDevelopmentService = (function () {
         var url = "http://api.innosoft.ph/api/softwareDevelopment/put/" + id;
         this.http.put(url, JSON.stringify(softwareDevelopmentObject), this.options).subscribe(function (response) {
             _this.toastr.success('', 'Save Successful');
-            setTimeout(function () {
-                _this.router.navigate(['/softwareDevelopment']);
-            }, 1000);
+            document.getElementById("btn-hidden-complete-loading").click();
+            document.getElementById("btnSaveSoftwareDevelopmentDetail").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+            document.getElementById("btnSaveSoftwareDevelopmentDetail").disabled = false;
+            document.getElementById("btnCloseSoftwareDevelopmentDetail").disabled = false;
         }, function (error) {
             _this.toastr.error('', 'Something`s went wrong!');
             document.getElementById("btnSaveSoftwareDevelopmentDetail").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
@@ -219,9 +222,6 @@ var SoftwareDevelopmentService = (function () {
             if (!isLoadActivityOnly) {
                 document.getElementById("btn-hidden-project-data").click();
             }
-            else {
-                document.getElementById("btn-hidden-complete-loading").click();
-            }
         });
         return activityObservableArray;
     };
@@ -234,10 +234,10 @@ var SoftwareDevelopmentService = (function () {
             document.getElementById("btn-hidden-activity-detail-modal").click();
             document.getElementById("btn-hidden-activity-data").click();
         }, function (error) {
+            _this.toastr.error('', 'Something`s went wrong!');
             document.getElementById("btnActivitySave").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
             document.getElementById("btnActivitySave").disabled = false;
             document.getElementById("btnActivityClose").disabled = false;
-            _this.toastr.error('', 'Something`s went wrong!');
         });
     };
     // update activity

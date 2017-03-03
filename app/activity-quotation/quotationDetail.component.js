@@ -125,6 +125,9 @@ var QuotationDetailComponent = (function () {
         document.getElementById("btnCloseQuotationDetail").disabled = true;
         this.quotationService.putQuotationData(this.getIdUrlParameter(), this.getQuotationValue(), toastr);
     };
+    QuotationDetailComponent.prototype.backClicked = function () {
+        window.history.back();
+    };
     // on key press decimal key
     QuotationDetailComponent.prototype.onKeyPressOnlyDecimalNumberKey = function (event) {
         var charCode = (event.which) ? event.which : event.keyCode;
@@ -200,7 +203,6 @@ var QuotationDetailComponent = (function () {
     };
     // save activity
     QuotationDetailComponent.prototype.btnActivitySaveClick = function () {
-        this.startLoading();
         var toastr;
         document.getElementById("btnActivitySave").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
         document.getElementById("btnActivitySave").disabled = true;
@@ -222,7 +224,6 @@ var QuotationDetailComponent = (function () {
     };
     // activity delete confirmation click
     QuotationDetailComponent.prototype.btnActivityDeleteConfirmationClick = function () {
-        this.startLoading();
         var toastr;
         document.getElementById("btnActivityDeleteConfirmation").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
         document.getElementById("btnActivityDeleteConfirmation").disabled = true;

@@ -205,7 +205,6 @@ var DeliveryDetailComponent = (function () {
     };
     // save activity
     DeliveryDetailComponent.prototype.btnActivitySaveClick = function () {
-        this.startLoading();
         var toastr;
         document.getElementById("btnActivitySave").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
         document.getElementById("btnActivitySave").disabled = true;
@@ -227,7 +226,6 @@ var DeliveryDetailComponent = (function () {
     };
     // activity delete confirmation click
     DeliveryDetailComponent.prototype.btnActivityDeleteConfirmationClick = function () {
-        this.startLoading();
         var toastr;
         document.getElementById("btnActivityDeleteConfirmation").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Deleting";
         document.getElementById("btnActivityDeleteConfirmation").disabled = true;
@@ -242,6 +240,9 @@ var DeliveryDetailComponent = (function () {
     // show menu
     DeliveryDetailComponent.prototype.showMenu = function () {
         document.getElementById("showTop").click();
+    };
+    DeliveryDetailComponent.prototype.backClicked = function () {
+        window.history.back();
     };
     // initialization
     DeliveryDetailComponent.prototype.ngOnInit = function () {
