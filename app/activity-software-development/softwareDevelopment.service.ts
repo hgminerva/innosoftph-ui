@@ -76,8 +76,8 @@ export class SoftwareDevelopmentService {
     }
 
     // list software development by date ranged (start date and end date)
-    public getListSoftwareDevelopmentData(softwareDevelopmentStartDate: Date, softwareDevelopmentEndDate: Date): wijmo.collections.ObservableArray {
-        let url = "http://api.innosoft.ph/api/softwareDevelopment/list/bySoftwareDevelopmentDateRange/" + softwareDevelopmentStartDate.toDateString() + "/" + softwareDevelopmentEndDate.toDateString();
+    public getListSoftwareDevelopmentData(softwareDevelopmentStartDate: Date, softwareDevelopmentEndDate: Date, status: String): wijmo.collections.ObservableArray {
+        let url = "http://api.innosoft.ph/api/softwareDevelopment/list/bySoftwareDevelopmentDateRange/" + softwareDevelopmentStartDate.toDateString() + "/" + softwareDevelopmentEndDate.toDateString() + "/" + status;
         let softwareDevelopmentObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
@@ -197,10 +197,10 @@ export class SoftwareDevelopmentService {
                 document.getElementById("btn-hidden-refresh-grid").click();
             },
             error => {
+                this.toastr.error('', 'Something`s went wrong!');
                 (<HTMLButtonElement>document.getElementById("btnDeleteSoftwareDevelopment")).innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
                 (<HTMLButtonElement>document.getElementById("btnDeleteSoftwareDevelopment")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnDeleteCloseSoftwareDevelopment")).disabled = false;
-                this.toastr.error('', 'Something`s went wrong!');
             }
         )
     }

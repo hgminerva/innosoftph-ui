@@ -36,6 +36,7 @@ var SoftwareDevelopmentComponent = (function () {
         this.filterSoftwareDevelopmentStatusSelectedValue = "OPEN";
         this.isStartDateClicked = false;
         this.isEndDateClicked = false;
+        this.softwareDevelopmentStatusClicked = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -70,10 +71,19 @@ var SoftwareDevelopmentComponent = (function () {
     };
     // get softwareDevelopment data
     SoftwareDevelopmentComponent.prototype.getSoftwareDevelopmentData = function () {
-        this.softwareDevelopmentCollectionView = new wijmo.collections.CollectionView(this.softwareDevelopmentService.getListSoftwareDevelopmentData(this.softwareDevelopmentStartDateValue, this.softwareDevelopmentEndDateValue));
+        this.softwareDevelopmentCollectionView = new wijmo.collections.CollectionView(this.softwareDevelopmentService.getListSoftwareDevelopmentData(this.softwareDevelopmentStartDateValue, this.softwareDevelopmentEndDateValue, this.filterSoftwareDevelopmentStatusSelectedValue));
         this.softwareDevelopmentCollectionView.filter = this.filterFunction.bind(this);
         this.softwareDevelopmentCollectionView.pageSize = 15;
         this.softwareDevelopmentCollectionView.trackChanges = true;
+    };
+    SoftwareDevelopmentComponent.prototype.filterSoftwareDevelopmentStatusSelectedIndexChangedClick = function () {
+        if (this.softwareDevelopmentStatusClicked) {
+            this.startLoading();
+            this.getSoftwareDevelopmentData();
+        }
+        else {
+            this.softwareDevelopmentStatusClicked = true;
+        }
     };
     // event: softwareDevelopment start date
     SoftwareDevelopmentComponent.prototype.softwareDevelopmentStartDateOnValueChanged = function () {

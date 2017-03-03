@@ -45,6 +45,7 @@ export class ActivityComponent implements OnInit {
   public isSupport = false;
   public isFinishLoading = false;
   public isLoading = true;
+  public activityStatusClicked = false;
 
   // inject lead service
   constructor(
@@ -55,6 +56,16 @@ export class ActivityComponent implements OnInit {
     private slimLoadingBarService: SlimLoadingBarService
   ) {
     this.toastr.setRootViewContainerRef(vRef);
+  }
+
+  public activityStatusesSelectedIndexChangedClick() {
+    if (this.activityStatusClicked) {
+      this.startLoading();
+      this.getActivityData();
+    }
+    else {
+      this.activityStatusClicked = true;
+    }
   }
 
   // start loading
@@ -138,7 +149,7 @@ export class ActivityComponent implements OnInit {
   // activity service data
   public getActivityData() {
     document.getElementById("btn-hidden-start-loading").click();
-    this.activityCollectionView = new wijmo.collections.CollectionView(this.activityService.getListActivityData(this.documentSelectedValue, this.activityStartDateValue, this.activityEndDateValue));
+    this.activityCollectionView = new wijmo.collections.CollectionView(this.activityService.getListActivityData(this.documentSelectedValue, this.activityStartDateValue, this.activityEndDateValue, this.activityStatusesSelectedValue));
     this.activityCollectionView.filter = this.filterFunction.bind(this);
     this.activityCollectionView.pageSize = 15;
     this.activityCollectionView.trackChanges = true;
@@ -217,11 +228,7 @@ export class ActivityComponent implements OnInit {
           this.activityParticularCategories = ['Delivery'];
         } else {
           if (currentSelectedActivity.SupportId > 0) {
-            (<HTMLButtonElement>document.getElementById("btnActivitySave")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-            (<HTMLButtonElement>document.getElementById("btnActivitySave")).disabled = true;
-            (<HTMLButtonElement>document.getElementById("btnActivityClose")).disabled = true;
             this.isSupport = true;
-            this.getAssignedUser();
             this.activityParticularCategories = [
               'New Installation',
               'Software Bug',
@@ -280,6 +287,7 @@ export class ActivityComponent implements OnInit {
           (<HTMLInputElement>document.getElementById("activityAmount")).value = currentSelectedActivity.ActivityAmount.toLocaleString();
           this.activityAmount = currentSelectedActivity.ActivityAmount.toLocaleString();
           this.activityStatusSelectedValue = currentSelectedActivity.ActivityStatus;
+          this.activityAssignedToSelectedValue = currentSelectedActivity.StaffUserId;
         }, 200);
       } else {
         this.hasNoActivity = true;

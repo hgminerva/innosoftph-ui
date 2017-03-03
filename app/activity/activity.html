@@ -84,6 +84,7 @@
                                     [isEditable]="false"
                                     [isRequired]="true"
                                     [(selectedValue)]="activityStatusesSelectedValue"
+                                    (selectedIndexChanged)="activityStatusesSelectedIndexChangedClick()"
                                     style="width: 100%; border-radius: 0px;">
                                 </wj-combo-box>
                             </div>
@@ -299,3 +300,4 @@
 <button id="btn-hidden-activity-detail-modal" [hidden]="true" data-toggle="modal" data-target="#activity-detail-modal"></button>
 <button id="btn-hidden-activity-data" [hidden]="true" (click)="getListActivity()"></button>
 <button id="btn-hidden-finished-load" [hidden]="true" (click)="finishedLoad()"></button>
+<button id="btn-hidden-assigned-user" [hidden]="true" (click)="getAssignedUser()"></button>

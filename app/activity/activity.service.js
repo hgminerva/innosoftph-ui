@@ -44,8 +44,8 @@ var ActivityService = (function () {
         return userObservableArray;
     };
     // list activity by document and by date ranged (start date and end date)  
-    ActivityService.prototype.getListActivityData = function (documentType, activityStartDate, activityEndDate) {
-        var url = "http://api.innosoft.ph/api/activity/list/byDocument/byDateRanged/" + documentType + "/" + activityStartDate.toDateString() + "/" + activityEndDate.toDateString();
+    ActivityService.prototype.getListActivityData = function (documentType, activityStartDate, activityEndDate, status) {
+        var url = "http://api.innosoft.ph/api/activity/list/byDocument/byDateRanged/" + documentType + "/" + activityStartDate.toDateString() + "/" + activityEndDate.toDateString() + "/" + status;
         var activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
@@ -57,6 +57,7 @@ var ActivityService = (function () {
                         ActivityDate: results[i].ActivityDate,
                         Particulars: results[i].Particulars,
                         Activity: results[i].Activity == null ? " " : results[i].Activity,
+                        StaffUserId: results[i].StaffUserId == null ? 0 : results[i].StaffUserId,
                         StaffUser: results[i].StaffUser == null ? " " : results[i].StaffUser,
                         LeadId: results[i].LeadId == null ? 0 : results[i].LeadId,
                         QuotationId: results[i].QuotationId == null ? 0 : results[i].QuotationId,
@@ -75,6 +76,7 @@ var ActivityService = (function () {
                 }
             }
             document.getElementById("btn-hidden-complete-loading").click();
+            document.getElementById("btn-hidden-assigned-user").click();
             document.getElementById("btnRefresh").disabled = false;
             document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-refresh fa-fw'></i> Refresh";
         });

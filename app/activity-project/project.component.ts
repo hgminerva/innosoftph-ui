@@ -43,6 +43,7 @@ export class ProjectComponent {
   public filterProjectStatusSelectedValue = "OPEN";
   public isStartDateClicked = false;
   public isEndDateClicked = false;
+  public projectStatusClicked = false;
 
   // inject project service
   constructor(
@@ -106,6 +107,16 @@ export class ProjectComponent {
     return true;
   }
 
+  public filterProjectStatusSelectedIndexChangedClick() {
+    if (this.projectStatusClicked) {
+      this.startLoading();
+      this.getListProjectData();
+    }
+    else {
+      this.projectStatusClicked = true;
+    }
+  }
+
   // project date ranged
   public setProjectDateRanged() {
     this.startLoading();
@@ -157,7 +168,7 @@ export class ProjectComponent {
 
   // project data
   public getProjectData() {
-    this.projectCollectionView = new wijmo.collections.CollectionView(this.projectService.getListProjectData(this.projectStartDateValue, this.projectEndDateValue));
+    this.projectCollectionView = new wijmo.collections.CollectionView(this.projectService.getListProjectData(this.projectStartDateValue, this.projectEndDateValue, this.filterProjectStatusSelectedValue));
     this.projectCollectionView.filter = this.filterFunction.bind(this);
     this.projectCollectionView.pageSize = 15;
     this.projectCollectionView.trackChanges = true;

@@ -36,6 +36,7 @@ var ProjectComponent = (function () {
         this.filterProjectStatusSelectedValue = "OPEN";
         this.isStartDateClicked = false;
         this.isEndDateClicked = false;
+        this.projectStatusClicked = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
     ProjectComponent.prototype.backClicked = function () {
@@ -82,6 +83,15 @@ var ProjectComponent = (function () {
                 (item.ProjectStatus.toLowerCase().indexOf(this.projectFilter.toLowerCase()) > -1);
         }
         return true;
+    };
+    ProjectComponent.prototype.filterProjectStatusSelectedIndexChangedClick = function () {
+        if (this.projectStatusClicked) {
+            this.startLoading();
+            this.getListProjectData();
+        }
+        else {
+            this.projectStatusClicked = true;
+        }
     };
     // project date ranged
     ProjectComponent.prototype.setProjectDateRanged = function () {
@@ -131,7 +141,7 @@ var ProjectComponent = (function () {
     };
     // project data
     ProjectComponent.prototype.getProjectData = function () {
-        this.projectCollectionView = new wijmo.collections.CollectionView(this.projectService.getListProjectData(this.projectStartDateValue, this.projectEndDateValue));
+        this.projectCollectionView = new wijmo.collections.CollectionView(this.projectService.getListProjectData(this.projectStartDateValue, this.projectEndDateValue, this.filterProjectStatusSelectedValue));
         this.projectCollectionView.filter = this.filterFunction.bind(this);
         this.projectCollectionView.pageSize = 15;
         this.projectCollectionView.trackChanges = true;

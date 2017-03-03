@@ -42,8 +42,18 @@ var ActivityComponent = (function () {
         this.isSupport = false;
         this.isFinishLoading = false;
         this.isLoading = true;
+        this.activityStatusClicked = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
+    ActivityComponent.prototype.activityStatusesSelectedIndexChangedClick = function () {
+        if (this.activityStatusClicked) {
+            this.startLoading();
+            this.getActivityData();
+        }
+        else {
+            this.activityStatusClicked = true;
+        }
+    };
     // start loading
     ActivityComponent.prototype.startLoading = function () {
         this.slimLoadingBarService.progress = 30;
@@ -117,7 +127,7 @@ var ActivityComponent = (function () {
     // activity service data
     ActivityComponent.prototype.getActivityData = function () {
         document.getElementById("btn-hidden-start-loading").click();
-        this.activityCollectionView = new wijmo.collections.CollectionView(this.activityService.getListActivityData(this.documentSelectedValue, this.activityStartDateValue, this.activityEndDateValue));
+        this.activityCollectionView = new wijmo.collections.CollectionView(this.activityService.getListActivityData(this.documentSelectedValue, this.activityStartDateValue, this.activityEndDateValue, this.activityStatusesSelectedValue));
         this.activityCollectionView.filter = this.filterFunction.bind(this);
         this.activityCollectionView.pageSize = 15;
         this.activityCollectionView.trackChanges = true;
@@ -196,11 +206,7 @@ var ActivityComponent = (function () {
                 }
                 else {
                     if (currentSelectedActivity.SupportId > 0) {
-                        document.getElementById("btnActivitySave").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-                        document.getElementById("btnActivitySave").disabled = true;
-                        document.getElementById("btnActivityClose").disabled = true;
                         this.isSupport = true;
-                        this.getAssignedUser();
                         this.activityParticularCategories = [
                             'New Installation',
                             'Software Bug',
@@ -261,6 +267,7 @@ var ActivityComponent = (function () {
                     document.getElementById("activityAmount").value = currentSelectedActivity.ActivityAmount.toLocaleString();
                     _this.activityAmount = currentSelectedActivity.ActivityAmount.toLocaleString();
                     _this.activityStatusSelectedValue = currentSelectedActivity.ActivityStatus;
+                    _this.activityAssignedToSelectedValue = currentSelectedActivity.StaffUserId;
                 }, 200);
             }
             else {

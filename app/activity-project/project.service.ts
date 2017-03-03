@@ -66,8 +66,8 @@ export class ProjectService {
     }
 
     // list project by date ranged (start date and end date)
-    public getListProjectData(projectStartDate: Date, projectEndDate: Date): wijmo.collections.ObservableArray {
-        let url = "http://api.innosoft.ph/api/project/list/byProjectDateRange/" + projectStartDate.toDateString() + "/" + projectEndDate.toDateString();
+    public getListProjectData(projectStartDate: Date, projectEndDate: Date, status: String): wijmo.collections.ObservableArray {
+        let url = "http://api.innosoft.ph/api/project/list/byProjectDateRange/" + projectStartDate.toDateString() + "/" + projectEndDate.toDateString() + "/" + status;
         let projectObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
@@ -118,6 +118,7 @@ export class ProjectService {
                 (<HTMLButtonElement>document.getElementById("btnSaveProject")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                 (<HTMLButtonElement>document.getElementById("btnSaveProject")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnCloseProject")).disabled = false;
+                document.getElementById("btn-hidden-complete-loading").click();
             }
         )
     }
@@ -136,6 +137,7 @@ export class ProjectService {
                 (<HTMLButtonElement>document.getElementById("btnSaveProject")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                 (<HTMLButtonElement>document.getElementById("btnSaveProject")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnCloseProject")).disabled = false;
+                document.getElementById("btn-hidden-complete-loading").click();
             }
         )
     }
@@ -154,6 +156,7 @@ export class ProjectService {
                 (<HTMLButtonElement>document.getElementById("btnDeleteProject")).innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
                 (<HTMLButtonElement>document.getElementById("btnDeleteProject")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnDeleteCloseProject")).disabled = false;
+                document.getElementById("btn-hidden-complete-loading").click();
             }
         )
     }

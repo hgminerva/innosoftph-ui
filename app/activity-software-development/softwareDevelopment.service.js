@@ -74,8 +74,8 @@ var SoftwareDevelopmentService = (function () {
         return userObservableArray;
     };
     // list software development by date ranged (start date and end date)
-    SoftwareDevelopmentService.prototype.getListSoftwareDevelopmentData = function (softwareDevelopmentStartDate, softwareDevelopmentEndDate) {
-        var url = "http://api.innosoft.ph/api/softwareDevelopment/list/bySoftwareDevelopmentDateRange/" + softwareDevelopmentStartDate.toDateString() + "/" + softwareDevelopmentEndDate.toDateString();
+    SoftwareDevelopmentService.prototype.getListSoftwareDevelopmentData = function (softwareDevelopmentStartDate, softwareDevelopmentEndDate, status) {
+        var url = "http://api.innosoft.ph/api/softwareDevelopment/list/bySoftwareDevelopmentDateRange/" + softwareDevelopmentStartDate.toDateString() + "/" + softwareDevelopmentEndDate.toDateString() + "/" + status;
         var softwareDevelopmentObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = response.json();
@@ -182,10 +182,10 @@ var SoftwareDevelopmentService = (function () {
             document.getElementById("btn-hidden-softwareDevelopment-delete-modal").click();
             document.getElementById("btn-hidden-refresh-grid").click();
         }, function (error) {
+            _this.toastr.error('', 'Something`s went wrong!');
             document.getElementById("btnDeleteSoftwareDevelopment").innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
             document.getElementById("btnDeleteSoftwareDevelopment").disabled = false;
             document.getElementById("btnDeleteCloseSoftwareDevelopment").disabled = false;
-            _this.toastr.error('', 'Something`s went wrong!');
         });
     };
     // list activity by softwareDevelopment Id

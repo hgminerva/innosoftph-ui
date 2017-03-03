@@ -62,8 +62,8 @@ var ProjectService = (function () {
         return userObservableArray;
     };
     // list project by date ranged (start date and end date)
-    ProjectService.prototype.getListProjectData = function (projectStartDate, projectEndDate) {
-        var url = "http://api.innosoft.ph/api/project/list/byProjectDateRange/" + projectStartDate.toDateString() + "/" + projectEndDate.toDateString();
+    ProjectService.prototype.getListProjectData = function (projectStartDate, projectEndDate, status) {
+        var url = "http://api.innosoft.ph/api/project/list/byProjectDateRange/" + projectStartDate.toDateString() + "/" + projectEndDate.toDateString() + "/" + status;
         var projectObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
@@ -107,6 +107,7 @@ var ProjectService = (function () {
             document.getElementById("btnSaveProject").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
             document.getElementById("btnSaveProject").disabled = false;
             document.getElementById("btnCloseProject").disabled = false;
+            document.getElementById("btn-hidden-complete-loading").click();
         });
     };
     // update project
@@ -122,6 +123,7 @@ var ProjectService = (function () {
             document.getElementById("btnSaveProject").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
             document.getElementById("btnSaveProject").disabled = false;
             document.getElementById("btnCloseProject").disabled = false;
+            document.getElementById("btn-hidden-complete-loading").click();
         });
     };
     // delete project
@@ -137,6 +139,7 @@ var ProjectService = (function () {
             document.getElementById("btnDeleteProject").innerHTML = "<i class='fa fa-trash fa-fw'></i> Delete";
             document.getElementById("btnDeleteProject").disabled = false;
             document.getElementById("btnDeleteCloseProject").disabled = false;
+            document.getElementById("btn-hidden-complete-loading").click();
         });
     };
     ProjectService = __decorate([

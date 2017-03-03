@@ -36,6 +36,7 @@ export class SoftwareDevelopmentComponent implements OnInit {
   public filterSoftwareDevelopmentStatusSelectedValue = "OPEN";
   public isStartDateClicked = false;
   public isEndDateClicked = false;
+  public softwareDevelopmentStatusClicked = false;
 
   // inject softwareDevelopment service
   constructor(
@@ -86,10 +87,20 @@ export class SoftwareDevelopmentComponent implements OnInit {
 
   // get softwareDevelopment data
   public getSoftwareDevelopmentData() {
-    this.softwareDevelopmentCollectionView = new wijmo.collections.CollectionView(this.softwareDevelopmentService.getListSoftwareDevelopmentData(this.softwareDevelopmentStartDateValue, this.softwareDevelopmentEndDateValue));
+    this.softwareDevelopmentCollectionView = new wijmo.collections.CollectionView(this.softwareDevelopmentService.getListSoftwareDevelopmentData(this.softwareDevelopmentStartDateValue, this.softwareDevelopmentEndDateValue, this.filterSoftwareDevelopmentStatusSelectedValue));
     this.softwareDevelopmentCollectionView.filter = this.filterFunction.bind(this);
     this.softwareDevelopmentCollectionView.pageSize = 15;
     this.softwareDevelopmentCollectionView.trackChanges = true;
+  }
+
+  public filterSoftwareDevelopmentStatusSelectedIndexChangedClick() {
+    if (this.softwareDevelopmentStatusClicked) {
+      this.startLoading();
+      this.getSoftwareDevelopmentData();
+    }
+    else {
+      this.softwareDevelopmentStatusClicked = true;
+    }
   }
 
   // event: softwareDevelopment start date
@@ -236,9 +247,9 @@ export class SoftwareDevelopmentComponent implements OnInit {
 
   // show menu
   public showMenu() {
-      document.getElementById("showTop").click();
+    document.getElementById("showTop").click();
   }
-  
+
   // refresh grid
   public refreshGrid() {
     this.startLoading();
