@@ -31,8 +31,8 @@ var DeliveryService = (function () {
         var quotationObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
                     quotationObservableArray.push({
                         Id: results[i].Id,
                         QuotationNumberDetail: results[i].QuotationNumber + " - " + results[i].Customer + " (" + results[i].Product + ")",
@@ -57,8 +57,8 @@ var DeliveryService = (function () {
         var url = "http://api.innosoft.ph/api/article/list/byArticleTypeId/" + articleTypeId;
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
                     articleObservableArray.push({
                         Id: results[i].Id,
                         Article: results[i].Article
@@ -84,8 +84,8 @@ var DeliveryService = (function () {
         var url = "http://api.innosoft.ph/api/user/list";
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
                     userObservableArray.push({
                         Id: results[i].Id,
                         FullName: results[i].FullName
@@ -120,25 +120,34 @@ var DeliveryService = (function () {
         });
         return userObservableArray;
     };
+    // pad - leading zero for date
+    DeliveryService.prototype.pad = function (n) {
+        return (n < 10) ? ("0" + n) : n;
+    };
     // list delivery by date ranged (start date and end date)
     DeliveryService.prototype.getListDeliveryData = function (deliveryStartDate, deliveryEndDate, status) {
+        var _this = this;
         var url = "http://api.innosoft.ph/api/delivery/list/byDeliveryDateRange/" + deliveryStartDate.toDateString() + "/" + deliveryEndDate.toDateString() + "/" + status;
         var deliveryObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
+                    var myDate = new Date(results[i].DeliveryDate);
+                    var myDateValue = [myDate.getFullYear(), _this.pad(myDate.getMonth() + 1), _this.pad(myDate.getDate())].join('-');
+                    var myMeetingDate = new Date(results[i].MeetingDate);
+                    var myMeetingDateValue = [myMeetingDate.getFullYear(), _this.pad(myMeetingDate.getMonth() + 1), _this.pad(myMeetingDate.getDate())].join('-');
                     deliveryObservableArray.push({
                         Id: results[i].Id,
                         DeliveryNumber: results[i].DeliveryNumber,
-                        DeliveryDate: results[i].DeliveryDate,
+                        DeliveryDate: myDateValue,
                         QuotationId: results[i].QuotationId,
                         QuotationNumber: results[i].QuotationNumber,
                         CustomerId: results[i].CustomerId,
                         Customer: results[i].Customer,
                         ProductId: results[i].ProductId,
                         Product: results[i].Product,
-                        MeetingDate: results[i].MeetingDate,
+                        MeetingDate: myMeetingDateValue,
                         Remarks: results[i].Remarks,
                         SalesUserId: results[i].SalesUserId,
                         SalesUser: results[i].SalesUser,
@@ -241,16 +250,19 @@ var DeliveryService = (function () {
     };
     // list activity by delivery Id
     DeliveryService.prototype.getListActivityByQuotationId = function (deliveryId, isLoadActivityOnly) {
+        var _this = this;
         var url = "http://api.innosoft.ph/api/activity/list/byDeliveryId/" + deliveryId;
         var activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
+                    var myDate = new Date(results[i].ActivityDate);
+                    var myDateValue = [myDate.getFullYear(), _this.pad(myDate.getMonth() + 1), _this.pad(myDate.getDate())].join('-');
                     activityObservableArray.push({
                         Id: results[i].Id,
                         ActivityNumber: results[i].ActivityNumber,
-                        ActivityDate: results[i].ActivityDate,
+                        ActivityDate: myDateValue,
                         StaffUserId: results[i].StaffUserId,
                         StaffUser: results[i].StaffUser,
                         CustomerId: results[i].CustomerId,

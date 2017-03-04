@@ -26,8 +26,8 @@ export class SoftwareDevelopmentService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
                         projectObservableArray.push({
                             Id: results[i].Id,
                             ProjectNumberDetail: results[i].ProjectNumber + " - " + results[i].ProjectName,
@@ -55,8 +55,8 @@ export class SoftwareDevelopmentService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
                         userObservableArray.push({
                             Id: results[i].Id,
                             FullName: results[i].FullName
@@ -75,6 +75,11 @@ export class SoftwareDevelopmentService {
         return userObservableArray;
     }
 
+    // pad - leading zero for date
+    public pad(n: number) {
+        return (n < 10) ? ("0" + n) : n;
+    }
+
     // list software development by date ranged (start date and end date)
     public getListSoftwareDevelopmentData(softwareDevelopmentStartDate: Date, softwareDevelopmentEndDate: Date, status: String): wijmo.collections.ObservableArray {
         let url = "http://api.innosoft.ph/api/softwareDevelopment/list/bySoftwareDevelopmentDateRange/" + softwareDevelopmentStartDate.toDateString() + "/" + softwareDevelopmentEndDate.toDateString() + "/" + status;
@@ -82,12 +87,15 @@ export class SoftwareDevelopmentService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = response.json();
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
+                        var myDate = new Date(results[i].SoftDevDate);
+                        var myDateValue = [myDate.getFullYear(), this.pad(myDate.getMonth() + 1), this.pad(myDate.getDate())].join('-');
+
                         softwareDevelopmentObservableArray.push({
                             Id: results[i].Id,
                             SoftDevNumber: results[i].SoftDevNumber,
-                            SoftDevDate: results[i].SoftDevDate,
+                            SoftDevDate: myDateValue,
                             ProjectId: results[i].ProjectId,
                             ProjectNumber: results[i].ProjectNumber,
                             ProjectName: results[i].ProjectName,
@@ -212,12 +220,15 @@ export class SoftwareDevelopmentService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
+                        var myDate = new Date(results[i].ActivityDate);
+                        var myDateValue = [myDate.getFullYear(), this.pad(myDate.getMonth() + 1), this.pad(myDate.getDate())].join('-');
+
                         activityObservableArray.push({
                             Id: results[i].Id,
                             ActivityNumber: results[i].ActivityNumber,
-                            ActivityDate: results[i].ActivityDate,
+                            ActivityDate: myDateValue,
                             StaffUserId: results[i].StaffUserId,
                             StaffUser: results[i].StaffUser,
                             CustomerId: results[i].CustomerId,

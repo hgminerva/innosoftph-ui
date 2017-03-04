@@ -26,8 +26,8 @@ export class DeliveryService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
                         quotationObservableArray.push({
                             Id: results[i].Id,
                             QuotationNumberDetail: results[i].QuotationNumber + " - " + results[i].Customer + " (" + results[i].Product + ")",
@@ -56,8 +56,8 @@ export class DeliveryService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
                         articleObservableArray.push({
                             Id: results[i].Id,
                             Article: results[i].Article
@@ -87,8 +87,8 @@ export class DeliveryService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
                         userObservableArray.push({
                             Id: results[i].Id,
                             FullName: results[i].FullName
@@ -123,6 +123,11 @@ export class DeliveryService {
         return userObservableArray;
     }
 
+    // pad - leading zero for date
+    public pad(n: number) {
+        return (n < 10) ? ("0" + n) : n;
+    }
+
     // list delivery by date ranged (start date and end date)
     public getListDeliveryData(deliveryStartDate: Date, deliveryEndDate: Date, status: String): wijmo.collections.ObservableArray {
         let url = "http://api.innosoft.ph/api/delivery/list/byDeliveryDateRange/" + deliveryStartDate.toDateString() + "/" + deliveryEndDate.toDateString() + "/" + status;
@@ -130,19 +135,25 @@ export class DeliveryService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
+                        var myDate = new Date(results[i].DeliveryDate);
+                        var myDateValue = [myDate.getFullYear(), this.pad(myDate.getMonth() + 1), this.pad(myDate.getDate())].join('-');
+
+                        var myMeetingDate = new Date(results[i].MeetingDate);
+                        var myMeetingDateValue = [myMeetingDate.getFullYear(), this.pad(myMeetingDate.getMonth() + 1), this.pad(myMeetingDate.getDate())].join('-');
+
                         deliveryObservableArray.push({
                             Id: results[i].Id,
                             DeliveryNumber: results[i].DeliveryNumber,
-                            DeliveryDate: results[i].DeliveryDate,
+                            DeliveryDate: myDateValue,
                             QuotationId: results[i].QuotationId,
                             QuotationNumber: results[i].QuotationNumber,
                             CustomerId: results[i].CustomerId,
                             Customer: results[i].Customer,
                             ProductId: results[i].ProductId,
                             Product: results[i].Product,
-                            MeetingDate: results[i].MeetingDate,
+                            MeetingDate: myMeetingDateValue,
                             Remarks: results[i].Remarks,
                             SalesUserId: results[i].SalesUserId,
                             SalesUser: results[i].SalesUser,
@@ -264,12 +275,15 @@ export class DeliveryService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
+                        var myDate = new Date(results[i].ActivityDate);
+                        var myDateValue = [myDate.getFullYear(), this.pad(myDate.getMonth() + 1), this.pad(myDate.getDate())].join('-');
+
                         activityObservableArray.push({
                             Id: results[i].Id,
                             ActivityNumber: results[i].ActivityNumber,
-                            ActivityDate: results[i].ActivityDate,
+                            ActivityDate: myDateValue,
                             StaffUserId: results[i].StaffUserId,
                             StaffUser: results[i].StaffUser,
                             CustomerId: results[i].CustomerId,

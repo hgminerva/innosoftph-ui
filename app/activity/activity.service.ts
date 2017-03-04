@@ -27,8 +27,8 @@ export class ActivityService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
                         userObservableArray.push({
                             Id: results[i].Id,
                             FullName: results[i].FullName
@@ -43,6 +43,11 @@ export class ActivityService {
         return userObservableArray;
     }
 
+    // pad - leading zero for date
+    public pad(n: number) {
+        return (n < 10) ? ("0" + n) : n;
+    }
+
     // list activity by document and by date ranged (start date and end date)  
     public getListActivityData(documentType: String, activityStartDate: Date, activityEndDate: Date, status: String): wijmo.collections.ObservableArray {
         let url = "http://api.innosoft.ph/api/activity/list/byDocument/byDateRanged/" + documentType + "/" + activityStartDate.toDateString() + "/" + activityEndDate.toDateString() + "/" + status;
@@ -50,12 +55,15 @@ export class ActivityService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
+                        var myActivityDate = new Date(results[i].ActivityDate);
+                        var myActivityDateValue = [myActivityDate.getFullYear(), this.pad(myActivityDate.getMonth() + 1), this.pad(myActivityDate.getDate())].join('-');
+
                         activityObservableArray.push({
                             Id: results[i].Id,
                             Document: results[i].DocumentNumber,
-                            ActivityDate: results[i].ActivityDate,
+                            ActivityDate: myActivityDateValue,
                             Particulars: results[i].Particulars,
                             Activity: results[i].Activity == null ? " " : results[i].Activity,
                             StaffUserId: results[i].StaffUserId == null ? 0 : results[i].StaffUserId,

@@ -31,8 +31,8 @@ var ProjectService = (function () {
         var url = "http://api.innosoft.ph/api/article/list/byArticleTypeId/2";
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
                     articleObservableArray.push({
                         Id: results[i].Id,
                         Article: results[i].Article
@@ -49,8 +49,8 @@ var ProjectService = (function () {
         var url = "http://api.innosoft.ph/api/user/list";
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
                     userObservableArray.push({
                         Id: results[i].Id,
                         FullName: results[i].FullName
@@ -61,18 +61,29 @@ var ProjectService = (function () {
         });
         return userObservableArray;
     };
+    // pad - leading zero for date
+    ProjectService.prototype.pad = function (n) {
+        return (n < 10) ? ("0" + n) : n;
+    };
     // list project by date ranged (start date and end date)
     ProjectService.prototype.getListProjectData = function (projectStartDate, projectEndDate, status) {
+        var _this = this;
         var url = "http://api.innosoft.ph/api/project/list/byProjectDateRange/" + projectStartDate.toDateString() + "/" + projectEndDate.toDateString() + "/" + status;
         var projectObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
+                    var myDate = new Date(results[i].ProjectDate);
+                    var myDateValue = [myDate.getFullYear(), _this.pad(myDate.getMonth() + 1), _this.pad(myDate.getDate())].join('-');
+                    var myProjectStartDate = new Date(results[i].ProjectStartDate);
+                    var myProjectStartDateValue = [myProjectStartDate.getFullYear(), _this.pad(myProjectStartDate.getMonth() + 1), _this.pad(myProjectStartDate.getDate())].join('-');
+                    var myProjectEndDate = new Date(results[i].ProjectEndDate);
+                    var myProjectEndDateValue = [myProjectEndDate.getFullYear(), _this.pad(myProjectEndDate.getMonth() + 1), _this.pad(myProjectEndDate.getDate())].join('-');
                     projectObservableArray.push({
                         Id: results[i].Id,
                         ProjectNumber: results[i].ProjectNumber,
-                        ProjectDate: results[i].ProjectDate,
+                        ProjectDate: myDateValue,
                         ProjectName: results[i].ProjectName,
                         ProjectType: results[i].ProjectType,
                         CustomerId: results[i].CustomerId,
@@ -82,8 +93,8 @@ var ProjectService = (function () {
                         EncodedByUser: results[i].EncodedByUser,
                         ProjectManagerUserId: results[i].ProjectManagerUserId,
                         ProjectManagerUser: results[i].ProjectManagerUser,
-                        ProjectStartDate: results[i].ProjectStartDate,
-                        ProjectEndDate: results[i].ProjectEndDate,
+                        ProjectStartDate: myProjectStartDateValue,
+                        ProjectEndDate: myProjectEndDateValue,
                         ProjectStatus: results[i].ProjectStatus
                     });
                 }

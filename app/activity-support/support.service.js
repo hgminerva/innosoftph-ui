@@ -31,8 +31,8 @@ var SupportService = (function () {
         var url = "http://api.innosoft.ph/api/continuity/list/continuity/customers";
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
                     customerObservableArray.push({
                         CustomerId: results[i].CustomerId,
                         Customer: results[i].Customer
@@ -56,8 +56,8 @@ var SupportService = (function () {
         var url = "http://api.innosoft.ph/api/article/list/byArticleTypeId/" + articleTypeId;
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
                     articleObservableArray.push({
                         Id: results[i].Id,
                         Article: results[i].Article
@@ -84,15 +84,18 @@ var SupportService = (function () {
     };
     // list continuity by status
     SupportService.prototype.getListContinuityData = function (page, customerId, isSelectedCustomerOnly) {
+        var _this = this;
         var continuityObservableArray = new wijmo.collections.ObservableArray();
         var url = "http://api.innosoft.ph/api/continuity/list/byCustomerId/byContinuityStatus/" + customerId;
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
+                    var myExpireDate = new Date(results[i].ExpiryDate);
+                    var myExpireDateValue = [myExpireDate.getFullYear(), _this.pad(myExpireDate.getMonth() + 1), _this.pad(myExpireDate.getDate())].join('-');
                     continuityObservableArray.push({
                         Id: results[i].Id,
-                        ContinuityNumberDetail: results[i].ContinuityNumber + " - " + results[i].Product + " (Exp: " + results[i].ExpiryDate + ")",
+                        ContinuityNumberDetail: results[i].ContinuityNumber + " - " + results[i].Product + " (Exp: " + myExpireDateValue + ")",
                         ContinuityNumber: results[i].ContinuityNumber,
                         Customer: results[i].Customer,
                         ProductId: results[i].ProductId,
@@ -119,8 +122,8 @@ var SupportService = (function () {
         var url = "http://api.innosoft.ph/api/user/list";
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
                     userObservableArray.push({
                         Id: results[i].Id,
                         FullName: results[i].FullName
@@ -153,18 +156,25 @@ var SupportService = (function () {
         });
         return userObservableArray;
     };
+    // pad - leading zero for date
+    SupportService.prototype.pad = function (n) {
+        return (n < 10) ? ("0" + n) : n;
+    };
     // list support by date ranged (start date and end date)
     SupportService.prototype.getListSupportData = function (supportStartDate, supportEndDate, status, supportType) {
+        var _this = this;
         var url = "http://api.innosoft.ph/api/support/list/bySupportDateRange/" + supportStartDate.toDateString() + "/" + supportEndDate.toDateString() + "/" + status + "/" + supportType;
         var supportObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
+                    var myDate = new Date(results[i].SupportDate);
+                    var myDateValue = [myDate.getFullYear(), _this.pad(myDate.getMonth() + 1), _this.pad(myDate.getDate())].join('-');
                     supportObservableArray.push({
                         Id: results[i].Id,
                         SupportNumber: results[i].SupportNumber,
-                        SupportDate: results[i].SupportDate,
+                        SupportDate: myDateValue,
                         ContinuityId: results[i].ContinuityId,
                         ContinuityNumber: results[i].ContinuityNumber,
                         IssueCategory: results[i].IssueCategory,
@@ -283,16 +293,19 @@ var SupportService = (function () {
     };
     // list activity by support Id
     SupportService.prototype.getListActivityBySupportId = function (supportId, isLoadActivityOnly) {
+        var _this = this;
         var url = "http://api.innosoft.ph/api/activity/list/bySupportId/" + supportId;
         var activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
+                    var myDate = new Date(results[i].ActivityDate);
+                    var myDateValue = [myDate.getFullYear(), _this.pad(myDate.getMonth() + 1), _this.pad(myDate.getDate())].join('-');
                     activityObservableArray.push({
                         Id: results[i].Id,
                         ActivityNumber: results[i].ActivityNumber,
-                        ActivityDate: results[i].ActivityDate,
+                        ActivityDate: myDateValue,
                         StaffUserId: results[i].StaffUserId,
                         StaffUser: results[i].StaffUser,
                         CustomerId: results[i].CustomerId,

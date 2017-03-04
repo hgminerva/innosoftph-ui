@@ -26,8 +26,8 @@ export class UserService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
                         userObservableArray.push({
                             Id: results[i].Id,
                             UserName: results[i].UserName,
@@ -35,7 +35,7 @@ export class UserService {
                         });
                     }
                 }
-                
+
                 document.getElementById("btn-hidden-complete-loading").click();
             },
             error => {

@@ -39,7 +39,8 @@
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
                                 <wj-input-date
                                     [(value)]="supportStartDateValue" 
-                                    [format]="'MMM dd, yyyy'"
+                                    [format]="'yyyy-MM-dd'"
+                                    [mask]="'9999-99-99'" 
                                     (valueChanged)="supportStartDateOnValueChanged()"
                                     style="border-radius: 0px;">
                                 </wj-input-date>
@@ -50,7 +51,8 @@
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
                                 <wj-input-date
                                     [(value)]="supportEndDateValue" 
-                                    [format]="'MMM dd, yyyy'"
+                                    [format]="'yyyy-MM-dd'"
+                                    [mask]="'9999-99-99'" 
                                     (valueChanged)="supportEndDateOnValueChanged()"
                                     style="border-radius: 0px;">
                                 </wj-input-date>
@@ -115,7 +117,7 @@
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="'Support No.'" [binding]="'SupportNumber'" [isReadOnly]="true" [width]="'1.6*'">
                     </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'Date'" [binding]="'SupportDate'" [isReadOnly]="true" [width]="'1.2*'">
+                    <wj-flex-grid-column [header]="'Date'" [binding]="'SupportDate'" [isReadOnly]="true" [width]="'1.4*'">
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="'Customer'" [binding]="'Customer'" [isReadOnly]="true" [width]="'1.6*'">
                     </wj-flex-grid-column>
@@ -180,7 +182,8 @@
                                     <div class="col-sm-8">
                                         <wj-input-date
                                             [(value)]="supportDateValue" 
-                                            [format]="'MMM dd, yyyy'"
+                                            [format]="'yyyy-MM-dd'"
+                                            [mask]="'9999-99-99'" 
                                             style="width: 100%; border-radius: 0px;">
                                         </wj-input-date>
                                     </div>

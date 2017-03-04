@@ -411,9 +411,16 @@ var ActivityComponent = (function () {
         document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
         this.getActivityData();
     };
+    // show menu
+    ActivityComponent.prototype.showMenu = function () {
+        document.getElementById("showTop").click();
+    };
     ActivityComponent.prototype.backClicked = function () {
         window.history.back();
     };
+    // init(s: wjGrid.FlexGrid) {
+    //   s.rows.defaultSize = 100;
+    // }
     // initialization
     ActivityComponent.prototype.ngOnInit = function () {
         this.setActivityDateRanged();

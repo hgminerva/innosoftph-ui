@@ -26,8 +26,8 @@ export class QuotationService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
                         leadObservableArray.push({
                             Id: results[i].Id,
                             LeadNumberDetail: results[i].LeadNumber + " - " + results[i].LeadName,
@@ -54,8 +54,8 @@ export class QuotationService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
                         customerObservableArray.push({
                             Id: results[i].Id,
                             Article: results[i].Article
@@ -93,8 +93,8 @@ export class QuotationService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
                         userObservableArray.push({
                             Id: results[i].Id,
                             FullName: results[i].FullName
@@ -111,6 +111,11 @@ export class QuotationService {
         return userObservableArray;
     }
 
+    // pad - leading zero for date
+    public pad(n: number) {
+        return (n < 10) ? ("0" + n) : n;
+    }
+
     // list quotation by date ranged (start date and end date)
     public getListQuotationData(quotationStartDate: Date, quotationEndDate: Date, quotationStatus: String): wijmo.collections.ObservableArray {
         let url = "http://api.innosoft.ph/api/quotation/list/byQuotationDateRange/" + quotationStartDate.toDateString() + "/" + quotationEndDate.toDateString() + "/" + quotationStatus;
@@ -118,12 +123,15 @@ export class QuotationService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
+                        var myDate = new Date(results[i].QuotationDate);
+                        var myDateValue = [myDate.getFullYear(), this.pad(myDate.getMonth() + 1), this.pad(myDate.getDate())].join('-');
+
                         quotationObservableArray.push({
                             Id: results[i].Id,
                             QuotationNumber: results[i].QuotationNumber,
-                            QuotationDate: results[i].QuotationDate,
+                            QuotationDate: myDateValue,
                             LeadId: results[i].LeadId,
                             LeadNumber: results[i].LeadNumber,
                             CustomerId: results[i].CustomerId,
@@ -246,12 +254,15 @@ export class QuotationService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
+                        var myDate = new Date(results[i].ActivityDate);
+                        var myDateValue = [myDate.getFullYear(), this.pad(myDate.getMonth() + 1), this.pad(myDate.getDate())].join('-');
+
                         activityObservableArray.push({
                             Id: results[i].Id,
                             ActivityNumber: results[i].ActivityNumber,
-                            ActivityDate: results[i].ActivityDate,
+                            ActivityDate: myDateValue,
                             StaffUserId: results[i].StaffUserId,
                             StaffUser: results[i].StaffUser,
                             CustomerId: results[i].CustomerId,

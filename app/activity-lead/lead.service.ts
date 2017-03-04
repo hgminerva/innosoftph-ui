@@ -26,8 +26,8 @@ export class LeadService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
                         userObservableArray.push({
                             Id: results[i].Id,
                             FullName: results[i].FullName
@@ -52,6 +52,11 @@ export class LeadService {
         return userObservableArray;
     }
 
+    // pad - leading zero for date
+    public pad(n: number) {
+        return (n < 10) ? ("0" + n) : n;
+    }
+
     // list lead by date ranged (start date and end date)
     public getListLeadData(leadStartDate: Date, leadEndDate: Date, leadStatus: String): wijmo.collections.ObservableArray {
         let url = "http://api.innosoft.ph/api/lead/list/byLeadDateRange/" + leadStartDate.toDateString() + "/" + leadEndDate.toDateString() + "/" + leadStatus;
@@ -59,11 +64,14 @@ export class LeadService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
+                        var myDate = new Date(results[i].LeadDate);
+                        var myDateValue = [myDate.getFullYear(), this.pad(myDate.getMonth() + 1), this.pad(myDate.getDate())].join('-');
+
                         leadObservableArray.push({
                             Id: results[i].Id,
-                            LeadDate: results[i].LeadDate,
+                            LeadDate: myDateValue,
                             LeadNumber: results[i].LeadNumber,
                             LeadName: results[i].LeadName,
                             Address: results[i].Address,
@@ -195,12 +203,15 @@ export class LeadService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
+                        var myDate = new Date(results[i].ActivityDate);
+                        var myDateValue = [myDate.getFullYear(), this.pad(myDate.getMonth() + 1), this.pad(myDate.getDate())].join('-');
+
                         activityObservableArray.push({
                             Id: results[i].Id,
                             ActivityNumber: results[i].ActivityNumber,
-                            ActivityDate: results[i].ActivityDate,
+                            ActivityDate: myDateValue,
                             StaffUserId: results[i].StaffUserId,
                             StaffUser: results[i].StaffUser,
                             CustomerId: results[i].CustomerId,

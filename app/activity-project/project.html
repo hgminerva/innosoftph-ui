@@ -39,7 +39,8 @@
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
                                 <wj-input-date
                                     [(value)]="projectStartDateValue" 
-                                    [format]="'MMM dd, yyyy'"
+                                    [format]="'yyyy-MM-dd'"
+                                    [mask]="'9999-99-99'" 
                                     (valueChanged)="projectStartDateOnValueChanged()"
                                     style="border-radius: 0px;">
                                 </wj-input-date>
@@ -50,7 +51,8 @@
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
                                 <wj-input-date
                                     [(value)]="projectEndDateValue" 
-                                    [format]="'MMM dd, yyyy'"
+                                    [format]="'yyyy-MM-dd'"
+                                    [mask]="'9999-99-99'" 
                                     (valueChanged)="projectEndDateOnValueChanged()"
                                     style="border-radius: 0px;">
                                 </wj-input-date>
@@ -162,7 +164,8 @@
                                     <div class="col-sm-8">
                                         <wj-input-date
                                             [(value)]="projectDateValue" 
-                                            [format]="'MMM dd, yyyy'"
+                                            [format]="'yyyy-MM-dd'"
+                                            [mask]="'9999-99-99'" 
                                             style="width: 100%; border-radius: 0px;">
                                         </wj-input-date>
                                     </div>
@@ -239,7 +242,8 @@
                                     <div class="col-sm-8">
                                         <wj-input-date
                                             [(value)]="projectStartDateDataValue" 
-                                            [format]="'MMM dd, yyyy'"
+                                            [format]="'yyyy-MM-dd'"
+                                            [mask]="'9999-99-99'" 
                                             style="width: 100%; border-radius: 0px;">
                                         </wj-input-date>
                                     </div>
@@ -249,7 +253,8 @@
                                     <div class="col-sm-8">
                                         <wj-input-date
                                             [(value)]="projectEndDateDataValue" 
-                                            [format]="'MMM dd, yyyy'"
+                                            [format]="'yyyy-MM-dd'"
+                                            [mask]="'9999-99-99'" 
                                             style="width: 100%; border-radius: 0px;">
                                         </wj-input-date>
                                     </div>

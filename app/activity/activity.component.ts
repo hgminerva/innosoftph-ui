@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ActivityService } from './activity.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
+import * as wjGrid from 'wijmo/wijmo.grid';
 
 @Component({
   selector: 'my-activity',
@@ -440,9 +441,18 @@ export class ActivityComponent implements OnInit {
     this.getActivityData();
   }
 
+  // show menu
+  public showMenu() {
+      document.getElementById("showTop").click();
+  }
+  
   public backClicked() {
     window.history.back();
   }
+
+  // init(s: wjGrid.FlexGrid) {
+  //   s.rows.defaultSize = 100;
+  // }
 
   // initialization
   ngOnInit() {

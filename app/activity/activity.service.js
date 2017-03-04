@@ -31,8 +31,8 @@ var ActivityService = (function () {
         var url = "http://api.innosoft.ph/api/user/list";
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
                     userObservableArray.push({
                         Id: results[i].Id,
                         FullName: results[i].FullName
@@ -43,18 +43,25 @@ var ActivityService = (function () {
         });
         return userObservableArray;
     };
+    // pad - leading zero for date
+    ActivityService.prototype.pad = function (n) {
+        return (n < 10) ? ("0" + n) : n;
+    };
     // list activity by document and by date ranged (start date and end date)  
     ActivityService.prototype.getListActivityData = function (documentType, activityStartDate, activityEndDate, status) {
+        var _this = this;
         var url = "http://api.innosoft.ph/api/activity/list/byDocument/byDateRanged/" + documentType + "/" + activityStartDate.toDateString() + "/" + activityEndDate.toDateString() + "/" + status;
         var activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
+                    var myActivityDate = new Date(results[i].ActivityDate);
+                    var myActivityDateValue = [myActivityDate.getFullYear(), _this.pad(myActivityDate.getMonth() + 1), _this.pad(myActivityDate.getDate())].join('-');
                     activityObservableArray.push({
                         Id: results[i].Id,
                         Document: results[i].DocumentNumber,
-                        ActivityDate: results[i].ActivityDate,
+                        ActivityDate: myActivityDateValue,
                         Particulars: results[i].Particulars,
                         Activity: results[i].Activity == null ? " " : results[i].Activity,
                         StaffUserId: results[i].StaffUserId == null ? 0 : results[i].StaffUserId,

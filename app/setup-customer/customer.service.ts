@@ -26,8 +26,8 @@ export class CustomerService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
                         customerObservableArray.push({
                             Id: results[i].Id,
                             ArticleCode: results[i].ArticleCode,
@@ -37,7 +37,7 @@ export class CustomerService {
                         });
                     }
                 }
-                
+
                 document.getElementById("btn-hidden-complete-loading").click();
             },
             error => {

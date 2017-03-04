@@ -31,8 +31,8 @@ var QuotationService = (function () {
         var leadObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
                     leadObservableArray.push({
                         Id: results[i].Id,
                         LeadNumberDetail: results[i].LeadNumber + " - " + results[i].LeadName,
@@ -55,8 +55,8 @@ var QuotationService = (function () {
         var url = "http://api.innosoft.ph/api/article/list/byArticleTypeId/" + articleTypeId;
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
                     customerObservableArray.push({
                         Id: results[i].Id,
                         Article: results[i].Article
@@ -92,8 +92,8 @@ var QuotationService = (function () {
         var url = "http://api.innosoft.ph/api/user/list";
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
                     userObservableArray.push({
                         Id: results[i].Id,
                         FullName: results[i].FullName
@@ -106,18 +106,25 @@ var QuotationService = (function () {
         });
         return userObservableArray;
     };
+    // pad - leading zero for date
+    QuotationService.prototype.pad = function (n) {
+        return (n < 10) ? ("0" + n) : n;
+    };
     // list quotation by date ranged (start date and end date)
     QuotationService.prototype.getListQuotationData = function (quotationStartDate, quotationEndDate, quotationStatus) {
+        var _this = this;
         var url = "http://api.innosoft.ph/api/quotation/list/byQuotationDateRange/" + quotationStartDate.toDateString() + "/" + quotationEndDate.toDateString() + "/" + quotationStatus;
         var quotationObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
+                    var myDate = new Date(results[i].QuotationDate);
+                    var myDateValue = [myDate.getFullYear(), _this.pad(myDate.getMonth() + 1), _this.pad(myDate.getDate())].join('-');
                     quotationObservableArray.push({
                         Id: results[i].Id,
                         QuotationNumber: results[i].QuotationNumber,
-                        QuotationDate: results[i].QuotationDate,
+                        QuotationDate: myDateValue,
                         LeadId: results[i].LeadId,
                         LeadNumber: results[i].LeadNumber,
                         CustomerId: results[i].CustomerId,
@@ -221,16 +228,19 @@ var QuotationService = (function () {
     };
     // list activity by quotation Id
     QuotationService.prototype.getListActivityByQuotationId = function (quotationId, isLoadActivityOnly) {
+        var _this = this;
         var url = "http://api.innosoft.ph/api/activity/list/byQuotationId/" + quotationId;
         var activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
+                    var myDate = new Date(results[i].ActivityDate);
+                    var myDateValue = [myDate.getFullYear(), _this.pad(myDate.getMonth() + 1), _this.pad(myDate.getDate())].join('-');
                     activityObservableArray.push({
                         Id: results[i].Id,
                         ActivityNumber: results[i].ActivityNumber,
-                        ActivityDate: results[i].ActivityDate,
+                        ActivityDate: myDateValue,
                         StaffUserId: results[i].StaffUserId,
                         StaffUser: results[i].StaffUser,
                         CustomerId: results[i].CustomerId,

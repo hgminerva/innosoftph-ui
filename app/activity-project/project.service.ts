@@ -26,15 +26,15 @@ export class ProjectService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
                         articleObservableArray.push({
                             Id: results[i].Id,
                             Article: results[i].Article
                         });
                     }
                 }
-                
+
                 document.getElementById("btn-hidden-user-data").click();
             }
         );
@@ -49,20 +49,25 @@ export class ProjectService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
                         userObservableArray.push({
                             Id: results[i].Id,
                             FullName: results[i].FullName
                         });
                     }
                 }
-                
+
                 document.getElementById("btn-hidden-finished-load").click();
             }
         );
 
         return userObservableArray;
+    }
+
+    // pad - leading zero for date
+    public pad(n: number) {
+        return (n < 10) ? ("0" + n) : n;
     }
 
     // list project by date ranged (start date and end date)
@@ -72,12 +77,21 @@ export class ProjectService {
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
-                for (var i = 0; i <= results.length - 1; i++) {
-                    if (results.length > 0) {
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
+                        var myDate = new Date(results[i].ProjectDate);
+                        var myDateValue = [myDate.getFullYear(), this.pad(myDate.getMonth() + 1), this.pad(myDate.getDate())].join('-');
+
+                        var myProjectStartDate = new Date(results[i].ProjectStartDate);
+                        var myProjectStartDateValue = [myProjectStartDate.getFullYear(), this.pad(myProjectStartDate.getMonth() + 1), this.pad(myProjectStartDate.getDate())].join('-');
+
+                        var myProjectEndDate = new Date(results[i].ProjectEndDate);
+                        var myProjectEndDateValue = [myProjectEndDate.getFullYear(), this.pad(myProjectEndDate.getMonth() + 1), this.pad(myProjectEndDate.getDate())].join('-');
+
                         projectObservableArray.push({
                             Id: results[i].Id,
                             ProjectNumber: results[i].ProjectNumber,
-                            ProjectDate: results[i].ProjectDate,
+                            ProjectDate: myDateValue,
                             ProjectName: results[i].ProjectName,
                             ProjectType: results[i].ProjectType,
                             CustomerId: results[i].CustomerId,
@@ -87,8 +101,8 @@ export class ProjectService {
                             EncodedByUser: results[i].EncodedByUser,
                             ProjectManagerUserId: results[i].ProjectManagerUserId,
                             ProjectManagerUser: results[i].ProjectManagerUser,
-                            ProjectStartDate: results[i].ProjectStartDate,
-                            ProjectEndDate: results[i].ProjectEndDate,
+                            ProjectStartDate: myProjectStartDateValue,
+                            ProjectEndDate: myProjectEndDateValue,
                             ProjectStatus: results[i].ProjectStatus
                         });
                     }

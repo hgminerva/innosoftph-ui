@@ -31,8 +31,8 @@ var SoftwareDevelopmentService = (function () {
         var projectObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
                     projectObservableArray.push({
                         Id: results[i].Id,
                         ProjectNumberDetail: results[i].ProjectNumber + " - " + results[i].ProjectName,
@@ -56,8 +56,8 @@ var SoftwareDevelopmentService = (function () {
         var url = "http://api.innosoft.ph/api/user/list";
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
                     userObservableArray.push({
                         Id: results[i].Id,
                         FullName: results[i].FullName
@@ -73,18 +73,25 @@ var SoftwareDevelopmentService = (function () {
         });
         return userObservableArray;
     };
+    // pad - leading zero for date
+    SoftwareDevelopmentService.prototype.pad = function (n) {
+        return (n < 10) ? ("0" + n) : n;
+    };
     // list software development by date ranged (start date and end date)
     SoftwareDevelopmentService.prototype.getListSoftwareDevelopmentData = function (softwareDevelopmentStartDate, softwareDevelopmentEndDate, status) {
+        var _this = this;
         var url = "http://api.innosoft.ph/api/softwareDevelopment/list/bySoftwareDevelopmentDateRange/" + softwareDevelopmentStartDate.toDateString() + "/" + softwareDevelopmentEndDate.toDateString() + "/" + status;
         var softwareDevelopmentObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = response.json();
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
+                    var myDate = new Date(results[i].SoftDevDate);
+                    var myDateValue = [myDate.getFullYear(), _this.pad(myDate.getMonth() + 1), _this.pad(myDate.getDate())].join('-');
                     softwareDevelopmentObservableArray.push({
                         Id: results[i].Id,
                         SoftDevNumber: results[i].SoftDevNumber,
-                        SoftDevDate: results[i].SoftDevDate,
+                        SoftDevDate: myDateValue,
                         ProjectId: results[i].ProjectId,
                         ProjectNumber: results[i].ProjectNumber,
                         ProjectName: results[i].ProjectName,
@@ -190,16 +197,19 @@ var SoftwareDevelopmentService = (function () {
     };
     // list activity by softwareDevelopment Id
     SoftwareDevelopmentService.prototype.getListActivityBySoftwareDevelopmentId = function (softwareDevelopmentId, isLoadActivityOnly) {
+        var _this = this;
         var url = "http://api.innosoft.ph/api/activity/list/bySoftwareDevelopmentId/" + softwareDevelopmentId;
         var activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
+                    var myDate = new Date(results[i].ActivityDate);
+                    var myDateValue = [myDate.getFullYear(), _this.pad(myDate.getMonth() + 1), _this.pad(myDate.getDate())].join('-');
                     activityObservableArray.push({
                         Id: results[i].Id,
                         ActivityNumber: results[i].ActivityNumber,
-                        ActivityDate: results[i].ActivityDate,
+                        ActivityDate: myDateValue,
                         StaffUserId: results[i].StaffUserId,
                         StaffUser: results[i].StaffUser,
                         CustomerId: results[i].CustomerId,

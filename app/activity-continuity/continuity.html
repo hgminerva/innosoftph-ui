@@ -39,7 +39,8 @@
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
                                 <wj-input-date
                                     [(value)]="continuityStartDateValue" 
-                                    [format]="'MMM dd, yyyy'"
+                                    [format]="'yyyy-MM-dd'"
+                                    [mask]="'9999-99-99'"
                                     (valueChanged)="continuityStartDateOnValueChanged()"
                                     style="border-radius: 0px;">
                                 </wj-input-date>
@@ -50,7 +51,8 @@
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
                                 <wj-input-date
                                     [(value)]="continuityEndDateValue" 
-                                    [format]="'MMM dd, yyyy'"
+                                    [format]="'yyyy-MM-dd'"
+                                    [mask]="'9999-99-99'"
                                     (valueChanged)="continuityEndDateOnValueChanged()"
                                     style="border-radius: 0px;">
                                 </wj-input-date>

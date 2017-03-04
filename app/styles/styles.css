@@ -124,6 +124,9 @@ p.copyright {
     margin: 15px 0 0;
 }
 
+.wijmo-wijgrid-datarow td {
+    white-space: nowrap;
+}
 
 .panel, .well, .dashboardTable {
     border-radius: 0px;

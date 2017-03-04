@@ -39,7 +39,8 @@
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
                                 <wj-input-date
                                     [(value)]="quotationStartDateValue" 
-                                    [format]="'MMM dd, yyyy'"
+                                    [format]="'yyyy-MM-dd'"
+                                    [mask]="'9999-99-99'" 
                                     (valueChanged)="quotationStartDateOnValueChanged()"
                                     style="border-radius: 0px;">
                                 </wj-input-date>
@@ -50,7 +51,8 @@
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
                                 <wj-input-date
                                     [(value)]="quotationEndDateValue" 
-                                    [format]="'MMM dd, yyyy'"
+                                    [format]="'yyyy-MM-dd'"
+                                    [mask]="'9999-99-99'" 
                                     (valueChanged)="quotationEndDateOnValueChanged()"
                                     style="border-radius: 0px;">
                                 </wj-input-date>
@@ -150,7 +152,8 @@
                             <div class="col-sm-8">
                                 <wj-input-date
                                     [(value)]="quotationDateValue" 
-                                    [format]="'MMM dd, yyyy'"
+                                    [format]="'yyyy-MM-dd'"
+                                    [mask]="'9999-99-99'" 
                                     style="width: 100%; border-radius: 0px;">
                                 </wj-input-date>
                             </div>

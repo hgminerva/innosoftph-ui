@@ -31,8 +31,8 @@ var ContinuityService = (function () {
         var deliveryObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
                     deliveryObservableArray.push({
                         Id: results[i].Id,
                         DeliveryNumberDetail: results[i].DeliveryNumber + " - " + results[i].Customer + " (" + results[i].Product + ")",
@@ -52,8 +52,8 @@ var ContinuityService = (function () {
         var url = "http://api.innosoft.ph/api/article/list/byArticleTypeId/" + articleTypeId;
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
                     articleObservableArray.push({
                         Id: results[i].Id,
                         Article: results[i].Article
@@ -75,8 +75,8 @@ var ContinuityService = (function () {
         var url = "http://api.innosoft.ph/api/user/list";
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
                     userObservableArray.push({
                         Id: results[i].Id,
                         FullName: results[i].FullName
@@ -86,25 +86,34 @@ var ContinuityService = (function () {
         });
         return userObservableArray;
     };
+    // pad - leading zero for date
+    ContinuityService.prototype.pad = function (n) {
+        return (n < 10) ? ("0" + n) : n;
+    };
     // list continuity by date ranged (start date and end date)
     ContinuityService.prototype.getListContinuityData = function (continuityStartDate, continuityEndDate, status) {
+        var _this = this;
         var url = "http://api.innosoft.ph/api/continuity/list/byContinuityDateRange/" + continuityStartDate.toDateString() + "/" + continuityEndDate.toDateString() + "/" + status;
         var continuityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
-            for (var i = 0; i <= results.length - 1; i++) {
-                if (results.length > 0) {
+            if (results.length > 0) {
+                for (var i = 0; i <= results.length - 1; i++) {
+                    var myDate = new Date(results[i].ContinuityDate);
+                    var myDateValue = [myDate.getFullYear(), _this.pad(myDate.getMonth() + 1), _this.pad(myDate.getDate())].join('-');
+                    var myExpireDate = new Date(results[i].ExpiryDate);
+                    var myExpireDateValue = [myExpireDate.getFullYear(), _this.pad(myExpireDate.getMonth() + 1), _this.pad(myExpireDate.getDate())].join('-');
                     continuityObservableArray.push({
                         Id: results[i].Id,
                         ContinuityNumber: results[i].ContinuityNumber,
-                        ContinuityDate: results[i].ContinuityDate,
+                        ContinuityDate: myDateValue,
                         DeliveryId: results[i].DeliveryId,
                         DeliveryNumber: results[i].DeliveryNumber,
                         CustomerId: results[i].CustomerId,
                         Customer: results[i].Customer,
                         ProductId: results[i].ProductId,
                         Product: results[i].Product,
-                        ExpiryDate: results[i].ExpiryDate,
+                        ExpiryDate: myExpireDateValue,
                         StaffUserId: results[i].StaffUserId,
                         StaffUser: results[i].StaffUser,
                         ContinuityStatus: results[i].ContinuityStatus

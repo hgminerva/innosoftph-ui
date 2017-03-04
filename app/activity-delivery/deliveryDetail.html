@@ -44,8 +44,9 @@
                                     <label class="control-label col-sm-4">Delivery Date</label>
                                     <div class="col-sm-8">
                                         <wj-input-date
-                                            [(value)]="deliveryDateValue" 
-                                            [format]="'MMM dd, yyyy'"
+                                            [(value)]="deliveryDateValue"
+                                            [format]="'yyyy-MM-dd'"
+                                            [mask]="'9999-99-99'" 
                                             style="width: 100%; border-radius: 0px;">
                                         </wj-input-date>
                                         <input type="hidden" class="form-control" id="deliveryDateValue" />
@@ -73,7 +74,8 @@
                                     <div class="col-sm-8">
                                         <wj-input-date
                                             [(value)]="deliveryMeetingDateValue" 
-                                            [format]="'MMM dd, yyyy'"
+                                            [format]="'yyyy-MM-dd'"
+                                            [mask]="'9999-99-99'" 
                                             style="width: 100%; border-radius: 0px;">
                                         </wj-input-date>
                                         <input type="hidden" class="form-control" id="deliveryMeetingDateValue" />
@@ -251,7 +253,8 @@
                         <div class="col-sm-8">
                                 <wj-input-date
                                 [(value)]="activityDateValue" 
-                                [format]="'MMM dd, yyyy'"
+                                [format]="'yyyy-MM-dd'"
+                                [mask]="'9999-99-99'" 
                                 style="width: 100%; border-radius: 0px;">
                             </wj-input-date>
                         </div>
