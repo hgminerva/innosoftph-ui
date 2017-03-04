@@ -94,6 +94,7 @@ export class ProductComponent {
 
   // initialization
   ngOnInit() {
+    this.startLoading();
     this.getProductList();
   }
 }

@@ -47,7 +47,7 @@ var SoftwareDevelopmentDetailComponent = (function () {
         this.activityNoOfHours = [
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
         ];
-        this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
+        this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED'];
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading

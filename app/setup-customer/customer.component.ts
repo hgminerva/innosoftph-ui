@@ -94,6 +94,7 @@ export class CustomerComponent implements OnInit {
 
   // initialization
   ngOnInit() {
+    this.startLoading();
     this.getListCustomer();
   }
 }

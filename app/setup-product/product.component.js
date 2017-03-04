@@ -84,6 +84,7 @@ var ProductComponent = (function () {
     };
     // initialization
     ProductComponent.prototype.ngOnInit = function () {
+        this.startLoading();
         this.getProductList();
     };
     ProductComponent = __decorate([

@@ -219,14 +219,17 @@ export class ActivityComponent implements OnInit {
     if (currentSelectedActivity.LeadId > 0) {
       this.isSupport = false;
       this.activityParticularCategories = ['Lead'];
+      this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
     } else {
       if (currentSelectedActivity.QuotationId > 0) {
         this.isSupport = false;
         this.activityParticularCategories = ['Quotation'];
+        this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
       } else {
         if (currentSelectedActivity.DeliveryId > 0) {
           this.isSupport = false;
           this.activityParticularCategories = ['Delivery'];
+          this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED'];
         } else {
           if (currentSelectedActivity.SupportId > 0) {
             this.isSupport = true;
@@ -242,6 +245,7 @@ export class ActivityComponent implements OnInit {
               'Progam Update',
               'Data Archive'
             ];
+            this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED'];
           } else {
             if (currentSelectedActivity.SoftwareDevelopmentId > 0) {
               this.isSupport = false;
@@ -252,8 +256,10 @@ export class ActivityComponent implements OnInit {
                 'Module',
                 'Others'
               ];
+              this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED'];
             } else {
               this.activityParticularCategories = [''];
+              this.activityStatus = [''];
             }
           }
         }
@@ -443,9 +449,9 @@ export class ActivityComponent implements OnInit {
 
   // show menu
   public showMenu() {
-      document.getElementById("showTop").click();
+    document.getElementById("showTop").click();
   }
-  
+
   public backClicked() {
     window.history.back();
   }

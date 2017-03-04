@@ -50,7 +50,7 @@ export class SoftwareDevelopmentDetailComponent implements OnInit {
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
   ];
   public activityNoOfHoursSelectedValue: String;
-  public activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
+  public activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED'];
   public activityStatusSelectedValue: String;
   public activityAmount: String;
 

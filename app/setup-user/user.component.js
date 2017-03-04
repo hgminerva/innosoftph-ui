@@ -81,6 +81,7 @@ var UserComponent = (function () {
     };
     // initialization
     UserComponent.prototype.ngOnInit = function () {
+        this.startLoading();
         this.getListUser();
     };
     UserComponent = __decorate([

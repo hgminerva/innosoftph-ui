@@ -91,6 +91,7 @@ export class UserComponent implements OnInit {
 
   // initialization
   ngOnInit() {
+    this.startLoading();
     this.getListUser();
   }
 }

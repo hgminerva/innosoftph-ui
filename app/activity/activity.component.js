@@ -193,16 +193,19 @@ var ActivityComponent = (function () {
         if (currentSelectedActivity.LeadId > 0) {
             this.isSupport = false;
             this.activityParticularCategories = ['Lead'];
+            this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
         }
         else {
             if (currentSelectedActivity.QuotationId > 0) {
                 this.isSupport = false;
                 this.activityParticularCategories = ['Quotation'];
+                this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
             }
             else {
                 if (currentSelectedActivity.DeliveryId > 0) {
                     this.isSupport = false;
                     this.activityParticularCategories = ['Delivery'];
+                    this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED'];
                 }
                 else {
                     if (currentSelectedActivity.SupportId > 0) {
@@ -219,6 +222,7 @@ var ActivityComponent = (function () {
                             'Progam Update',
                             'Data Archive'
                         ];
+                        this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED'];
                     }
                     else {
                         if (currentSelectedActivity.SoftwareDevelopmentId > 0) {
@@ -230,9 +234,11 @@ var ActivityComponent = (function () {
                                 'Module',
                                 'Others'
                             ];
+                            this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED'];
                         }
                         else {
                             this.activityParticularCategories = [''];
+                            this.activityStatus = [''];
                         }
                     }
                 }

@@ -84,6 +84,7 @@ var CustomerComponent = (function () {
     };
     // initialization
     CustomerComponent.prototype.ngOnInit = function () {
+        this.startLoading();
         this.getListCustomer();
     };
     CustomerComponent = __decorate([
