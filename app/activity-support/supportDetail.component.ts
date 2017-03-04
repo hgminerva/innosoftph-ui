@@ -367,6 +367,11 @@ export class SupportDetailComponent implements OnInit {
     window.history.back();
   }
 
+  public viewScreenShotURLLink() {
+    let screenShotURLLinkValue = (<HTMLInputElement>document.getElementById("supportScreenShotURL")).value;
+    window.open(screenShotURLLinkValue, "_target");
+  }
+
   // initialization
   public ngOnInit(): any {
     if (!localStorage.getItem('access_token')) {

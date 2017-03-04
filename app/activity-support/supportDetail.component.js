@@ -309,6 +309,10 @@ var SupportDetailComponent = (function () {
     SupportDetailComponent.prototype.backClicked = function () {
         window.history.back();
     };
+    SupportDetailComponent.prototype.viewScreenShotURLLink = function () {
+        var screenShotURLLinkValue = document.getElementById("supportScreenShotURL").value;
+        window.open(screenShotURLLinkValue, "_target");
+    };
     // initialization
     SupportDetailComponent.prototype.ngOnInit = function () {
         if (!localStorage.getItem('access_token')) {
