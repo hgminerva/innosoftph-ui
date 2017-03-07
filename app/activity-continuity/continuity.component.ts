@@ -46,6 +46,7 @@ export class ContinuityComponent {
   public isStartDateClicked = false;
   public isEndDateClicked = false;
   public continuityStatusClicked = false;
+  public continuityRemarks: String;
 
   // inject continuity service
   constructor(
@@ -235,6 +236,7 @@ export class ContinuityComponent {
       this.continuityStatusSelectedValue = "OPEN";
       this.continuityStatus = "OPEN";
       this.continuityStaffUser = "--";
+      this.continuityRemarks = "";
     } else {
       this.isAdd = true;
       let currentSelectedContinuity = this.continuityCollectionView.currentItem;
@@ -247,6 +249,7 @@ export class ContinuityComponent {
       this.continuityStatusSelectedValue = currentSelectedContinuity.ContinuityStatus;
       this.continuityStatus = currentSelectedContinuity.ContinuityStatus;
       this.continuityStaffUser = currentSelectedContinuity.StaffUser;
+      this.continuityRemarks = currentSelectedContinuity.Remarks;
     }
   }
 
@@ -259,8 +262,9 @@ export class ContinuityComponent {
   public getContinuityValue() {
     let dataObject = {
       ContinuityDate: this.continuityDateValue.toLocaleDateString(),
-      DeliveryId: this.continuityDeliveryId,
+      DeliveryId: this.continuityDeliverySelectedValue,
       ExpiryDate: this.continuityExpiryDateValue.toLocaleDateString(),
+      Remarks: this.continuityRemarks,
       ContinuityStatus: this.continuityStatus
     }
 

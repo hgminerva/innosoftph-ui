@@ -200,6 +200,7 @@ var ContinuityComponent = (function () {
             this.continuityStatusSelectedValue = "OPEN";
             this.continuityStatus = "OPEN";
             this.continuityStaffUser = "--";
+            this.continuityRemarks = "";
         }
         else {
             this.isAdd = true;
@@ -213,6 +214,7 @@ var ContinuityComponent = (function () {
             this.continuityStatusSelectedValue = currentSelectedContinuity.ContinuityStatus;
             this.continuityStatus = currentSelectedContinuity.ContinuityStatus;
             this.continuityStaffUser = currentSelectedContinuity.StaffUser;
+            this.continuityRemarks = currentSelectedContinuity.Remarks;
         }
     };
     // continuity status selected index changed
@@ -223,8 +225,9 @@ var ContinuityComponent = (function () {
     ContinuityComponent.prototype.getContinuityValue = function () {
         var dataObject = {
             ContinuityDate: this.continuityDateValue.toLocaleDateString(),
-            DeliveryId: this.continuityDeliveryId,
+            DeliveryId: this.continuityDeliverySelectedValue,
             ExpiryDate: this.continuityExpiryDateValue.toLocaleDateString(),
+            Remarks: this.continuityRemarks,
             ContinuityStatus: this.continuityStatus
         };
         return dataObject;

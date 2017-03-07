@@ -114,6 +114,7 @@ var ContinuityService = (function () {
                         ProductId: results[i].ProductId,
                         Product: results[i].Product,
                         ExpiryDate: myExpireDateValue,
+                        Remarks: results[i].Remarks,
                         StaffUserId: results[i].StaffUserId,
                         StaffUser: results[i].StaffUser,
                         ContinuityStatus: results[i].ContinuityStatus

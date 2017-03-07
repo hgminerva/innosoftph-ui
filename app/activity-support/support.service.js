@@ -93,9 +93,13 @@ var SupportService = (function () {
                 for (var i = 0; i <= results.length - 1; i++) {
                     var myExpireDate = new Date(results[i].ExpiryDate);
                     var myExpireDateValue = [myExpireDate.getFullYear(), _this.pad(myExpireDate.getMonth() + 1), _this.pad(myExpireDate.getDate())].join('-');
+                    var remarksDetail = " ";
+                    if (results[i].Remarks != null) {
+                        remarksDetail = " - " + results[i].Remarks;
+                    }
                     continuityObservableArray.push({
                         Id: results[i].Id,
-                        ContinuityNumberDetail: results[i].ContinuityNumber + " - " + results[i].Product + " (Exp: " + myExpireDateValue + ")",
+                        ContinuityNumberDetail: results[i].ContinuityNumber + " - " + results[i].Product + " (Exp: " + myExpireDateValue + ")" + remarksDetail,
                         ContinuityNumber: results[i].ContinuityNumber,
                         Customer: results[i].Customer,
                         ProductId: results[i].ProductId,
