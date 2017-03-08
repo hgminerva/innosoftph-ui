@@ -45,7 +45,8 @@ export class LeadComponent implements OnInit {
   public fliterLeadStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
   public filterLeadStatusSelectedValue = "OPEN";
   public leadStatusClicked = false;
-  
+  public isLeadStatusSelected = false;
+
   // inject lead service
   constructor(
     private leadService: LeadService,
@@ -108,8 +109,13 @@ export class LeadComponent implements OnInit {
 
   public filterLeadStatusSelectedIndexChangedClick() {
     if (this.leadStatusClicked) {
-      this.startLoading();
-      this.getLeadData();
+      if (this.isLeadStatusSelected) {
+        this.startLoading();
+        this.getLeadData();
+      }
+      else {
+        this.isLeadStatusSelected = true;
+      }
     }
     else {
       this.leadStatusClicked = true;

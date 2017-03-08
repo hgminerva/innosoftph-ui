@@ -47,6 +47,7 @@ export class ContinuityComponent {
   public isEndDateClicked = false;
   public continuityStatusClicked = false;
   public continuityRemarks: String;
+  public isContinuityStatusSelected = false;
 
   // inject continuity service
   constructor(
@@ -130,8 +131,13 @@ export class ContinuityComponent {
 
   public filterContinuityStatusSelectedIndexChangedClick() {
     if (this.continuityStatusClicked) {
-      this.startLoading();
-      this.getContinuityData();
+      if (this.isContinuityStatusSelected) {
+        this.startLoading();
+        this.getContinuityData();
+      }
+      else {
+        this.isContinuityStatusSelected = true;
+      }
     }
     else {
       this.continuityStatusClicked = true;
@@ -313,9 +319,9 @@ export class ContinuityComponent {
 
   // show menu
   public showMenu() {
-      document.getElementById("showTop").click();
+    document.getElementById("showTop").click();
   }
-  
+
   public backClicked() {
     window.history.back();
   }

@@ -34,6 +34,7 @@ var LeadComponent = (function () {
         this.fliterLeadStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
         this.filterLeadStatusSelectedValue = "OPEN";
         this.leadStatusClicked = false;
+        this.isLeadStatusSelected = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
     LeadComponent.prototype.backClicked = function () {
@@ -79,8 +80,13 @@ var LeadComponent = (function () {
     };
     LeadComponent.prototype.filterLeadStatusSelectedIndexChangedClick = function () {
         if (this.leadStatusClicked) {
-            this.startLoading();
-            this.getLeadData();
+            if (this.isLeadStatusSelected) {
+                this.startLoading();
+                this.getLeadData();
+            }
+            else {
+                this.isLeadStatusSelected = true;
+            }
         }
         else {
             this.leadStatusClicked = true;

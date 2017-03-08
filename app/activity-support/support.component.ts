@@ -66,6 +66,8 @@ export class SupportActivityComponent implements OnInit {
   public filterSupportTypeSelectedValue = "ALL";
   public supportStatusClicked = false;
   public supportTypeClicked = false;
+  public isSupportTypeSelected = false;
+  public isSupportStatusSelected = false;
 
   // inject support service
   constructor(
@@ -80,8 +82,13 @@ export class SupportActivityComponent implements OnInit {
 
   public filterSupportStatusSelectedIndexChangedClick() {
     if (this.supportStatusClicked) {
-      this.startLoading();
-      this.getSupportData();
+      if (this.isSupportStatusSelected) {
+        this.startLoading();
+        this.getSupportData();
+      }
+      else {
+        this.isSupportStatusSelected = true;
+      }
     }
     else {
       this.supportStatusClicked = true;
@@ -92,6 +99,12 @@ export class SupportActivityComponent implements OnInit {
     if (this.supportTypeClicked) {
       this.startLoading();
       this.getSupportData();
+      // if (this.isSupportTypeSelected) {
+
+      // }
+      // else {
+      //   this.isSupportTypeSelected = true;
+      // }
     }
     else {
       this.supportTypeClicked = true;

@@ -47,6 +47,8 @@ export class ActivityComponent implements OnInit {
   public isFinishLoading = false;
   public isLoading = true;
   public activityStatusClicked = false;
+  public isActivityStatusSelected = false;
+  public isAcitivtyDocumentSelected = false;
 
   // inject lead service
   constructor(
@@ -61,8 +63,13 @@ export class ActivityComponent implements OnInit {
 
   public activityStatusesSelectedIndexChangedClick() {
     if (this.activityStatusClicked) {
-      this.startLoading();
-      this.getActivityData();
+      if (this.isActivityStatusSelected) {
+        this.startLoading();
+        this.getActivityData();
+      }
+      else {
+        this.isActivityStatusSelected = true;
+      }
     }
     else {
       this.activityStatusClicked = true;
@@ -132,6 +139,12 @@ export class ActivityComponent implements OnInit {
     if (this.isActivityDocumentClicked) {
       this.startLoading();
       this.getActivityData();
+      // if (this.isAcitivtyDocumentSelected) {
+
+      // }
+      // else {
+      //   this.isAcitivtyDocumentSelected = true;
+      // }
     }
     else {
       this.isActivityDocumentClicked = true;
@@ -149,7 +162,7 @@ export class ActivityComponent implements OnInit {
 
   // activity service data
   public getActivityData() {
-    document.getElementById("btn-hidden-start-loading").click();
+    this.startLoading();
     this.activityCollectionView = new wijmo.collections.CollectionView(this.activityService.getListActivityData(this.documentSelectedValue, this.activityStartDateValue, this.activityEndDateValue, this.activityStatusesSelectedValue));
     this.activityCollectionView.filter = this.filterFunction.bind(this);
     this.activityCollectionView.pageSize = 15;

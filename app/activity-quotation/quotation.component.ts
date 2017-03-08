@@ -35,6 +35,7 @@ export class QuotationComponent implements OnInit {
   public fliterQuotationStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
   public filterQuotationStatusSelectedValue = "OPEN";
   public quotationStatusClicked = false;
+  public isQuotationStatusSelected = false;
 
   // inject quotation service
   constructor(
@@ -49,8 +50,13 @@ export class QuotationComponent implements OnInit {
 
   public filterQuotationStatusSelectedIndexChangedClick() {
     if (this.quotationStatusClicked) {
-      this.startLoading();
-      this.getQuotationData();
+      if (this.isQuotationStatusSelected) {
+        this.startLoading();
+        this.getQuotationData();
+      }
+      else {
+        this.isQuotationStatusSelected = true;
+      }
     }
     else {
       this.quotationStatusClicked = true;

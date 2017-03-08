@@ -827,7 +827,7 @@ textarea {
     }
 }
 
-.modal.fade .modal-dialog {
+/*.modal.fade .modal-dialog {
     -webkit-transform: scale(0.1);
     -moz-transform: scale(0.1);
     -ms-transform: scale(0.1);
@@ -848,7 +848,7 @@ textarea {
     transform: translate3d(0, -300px, 0);
     opacity: 1;
     transition: all 0.5s;
-}
+}*/
 
 .ng-valid[required], .ng-valid.required  {
   border-left: 5px solid #42A948; /* green */

@@ -37,6 +37,7 @@ var SoftwareDevelopmentComponent = (function () {
         this.isStartDateClicked = false;
         this.isEndDateClicked = false;
         this.softwareDevelopmentStatusClicked = false;
+        this.isSoftwareDevelopmentStatusSelected = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -78,8 +79,13 @@ var SoftwareDevelopmentComponent = (function () {
     };
     SoftwareDevelopmentComponent.prototype.filterSoftwareDevelopmentStatusSelectedIndexChangedClick = function () {
         if (this.softwareDevelopmentStatusClicked) {
-            this.startLoading();
-            this.getSoftwareDevelopmentData();
+            if (this.isSoftwareDevelopmentStatusSelected) {
+                this.startLoading();
+                this.getSoftwareDevelopmentData();
+            }
+            else {
+                this.isSoftwareDevelopmentStatusSelected = true;
+            }
         }
         else {
             this.softwareDevelopmentStatusClicked = true;

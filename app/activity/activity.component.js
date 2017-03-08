@@ -43,12 +43,19 @@ var ActivityComponent = (function () {
         this.isFinishLoading = false;
         this.isLoading = true;
         this.activityStatusClicked = false;
+        this.isActivityStatusSelected = false;
+        this.isAcitivtyDocumentSelected = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
     ActivityComponent.prototype.activityStatusesSelectedIndexChangedClick = function () {
         if (this.activityStatusClicked) {
-            this.startLoading();
-            this.getActivityData();
+            if (this.isActivityStatusSelected) {
+                this.startLoading();
+                this.getActivityData();
+            }
+            else {
+                this.isActivityStatusSelected = true;
+            }
         }
         else {
             this.activityStatusClicked = true;
@@ -126,7 +133,7 @@ var ActivityComponent = (function () {
     };
     // activity service data
     ActivityComponent.prototype.getActivityData = function () {
-        document.getElementById("btn-hidden-start-loading").click();
+        this.startLoading();
         this.activityCollectionView = new wijmo.collections.CollectionView(this.activityService.getListActivityData(this.documentSelectedValue, this.activityStartDateValue, this.activityEndDateValue, this.activityStatusesSelectedValue));
         this.activityCollectionView.filter = this.filterFunction.bind(this);
         this.activityCollectionView.pageSize = 15;

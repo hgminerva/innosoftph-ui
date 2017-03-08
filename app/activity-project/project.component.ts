@@ -44,6 +44,7 @@ export class ProjectComponent {
   public isStartDateClicked = false;
   public isEndDateClicked = false;
   public projectStatusClicked = false;
+  public isProjectStatusSelected = false;
 
   // inject project service
   constructor(
@@ -109,8 +110,14 @@ export class ProjectComponent {
 
   public filterProjectStatusSelectedIndexChangedClick() {
     if (this.projectStatusClicked) {
-      this.startLoading();
-      this.getListProjectData();
+      if (this.isProjectStatusSelected) {
+        this.startLoading();
+        this.getListProjectData();
+      }
+      else {
+        this.isProjectStatusSelected = true;
+      }
+
     }
     else {
       this.projectStatusClicked = true;

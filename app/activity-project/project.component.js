@@ -37,6 +37,7 @@ var ProjectComponent = (function () {
         this.isStartDateClicked = false;
         this.isEndDateClicked = false;
         this.projectStatusClicked = false;
+        this.isProjectStatusSelected = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
     ProjectComponent.prototype.backClicked = function () {
@@ -86,8 +87,13 @@ var ProjectComponent = (function () {
     };
     ProjectComponent.prototype.filterProjectStatusSelectedIndexChangedClick = function () {
         if (this.projectStatusClicked) {
-            this.startLoading();
-            this.getListProjectData();
+            if (this.isProjectStatusSelected) {
+                this.startLoading();
+                this.getListProjectData();
+            }
+            else {
+                this.isProjectStatusSelected = true;
+            }
         }
         else {
             this.projectStatusClicked = true;

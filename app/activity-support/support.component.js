@@ -59,12 +59,19 @@ var SupportActivityComponent = (function () {
         this.filterSupportTypeSelectedValue = "ALL";
         this.supportStatusClicked = false;
         this.supportTypeClicked = false;
+        this.isSupportTypeSelected = false;
+        this.isSupportStatusSelected = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
     SupportActivityComponent.prototype.filterSupportStatusSelectedIndexChangedClick = function () {
         if (this.supportStatusClicked) {
-            this.startLoading();
-            this.getSupportData();
+            if (this.isSupportStatusSelected) {
+                this.startLoading();
+                this.getSupportData();
+            }
+            else {
+                this.isSupportStatusSelected = true;
+            }
         }
         else {
             this.supportStatusClicked = true;

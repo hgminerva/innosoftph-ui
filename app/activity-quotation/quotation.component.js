@@ -33,12 +33,18 @@ var QuotationComponent = (function () {
         this.fliterQuotationStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
         this.filterQuotationStatusSelectedValue = "OPEN";
         this.quotationStatusClicked = false;
+        this.isQuotationStatusSelected = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
     QuotationComponent.prototype.filterQuotationStatusSelectedIndexChangedClick = function () {
         if (this.quotationStatusClicked) {
-            this.startLoading();
-            this.getQuotationData();
+            if (this.isQuotationStatusSelected) {
+                this.startLoading();
+                this.getQuotationData();
+            }
+            else {
+                this.isQuotationStatusSelected = true;
+            }
         }
         else {
             this.quotationStatusClicked = true;

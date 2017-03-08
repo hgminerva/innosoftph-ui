@@ -40,6 +40,7 @@ export class DeliveryComponent implements OnInit {
   public isStartDateClicked = false;
   public isEndDateClicked = false;
   public deliveryStatusClicked = false;
+  public isDeliveryStatusSelected = false;
 
   // inject delivery service
   constructor(
@@ -120,8 +121,13 @@ export class DeliveryComponent implements OnInit {
 
   public filterDeliveryStatusSelectedIndexChangedClick() {
     if (this.deliveryStatusClicked) {
-      this.startLoading();
-      this.getDeliveryData();
+      if (this.isDeliveryStatusSelected) {
+        this.startLoading();
+        this.getDeliveryData();
+      }
+      else {
+        this.isDeliveryStatusSelected = true;
+      }
     }
     else {
       this.deliveryStatusClicked = true;

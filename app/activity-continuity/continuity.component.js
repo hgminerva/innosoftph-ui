@@ -39,6 +39,7 @@ var ContinuityComponent = (function () {
         this.isStartDateClicked = false;
         this.isEndDateClicked = false;
         this.continuityStatusClicked = false;
+        this.isContinuityStatusSelected = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -104,8 +105,13 @@ var ContinuityComponent = (function () {
     };
     ContinuityComponent.prototype.filterContinuityStatusSelectedIndexChangedClick = function () {
         if (this.continuityStatusClicked) {
-            this.startLoading();
-            this.getContinuityData();
+            if (this.isContinuityStatusSelected) {
+                this.startLoading();
+                this.getContinuityData();
+            }
+            else {
+                this.isContinuityStatusSelected = true;
+            }
         }
         else {
             this.continuityStatusClicked = true;

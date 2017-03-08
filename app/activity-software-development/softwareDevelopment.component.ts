@@ -37,6 +37,7 @@ export class SoftwareDevelopmentComponent implements OnInit {
   public isStartDateClicked = false;
   public isEndDateClicked = false;
   public softwareDevelopmentStatusClicked = false;
+  public isSoftwareDevelopmentStatusSelected = false;
 
   // inject softwareDevelopment service
   constructor(
@@ -95,8 +96,13 @@ export class SoftwareDevelopmentComponent implements OnInit {
 
   public filterSoftwareDevelopmentStatusSelectedIndexChangedClick() {
     if (this.softwareDevelopmentStatusClicked) {
-      this.startLoading();
-      this.getSoftwareDevelopmentData();
+      if (this.isSoftwareDevelopmentStatusSelected) {
+        this.startLoading();
+        this.getSoftwareDevelopmentData();
+      }
+      else {
+        this.isSoftwareDevelopmentStatusSelected = true;
+      }
     }
     else {
       this.softwareDevelopmentStatusClicked = true;

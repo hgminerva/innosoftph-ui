@@ -33,6 +33,7 @@ var DeliveryComponent = (function () {
         this.isStartDateClicked = false;
         this.isEndDateClicked = false;
         this.deliveryStatusClicked = false;
+        this.isDeliveryStatusSelected = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -97,8 +98,13 @@ var DeliveryComponent = (function () {
     };
     DeliveryComponent.prototype.filterDeliveryStatusSelectedIndexChangedClick = function () {
         if (this.deliveryStatusClicked) {
-            this.startLoading();
-            this.getDeliveryData();
+            if (this.isDeliveryStatusSelected) {
+                this.startLoading();
+                this.getDeliveryData();
+            }
+            else {
+                this.isDeliveryStatusSelected = true;
+            }
         }
         else {
             this.deliveryStatusClicked = true;
