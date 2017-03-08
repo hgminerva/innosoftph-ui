@@ -160,14 +160,11 @@ var SupportDetailComponent = (function () {
         if (this.supportAssignedToSelectedValue != null) {
             assignedToUserIdValue = this.supportAssignedToSelectedValue.toString();
         }
-        var productId = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].ProductId;
         var dataObject = {
             SupportDate: this.supportDateValue.toLocaleDateString(),
             ContinuityId: this.supportContinuitySelectedValue,
             IssueCategory: this.supportIssueCategorySelectedValue,
             Issue: document.getElementById("supportIssue").value,
-            CustomerId: this.supportCustomerSelectedValue,
-            ProductId: productId,
             SupportType: this.supportTypeSelectedValue,
             Severity: this.supportSeveritySelectedValue,
             Caller: document.getElementById("supportCaller").value,

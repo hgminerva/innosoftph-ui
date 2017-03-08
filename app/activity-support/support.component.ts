@@ -234,6 +234,10 @@ export class SupportActivityComponent implements OnInit {
     this.getListCustomer();
   }
 
+  public setSelectedValueContinuity() {
+    this.supportContinuitySelectedValue = parseInt((<HTMLButtonElement>document.getElementById("supportContinuitySelectedValue")).value);
+  }
+
   // support values
   public getSupportObjectValue() {
     let assignedToUserIdValue = "NULL";
@@ -246,7 +250,6 @@ export class SupportActivityComponent implements OnInit {
       ContinuityId: this.supportContinuitySelectedValue,
       IssueCategory: this.supportIssueCategorySelectedValue,
       Issue: this.supportIssue,
-      CustomerId: this.supportCustomerSelectedValue,
       SupportType: this.supportTypeSelectedValue,
       Severity: this.supportSeveritySelectedValue,
       Caller: this.supportCaller,

@@ -199,6 +199,9 @@ var SupportActivityComponent = (function () {
         this.supportCustomerSelectedIndex = 0;
         this.getListCustomer();
     };
+    SupportActivityComponent.prototype.setSelectedValueContinuity = function () {
+        this.supportContinuitySelectedValue = parseInt(document.getElementById("supportContinuitySelectedValue").value);
+    };
     // support values
     SupportActivityComponent.prototype.getSupportObjectValue = function () {
         var assignedToUserIdValue = "NULL";
@@ -210,7 +213,6 @@ var SupportActivityComponent = (function () {
             ContinuityId: this.supportContinuitySelectedValue,
             IssueCategory: this.supportIssueCategorySelectedValue,
             Issue: this.supportIssue,
-            CustomerId: this.supportCustomerSelectedValue,
             SupportType: this.supportTypeSelectedValue,
             Severity: this.supportSeveritySelectedValue,
             Caller: this.supportCaller,

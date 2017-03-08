@@ -155,13 +155,9 @@ export class DeliveryDetailComponent implements OnInit {
 
   // delivery data
   public getDeliveryValue() {
-    let deliveryCustomerId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].CustomerId;
-    let deliveryProductId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].ProductId;
     let dataObject = {
       DeliveryDate: this.deliveryDateValue.toLocaleDateString(),
       QuotationId: this.deliveryQuotaionSelectedValue,
-      CustomerId: deliveryCustomerId,
-      ProductId: deliveryProductId,
       MeetingDate: this.deliveryMeetingDateValue.toLocaleDateString(),
       Remarks: (<HTMLInputElement>document.getElementById("deliveryRemarks")).value,
       TechnicalUserId: this.deliveryTechnicalUserSelectedValue,

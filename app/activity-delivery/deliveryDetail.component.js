@@ -122,13 +122,9 @@ var DeliveryDetailComponent = (function () {
     };
     // delivery data
     DeliveryDetailComponent.prototype.getDeliveryValue = function () {
-        var deliveryCustomerId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].CustomerId;
-        var deliveryProductId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].ProductId;
         var dataObject = {
             DeliveryDate: this.deliveryDateValue.toLocaleDateString(),
             QuotationId: this.deliveryQuotaionSelectedValue,
-            CustomerId: deliveryCustomerId,
-            ProductId: deliveryProductId,
             MeetingDate: this.deliveryMeetingDateValue.toLocaleDateString(),
             Remarks: document.getElementById("deliveryRemarks").value,
             TechnicalUserId: this.deliveryTechnicalUserSelectedValue,

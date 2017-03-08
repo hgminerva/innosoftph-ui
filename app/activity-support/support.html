@@ -219,6 +219,7 @@
                                             [(selectedValue)]="supportContinuitySelectedValue"
                                             style="width: 100%; border-radius: 0px;">
                                         </wj-combo-box>
+                                        <input type="hidden" class="form-control" id="supportContinuitySelectedValue" />
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -356,3 +357,4 @@
 <button id="btn-hidden-continuity-data" [hidden]="true" (click)="getListContinuity(false)"></button>
 <button id="btn-hidden-assigned-to-user-data" [hidden]="true" (click)="getListAssignedToUser()"></button>
 <button id="btn-hidden-finished-load" [hidden]="true" (click)="finishedLoad()"></button>
+<button id="btn-hidden-set-continuity-selectedvalue" [hidden]="true" (click)="setSelectedValueContinuity()"></button>

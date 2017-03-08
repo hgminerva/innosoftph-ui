@@ -206,14 +206,11 @@ export class SupportDetailComponent implements OnInit {
       assignedToUserIdValue = this.supportAssignedToSelectedValue.toString();
     }
 
-    let productId = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].ProductId;
     let dataObject = {
       SupportDate: this.supportDateValue.toLocaleDateString(),
       ContinuityId: this.supportContinuitySelectedValue,
       IssueCategory: this.supportIssueCategorySelectedValue,
       Issue: (<HTMLInputElement>document.getElementById("supportIssue")).value,
-      CustomerId: this.supportCustomerSelectedValue,
-      ProductId: productId,
       SupportType: this.supportTypeSelectedValue,
       Severity: this.supportSeveritySelectedValue,
       Caller: (<HTMLInputElement>document.getElementById("supportCaller")).value,

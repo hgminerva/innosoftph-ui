@@ -35,13 +35,7 @@ export class SupportService {
                     }
                 }
 
-                if (page == "supportDetail") {
-                    document.getElementById("btn-hidden-continuity-data").click();
-                } else {
-                    if (page == "support") {
-                        document.getElementById("btn-hidden-continuity-data").click();
-                    }
-                }
+                document.getElementById("btn-hidden-continuity-data").click();
             }
         );
 
@@ -118,6 +112,9 @@ export class SupportService {
                 } else {
                     if (!isSelectedCustomerOnly) {
                         document.getElementById("btn-hidden-assigned-to-user-data").click();
+                    } else {
+                        (<HTMLButtonElement>document.getElementById("supportContinuitySelectedValue")).value = continuityObservableArray[0].Id;
+                        document.getElementById("btn-hidden-set-continuity-selectedvalue").click();
                     }
                 }
             }
