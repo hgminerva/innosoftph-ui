@@ -213,22 +213,14 @@ export class SoftwareDevelopmentDetailComponent implements OnInit {
 
   // get activity data
   public getActivityData() {
-    let softwareDevelopmentCustomerId = this.softwareDevelopmentProjectObservableArray[this.softwareDevelopmentProjectSelectedIndex].CustomerId;
     let activityDataObject = {
       ActivityDate: this.activityDateValue.toLocaleDateString(),
-      CustomerId: softwareDevelopmentCustomerId,
-      ProductId: "NULL",
       ParticularCategory: this.activityParticularCategorySelectedValue,
       Particulars: (<HTMLInputElement>document.getElementById("activityParticulars")).value,
       NumberOfHours: this.activityNoOfHoursSelectedValue,
       ActivityAmount: this.activityAmount,
       ActivityStatus: this.activityStatusSelectedValue,
-      LeadId: "NULL",
-      QuotationId: "NULL",
-      DeliveryId: "NULL",
-      SupportId: "NULL",
       SoftwareDevelopmentId: this.getIdUrlParameter(),
-      LeadStatus: this.activityStatusSelectedValue
     }
 
     return activityDataObject;

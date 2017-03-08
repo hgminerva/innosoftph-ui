@@ -43,6 +43,10 @@ export class ProductComponent {
       this.router.navigate(['login']);
     }
 
+    this.getProductData();
+  }
+
+  public getProductData() {
     let toastr: ToastsManager;
     this.productCollectionView = new wijmo.collections.CollectionView(this.productService.getListProductData(toastr));
     this.productCollectionView.filter = this.filterFunction.bind(this);
@@ -85,11 +89,19 @@ export class ProductComponent {
 
   // show menu
   public showMenu() {
-      document.getElementById("showTop").click();
+    document.getElementById("showTop").click();
   }
-  
+
   public backClicked() {
     window.history.back();
+  }
+
+  // refresh grid
+  public refreshGrid() {
+    this.startLoading();
+    (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+    this.getProductData();
   }
 
   // initialization

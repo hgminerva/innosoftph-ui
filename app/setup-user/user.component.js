@@ -38,6 +38,9 @@ var UserComponent = (function () {
         if (!localStorage.getItem('access_token')) {
             this.router.navigate(['login']);
         }
+        this.getUserData();
+    };
+    UserComponent.prototype.getUserData = function () {
         var toastr;
         this.userCollectionView = new wijmo.collections.CollectionView(this.userService.getListUserData(toastr));
         this.userCollectionView.filter = this.filterFunction.bind(this);
@@ -78,6 +81,13 @@ var UserComponent = (function () {
     };
     UserComponent.prototype.backClicked = function () {
         window.history.back();
+    };
+    // refresh grid
+    UserComponent.prototype.refreshGrid = function () {
+        this.startLoading();
+        document.getElementById("btnRefresh").disabled = true;
+        document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+        this.getUserData();
     };
     // initialization
     UserComponent.prototype.ngOnInit = function () {

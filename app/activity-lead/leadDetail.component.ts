@@ -231,19 +231,12 @@ export class LeadDetailComponent implements OnInit {
   public getActivityData() {
     let activityDataObject = {
       ActivityDate: this.activityDateValue.toLocaleDateString(),
-      CustomerId: "NULL",
-      ProductId: "NULL",
       ParticularCategory: this.activityParticularCategorySelectedValue,
       Particulars: (<HTMLInputElement>document.getElementById("activityParticulars")).value,
       NumberOfHours: this.activityNoOfHoursSelectedValue,
       ActivityAmount: this.activityAmount,
       ActivityStatus: this.activityStatusSelectedValue,
-      LeadId: this.getIdUrlParameter(),
-      QuotationId: "NULL",
-      DeliveryId: "NULL",
-      SupportId: "NULL",
-      SoftwareDevelopmentId: "NULL",
-      LeadStatus: this.activityStatusSelectedValue
+      LeadId: this.getIdUrlParameter()
     }
 
     return activityDataObject;

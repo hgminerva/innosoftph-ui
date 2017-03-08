@@ -181,22 +181,14 @@ var SoftwareDevelopmentDetailComponent = (function () {
     };
     // get activity data
     SoftwareDevelopmentDetailComponent.prototype.getActivityData = function () {
-        var softwareDevelopmentCustomerId = this.softwareDevelopmentProjectObservableArray[this.softwareDevelopmentProjectSelectedIndex].CustomerId;
         var activityDataObject = {
             ActivityDate: this.activityDateValue.toLocaleDateString(),
-            CustomerId: softwareDevelopmentCustomerId,
-            ProductId: "NULL",
             ParticularCategory: this.activityParticularCategorySelectedValue,
             Particulars: document.getElementById("activityParticulars").value,
             NumberOfHours: this.activityNoOfHoursSelectedValue,
             ActivityAmount: this.activityAmount,
             ActivityStatus: this.activityStatusSelectedValue,
-            LeadId: "NULL",
-            QuotationId: "NULL",
-            DeliveryId: "NULL",
-            SupportId: "NULL",
             SoftwareDevelopmentId: this.getIdUrlParameter(),
-            LeadStatus: this.activityStatusSelectedValue
         };
         return activityDataObject;
     };

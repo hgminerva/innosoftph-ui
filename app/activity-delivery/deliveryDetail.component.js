@@ -183,23 +183,14 @@ var DeliveryDetailComponent = (function () {
     };
     // get activity data
     DeliveryDetailComponent.prototype.getActivityData = function () {
-        var deliveryCustomerId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].CustomerId;
-        var deliveryProductId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].ProductId;
         var activityDataObject = {
             ActivityDate: this.activityDateValue.toLocaleDateString(),
-            CustomerId: deliveryCustomerId,
-            ProductId: deliveryProductId,
             ParticularCategory: this.activityParticularCategorySelectedValue,
             Particulars: document.getElementById("activityParticulars").value,
             NumberOfHours: this.activityNoOfHoursSelectedValue,
             ActivityAmount: this.activityAmount,
             ActivityStatus: this.activityStatusSelectedValue,
-            LeadId: "NULL",
-            QuotationId: "NULL",
             DeliveryId: this.getIdUrlParameter(),
-            SupportId: "NULL",
-            SoftwareDevelopmentId: "NULL",
-            LeadStatus: this.activityStatusSelectedValue
         };
         return activityDataObject;
     };

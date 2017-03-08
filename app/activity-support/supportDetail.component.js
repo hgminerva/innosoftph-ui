@@ -248,23 +248,15 @@ var SupportDetailComponent = (function () {
     };
     // get activity data
     SupportDetailComponent.prototype.getActivityData = function () {
-        var productId = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].ProductId;
         var activityDataObject = {
             ActivityDate: this.activityDateValue.toLocaleDateString(),
             StaffUserId: this.activityAssignedToSelectedValue,
-            CustomerId: this.supportCustomerSelectedValue,
-            ProductId: productId,
             ParticularCategory: this.activityParticularCategorySelectedValue,
             Particulars: document.getElementById("activityParticulars").value,
             NumberOfHours: this.activityNoOfHoursSelectedValue,
             ActivityAmount: this.activityAmount,
             ActivityStatus: this.activityStatusSelectedValue,
-            LeadId: "NULL",
-            QuotationId: "NULL",
-            DeliveryId: "NULL",
-            SupportId: this.getIdUrlParameter(),
-            SoftwareDevelopmentId: "NULL",
-            LeadStatus: this.activityStatusSelectedValue
+            SupportId: this.getIdUrlParameter()
         };
         return activityDataObject;
     };

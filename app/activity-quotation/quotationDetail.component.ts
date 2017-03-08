@@ -222,19 +222,12 @@ export class QuotationDetailComponent implements OnInit {
   public getActivityData() {
     let activityDataObject = {
       ActivityDate: this.activityDateValue.toLocaleDateString(),
-      CustomerId: this.quotationCustomerSelectedValue,
-      ProductId: this.quotationProductSelectedValue,
       ParticularCategory: this.activityParticularCategorySelectedValue,
       Particulars: (<HTMLInputElement>document.getElementById("activityParticulars")).value,
       NumberOfHours: this.activityNoOfHoursSelectedValue,
       ActivityAmount: this.activityAmount,
       ActivityStatus: this.activityStatusSelectedValue,
-      LeadId: "NULL",
       QuotationId: this.getIdUrlParameter(),
-      DeliveryId: "NULL",
-      SupportId: "NULL",
-      SoftwareDevelopmentId: "NULL",
-      LeadStatus: this.activityStatusSelectedValue
     }
 
     return activityDataObject;

@@ -14,6 +14,7 @@ var activity_service_1 = require('./activity.service');
 var ng2_toastr_1 = require('ng2-toastr/ng2-toastr');
 var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
 var ActivityComponent = (function () {
+    // public isAcitivtyDocumentSelected = false;
     // inject lead service
     function ActivityComponent(activityService, router, toastr, vRef, slimLoadingBarService) {
         this.activityService = activityService;
@@ -44,7 +45,6 @@ var ActivityComponent = (function () {
         this.isLoading = true;
         this.activityStatusClicked = false;
         this.isActivityStatusSelected = false;
-        this.isAcitivtyDocumentSelected = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
     ActivityComponent.prototype.activityStatusesSelectedIndexChangedClick = function () {

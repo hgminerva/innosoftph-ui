@@ -43,6 +43,10 @@ export class UserComponent implements OnInit {
       this.router.navigate(['login']);
     }
 
+    this.getUserData();
+  }
+
+  public getUserData() {
     let toastr: ToastsManager;
     this.userCollectionView = new wijmo.collections.CollectionView(this.userService.getListUserData(toastr));
     this.userCollectionView.filter = this.filterFunction.bind(this);
@@ -82,11 +86,19 @@ export class UserComponent implements OnInit {
 
   // show menu
   public showMenu() {
-      document.getElementById("showTop").click();
+    document.getElementById("showTop").click();
   }
-  
+
   public backClicked() {
     window.history.back();
+  }
+
+  // refresh grid
+  public refreshGrid() {
+    this.startLoading();
+    (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+    this.getUserData();
   }
 
   // initialization

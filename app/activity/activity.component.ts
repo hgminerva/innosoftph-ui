@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { ActivityService } from './activity.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
-import * as wjGrid from 'wijmo/wijmo.grid';
 
 @Component({
   selector: 'my-activity',
@@ -48,7 +47,7 @@ export class ActivityComponent implements OnInit {
   public isLoading = true;
   public activityStatusClicked = false;
   public isActivityStatusSelected = false;
-  public isAcitivtyDocumentSelected = false;
+  // public isAcitivtyDocumentSelected = false;
 
   // inject lead service
   constructor(

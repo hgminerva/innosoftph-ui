@@ -44,6 +44,8 @@ var CustomerService = (function () {
                 }
             }
             document.getElementById("btn-hidden-complete-loading").click();
+            document.getElementById("btnRefresh").disabled = false;
+            document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-refresh fa-fw'></i> Refresh";
         }, function (error) {
             _this.toastr.error('', 'Something`s went wrong!');
         });

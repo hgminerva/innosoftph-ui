@@ -38,6 +38,9 @@ var CustomerComponent = (function () {
         if (!localStorage.getItem('access_token')) {
             this.router.navigate(['login']);
         }
+        this.getCustomerData();
+    };
+    CustomerComponent.prototype.getCustomerData = function () {
         var toastr;
         this.customerCollectionView = new wijmo.collections.CollectionView(this.customerService.getListCustomerData(toastr));
         this.customerCollectionView.filter = this.filterFunction.bind(this);
@@ -81,6 +84,13 @@ var CustomerComponent = (function () {
     };
     CustomerComponent.prototype.backClicked = function () {
         window.history.back();
+    };
+    // refresh grid
+    CustomerComponent.prototype.refreshGrid = function () {
+        this.startLoading();
+        document.getElementById("btnRefresh").disabled = true;
+        document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+        this.getCustomerData();
     };
     // initialization
     CustomerComponent.prototype.ngOnInit = function () {

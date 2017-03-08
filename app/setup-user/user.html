@@ -25,13 +25,14 @@
                             </div>
                         </td>
                         <td align="right">
+                            <button class="btn btn-default" id="btnRefresh" (click)="refreshGrid()"><i class="fa fa-refresh fa-fw"></i> Refresh</button>
                             <button class="btn btn-danger" (click)="backClicked()"><i class="fa fa-close fa-fw"></i> Close</button>
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="panel-body">
-                 <wj-flex-grid [itemsSource]="userCollectionView" [selectionMode]="3" style="border-radius: 0px;">
+                <wj-flex-grid [itemsSource]="userCollectionView" [selectionMode]="3" style="border-radius: 0px;">
                     <wj-flex-grid-column [header]="'User'" [binding]="'FullName'" [isReadOnly]="true" [width]="'1*'">
                     </wj-flex-grid-column>
                 </wj-flex-grid>
@@ -45,7 +46,7 @@
                         <button type="button" class="btn btn-default" (click)="userCollectionView.moveToPreviousPage()">
                             <span class="glyphicon glyphicon-step-backward"></span> Previous
                         </button>
-                        <button type="button" class="btn btn-default" disabled  style="width:100px">
+                        <button type="button" class="btn btn-default" disabled style="width:100px">
                             {{ userCollectionView.pageIndex + 1 }} / {{ userCollectionView.pageCount }}
                         </button>
                         <button type="button" class="btn btn-default" (click)="userCollectionView.moveToNextPage()">
@@ -54,8 +55,8 @@
                         <button type="button" class="btn btn-default" (click)="userCollectionView.moveToLastPage()">
                             Last <span class="glyphicon glyphicon-fast-forward"></span>
                         </button>
-                    </div> 
-                </div> 
+                    </div>
+                </div>
             </div>
         </div>
     </div>

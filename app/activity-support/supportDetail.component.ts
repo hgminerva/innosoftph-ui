@@ -299,23 +299,15 @@ export class SupportDetailComponent implements OnInit {
 
   // get activity data
   public getActivityData() {
-    let productId = this.supportContinuityObservableArray[this.supportContinuitySelectedIndex].ProductId;
     let activityDataObject = {
       ActivityDate: this.activityDateValue.toLocaleDateString(),
       StaffUserId: this.activityAssignedToSelectedValue,
-      CustomerId: this.supportCustomerSelectedValue,
-      ProductId: productId,
       ParticularCategory: this.activityParticularCategorySelectedValue,
       Particulars: (<HTMLInputElement>document.getElementById("activityParticulars")).value,
       NumberOfHours: this.activityNoOfHoursSelectedValue,
       ActivityAmount: this.activityAmount,
       ActivityStatus: this.activityStatusSelectedValue,
-      LeadId: "NULL",
-      QuotationId: "NULL",
-      DeliveryId: "NULL",
-      SupportId: this.getIdUrlParameter(),
-      SoftwareDevelopmentId: "NULL",
-      LeadStatus: this.activityStatusSelectedValue
+      SupportId: this.getIdUrlParameter()
     }
 
     return activityDataObject;

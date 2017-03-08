@@ -25,13 +25,14 @@
                             </div>
                         </td>
                         <td align="right">
+                            <button class="btn btn-default" id="btnRefresh" (click)="refreshGrid()"><i class="fa fa-refresh fa-fw"></i> Refresh</button>
                             <button class="btn btn-danger" (click)="backClicked()"><i class="fa fa-close fa-fw"></i> Close</button>
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="panel-body">
-                 <wj-flex-grid [itemsSource]="customerCollectionView" [selectionMode]="3" style="border-radius: 0px;">
+                <wj-flex-grid [itemsSource]="customerCollectionView" [selectionMode]="3" style="border-radius: 0px;">
                     <wj-flex-grid-column [header]="'Code'" [binding]="'ArticleCode'" [isReadOnly]="true" [width]="'2*'">
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="'Customer'" [binding]="'Article'" [isReadOnly]="true" [width]="'4*'">
@@ -51,7 +52,7 @@
                         <button type="button" class="btn btn-default" (click)="customerCollectionView.moveToPreviousPage()">
                             <span class="glyphicon glyphicon-step-backward"></span> Previous
                         </button>
-                        <button type="button" class="btn btn-default" disabled  style="width:100px">
+                        <button type="button" class="btn btn-default" disabled style="width:100px">
                             {{ customerCollectionView.pageIndex + 1 }} / {{ customerCollectionView.pageCount }}
                         </button>
                         <button type="button" class="btn btn-default" (click)="customerCollectionView.moveToNextPage()">
@@ -60,8 +61,8 @@
                         <button type="button" class="btn btn-default" (click)="customerCollectionView.moveToLastPage()">
                             Last <span class="glyphicon glyphicon-fast-forward"></span>
                         </button>
-                    </div> 
-                </div> 
+                    </div>
+                </div>
             </div>
         </div>
     </div>

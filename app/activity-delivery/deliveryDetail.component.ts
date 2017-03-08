@@ -220,23 +220,14 @@ export class DeliveryDetailComponent implements OnInit {
 
   // get activity data
   public getActivityData() {
-    let deliveryCustomerId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].CustomerId;
-    let deliveryProductId = this.deliveryQuotaionObservableArray[this.deliveryQuotaionSelectedIndex].ProductId;
     let activityDataObject = {
       ActivityDate: this.activityDateValue.toLocaleDateString(),
-      CustomerId: deliveryCustomerId,
-      ProductId: deliveryProductId,
       ParticularCategory: this.activityParticularCategorySelectedValue,
       Particulars: (<HTMLInputElement>document.getElementById("activityParticulars")).value,
       NumberOfHours: this.activityNoOfHoursSelectedValue,
       ActivityAmount: this.activityAmount,
       ActivityStatus: this.activityStatusSelectedValue,
-      LeadId: "NULL",
-      QuotationId: "NULL",
       DeliveryId: this.getIdUrlParameter(),
-      SupportId: "NULL",
-      SoftwareDevelopmentId: "NULL",
-      LeadStatus: this.activityStatusSelectedValue
     }
 
     return activityDataObject;

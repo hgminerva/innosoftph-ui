@@ -9,7 +9,7 @@ import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
   templateUrl: 'app/activity-continuity/continuity.html'
 })
 
-export class ContinuityComponent {
+export class ContinuityComponent implements OnInit {
   // global variables
   public continuityStartDateValue: Date;
   public isContinuityStartDateSelected = true;
