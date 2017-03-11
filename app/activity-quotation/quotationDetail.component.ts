@@ -43,6 +43,23 @@ export class QuotationDetailComponent implements OnInit {
   public activityAmount: String;
   public isFinishLoading = false;
   public isLoading = true;
+  public paymentScheduleCollectionView: wijmo.collections.CollectionView;
+  public quotationPaymentScheduleArray = new wijmo.collections.ObservableArray();
+  public paymentId: number = 0;
+  public quotationPrintDescription: String;
+  public quotationPrintAmount: String;
+  public quotationPrintRemarks: String;
+  public printQuotationString: String;
+  public isAddPayment: Boolean;
+
+  public printQuotationCustomer: String;
+  public printQuotationAddress: String;
+  public printQuotatioContactPerson: String;
+  public printQuotatioContactNumber: String;
+  public printQuotatioContactEmail: String;
+  public quotationCustomerSelectedIndex = 0;
+  public isCustomerSelected = false;
+  public isCustomerClicked = false;
 
   // inject quotation detail service
   constructor(
@@ -73,6 +90,7 @@ export class QuotationDetailComponent implements OnInit {
     this.isFinishLoading = true;
     this.isLoading = false;
     (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnPrintQuotationDetail")).disabled = false;
     (<HTMLButtonElement>document.getElementById("btnCloseQuotationDetail")).disabled = false;
   }
 
@@ -84,14 +102,30 @@ export class QuotationDetailComponent implements OnInit {
     this.quotationProductSelectedValue = parseInt((<HTMLInputElement>document.getElementById("quotationProductSelectedValue")).value.toString());
     // this.quotationEncodedBySelectedValue = parseInt((<HTMLInputElement>document.getElementById("quotationEncodedBySelectedValue")).value.toString());
     this.quotationStatusSelectedValue = (<HTMLInputElement>document.getElementById("quotationStatusSelectedValue")).value.toString();
+
+    let searchTerm = this.quotationCustomerSelectedValue;
+    let index = -1;
+    let len = this.quotationCustomerObservableArray.length;
+    for (var i = 0; i < len; i++) {
+      if (this.quotationCustomerObservableArray[i].Id === searchTerm) {
+        index = i;
+        break;
+      }
+    }
+    (<HTMLInputElement>document.getElementById("printQuotationCustomer")).value = this.quotationCustomerObservableArray[i].Article;
+    (<HTMLInputElement>document.getElementById("printQuotationAddress")).value = this.quotationCustomerObservableArray[i].Address;
+    (<HTMLInputElement>document.getElementById("printQuotationContactPerson")).value = this.quotationCustomerObservableArray[i].ContactPerson;
+    (<HTMLInputElement>document.getElementById("printQuotationContactNumber")).value = this.quotationCustomerObservableArray[i].ContactNumber;
+    (<HTMLInputElement>document.getElementById("printQuotationContactEmail")).value = this.quotationCustomerObservableArray[i].EmailAddress;
   }
 
   // quotation date value
   public setQuotationDateValue() {
     this.quotationDateValue = new Date();
     this.activityDateValue = new Date();
-    this.getListActivity(false);    
+    this.getListActivity(false);
     (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnPrintQuotationDetail")).disabled = true;
     (<HTMLButtonElement>document.getElementById("btnCloseQuotationDetail")).disabled = true;
   }
 
@@ -156,6 +190,7 @@ export class QuotationDetailComponent implements OnInit {
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
     (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnPrintQuotationDetail")).disabled = true;
     (<HTMLButtonElement>document.getElementById("btnCloseQuotationDetail")).disabled = true;
     this.quotationService.putQuotationData(this.getIdUrlParameter(), this.getQuotationValue(), toastr);
   }
@@ -179,6 +214,13 @@ export class QuotationDetailComponent implements OnInit {
     (<HTMLInputElement>document.getElementById("activityAmount")).value = "";
     setTimeout(() => {
       (<HTMLInputElement>document.getElementById("activityAmount")).value = this.activityAmount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    }, 100);
+  }
+
+  public onBlurOnlyDecimalNumberKeyForPrintQuotation() {
+    (<HTMLInputElement>document.getElementById("quotationPrintAmount")).value = "";
+    setTimeout(() => {
+      (<HTMLInputElement>document.getElementById("quotationPrintAmount")).value = this.quotationPrintAmount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
     }, 100);
   }
 
@@ -272,14 +314,96 @@ export class QuotationDetailComponent implements OnInit {
 
   // show menu
   public showMenu() {
-      document.getElementById("showTop").click();
+    document.getElementById("showTop").click();
   }
-  
+
+  public btnPrintQuotationDetailClick() {
+    let searchTerm = this.quotationCustomerSelectedValue;
+    let index = -1;
+    let len = this.quotationCustomerObservableArray.length;
+    for (var i = 0; i < len; i++) {
+      if (this.quotationCustomerObservableArray[i].Id === searchTerm) {
+        index = i;
+        break;
+      }
+    }
+    (<HTMLInputElement>document.getElementById("printQuotationCustomer")).value = this.quotationCustomerObservableArray[i].Article;
+    (<HTMLInputElement>document.getElementById("printQuotationAddress")).value = this.quotationCustomerObservableArray[i].Address;
+    (<HTMLInputElement>document.getElementById("printQuotationContactPerson")).value = this.quotationCustomerObservableArray[i].ContactPerson;
+    (<HTMLInputElement>document.getElementById("printQuotationContactNumber")).value = this.quotationCustomerObservableArray[i].ContactNumber;
+    (<HTMLInputElement>document.getElementById("printQuotationContactEmail")).value = this.quotationCustomerObservableArray[i].EmailAddress;
+  }
+
+  public paymentScheduleData() {
+    this.paymentScheduleCollectionView = new wijmo.collections.CollectionView(this.quotationPaymentScheduleArray);
+    this.paymentScheduleCollectionView.pageSize = 7;
+    this.paymentScheduleCollectionView.trackChanges = true;
+  }
+
+  public paymentOnclick() {
+    this.printQuotationString = "Add";
+    this.isAddPayment = true;
+    (<HTMLInputElement>document.getElementById("quotationPrintDescription")).value = "";
+    (<HTMLInputElement>document.getElementById("quotationPrintAmount")).value = "0";
+    (<HTMLInputElement>document.getElementById("quotationPrintRemarks")).value = "";
+  }
+
+  public btnAddPaymentDataClick() {
+    this.quotationPrintDescription = (<HTMLInputElement>document.getElementById("quotationPrintDescription")).value;
+    this.quotationPrintAmount = (<HTMLInputElement>document.getElementById("quotationPrintAmount")).value;
+    this.quotationPrintRemarks = (<HTMLInputElement>document.getElementById("quotationPrintRemarks")).value;
+
+    if (this.isAddPayment) {
+      this.paymentId += 1;
+      this.quotationPaymentScheduleArray.push({
+        Id: this.paymentId,
+        Description: this.quotationPrintDescription,
+        Amount: this.quotationPrintAmount.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+        Remarks: this.quotationPrintRemarks
+      });
+    } else {
+      let currentSelectedPayment = this.paymentScheduleCollectionView.currentItem;
+      currentSelectedPayment.Description = this.quotationPrintDescription;
+      currentSelectedPayment.Amount = this.quotationPrintAmount;
+      currentSelectedPayment.Remarks = this.quotationPrintRemarks;
+    }
+
+    this.paymentScheduleData();
+    (<HTMLInputElement>document.getElementById("btnPaymentCloseModal")).click();
+  }
+
+  public btnPaymentDeleteConfirmationClick() {
+    let currentSelectedPayment = this.paymentScheduleCollectionView.currentItem;
+    let searchTerm = currentSelectedPayment.Id;
+    let index = -1;
+
+    for (var i = 0, len = this.quotationPaymentScheduleArray.length; i < len; i++) {
+      if (this.quotationPaymentScheduleArray[i].Id === searchTerm) {
+        index = i;
+        break;
+      }
+    }
+
+    this.quotationPaymentScheduleArray.splice(index, 1);
+    this.paymentScheduleData();
+    (<HTMLInputElement>document.getElementById("btnPaymentCloseDeleteConfirmation")).click();
+  }
+
+  public paymentEdit() {
+    this.printQuotationString = "Edit";
+    this.isAddPayment = false;
+    let currentSelectedPayment = this.paymentScheduleCollectionView.currentItem;
+    (<HTMLInputElement>document.getElementById("quotationPrintDescription")).value = currentSelectedPayment.Description;
+    (<HTMLInputElement>document.getElementById("quotationPrintAmount")).value = currentSelectedPayment.Amount;
+    (<HTMLInputElement>document.getElementById("quotationPrintRemarks")).value = currentSelectedPayment.Remarks;
+  }
+
   // initialization
   public ngOnInit(): any {
     if (!localStorage.getItem('access_token')) {
       this.router.navigate(['login']);
     }
+
     this.setQuotationDateValue();
   }
 }

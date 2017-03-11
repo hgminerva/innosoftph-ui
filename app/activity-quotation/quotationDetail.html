@@ -20,6 +20,7 @@
                     <tr>
                         <td align="right">
                             <button class="btn btn-primary" id="btnSaveQuotationDetail" name="btnSaveQuotationDetail" (click)="btnSaveQuotationDetailClick()"><i class="fa fa-save fa-fw"></i> Save</button>
+                            <button class="btn btn-primary" id="btnPrintQuotationDetail" name="btnPrintQuotationDetail" (click)="btnPrintQuotationDetailClick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#print-quotation-detail-modal"><i class="fa fa-print fa-fw"></i> Print</button>
                             <button class="btn btn-danger" id="btnCloseQuotationDetail" name="btnCloseQuotationDetail" (click)="backClicked()"><i class="fa fa-close fa-fw"></i> Close</button>
                         </td>
                     </tr>
@@ -319,6 +320,248 @@
             <div class="modal-footer" align="right">
                 <button type="button" class="btn btn-danger" id="btnActivityDeleteConfirmation" (click)="btnActivityDeleteConfirmationClick()"><i class="fa fa-trash fa-fw"></i> Delete</button>
                 <button type="button" class="btn btn-default" id="btnActivityCloseDeleteConfirmation" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- quotation  detail modal -->
+<div class="modal fade" id="print-quotation-detail-modal" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Print Quotation</h4>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-tabs">
+                    <li class="active"><a data-toggle="tab" href="#customer">Customer</a></li>
+                    <li><a data-toggle="tab" href="#product">Product / Service</a></li>
+                    <li><a data-toggle="tab" href="#payment">Payment Schedule</a></li>
+                </ul>
+                <br />
+                <div class="tab-content">
+                    <div id="customer" class="tab-pane fade in active">
+                        <div class="form-horizontal">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Customer</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="printQuotationCustomer" placeholder="Customer Name" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Address</label>
+                                        <div class="col-sm-8">
+                                            <textarea class="form-control" rows="5" id="printQuotationAddress" name="printQuotationAddress" placeholder="Address"></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Contact Person</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="printQuotationContactPerson" placeholder="Contact Person" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Contact Number</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="printQuotationContactNumber" placeholder="Contact Number" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Contact Email</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="printQuotationContactEmail" placeholder="Contact Email" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">QRef No</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="" placeholder="QRef No" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Date</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Client PO No</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="" placeholder="Client PO No" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Client PO Date</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="" placeholder="Client PO Date" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Leads Ref No</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="" placeholder="Leads Ref No" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="product" class="tab-pane fade">
+                        <div class="form-horizontal">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Product</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="" placeholder="Product Name" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Description</label>
+                                        <div class="col-sm-8">
+                                            <textarea class="form-control" rows="5" id="" name="Particulars" placeholder="Description"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Unit Price</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="" placeholder="Unit Price" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Quantity</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="" placeholder="Quantity"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Amount</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="" placeholder="Amount" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="payment" class="tab-pane fade">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" align="right">
+                                <button class="btn btn-primary" (click)="paymentOnclick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#quotation-print-add-payment"><i class="fa fa-plus fa-fw"></i> Add</button>
+                            </div>
+                            <div class="panel-body">
+                                <wj-flex-grid [itemsSource]="paymentScheduleCollectionView" [selectionMode]="3" style="border-radius: 0px;">
+                                    <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="70">
+                                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                                            <button class="btn btn-primary btn-xs btn-block" (click)="paymentEdit()" data-toggle="modal"  data-backdrop="static" data-keyboard="false" data-target="#quotation-print-add-payment">
+                                                <i class="fa fa-edit fa-fw"></i> Edit
+                                            </button>
+                                        </template>
+                                    </wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="90">
+                                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                                            <button class="btn btn-danger btn-xs btn-block" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#payment-delete-confirmation-modal">
+                                                <i class="fa fa-trash fa-fw"></i> Remove
+                                            </button>
+                                        </template>
+                                    </wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'Description'" [binding]="'Description'" [isReadOnly]="true" [width]="'1.5*'">
+                                    </wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'Amount'" [binding]="'Amount'" [isReadOnly]="true" [width]="'1*'" [align]="'right'">
+                                    </wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'Remarks'" [binding]="'Remarks'" [isReadOnly]="true" [width]="'2*'">
+                                    </wj-flex-grid-column>
+                                </wj-flex-grid>
+                            </div>
+                             <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col-sm-12 btn-group" id="">
+                                        <button type="button" class="btn btn-default" (click)="paymentScheduleCollectionView.moveToFirstPage()">
+                                            <span class="glyphicon glyphicon-fast-backward"></span> First
+                                        </button>
+                                        <button type="button" class="btn btn-default" (click)="paymentScheduleCollectionView.moveToPreviousPage()">
+                                            <span class="glyphicon glyphicon-step-backward"></span> Previous
+                                        </button>
+                                        <!--<button type="button" class="btn btn-default" disabled  style="width:100px">
+                                            {{ paymentScheduleCollectionView.pageIndex + 1 }} / {{ paymentScheduleCollectionView.pageCount }}
+                                        </button>-->
+                                        <button type="button" class="btn btn-default" (click)="paymentScheduleCollectionView.moveToNextPage()">
+                                            Next <span class="glyphicon glyphicon-step-forward"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-default" (click)="paymentScheduleCollectionView.moveToLastPage()">
+                                            Last <span class="glyphicon glyphicon-fast-forward"></span>
+                                        </button>
+                                    </div> 
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" align="right">
+                <button type="button" id="btnPrintQuotationDetailPrintButton" class="btn btn-primary" data-dismiss="modal"><i class="fa fa-print fa-fw"></i> Print</button>
+                <button type="button" id="btnPrintQuotationDetailCloseButton" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- quotation payment modal -->
+<div class="modal fade" id="quotation-print-add-payment" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ printQuotationString }} Payment Schedule</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Description</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" rows="3" [(ngModel)]="quotationPrintDescription" id="quotationPrintDescription" name="Particulars" placeholder="Description"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Amount</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" style="text-align: right;" [(ngModel)]="quotationPrintAmount" id="quotationPrintAmount" (keypress)="onKeyPressOnlyDecimalNumberKey($event)" (blur)="onBlurOnlyDecimalNumberKeyForPrintQuotation()" placeholder="Amount" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Remarks</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" rows="5" [(ngModel)]="quotationPrintRemarks" id="quotationPrintRemarks" name="Remarks" placeholder="Remarks"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" align="right">
+                <button type="button" class="btn btn-primary" id="btnAddPaymentData" (click)="btnAddPaymentDataClick()"><i class="fa fa-plus fa-fw"></i> Save</button>
+                <button type="button" class="btn btn-default" id="btnPaymentCloseModal" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- delete modal -->
+<div class="modal fade" id="payment-delete-confirmation-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete</h4>
+            </div>
+            <div class="modal-body">
+                Delete Payment Schedule?
+            </div>
+            <div class="modal-footer" align="right">
+                <button type="button" class="btn btn-danger" id="btnPaymentDeleteConfirmation" (click)="btnPaymentDeleteConfirmationClick()"><i class="fa fa-trash fa-fw"></i> Delete</button>
+                <button type="button" class="btn btn-default" id="btnPaymentCloseDeleteConfirmation" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
             </div>
         </div>
     </div>

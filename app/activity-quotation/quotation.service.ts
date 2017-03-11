@@ -58,7 +58,11 @@ export class QuotationService {
                     for (var i = 0; i <= results.length - 1; i++) {
                         customerObservableArray.push({
                             Id: results[i].Id,
-                            Article: results[i].Article
+                            Article: results[i].Article,
+                            Address: results[i].Address,
+                            ContactPerson: results[i].ContactPerson,
+                            ContactNumber: results[i].ContactNumber,
+                            EmailAddress: results[i].EmailAddress
                         });
                     }
                 }
