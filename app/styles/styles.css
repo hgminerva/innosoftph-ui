@@ -130,7 +130,10 @@ p.copyright {
 
 .panel, .well, .dashboardTable {
     border-radius: 0px;
-    border: 0.2px solid whitesmoke;
+    box-shadow: 5px 5px 10px -5px #808080;
+}
+
+.btn-info {
     box-shadow: 5px 5px 15px -5px #808080;
 }
 
@@ -324,6 +327,7 @@ a.client-links {
 a.client-links > .thumbnail {
     border-radius: 0px;
     margin-bottom: 0px;
+    transition: 0.5s all;
 }
 
 a.client-links:hover > .thumbnail {
@@ -349,6 +353,7 @@ a.client-links:hover > .thumbnail {
   line-height: 2.00;
   border-radius: 30px;
   color: #fff;
+  box-shadow: 5px 5px 15px -7px #000;
 }
 
 .badge-circle.primary {
@@ -495,7 +500,7 @@ a.carousel-control.left, a.carousel-control.right {
 
 a.about-pic-link:hover > .panel {
     box-shadow: 5px 5px 15px 0px #808080;;
-    transition: 1s all;
+    transition: 1s box-shadow;
 }
 a.client-accordion:hover,a.client-accordion:focus{
     text-decoration:none;
