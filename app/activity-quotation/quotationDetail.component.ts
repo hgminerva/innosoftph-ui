@@ -117,6 +117,18 @@ export class QuotationDetailComponent implements OnInit {
     (<HTMLInputElement>document.getElementById("printQuotationContactPerson")).value = this.quotationCustomerObservableArray[i].ContactPerson;
     (<HTMLInputElement>document.getElementById("printQuotationContactNumber")).value = this.quotationCustomerObservableArray[i].ContactNumber;
     (<HTMLInputElement>document.getElementById("printQuotationContactEmail")).value = this.quotationCustomerObservableArray[i].EmailAddress;
+
+    let searchTermForProduct = this.quotationProductSelectedValue;
+    let indexForProduct = -1;
+    let lenForProduct = this.quotationProductObservableArray.length;
+    for (var i = 0; i < lenForProduct; i++) {
+      if (this.quotationProductObservableArray[i].Id === searchTermForProduct) {
+        indexForProduct = i;
+        break;
+      }
+    }
+
+    (<HTMLInputElement>document.getElementById("printQuotationProduct")).value = this.quotationProductObservableArray[i].Article;
   }
 
   // quotation date value
@@ -327,11 +339,24 @@ export class QuotationDetailComponent implements OnInit {
         break;
       }
     }
+
     (<HTMLInputElement>document.getElementById("printQuotationCustomer")).value = this.quotationCustomerObservableArray[i].Article;
     (<HTMLInputElement>document.getElementById("printQuotationAddress")).value = this.quotationCustomerObservableArray[i].Address;
     (<HTMLInputElement>document.getElementById("printQuotationContactPerson")).value = this.quotationCustomerObservableArray[i].ContactPerson;
     (<HTMLInputElement>document.getElementById("printQuotationContactNumber")).value = this.quotationCustomerObservableArray[i].ContactNumber;
     (<HTMLInputElement>document.getElementById("printQuotationContactEmail")).value = this.quotationCustomerObservableArray[i].EmailAddress;
+
+    let searchTermForProduct = this.quotationProductSelectedValue;
+    let indexForProduct = -1;
+    let lenForProduct = this.quotationProductObservableArray.length;
+    for (var i = 0; i < lenForProduct; i++) {
+      if (this.quotationProductObservableArray[i].Id === searchTermForProduct) {
+        indexForProduct = i;
+        break;
+      }
+    }
+
+    (<HTMLInputElement>document.getElementById("printQuotationProduct")).value = this.quotationProductObservableArray[i].Article;
   }
 
   public paymentScheduleData() {
@@ -396,6 +421,10 @@ export class QuotationDetailComponent implements OnInit {
     (<HTMLInputElement>document.getElementById("quotationPrintDescription")).value = currentSelectedPayment.Description;
     (<HTMLInputElement>document.getElementById("quotationPrintAmount")).value = currentSelectedPayment.Amount;
     (<HTMLInputElement>document.getElementById("quotationPrintRemarks")).value = currentSelectedPayment.Remarks;
+  }
+
+  public btnPrintQuotationDetailPrintButtonClick() {
+    console.log("/UrlSample/" + JSON.stringify(this.quotationPaymentScheduleArray));
   }
 
   // initialization

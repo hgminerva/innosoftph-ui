@@ -81,6 +81,16 @@ var QuotationDetailComponent = (function () {
         document.getElementById("printQuotationContactPerson").value = this.quotationCustomerObservableArray[i].ContactPerson;
         document.getElementById("printQuotationContactNumber").value = this.quotationCustomerObservableArray[i].ContactNumber;
         document.getElementById("printQuotationContactEmail").value = this.quotationCustomerObservableArray[i].EmailAddress;
+        var searchTermForProduct = this.quotationProductSelectedValue;
+        var indexForProduct = -1;
+        var lenForProduct = this.quotationProductObservableArray.length;
+        for (var i = 0; i < lenForProduct; i++) {
+            if (this.quotationProductObservableArray[i].Id === searchTermForProduct) {
+                indexForProduct = i;
+                break;
+            }
+        }
+        document.getElementById("printQuotationProduct").value = this.quotationProductObservableArray[i].Article;
     };
     // quotation date value
     QuotationDetailComponent.prototype.setQuotationDateValue = function () {
@@ -276,6 +286,16 @@ var QuotationDetailComponent = (function () {
         document.getElementById("printQuotationContactPerson").value = this.quotationCustomerObservableArray[i].ContactPerson;
         document.getElementById("printQuotationContactNumber").value = this.quotationCustomerObservableArray[i].ContactNumber;
         document.getElementById("printQuotationContactEmail").value = this.quotationCustomerObservableArray[i].EmailAddress;
+        var searchTermForProduct = this.quotationProductSelectedValue;
+        var indexForProduct = -1;
+        var lenForProduct = this.quotationProductObservableArray.length;
+        for (var i = 0; i < lenForProduct; i++) {
+            if (this.quotationProductObservableArray[i].Id === searchTermForProduct) {
+                indexForProduct = i;
+                break;
+            }
+        }
+        document.getElementById("printQuotationProduct").value = this.quotationProductObservableArray[i].Article;
     };
     QuotationDetailComponent.prototype.paymentScheduleData = function () {
         this.paymentScheduleCollectionView = new wijmo.collections.CollectionView(this.quotationPaymentScheduleArray);
@@ -332,6 +352,9 @@ var QuotationDetailComponent = (function () {
         document.getElementById("quotationPrintDescription").value = currentSelectedPayment.Description;
         document.getElementById("quotationPrintAmount").value = currentSelectedPayment.Amount;
         document.getElementById("quotationPrintRemarks").value = currentSelectedPayment.Remarks;
+    };
+    QuotationDetailComponent.prototype.btnPrintQuotationDetailPrintButtonClick = function () {
+        console.log("/UrlSample/" + JSON.stringify(this.quotationPaymentScheduleArray));
     };
     // initialization
     QuotationDetailComponent.prototype.ngOnInit = function () {
