@@ -41,6 +41,8 @@ var QuotationDetailComponent = (function () {
         this.quotationCustomerSelectedIndex = 0;
         this.isCustomerSelected = false;
         this.isCustomerClicked = false;
+        this.productCollectionArray = new wijmo.collections.ObservableArray();
+        this.productId = 0;
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -81,16 +83,6 @@ var QuotationDetailComponent = (function () {
         document.getElementById("printQuotationContactPerson").value = this.quotationCustomerObservableArray[i].ContactPerson;
         document.getElementById("printQuotationContactNumber").value = this.quotationCustomerObservableArray[i].ContactNumber;
         document.getElementById("printQuotationContactEmail").value = this.quotationCustomerObservableArray[i].EmailAddress;
-        var searchTermForProduct = this.quotationProductSelectedValue;
-        var indexForProduct = -1;
-        var lenForProduct = this.quotationProductObservableArray.length;
-        for (var i = 0; i < lenForProduct; i++) {
-            if (this.quotationProductObservableArray[i].Id === searchTermForProduct) {
-                indexForProduct = i;
-                break;
-            }
-        }
-        document.getElementById("printQuotationProduct").value = this.quotationProductObservableArray[i].Article;
     };
     // quotation date value
     QuotationDetailComponent.prototype.setQuotationDateValue = function () {
@@ -176,13 +168,6 @@ var QuotationDetailComponent = (function () {
         document.getElementById("activityAmount").value = "";
         setTimeout(function () {
             document.getElementById("activityAmount").value = _this.activityAmount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-        }, 100);
-    };
-    QuotationDetailComponent.prototype.onBlurOnlyDecimalNumberKeyForPrintQuotation = function () {
-        var _this = this;
-        document.getElementById("quotationPrintAmount").value = "";
-        setTimeout(function () {
-            document.getElementById("quotationPrintAmount").value = _this.quotationPrintAmount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
         }, 100);
     };
     // activity line list
@@ -281,21 +266,23 @@ var QuotationDetailComponent = (function () {
                 break;
             }
         }
-        document.getElementById("printQuotationCustomer").value = this.quotationCustomerObservableArray[i].Article;
-        document.getElementById("printQuotationAddress").value = this.quotationCustomerObservableArray[i].Address;
-        document.getElementById("printQuotationContactPerson").value = this.quotationCustomerObservableArray[i].ContactPerson;
-        document.getElementById("printQuotationContactNumber").value = this.quotationCustomerObservableArray[i].ContactNumber;
-        document.getElementById("printQuotationContactEmail").value = this.quotationCustomerObservableArray[i].EmailAddress;
-        var searchTermForProduct = this.quotationProductSelectedValue;
-        var indexForProduct = -1;
-        var lenForProduct = this.quotationProductObservableArray.length;
-        for (var i = 0; i < lenForProduct; i++) {
-            if (this.quotationProductObservableArray[i].Id === searchTermForProduct) {
-                indexForProduct = i;
-                break;
-            }
-        }
-        document.getElementById("printQuotationProduct").value = this.quotationProductObservableArray[i].Article;
+        document.getElementById("printQuotationCustomer").value = this.quotationCustomerObservableArray[index].Article;
+        document.getElementById("printQuotationAddress").value = this.quotationCustomerObservableArray[index].Address;
+        document.getElementById("printQuotationContactPerson").value = this.quotationCustomerObservableArray[index].ContactPerson;
+        document.getElementById("printQuotationContactNumber").value = this.quotationCustomerObservableArray[index].ContactNumber;
+        document.getElementById("printQuotationContactEmail").value = this.quotationCustomerObservableArray[index].EmailAddress;
+    };
+    QuotationDetailComponent.prototype.paymentTabClick = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.paymentScheduleData();
+        }, 500);
+    };
+    QuotationDetailComponent.prototype.productTabClick = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.productProductData();
+        }, 500);
     };
     QuotationDetailComponent.prototype.paymentScheduleData = function () {
         this.paymentScheduleCollectionView = new wijmo.collections.CollectionView(this.quotationPaymentScheduleArray);
@@ -308,6 +295,9 @@ var QuotationDetailComponent = (function () {
         document.getElementById("quotationPrintDescription").value = "";
         document.getElementById("quotationPrintAmount").value = "0";
         document.getElementById("quotationPrintRemarks").value = "";
+        this.quotationPrintDescription = "";
+        this.quotationPrintAmount = "0";
+        this.quotationPrintRemarks = "";
     };
     QuotationDetailComponent.prototype.btnAddPaymentDataClick = function () {
         this.quotationPrintDescription = document.getElementById("quotationPrintDescription").value;
@@ -353,8 +343,176 @@ var QuotationDetailComponent = (function () {
         document.getElementById("quotationPrintAmount").value = currentSelectedPayment.Amount;
         document.getElementById("quotationPrintRemarks").value = currentSelectedPayment.Remarks;
     };
+    QuotationDetailComponent.prototype.productProductData = function () {
+        this.productCollectionView = new wijmo.collections.CollectionView(this.productCollectionArray);
+        this.productCollectionView.pageSize = 7;
+        this.productCollectionView.trackChanges = true;
+    };
+    QuotationDetailComponent.prototype.productOnclick = function () {
+        this.printProductQuotationString = "Add";
+        this.isAddProduct = true;
+        document.getElementById("printQuotationProductCode").value = "";
+        document.getElementById("printQuotationProductDescription").value = "";
+        document.getElementById("printQuotationProductPrice").value = "0";
+        document.getElementById("printQuotationProductQuantity").value = "0";
+        document.getElementById("printQuotationProductAmount").value = "0";
+        this.printQuotationProductCode = "";
+        this.printQuotationProductDescription = "";
+        this.printQuotationProductPrice = "0";
+        this.printQuotationProductQuantity = "0";
+        this.printQuotationProductAmount = "0";
+        var searchTerm = this.quotationProductSelectedValue;
+        var index = -1;
+        var len = this.quotationProductObservableArray.length;
+        for (var i = 0; i < len; i++) {
+            if (this.quotationProductObservableArray[i].Id === searchTerm) {
+                index = i;
+                break;
+            }
+        }
+        document.getElementById("printQuotationProductCode").value = this.quotationProductObservableArray[index].ArticleCode;
+        document.getElementById("printQuotationProductDescription").value = this.quotationProductObservableArray[index].Article;
+    };
+    QuotationDetailComponent.prototype.btnAddProductDataClick = function () {
+        this.printQuotationProductCode = document.getElementById("printQuotationProductCode").value;
+        this.printQuotationProductDescription = document.getElementById("printQuotationProductDescription").value;
+        this.printQuotationProductPrice = document.getElementById("printQuotationProductPrice").value;
+        this.printQuotationProductQuantity = document.getElementById("printQuotationProductQuantity").value;
+        this.printQuotationProductAmount = document.getElementById("printQuotationProductAmount").value;
+        if (this.isAddProduct) {
+            this.productId += 1;
+            this.productCollectionArray.push({
+                Id: this.productId,
+                ProductCode: this.printQuotationProductCode,
+                ProductDescription: this.printQuotationProductDescription,
+                Price: this.printQuotationProductPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+                Quantity: this.printQuotationProductQuantity.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+                Amount: this.printQuotationProductAmount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            });
+        }
+        else {
+            var currentSelectedProduct = this.productCollectionView.currentItem;
+            currentSelectedProduct.ProductCode = this.printQuotationProductCode;
+            currentSelectedProduct.ProductDescription = this.printQuotationProductDescription;
+            currentSelectedProduct.Price = this.printQuotationProductPrice;
+            currentSelectedProduct.Quantity = this.printQuotationProductQuantity;
+            currentSelectedProduct.Amount = this.printQuotationProductAmount;
+        }
+        this.productProductData();
+        document.getElementById("btnProductCloseModal").click();
+    };
+    QuotationDetailComponent.prototype.productEdit = function () {
+        this.printProductQuotationString = "Edit";
+        this.isAddProduct = false;
+        var currentSelectedProduct = this.productCollectionView.currentItem;
+        document.getElementById("printQuotationProductCode").value = currentSelectedProduct.ProductCode;
+        document.getElementById("printQuotationProductDescription").value = currentSelectedProduct.ProductDescription;
+        document.getElementById("printQuotationProductPrice").value = currentSelectedProduct.Price;
+        document.getElementById("printQuotationProductQuantity").value = currentSelectedProduct.Quantity;
+        document.getElementById("printQuotationProductAmount").value = currentSelectedProduct.Amount;
+    };
+    QuotationDetailComponent.prototype.btnProductDeleteConfirmationClick = function () {
+        var currentSelectedProduct = this.productCollectionView.currentItem;
+        var searchTerm = currentSelectedProduct.Id;
+        var index = -1;
+        for (var i = 0, len = this.productCollectionArray.length; i < len; i++) {
+            if (this.productCollectionArray[i].Id === searchTerm) {
+                index = i;
+                break;
+            }
+        }
+        this.productCollectionArray.splice(index, 1);
+        this.productProductData();
+        document.getElementById("btProductCloseDeleteConfirmation").click();
+    };
+    QuotationDetailComponent.prototype.onBlurOnlyDecimalNumberKeyForPrintQuotation = function () {
+        var _this = this;
+        document.getElementById("quotationPrintAmount").value = "";
+        setTimeout(function () {
+            document.getElementById("quotationPrintAmount").value = _this.quotationPrintAmount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        }, 100);
+    };
+    QuotationDetailComponent.prototype.onBlurOnlyDecimalNumberKeyForProductPricePrintQuotation = function () {
+        var _this = this;
+        document.getElementById("printQuotationProductPrice").value = "";
+        setTimeout(function () {
+            document.getElementById("printQuotationProductPrice").value = _this.printQuotationProductPrice.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        }, 100);
+    };
+    QuotationDetailComponent.prototype.onBlurOnlyDecimalNumberKeyForProductQuantityPrintQuotation = function () {
+        var _this = this;
+        document.getElementById("printQuotationProductQuantity").value = "";
+        setTimeout(function () {
+            document.getElementById("printQuotationProductQuantity").value = _this.printQuotationProductQuantity.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        }, 100);
+    };
+    QuotationDetailComponent.prototype.onBlurOnlyDecimalNumberKeyForProductAmountPrintQuotation = function () {
+        var _this = this;
+        document.getElementById("printQuotationProductAmount").value = "";
+        setTimeout(function () {
+            document.getElementById("printQuotationProductAmount").value = _this.printQuotationProductAmount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        }, 100);
+    };
     QuotationDetailComponent.prototype.btnPrintQuotationDetailPrintButtonClick = function () {
-        console.log("/UrlSample/" + JSON.stringify(this.quotationPaymentScheduleArray));
+        var printQuotationCustomer = document.getElementById("printQuotationCustomer").value;
+        var printQuotationAddress = document.getElementById("printQuotationAddress").value;
+        var printQuotationContactPerson = document.getElementById("printQuotationContactPerson").value;
+        var printQuotationContactNumber = document.getElementById("printQuotationContactNumber").value;
+        var printQuotationContactEmail = document.getElementById("printQuotationContactEmail").value;
+        var QRefNo = document.getElementById("QRefNo").value;
+        var QDate = document.getElementById("QDate").value;
+        var ClientPONo = document.getElementById("ClientPONo").value;
+        var ClientPODate = document.getElementById("ClientPODate").value;
+        var LeadsRefNo = document.getElementById("LeadsRefNo").value;
+        var customerDetailArray = [];
+        customerDetailArray.push({
+            CustomerName: printQuotationCustomer,
+            CustomerAddress: printQuotationAddress,
+            CustomerContactPerson: printQuotationContactPerson,
+            CustomerContactNumber: printQuotationContactNumber,
+            CustomerContactEmail: printQuotationContactEmail,
+            QRefNumber: QRefNo,
+            QDate: QDate,
+            ClientPONo: ClientPONo,
+            LeadsRefNo: LeadsRefNo
+        });
+        var productArray = this.productCollectionArray;
+        var emptyProductArray = [];
+        for (var i = 0; i < productArray.length; i++) {
+            emptyProductArray.push({
+                Id: productArray[i].Id,
+                ProductCode: productArray[i].ProductCode,
+                ProductDescription: productArray[i].ProductDescription,
+                Price: productArray[i].Price,
+                Quantity: productArray[i].Quantity,
+                Amount: productArray[i].Amount
+            });
+        }
+        var paymentArray = this.quotationPaymentScheduleArray;
+        var emptyPaymentArray = [];
+        for (var i = 0; i < paymentArray.length; i++) {
+            emptyPaymentArray.push({
+                Id: paymentArray[i].Id,
+                Description: paymentArray[i].Description,
+                Amount: paymentArray[i].Amount,
+                Remarks: paymentArray[i].Remarks,
+            });
+        }
+        var printQuotationArray = [];
+        printQuotationArray.push({
+            CustomerName: printQuotationCustomer,
+            CustomerAddress: printQuotationAddress,
+            CustomerContactPerson: printQuotationContactPerson,
+            CustomerContactNumber: printQuotationContactNumber,
+            CustomerContactEmail: printQuotationContactEmail,
+            QRefNumber: QRefNo,
+            QDate: QDate,
+            ClientPONo: ClientPONo,
+            LeadsRefNo: LeadsRefNo,
+            ProdcutLists: emptyProductArray,
+            PaymentLists: emptyPaymentArray
+        });
+        this.quotationService.printQuotationPaper(this.getIdUrlParameter(), printQuotationArray);
     };
     // initialization
     QuotationDetailComponent.prototype.ngOnInit = function () {

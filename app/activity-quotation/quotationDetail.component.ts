@@ -51,7 +51,6 @@ export class QuotationDetailComponent implements OnInit {
   public quotationPrintRemarks: String;
   public printQuotationString: String;
   public isAddPayment: Boolean;
-
   public printQuotationCustomer: String;
   public printQuotationAddress: String;
   public printQuotatioContactPerson: String;
@@ -60,6 +59,19 @@ export class QuotationDetailComponent implements OnInit {
   public quotationCustomerSelectedIndex = 0;
   public isCustomerSelected = false;
   public isCustomerClicked = false;
+
+  public productCollectionView: wijmo.collections.CollectionView;
+  public productCollectionArray = new wijmo.collections.ObservableArray();
+  public productId: number = 0;
+  public printProductQuotationString: String;
+  public isAddProduct: Boolean;
+  public printQuotationProductCode: String;
+  public printQuotationProductDescription: String;
+  public printQuotationProductPrice: String;
+  public printQuotationProductQuantity: String;
+  public printQuotationProductAmount: String;
+
+
 
   // inject quotation detail service
   constructor(
@@ -112,23 +124,12 @@ export class QuotationDetailComponent implements OnInit {
         break;
       }
     }
+
     (<HTMLInputElement>document.getElementById("printQuotationCustomer")).value = this.quotationCustomerObservableArray[i].Article;
     (<HTMLInputElement>document.getElementById("printQuotationAddress")).value = this.quotationCustomerObservableArray[i].Address;
     (<HTMLInputElement>document.getElementById("printQuotationContactPerson")).value = this.quotationCustomerObservableArray[i].ContactPerson;
     (<HTMLInputElement>document.getElementById("printQuotationContactNumber")).value = this.quotationCustomerObservableArray[i].ContactNumber;
     (<HTMLInputElement>document.getElementById("printQuotationContactEmail")).value = this.quotationCustomerObservableArray[i].EmailAddress;
-
-    let searchTermForProduct = this.quotationProductSelectedValue;
-    let indexForProduct = -1;
-    let lenForProduct = this.quotationProductObservableArray.length;
-    for (var i = 0; i < lenForProduct; i++) {
-      if (this.quotationProductObservableArray[i].Id === searchTermForProduct) {
-        indexForProduct = i;
-        break;
-      }
-    }
-
-    (<HTMLInputElement>document.getElementById("printQuotationProduct")).value = this.quotationProductObservableArray[i].Article;
   }
 
   // quotation date value
@@ -226,13 +227,6 @@ export class QuotationDetailComponent implements OnInit {
     (<HTMLInputElement>document.getElementById("activityAmount")).value = "";
     setTimeout(() => {
       (<HTMLInputElement>document.getElementById("activityAmount")).value = this.activityAmount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-    }, 100);
-  }
-
-  public onBlurOnlyDecimalNumberKeyForPrintQuotation() {
-    (<HTMLInputElement>document.getElementById("quotationPrintAmount")).value = "";
-    setTimeout(() => {
-      (<HTMLInputElement>document.getElementById("quotationPrintAmount")).value = this.quotationPrintAmount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
     }, 100);
   }
 
@@ -340,23 +334,23 @@ export class QuotationDetailComponent implements OnInit {
       }
     }
 
-    (<HTMLInputElement>document.getElementById("printQuotationCustomer")).value = this.quotationCustomerObservableArray[i].Article;
-    (<HTMLInputElement>document.getElementById("printQuotationAddress")).value = this.quotationCustomerObservableArray[i].Address;
-    (<HTMLInputElement>document.getElementById("printQuotationContactPerson")).value = this.quotationCustomerObservableArray[i].ContactPerson;
-    (<HTMLInputElement>document.getElementById("printQuotationContactNumber")).value = this.quotationCustomerObservableArray[i].ContactNumber;
-    (<HTMLInputElement>document.getElementById("printQuotationContactEmail")).value = this.quotationCustomerObservableArray[i].EmailAddress;
+    (<HTMLInputElement>document.getElementById("printQuotationCustomer")).value = this.quotationCustomerObservableArray[index].Article;
+    (<HTMLInputElement>document.getElementById("printQuotationAddress")).value = this.quotationCustomerObservableArray[index].Address;
+    (<HTMLInputElement>document.getElementById("printQuotationContactPerson")).value = this.quotationCustomerObservableArray[index].ContactPerson;
+    (<HTMLInputElement>document.getElementById("printQuotationContactNumber")).value = this.quotationCustomerObservableArray[index].ContactNumber;
+    (<HTMLInputElement>document.getElementById("printQuotationContactEmail")).value = this.quotationCustomerObservableArray[index].EmailAddress;
+  }
 
-    let searchTermForProduct = this.quotationProductSelectedValue;
-    let indexForProduct = -1;
-    let lenForProduct = this.quotationProductObservableArray.length;
-    for (var i = 0; i < lenForProduct; i++) {
-      if (this.quotationProductObservableArray[i].Id === searchTermForProduct) {
-        indexForProduct = i;
-        break;
-      }
-    }
+  public paymentTabClick() {
+    setTimeout(() => {
+      this.paymentScheduleData();
+    }, 500);
+  }
 
-    (<HTMLInputElement>document.getElementById("printQuotationProduct")).value = this.quotationProductObservableArray[i].Article;
+  public productTabClick() {
+    setTimeout(() => {
+      this.productProductData();
+    }, 500);
   }
 
   public paymentScheduleData() {
@@ -371,6 +365,10 @@ export class QuotationDetailComponent implements OnInit {
     (<HTMLInputElement>document.getElementById("quotationPrintDescription")).value = "";
     (<HTMLInputElement>document.getElementById("quotationPrintAmount")).value = "0";
     (<HTMLInputElement>document.getElementById("quotationPrintRemarks")).value = "";
+
+    this.quotationPrintDescription = "";
+    this.quotationPrintAmount = "0";
+    this.quotationPrintRemarks = "";
   }
 
   public btnAddPaymentDataClick() {
@@ -423,8 +421,192 @@ export class QuotationDetailComponent implements OnInit {
     (<HTMLInputElement>document.getElementById("quotationPrintRemarks")).value = currentSelectedPayment.Remarks;
   }
 
+  public productProductData() {
+    this.productCollectionView = new wijmo.collections.CollectionView(this.productCollectionArray);
+    this.productCollectionView.pageSize = 7;
+    this.productCollectionView.trackChanges = true;
+  }
+
+  public productOnclick() {
+    this.printProductQuotationString = "Add";
+    this.isAddProduct = true;
+    (<HTMLInputElement>document.getElementById("printQuotationProductCode")).value = "";
+    (<HTMLInputElement>document.getElementById("printQuotationProductDescription")).value = "";
+    (<HTMLInputElement>document.getElementById("printQuotationProductPrice")).value = "0";
+    (<HTMLInputElement>document.getElementById("printQuotationProductQuantity")).value = "0";
+    (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value = "0";
+
+    this.printQuotationProductCode = "";
+    this.printQuotationProductDescription = "";
+    this.printQuotationProductPrice = "0";
+    this.printQuotationProductQuantity = "0";
+    this.printQuotationProductAmount = "0";
+
+    let searchTerm = this.quotationProductSelectedValue;
+    let index = -1;
+    let len = this.quotationProductObservableArray.length;
+    for (var i = 0; i < len; i++) {
+      if (this.quotationProductObservableArray[i].Id === searchTerm) {
+        index = i;
+        break;
+      }
+    }
+
+    (<HTMLInputElement>document.getElementById("printQuotationProductCode")).value = this.quotationProductObservableArray[index].ArticleCode;
+    (<HTMLInputElement>document.getElementById("printQuotationProductDescription")).value = this.quotationProductObservableArray[index].Article;
+  }
+
+  public btnAddProductDataClick() {
+    this.printQuotationProductCode = (<HTMLInputElement>document.getElementById("printQuotationProductCode")).value;
+    this.printQuotationProductDescription = (<HTMLInputElement>document.getElementById("printQuotationProductDescription")).value;
+    this.printQuotationProductPrice = (<HTMLInputElement>document.getElementById("printQuotationProductPrice")).value;
+    this.printQuotationProductQuantity = (<HTMLInputElement>document.getElementById("printQuotationProductQuantity")).value;
+    this.printQuotationProductAmount = (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value;
+
+    if (this.isAddProduct) {
+      this.productId += 1;
+      this.productCollectionArray.push({
+        Id: this.productId,
+        ProductCode: this.printQuotationProductCode,
+        ProductDescription: this.printQuotationProductDescription,
+        Price: this.printQuotationProductPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+        Quantity: this.printQuotationProductQuantity.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
+        Amount: this.printQuotationProductAmount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+      });
+    } else {
+      let currentSelectedProduct = this.productCollectionView.currentItem;
+      currentSelectedProduct.ProductCode = this.printQuotationProductCode;
+      currentSelectedProduct.ProductDescription = this.printQuotationProductDescription;
+      currentSelectedProduct.Price = this.printQuotationProductPrice;
+      currentSelectedProduct.Quantity = this.printQuotationProductQuantity;
+      currentSelectedProduct.Amount = this.printQuotationProductAmount;
+    }
+
+    this.productProductData();
+    (<HTMLInputElement>document.getElementById("btnProductCloseModal")).click();
+  }
+
+  public productEdit() {
+    this.printProductQuotationString = "Edit";
+    this.isAddProduct = false;
+    let currentSelectedProduct = this.productCollectionView.currentItem;
+    (<HTMLInputElement>document.getElementById("printQuotationProductCode")).value = currentSelectedProduct.ProductCode;
+    (<HTMLInputElement>document.getElementById("printQuotationProductDescription")).value = currentSelectedProduct.ProductDescription;
+    (<HTMLInputElement>document.getElementById("printQuotationProductPrice")).value = currentSelectedProduct.Price;
+    (<HTMLInputElement>document.getElementById("printQuotationProductQuantity")).value = currentSelectedProduct.Quantity;
+    (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value = currentSelectedProduct.Amount;
+  }
+
+  public btnProductDeleteConfirmationClick() {
+    let currentSelectedProduct = this.productCollectionView.currentItem;
+    let searchTerm = currentSelectedProduct.Id;
+    let index = -1;
+
+    for (var i = 0, len = this.productCollectionArray.length; i < len; i++) {
+      if (this.productCollectionArray[i].Id === searchTerm) {
+        index = i;
+        break;
+      }
+    }
+
+    this.productCollectionArray.splice(index, 1);
+    this.productProductData();
+    (<HTMLInputElement>document.getElementById("btProductCloseDeleteConfirmation")).click();
+  }
+
+  public onBlurOnlyDecimalNumberKeyForPrintQuotation() {
+    (<HTMLInputElement>document.getElementById("quotationPrintAmount")).value = "";
+    setTimeout(() => {
+      (<HTMLInputElement>document.getElementById("quotationPrintAmount")).value = this.quotationPrintAmount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    }, 100);
+  }
+
+  public onBlurOnlyDecimalNumberKeyForProductPricePrintQuotation() {
+    (<HTMLInputElement>document.getElementById("printQuotationProductPrice")).value = "";
+    setTimeout(() => {
+      (<HTMLInputElement>document.getElementById("printQuotationProductPrice")).value = this.printQuotationProductPrice.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    }, 100);
+  }
+
+  public onBlurOnlyDecimalNumberKeyForProductQuantityPrintQuotation() {
+    (<HTMLInputElement>document.getElementById("printQuotationProductQuantity")).value = "";
+    setTimeout(() => {
+      (<HTMLInputElement>document.getElementById("printQuotationProductQuantity")).value = this.printQuotationProductQuantity.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    }, 100);
+  }
+
+  public onBlurOnlyDecimalNumberKeyForProductAmountPrintQuotation() {
+    (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value = "";
+    setTimeout(() => {
+      (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value = this.printQuotationProductAmount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    }, 100);
+  }
+
   public btnPrintQuotationDetailPrintButtonClick() {
-    console.log("/UrlSample/" + JSON.stringify(this.quotationPaymentScheduleArray));
+    var printQuotationCustomer = (<HTMLInputElement>document.getElementById("printQuotationCustomer")).value;
+    var printQuotationAddress = (<HTMLInputElement>document.getElementById("printQuotationAddress")).value;
+    var printQuotationContactPerson = (<HTMLInputElement>document.getElementById("printQuotationContactPerson")).value;
+    var printQuotationContactNumber = (<HTMLInputElement>document.getElementById("printQuotationContactNumber")).value;
+    var printQuotationContactEmail = (<HTMLInputElement>document.getElementById("printQuotationContactEmail")).value;
+    var QRefNo = (<HTMLInputElement>document.getElementById("QRefNo")).value;
+    var QDate = (<HTMLInputElement>document.getElementById("QDate")).value;
+    var ClientPONo = (<HTMLInputElement>document.getElementById("ClientPONo")).value;
+    var ClientPODate = (<HTMLInputElement>document.getElementById("ClientPODate")).value;
+    var LeadsRefNo = (<HTMLInputElement>document.getElementById("LeadsRefNo")).value;
+
+    var customerDetailArray = [];
+    customerDetailArray.push({
+      CustomerName: printQuotationCustomer,
+      CustomerAddress: printQuotationAddress,
+      CustomerContactPerson: printQuotationContactPerson,
+      CustomerContactNumber: printQuotationContactNumber,
+      CustomerContactEmail: printQuotationContactEmail,
+      QRefNumber: QRefNo,
+      QDate: QDate,
+      ClientPONo: ClientPONo,
+      LeadsRefNo: LeadsRefNo
+    });
+
+    var productArray = this.productCollectionArray;
+    var emptyProductArray = [];
+    for (var i = 0; i < productArray.length; i++) {
+      emptyProductArray.push({
+        Id: productArray[i].Id,
+        ProductCode: productArray[i].ProductCode,
+        ProductDescription: productArray[i].ProductDescription,
+        Price: productArray[i].Price,
+        Quantity: productArray[i].Quantity,
+        Amount: productArray[i].Amount
+      });
+    }
+
+    var paymentArray = this.quotationPaymentScheduleArray;
+    var emptyPaymentArray = [];
+    for (var i = 0; i < paymentArray.length; i++) {
+      emptyPaymentArray.push({
+        Id: paymentArray[i].Id,
+        Description: paymentArray[i].Description,
+        Amount: paymentArray[i].Amount,
+        Remarks: paymentArray[i].Remarks,
+      });
+    }
+
+    var printQuotationArray = [];
+    printQuotationArray.push({
+      CustomerName: printQuotationCustomer,
+      CustomerAddress: printQuotationAddress,
+      CustomerContactPerson: printQuotationContactPerson,
+      CustomerContactNumber: printQuotationContactNumber,
+      CustomerContactEmail: printQuotationContactEmail,
+      QRefNumber: QRefNo,
+      QDate: QDate,
+      ClientPONo: ClientPONo,
+      LeadsRefNo: LeadsRefNo,
+      ProdcutLists: emptyProductArray,
+      PaymentLists: emptyPaymentArray
+    });
+
+    this.quotationService.printQuotationPaper(this.getIdUrlParameter(), printQuotationArray);
   }
 
   // initialization

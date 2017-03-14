@@ -58,6 +58,7 @@ export class QuotationService {
                     for (var i = 0; i <= results.length - 1; i++) {
                         customerObservableArray.push({
                             Id: results[i].Id,
+                            ArticleCode: results[i].ArticleCode,
                             Article: results[i].Article,
                             Address: results[i].Address,
                             ContactPerson: results[i].ContactPerson,
@@ -346,6 +347,21 @@ export class QuotationService {
                 (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                 (<HTMLButtonElement>document.getElementById("btnActivityDeleteConfirmation")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnActivityCloseDeleteConfirmation")).disabled = false;
+            }
+        )
+    }
+
+    public printQuotationPaper(id: number, quotationObject: Object) {
+        console.log(JSON.stringify(quotationObject));
+        let url = "http://localhost:22626/RepQuotationDetail/quotationDetail?quotationId=" + id;
+        this.http.post(url, JSON.stringify(quotationObject), this.options).subscribe(
+            response => {
+                var blobFile = new Blob([response.blob()], { type: 'application/pdf' });
+                var fileURL = URL.createObjectURL(blobFile);
+                window.open(fileURL);
+            },
+            error => {
+                alert("Error");
             }
         )
     }

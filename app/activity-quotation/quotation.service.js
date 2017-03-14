@@ -59,6 +59,7 @@ var QuotationService = (function () {
                 for (var i = 0; i <= results.length - 1; i++) {
                     customerObservableArray.push({
                         Id: results[i].Id,
+                        ArticleCode: results[i].ArticleCode,
                         Article: results[i].Article,
                         Address: results[i].Address,
                         ContactPerson: results[i].ContactPerson,
@@ -313,6 +314,17 @@ var QuotationService = (function () {
             document.getElementById("btnActivityDeleteConfirmation").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
             document.getElementById("btnActivityDeleteConfirmation").disabled = false;
             document.getElementById("btnActivityCloseDeleteConfirmation").disabled = false;
+        });
+    };
+    QuotationService.prototype.printQuotationPaper = function (id, quotationObject) {
+        console.log(JSON.stringify(quotationObject));
+        var url = "http://localhost:22626/RepQuotationDetail/quotationDetail?quotationId=" + id;
+        this.http.post(url, JSON.stringify(quotationObject), this.options).subscribe(function (response) {
+            var blobFile = new Blob([response.blob()], { type: 'application/pdf' });
+            var fileURL = URL.createObjectURL(blobFile);
+            window.open(fileURL);
+        }, function (error) {
+            alert("Error");
         });
     };
     QuotationService = __decorate([
