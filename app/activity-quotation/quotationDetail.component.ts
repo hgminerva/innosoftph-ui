@@ -59,7 +59,6 @@ export class QuotationDetailComponent implements OnInit {
   public quotationCustomerSelectedIndex = 0;
   public isCustomerSelected = false;
   public isCustomerClicked = false;
-
   public productCollectionView: wijmo.collections.CollectionView;
   public productCollectionArray = new wijmo.collections.ObservableArray();
   public productId: number = 0;
@@ -70,8 +69,14 @@ export class QuotationDetailComponent implements OnInit {
   public printQuotationProductPrice: String;
   public printQuotationProductQuantity: String;
   public printQuotationProductAmount: String;
-
-
+  public timelineCollectionView: wijmo.collections.CollectionView;
+  public quotationTimeLineArray = new wijmo.collections.ObservableArray();
+  public timelineId: number = 0;
+  public printQuotationTimeLineProduct: String;
+  public printQuotationTimeLine: String;
+  public printQuotationTimeLineRemarks: String;
+  public printTimelineQuotationString: String;
+  public isAddtTimeline: Boolean;
 
   // inject quotation detail service
   constructor(
@@ -213,13 +218,25 @@ export class QuotationDetailComponent implements OnInit {
   }
 
   // on key press decimal key
-  public onKeyPressOnlyDecimalNumberKey(event: any) {
+  public onKeyPressOnlyDecimalNumberKey(event: any, inputComputeName: String) {
     let charCode = (event.which) ? event.which : event.keyCode;
     if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
       return false;
     } else {
       return true;
     }
+  }
+
+  public priceOnKeyEvent(event: any) {
+    var price = parseFloat(event.target.value.split(',').join(''));
+    var quantity = parseFloat((<HTMLInputElement>document.getElementById("printQuotationProductQuantity")).value.split(',').join(''));
+    (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value = (price * quantity).toLocaleString();
+  }
+
+  public quantityOnKeyEvent(event: any) {
+    var quantity = parseFloat(event.target.value.split(',').join(''));
+    var price = parseFloat((<HTMLInputElement>document.getElementById("printQuotationProductPrice")).value.split(',').join(''));
+    (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value = (price * quantity).toLocaleString();
   }
 
   // on blur 
@@ -574,9 +591,9 @@ export class QuotationDetailComponent implements OnInit {
         Id: productArray[i].Id,
         ProductCode: productArray[i].ProductCode,
         ProductDescription: productArray[i].ProductDescription,
-        Price: productArray[i].Price,
-        Quantity: productArray[i].Quantity,
-        Amount: productArray[i].Amount
+        Price: parseFloat(productArray[i].Price.split(',').join('')),
+        Quantity: parseFloat(productArray[i].Quantity.split(',').join('')),
+        Amount: parseFloat(productArray[i].Amount.split(',').join(''))
       });
     }
 
@@ -586,8 +603,19 @@ export class QuotationDetailComponent implements OnInit {
       emptyPaymentArray.push({
         Id: paymentArray[i].Id,
         Description: paymentArray[i].Description,
-        Amount: paymentArray[i].Amount,
-        Remarks: paymentArray[i].Remarks,
+        Amount: parseFloat(paymentArray[i].Amount.split(',').join('')),
+        Remarks: paymentArray[i].Remarks
+      });
+    }
+
+    var timelineArray = this.quotationTimeLineArray;
+    var emptyTimelineArray = [];
+    for (var i = 0; i < timelineArray.length; i++) {
+      emptyTimelineArray.push({
+        Id: timelineArray[i].Id,
+        Product: timelineArray[i].Product,
+        Timeline: timelineArray[i].Timeline,
+        Remarks: timelineArray[i].Remarks
       });
     }
 
@@ -603,10 +631,97 @@ export class QuotationDetailComponent implements OnInit {
       ClientPONo: ClientPONo,
       LeadsRefNo: LeadsRefNo,
       ProdcutLists: emptyProductArray,
-      PaymentLists: emptyPaymentArray
+      PaymentLists: emptyPaymentArray,
+      TimelineLists: emptyTimelineArray
     });
 
     this.quotationService.printQuotationPaper(this.getIdUrlParameter(), printQuotationArray);
+  }
+
+  public timeLineTabClick() {
+    setTimeout(() => {
+      this.timelinecheduleData();
+    }, 500);
+  }
+
+  public timelinecheduleData() {
+    this.timelineCollectionView = new wijmo.collections.CollectionView(this.quotationTimeLineArray);
+    this.timelineCollectionView.pageSize = 7;
+    this.timelineCollectionView.trackChanges = true;
+  }
+
+  public timelineOnclick() {
+    this.printTimelineQuotationString = "Add";
+    this.isAddtTimeline = true;
+    (<HTMLInputElement>document.getElementById("printQuotationTimeLineProduct")).value = "";
+    (<HTMLInputElement>document.getElementById("printQuotationTimeLine")).value = "";
+    (<HTMLInputElement>document.getElementById("printQuotationTimeLineRemarks")).value = "";
+
+    this.printQuotationTimeLineProduct = "";
+    this.printQuotationTimeLine = "";
+    this.printQuotationTimeLineRemarks = "";
+
+    let searchTerm = this.quotationProductSelectedValue;
+    let index = -1;
+    let len = this.quotationProductObservableArray.length;
+    for (var i = 0; i < len; i++) {
+      if (this.quotationProductObservableArray[i].Id === searchTerm) {
+        index = i;
+        break;
+      }
+    }
+
+    (<HTMLInputElement>document.getElementById("printQuotationTimeLineProduct")).value = this.quotationProductObservableArray[index].Article;
+  }
+
+  public btnAddtimelineDataClick() {
+    this.printQuotationTimeLineProduct = (<HTMLInputElement>document.getElementById("printQuotationTimeLineProduct")).value;
+    this.printQuotationTimeLine = (<HTMLInputElement>document.getElementById("printQuotationTimeLine")).value;
+    this.printQuotationTimeLineRemarks = (<HTMLInputElement>document.getElementById("printQuotationTimeLineRemarks")).value;
+
+    if (this.isAddtTimeline) {
+      this.timelineId += 1;
+      this.quotationTimeLineArray.push({
+        Id: this.timelineId,
+        Product: this.printQuotationTimeLineProduct,
+        Timeline: this.printQuotationTimeLine,
+        Remarks: this.printQuotationTimeLineRemarks
+      });
+    } else {
+      let currentSelectedPayment = this.timelineCollectionView.currentItem;
+      currentSelectedPayment.Product = this.printQuotationTimeLineProduct;
+      currentSelectedPayment.Timeline = this.printQuotationTimeLine;
+      currentSelectedPayment.Remarks = this.printQuotationTimeLineRemarks;
+    }
+
+    this.timelinecheduleData();
+    (<HTMLInputElement>document.getElementById("btntimelineCloseModal")).click();
+  }
+
+  public btnTimelineDeleteConfirmationClick() {
+    let currentSelectedTimeLine = this.timelineCollectionView.currentItem;
+    let searchTerm = currentSelectedTimeLine.Id;
+    let index = -1;
+
+    for (var i = 0, len = this.quotationTimeLineArray.length; i < len; i++) {
+      if (this.quotationTimeLineArray[i].Id === searchTerm) {
+        index = i;
+        break;
+      }
+    }
+
+    this.quotationTimeLineArray.splice(index, 1);
+    this.timelinecheduleData();
+    (<HTMLInputElement>document.getElementById("btnTimelineCloseDeleteConfirmation")).click();
+  }
+
+  public timelineEdit() {
+    this.printTimelineQuotationString = "Edit";
+    this.isAddtTimeline = false;
+    let currentSelectedPayment = this.timelineCollectionView.currentItem;
+    (<HTMLInputElement>document.getElementById("printQuotationTimeLineProduct")).value = currentSelectedPayment.Product;
+    (<HTMLInputElement>document.getElementById("printQuotationTimeLine")).value = currentSelectedPayment.Timeline;
+    (<HTMLInputElement>document.getElementById("printQuotationTimeLineRemarks")).value = currentSelectedPayment.Remarks;
   }
 
   // initialization

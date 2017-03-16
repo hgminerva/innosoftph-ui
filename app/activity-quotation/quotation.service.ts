@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions } from '@angular/http';
+import { Headers, Http, RequestOptions, RequestMethod, ResponseContentType } from '@angular/http';
 import { Router } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
+import * as saveAs from 'file-saver';
 
 @Injectable()
 export class QuotationService {
@@ -351,18 +352,43 @@ export class QuotationService {
         )
     }
 
-    public printQuotationPaper(id: number, quotationObject: Object) {
-        console.log(JSON.stringify(quotationObject));
+    // this is my previous code - not working
+    // public printQuotationPaper(id: number, quotationObject: Object) {
+    //     console.log(JSON.stringify(quotationObject));
+    //     let url = "http://localhost:22626/RepQuotationDetail/quotationDetail?quotationId=" + id;
+    //     this.http.post(url, JSON.stringify(quotationObject), this.options).subscribe(
+    //         (response) => {
+    //             var mediaType = 'application/pdf';
+    //             var blobFile = new Blob([(<any>response)._body], { type: mediaType });
+    //             var filename = 'test.pdf';
+    //             saveAs(blobFile, filename);
+    //             console.log((<any>response)._body);
+    //             // var fileURL = URL.createObjectURL(blobFile);
+    //             // window.open(fileURL);
+    //             // console.log(fileURL);
+    //         },
+    //         error => {
+    //             alert("Error");
+    //         }
+    //     )
+    // }
+
+    printQuotationPaper(id: number, quotationObject: Object) { //get file from service
+        // let url = "http://api.innosoft.ph/RepQuotationDetail/quotationDetail?quotationId=" + id;
         let url = "http://localhost:22626/RepQuotationDetail/quotationDetail?quotationId=" + id;
-        this.http.post(url, JSON.stringify(quotationObject), this.options).subscribe(
-            response => {
-                var blobFile = new Blob([response.blob()], { type: 'application/pdf' });
-                var fileURL = URL.createObjectURL(blobFile);
-                window.open(fileURL);
-            },
-            error => {
-                alert("Error");
-            }
-        )
+        this.http.post(url, JSON.stringify(quotationObject), {
+            method: RequestMethod.Post,
+            responseType: ResponseContentType.Blob,
+            headers: new Headers({
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                'Content-Type': 'application/json'
+            })
+        }).subscribe((response) => {
+            var blob = new Blob([response.blob()], { type: 'application/pdf' });
+            var filename = 'file.pdf';
+            // saveAs(blob, filename);
+            var fileURL = URL.createObjectURL(blob);
+            window.open(fileURL);
+        });
     }
 }

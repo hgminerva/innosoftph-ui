@@ -316,15 +316,42 @@ var QuotationService = (function () {
             document.getElementById("btnActivityCloseDeleteConfirmation").disabled = false;
         });
     };
+    // this is my previous code - not working
+    // public printQuotationPaper(id: number, quotationObject: Object) {
+    //     console.log(JSON.stringify(quotationObject));
+    //     let url = "http://localhost:22626/RepQuotationDetail/quotationDetail?quotationId=" + id;
+    //     this.http.post(url, JSON.stringify(quotationObject), this.options).subscribe(
+    //         (response) => {
+    //             var mediaType = 'application/pdf';
+    //             var blobFile = new Blob([(<any>response)._body], { type: mediaType });
+    //             var filename = 'test.pdf';
+    //             saveAs(blobFile, filename);
+    //             console.log((<any>response)._body);
+    //             // var fileURL = URL.createObjectURL(blobFile);
+    //             // window.open(fileURL);
+    //             // console.log(fileURL);
+    //         },
+    //         error => {
+    //             alert("Error");
+    //         }
+    //     )
+    // }
     QuotationService.prototype.printQuotationPaper = function (id, quotationObject) {
-        console.log(JSON.stringify(quotationObject));
+        // let url = "http://api.innosoft.ph/RepQuotationDetail/quotationDetail?quotationId=" + id;
         var url = "http://localhost:22626/RepQuotationDetail/quotationDetail?quotationId=" + id;
-        this.http.post(url, JSON.stringify(quotationObject), this.options).subscribe(function (response) {
-            var blobFile = new Blob([response.blob()], { type: 'application/pdf' });
-            var fileURL = URL.createObjectURL(blobFile);
+        this.http.post(url, JSON.stringify(quotationObject), {
+            method: http_1.RequestMethod.Post,
+            responseType: http_1.ResponseContentType.Blob,
+            headers: new http_1.Headers({
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                'Content-Type': 'application/json'
+            })
+        }).subscribe(function (response) {
+            var blob = new Blob([response.blob()], { type: 'application/pdf' });
+            var filename = 'file.pdf';
+            // saveAs(blob, filename);
+            var fileURL = URL.createObjectURL(blob);
             window.open(fileURL);
-        }, function (error) {
-            alert("Error");
         });
     };
     QuotationService = __decorate([

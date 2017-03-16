@@ -337,73 +337,78 @@
                     <li class="active"><a data-toggle="tab" href="#customer">Customer</a></li>
                     <li><a data-toggle="tab" href="#product" (click)="productTabClick()">Product / Service</a></li>
                     <li><a data-toggle="tab" href="#payment" (click)="paymentTabClick()">Payment Schedule</a></li>
+                    <li><a data-toggle="tab" href="#timeline" (click)="timeLineTabClick()">Project Timeline and Delivery</a></li>
                 </ul>
                 <br />
                 <div class="tab-content">
                     <div id="customer" class="tab-pane fade in active">
-                        <div class="form-horizontal">
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-4">Customer</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="printQuotationCustomer" placeholder="Customer Name" />
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="form-horizontal">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4">Customer</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="printQuotationCustomer" placeholder="Customer Name" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4">Address</label>
+                                                <div class="col-sm-8">
+                                                    <textarea class="form-control" rows="5" id="printQuotationAddress" name="printQuotationAddress" placeholder="Address"></textarea>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4">Contact Person</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="printQuotationContactPerson" placeholder="Contact Person" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4">Contact Number</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="printQuotationContactNumber" placeholder="Contact Number" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4">Contact Email</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="printQuotationContactEmail" placeholder="Contact Email" />
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-4">Address</label>
-                                        <div class="col-sm-8">
-                                            <textarea class="form-control" rows="5" id="printQuotationAddress" name="printQuotationAddress" placeholder="Address"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-4">Contact Person</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="printQuotationContactPerson" placeholder="Contact Person" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-4">Contact Number</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="printQuotationContactNumber" placeholder="Contact Number" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-4">Contact Email</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="printQuotationContactEmail" placeholder="Contact Email" />
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-4">QRef No</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="QRefNo" placeholder="QRef No" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-4">Date</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="QDate" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-4">Client PO No</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="ClientPONo" placeholder="Client PO No" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-4">Client PO Date</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="ClientPODate" placeholder="Client PO Date" />
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-4">Leads Ref No</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="LeadsRefNo" placeholder="Leads Ref No" />
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4">QRef No</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="QRefNo" placeholder="QRef No" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4">Date</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="QDate" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4">Client PO No</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="ClientPONo" placeholder="Client PO No" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4">Client PO Date</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="ClientPODate" placeholder="Client PO Date" />
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label col-sm-4">Leads Ref No</label>
+                                                <div class="col-sm-8">
+                                                    <input type="text" class="form-control" id="LeadsRefNo" placeholder="Leads Ref No" />
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -518,6 +523,58 @@
                             </div>
                         </div>
                     </div>
+                    <div id="timeline" class="tab-pane fade">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" align="right">
+                                <button class="btn btn-primary" (click)="timelineOnclick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#quotation-print-add-timeline"><i class="fa fa-plus fa-fw"></i> Add</button>
+                            </div>
+                            <div class="panel-body">
+                                <wj-flex-grid [itemsSource]="timelineCollectionView" [selectionMode]="3" style="border-radius: 0px;">
+                                    <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="70">
+                                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                                            <button class="btn btn-primary btn-xs btn-block" (click)="timelineEdit()" data-toggle="modal"  data-backdrop="static" data-keyboard="false" data-target="#quotation-print-add-timeline">
+                                                <i class="fa fa-edit fa-fw"></i> Edit
+                                            </button>
+                                        </template>
+                                    </wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="90">
+                                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                                            <button class="btn btn-danger btn-xs btn-block" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#timeline-delete-confirmation-modal">
+                                                <i class="fa fa-trash fa-fw"></i> Remove
+                                            </button>
+                                        </template>
+                                    </wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'Product'" [binding]="'Product'" [isReadOnly]="true" [width]="'1*'">
+                                    </wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'Estimated Timeline'" [binding]="'Timeline'" [isReadOnly]="true" [width]="'1.5*'" [align]="'right'">
+                                    </wj-flex-grid-column>
+                                    <wj-flex-grid-column [header]="'Remarks'" [binding]="'Remarks'" [isReadOnly]="true" [width]="'1.5*'">
+                                    </wj-flex-grid-column>
+                                </wj-flex-grid>
+                            </div>
+                             <div class="panel-footer">
+                                <div class="row">
+                                    <div class="col-sm-12 btn-group" id="">
+                                        <button type="button" class="btn btn-default" (click)="timelineCollectionView.moveToFirstPage()">
+                                            <span class="glyphicon glyphicon-fast-backward"></span> First
+                                        </button>
+                                        <button type="button" class="btn btn-default" (click)="timelineCollectionView.moveToPreviousPage()">
+                                            <span class="glyphicon glyphicon-step-backward"></span> Previous
+                                        </button>
+                                        <!--<button type="button" class="btn btn-default" disabled  style="width:100px">
+                                            {{ timelineCollectionView.pageIndex + 1 }} / {{ timelineCollectionView.pageCount }}
+                                        </button>-->
+                                        <button type="button" class="btn btn-default" (click)="timelineCollectionView.moveToNextPage()">
+                                            Next <span class="glyphicon glyphicon-step-forward"></span>
+                                        </button>
+                                        <button type="button" class="btn btn-default" (click)="timelineCollectionView.moveToLastPage()">
+                                            Last <span class="glyphicon glyphicon-fast-forward"></span>
+                                        </button>
+                                    </div> 
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="modal-footer" align="right">
@@ -607,13 +664,13 @@
                     <div class="form-group">
                         <label class="control-label col-sm-4">Price</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" style="text-align: right;" [(ngModel)]="printQuotationProductPrice" id="printQuotationProductPrice" (keypress)="onKeyPressOnlyDecimalNumberKey($event)" (blur)="onBlurOnlyDecimalNumberKeyForProductPricePrintQuotation()"  placeholder="Price" />
+                            <input type="text" class="form-control" style="text-align: right;" (keyup)="priceOnKeyEvent($event)" [(ngModel)]="printQuotationProductPrice" id="printQuotationProductPrice" (keypress)="onKeyPressOnlyDecimalNumberKey($event)" (blur)="onBlurOnlyDecimalNumberKeyForProductPricePrintQuotation()"  placeholder="Price" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4">Quantity</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" style="text-align: right;" [(ngModel)]="printQuotationProductQuantity" id="printQuotationProductQuantity" (keypress)="onKeyPressOnlyDecimalNumberKey($event)" (blur)="onBlurOnlyDecimalNumberKeyForProductQuantityPrintQuotation()"  placeholder="Quantity" />
+                            <input type="text" class="form-control" style="text-align: right;" (keyup)="quantityOnKeyEvent($event)"  [(ngModel)]="printQuotationProductQuantity" id="printQuotationProductQuantity" (keypress)="onKeyPressOnlyDecimalNumberKey($event)" (blur)="onBlurOnlyDecimalNumberKeyForProductQuantityPrintQuotation()"  placeholder="Quantity" />
                         </div>
                     </div>
                     <div class="form-group">
@@ -645,6 +702,61 @@
             <div class="modal-footer" align="right">
                 <button type="button" class="btn btn-danger" id="btnProductDeleteConfirmation" (click)="btnProductDeleteConfirmationClick()"><i class="fa fa-trash fa-fw"></i> Delete </button>
                 <button type="button" class="btn btn-default" id="btProductCloseDeleteConfirmation" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- quotation timeline modal -->
+<div class="modal fade" id="quotation-print-add-timeline" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ printTimelineQuotationString }} Timeline Schedule</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Product</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="printQuotationTimeLineProduct" placeholder="Product" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Estimated TimeLine</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" rows="3" id="printQuotationTimeLine" name="printQuotationTimeLine" placeholder="Timeline"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Remarks</label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" rows="5" [(ngModel)]="printQuotationTimeLineRemarks" id="printQuotationTimeLineRemarks" name="printQuotationTimeLineRemarks" placeholder="Remarks"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" align="right">
+                <button type="button" class="btn btn-primary" id="btnAddtimelineData" (click)="btnAddtimelineDataClick()"><i class="fa fa-plus fa-fw"></i> Save</button>
+                <button type="button" class="btn btn-default" id="btntimelineCloseModal" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- delete modal -->
+<div class="modal fade" id="timeline-delete-confirmation-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete</h4>
+            </div>
+            <div class="modal-body">
+                Delete Timeline Schedule?
+            </div>
+            <div class="modal-footer" align="right">
+                <button type="button" class="btn btn-danger" id="btnTimelineDeleteConfirmation" (click)="btnTimelineDeleteConfirmationClick()"><i class="fa fa-trash fa-fw"></i> Delete</button>
+                <button type="button" class="btn btn-default" id="btnTimelineCloseDeleteConfirmation" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
             </div>
         </div>
     </div>
