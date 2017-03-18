@@ -374,8 +374,8 @@ export class QuotationService {
     // }
 
     printQuotationPaper(id: number, quotationObject: Object) { //get file from service
-        // let url = "http://api.innosoft.ph/RepQuotationDetail/quotationDetail?quotationId=" + id;
-        let url = "http://localhost:22626/RepQuotationDetail/quotationDetail?quotationId=" + id;
+        let url = "http://api.innosoft.ph/RepQuotationDetail/quotationDetail?quotationId=" + id;
+        // let url = "http://localhost:22626/RepQuotationDetail/quotationDetail?quotationId=" + id;
         this.http.post(url, JSON.stringify(quotationObject), {
             method: RequestMethod.Post,
             responseType: ResponseContentType.Blob,

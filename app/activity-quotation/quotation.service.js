@@ -337,8 +337,8 @@ var QuotationService = (function () {
     //     )
     // }
     QuotationService.prototype.printQuotationPaper = function (id, quotationObject) {
-        // let url = "http://api.innosoft.ph/RepQuotationDetail/quotationDetail?quotationId=" + id;
-        var url = "http://localhost:22626/RepQuotationDetail/quotationDetail?quotationId=" + id;
+        var url = "http://api.innosoft.ph/RepQuotationDetail/quotationDetail?quotationId=" + id;
+        // let url = "http://localhost:22626/RepQuotationDetail/quotationDetail?quotationId=" + id;
         this.http.post(url, JSON.stringify(quotationObject), {
             method: http_1.RequestMethod.Post,
             responseType: http_1.ResponseContentType.Blob,

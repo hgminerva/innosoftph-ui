@@ -45,6 +45,8 @@ var QuotationDetailComponent = (function () {
         this.productId = 0;
         this.quotationTimeLineArray = new wijmo.collections.ObservableArray();
         this.timelineId = 0;
+        this.quotationPrintPreparedByUserObservableArray = new wijmo.collections.ObservableArray();
+        this.quotationPrintApprovedByUserObservableArray = new wijmo.collections.ObservableArray();
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -283,6 +285,22 @@ var QuotationDetailComponent = (function () {
         document.getElementById("printQuotationContactPerson").value = this.quotationCustomerObservableArray[index].ContactPerson;
         document.getElementById("printQuotationContactNumber").value = this.quotationCustomerObservableArray[index].ContactNumber;
         document.getElementById("printQuotationContactEmail").value = this.quotationCustomerObservableArray[index].EmailAddress;
+        var qRefNumber = document.getElementById("quotationNumber").value;
+        var qDate = document.getElementById("quotationDateValue").value;
+        document.getElementById("QRefNo").value = "QN-" + qRefNumber;
+        document.getElementById("QDate").value = qDate;
+        var searchLeadTerm = this.quotationLeadSelectedValue;
+        var leadIndex = -1;
+        var leadLen = this.quotationLeadObservableArray.length;
+        for (var i = 0; i < leadLen; i++) {
+            if (this.quotationLeadObservableArray[i].Id === searchLeadTerm) {
+                leadIndex = i;
+                break;
+            }
+        }
+        document.getElementById("LeadsRefNo").value = "LN-" + this.quotationLeadObservableArray[leadIndex].LeadNumber;
+        this.quotationPrintPreparedByUserObservableArray = this.quotationService.getListUserData("quotationDetail");
+        this.quotationPrintApprovedByUserObservableArray = this.quotationService.getListUserData("quotationDetail");
     };
     QuotationDetailComponent.prototype.paymentTabClick = function () {
         var _this = this;
@@ -533,7 +551,9 @@ var QuotationDetailComponent = (function () {
             LeadsRefNo: LeadsRefNo,
             ProdcutLists: emptyProductArray,
             PaymentLists: emptyPaymentArray,
-            TimelineLists: emptyTimelineArray
+            TimelineLists: emptyTimelineArray,
+            PreparedByUser: this.quotationPrintPreparedByUserSelectedValue,
+            ApprovedByUser: this.quotationPrintApprovedByUserSelectedValue
         });
         this.quotationService.printQuotationPaper(this.getIdUrlParameter(), printQuotationArray);
     };

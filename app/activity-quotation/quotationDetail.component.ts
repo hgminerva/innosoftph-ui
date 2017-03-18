@@ -77,6 +77,10 @@ export class QuotationDetailComponent implements OnInit {
   public printQuotationTimeLineRemarks: String;
   public printTimelineQuotationString: String;
   public isAddtTimeline: Boolean;
+  public quotationPrintPreparedByUserObservableArray = new wijmo.collections.ObservableArray();
+  public quotationPrintPreparedByUserSelectedValue: String;
+  public quotationPrintApprovedByUserObservableArray = new wijmo.collections.ObservableArray();
+  public quotationPrintApprovedByUserSelectedValue: String;
 
   // inject quotation detail service
   constructor(
@@ -356,6 +360,25 @@ export class QuotationDetailComponent implements OnInit {
     (<HTMLInputElement>document.getElementById("printQuotationContactPerson")).value = this.quotationCustomerObservableArray[index].ContactPerson;
     (<HTMLInputElement>document.getElementById("printQuotationContactNumber")).value = this.quotationCustomerObservableArray[index].ContactNumber;
     (<HTMLInputElement>document.getElementById("printQuotationContactEmail")).value = this.quotationCustomerObservableArray[index].EmailAddress;
+
+    var qRefNumber = (<HTMLInputElement>document.getElementById("quotationNumber")).value;
+    var qDate = (<HTMLInputElement>document.getElementById("quotationDateValue")).value;
+    (<HTMLInputElement>document.getElementById("QRefNo")).value = "QN-" + qRefNumber;
+    (<HTMLInputElement>document.getElementById("QDate")).value = qDate;
+
+    let searchLeadTerm = this.quotationLeadSelectedValue;
+    let leadIndex = -1;
+    let leadLen = this.quotationLeadObservableArray.length;
+    for (var i = 0; i < leadLen; i++) {
+      if (this.quotationLeadObservableArray[i].Id === searchLeadTerm) {
+        leadIndex = i;
+        break;
+      }
+    }
+
+    (<HTMLInputElement>document.getElementById("LeadsRefNo")).value = "LN-" + this.quotationLeadObservableArray[leadIndex].LeadNumber;
+    this.quotationPrintPreparedByUserObservableArray = this.quotationService.getListUserData("quotationDetail");
+    this.quotationPrintApprovedByUserObservableArray = this.quotationService.getListUserData("quotationDetail");
   }
 
   public paymentTabClick() {
@@ -632,7 +655,9 @@ export class QuotationDetailComponent implements OnInit {
       LeadsRefNo: LeadsRefNo,
       ProdcutLists: emptyProductArray,
       PaymentLists: emptyPaymentArray,
-      TimelineLists: emptyTimelineArray
+      TimelineLists: emptyTimelineArray,
+      PreparedByUser: this.quotationPrintPreparedByUserSelectedValue,
+      ApprovedByUser: this.quotationPrintApprovedByUserSelectedValue
     });
 
     this.quotationService.printQuotationPaper(this.getIdUrlParameter(), printQuotationArray);
