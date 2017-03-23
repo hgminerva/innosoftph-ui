@@ -224,12 +224,14 @@ export class QuotationService {
                 document.getElementById("btn-hidden-complete-loading").click();
                 (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                 (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnPrintQuotationDetail")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnCloseQuotationDetail")).disabled = false;
             },
             error => {
                 this.toastr.error(error._body.replace(/^"?(.+?)"?$/, '$1'), 'Save Failed');
                 (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                 (<HTMLButtonElement>document.getElementById("btnSaveQuotationDetail")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnPrintQuotationDetail")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnCloseQuotationDetail")).disabled = false;
             }
         )

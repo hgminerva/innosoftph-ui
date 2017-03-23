@@ -208,11 +208,13 @@ var QuotationService = (function () {
             document.getElementById("btn-hidden-complete-loading").click();
             document.getElementById("btnSaveQuotationDetail").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
             document.getElementById("btnSaveQuotationDetail").disabled = false;
+            document.getElementById("btnPrintQuotationDetail").disabled = false;
             document.getElementById("btnCloseQuotationDetail").disabled = false;
         }, function (error) {
             _this.toastr.error(error._body.replace(/^"?(.+?)"?$/, '$1'), 'Save Failed');
             document.getElementById("btnSaveQuotationDetail").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
             document.getElementById("btnSaveQuotationDetail").disabled = false;
+            document.getElementById("btnPrintQuotationDetail").disabled = false;
             document.getElementById("btnCloseQuotationDetail").disabled = false;
         });
     };
