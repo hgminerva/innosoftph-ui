@@ -12,7 +12,7 @@
 <div class="custom-content-a">
     <div class="container">
          <div class="well well-sm">
-            <a routerLink="/dashboard">Dashboard</a> &nbsp; / &nbsp; <a routerLink="/softwareDevelopment" (click)="startLoading()">Software Development </a> &nbsp; / &nbsp; Software Development Detail
+            <a routerLink="/dashboard">Dashboard</a> &nbsp; / &nbsp; <a routerLink="/softwareDevelopment">Software Development </a> &nbsp; / &nbsp; Software Development Detail
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
@@ -154,7 +154,7 @@
                 </table>
             </div>
             <div class="panel-body">
-                <wj-flex-grid [itemsSource]="activityCollectionView" [selectionMode]="3" style="border-radius: 0px;" [frozenColumns]="3">
+                <wj-flex-grid [itemsSource]="activityCollectionView" [selectionMode]="3" style="border-radius: 0px;">
                     <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="60">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
                             <button class="btn btn-primary btn-xs btn-block" (click)="btnActivityDetailModal(false)" data-toggle="modal"  data-backdrop="static" data-keyboard="false" data-target="#activity-detail-modal">

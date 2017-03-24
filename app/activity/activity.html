@@ -100,22 +100,22 @@
                 </table>
             </div>
             <div class="panel-body">
-                 <wj-flex-grid #grid [itemsSource]="activityCollectionView" [selectionMode]="3" style="border-radius: 0px;" [frozenColumns]="3" (initialized)="init(grid)">
-                    <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="80">
+                 <wj-flex-grid #grid [itemsSource]="activityCollectionView" [selectionMode]="3" style="border-radius: 0px;" (initialized)="init(grid)">
+                    <wj-flex-grid-column [isReadOnly]="true" [isContentHtml]="true" [width]="80">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
                             <button class="btn btn-primary btn-xs btn-block" (click)="btnActivityDetailModal(true)" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#activity-detail-modal">
                                 <i class="fa fa-plus fa-fw"></i> Add
                             </button>
                         </template>
                     </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="80">
+                    <wj-flex-grid-column [isReadOnly]="true" [width]="80">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
                             <button class="btn btn-primary btn-xs btn-block" (click)="btnActivityDetailModal(false)" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#activity-detail-modal">
                                 <i class="fa fa-edit fa-fw"></i> Edit
                             </button>
                         </template>
                     </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="80">
+                    <wj-flex-grid-column [isReadOnly]="true" [width]="80">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
                             <button class="btn btn-primary btn-xs btn-block" (click)="btnActivityPrintClick()">
                                 <i class="fa fa-print fa-fw"></i> Print

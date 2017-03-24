@@ -190,7 +190,7 @@ var SoftwareDevelopmentComponent = (function () {
     };
     // edit software development
     SoftwareDevelopmentComponent.prototype.btnEditSoftwareDevelopment = function () {
-        document.getElementById("btn-hidden-start-loading").click();
+        this.startLoading();
         var currentSelectedSoftwareDevelopment = this.softwareDevelopmentCollectionView.currentItem;
         this.router.navigate(['/softwareDevelopmentDetail', currentSelectedSoftwareDevelopment.Id]);
     };

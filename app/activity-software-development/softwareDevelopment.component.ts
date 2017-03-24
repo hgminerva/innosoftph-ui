@@ -216,7 +216,7 @@ export class SoftwareDevelopmentComponent implements OnInit {
 
   // edit software development
   public btnEditSoftwareDevelopment() {
-    document.getElementById("btn-hidden-start-loading").click();
+    this.startLoading();
     let currentSelectedSoftwareDevelopment = this.softwareDevelopmentCollectionView.currentItem;
     this.router.navigate(['/softwareDevelopmentDetail', currentSelectedSoftwareDevelopment.Id]);
   }
