@@ -183,6 +183,12 @@ var DeliveryService = (function () {
                     document.getElementById("deliveryTechnicalUserSelectedValue").value = results.TechnicalUserId;
                     document.getElementById("deliveryFunctionalUserSelectedValue").value = results.FunctionalUserId;
                     document.getElementById("deliveryStatusSelectedValue").value = results.DeliveryStatus;
+                    document.getElementById("printDeliveryCustomer").value = results.Customer;
+                    document.getElementById("deliveryPrintUserCustomer").value = results.Customer;
+                    document.getElementById("printDeliveryPhoneNumber").value = results.CustomerContactNumber;
+                    document.getElementById("printDeliveryAddress").value = results.CustomerAddress;
+                    document.getElementById("printDeliveryProductDescription").value = results.Product;
+                    document.getElementById("printDeliveryDocumentNo").value = "DN-" + results.DeliveryNumber;
                     document.getElementById("btn-hidden-selectedValue-data").click();
                     document.getElementById("btn-hidden-complete-loading").click();
                 }, 200);
@@ -225,11 +231,13 @@ var DeliveryService = (function () {
             document.getElementById("btn-hidden-complete-loading").click();
             document.getElementById("btnSaveDeliveryDetail").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
             document.getElementById("btnSaveDeliveryDetail").disabled = false;
+            document.getElementById("btnPrintDeliveryDetail").disabled = false;
             document.getElementById("btnCloseDeliveryDetail").disabled = false;
         }, function (error) {
             _this.toastr.error('', 'Something`s went wrong!');
             document.getElementById("btnSaveDeliveryDetail").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
             document.getElementById("btnSaveDeliveryDetail").disabled = false;
+            document.getElementById("btnPrintDeliveryDetail").disabled = false;
             document.getElementById("btnCloseDeliveryDetail").disabled = false;
         });
     };
@@ -331,6 +339,22 @@ var DeliveryService = (function () {
             document.getElementById("btnActivityDeleteConfirmation").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
             document.getElementById("btnActivityDeleteConfirmation").disabled = false;
             document.getElementById("btnActivityCloseDeleteConfirmation").disabled = false;
+        });
+    };
+    DeliveryService.prototype.printDeliveryPaper = function (id, deliveryObject) {
+        var url = "http://api.innosoft.ph/RepKickOffProductDeliveryDetail/deliveryDetail?deliveryId=" + id;
+        this.http.post(url, JSON.stringify(deliveryObject), {
+            method: http_1.RequestMethod.Post,
+            responseType: http_1.ResponseContentType.Blob,
+            headers: new http_1.Headers({
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                'Content-Type': 'application/json'
+            })
+        }).subscribe(function (response) {
+            var blob = new Blob([response.blob()], { type: 'application/pdf' });
+            var filename = 'file.pdf';
+            var fileURL = URL.createObjectURL(blob);
+            window.open(fileURL);
         });
     };
     DeliveryService = __decorate([

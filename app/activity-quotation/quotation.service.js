@@ -340,7 +340,6 @@ var QuotationService = (function () {
     // }
     QuotationService.prototype.printQuotationPaper = function (id, quotationObject) {
         var url = "http://api.innosoft.ph/RepQuotationDetail/quotationDetail?quotationId=" + id;
-        // let url = "http://localhost:22626/RepQuotationDetail/quotationDetail?quotationId=" + id;
         this.http.post(url, JSON.stringify(quotationObject), {
             method: http_1.RequestMethod.Post,
             responseType: http_1.ResponseContentType.Blob,
@@ -351,7 +350,6 @@ var QuotationService = (function () {
         }).subscribe(function (response) {
             var blob = new Blob([response.blob()], { type: 'application/pdf' });
             var filename = 'file.pdf';
-            // saveAs(blob, filename);
             var fileURL = URL.createObjectURL(blob);
             window.open(fileURL);
         });

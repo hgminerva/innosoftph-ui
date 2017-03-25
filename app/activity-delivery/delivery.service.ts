@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Headers, Http, RequestOptions } from '@angular/http';
+import { Headers, Http, RequestOptions, RequestMethod, ResponseContentType } from '@angular/http';
 import { Router } from '@angular/router';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 
@@ -194,6 +194,12 @@ export class DeliveryService {
                         (<HTMLInputElement>document.getElementById("deliveryTechnicalUserSelectedValue")).value = results.TechnicalUserId;
                         (<HTMLInputElement>document.getElementById("deliveryFunctionalUserSelectedValue")).value = results.FunctionalUserId;
                         (<HTMLInputElement>document.getElementById("deliveryStatusSelectedValue")).value = results.DeliveryStatus;
+                        (<HTMLInputElement>document.getElementById("printDeliveryCustomer")).value = results.Customer;
+                        (<HTMLInputElement>document.getElementById("deliveryPrintUserCustomer")).value = results.Customer;
+                        (<HTMLInputElement>document.getElementById("printDeliveryPhoneNumber")).value = results.CustomerContactNumber;
+                        (<HTMLInputElement>document.getElementById("printDeliveryAddress")).value = results.CustomerAddress;
+                        (<HTMLInputElement>document.getElementById("printDeliveryProductDescription")).value = results.Product;
+                        (<HTMLInputElement>document.getElementById("printDeliveryDocumentNo")).value = "DN-" + results.DeliveryNumber;
                         document.getElementById("btn-hidden-selectedValue-data").click();
                         document.getElementById("btn-hidden-complete-loading").click();
                     }, 200);
@@ -239,12 +245,14 @@ export class DeliveryService {
                 document.getElementById("btn-hidden-complete-loading").click();
                 (<HTMLButtonElement>document.getElementById("btnSaveDeliveryDetail")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                 (<HTMLButtonElement>document.getElementById("btnSaveDeliveryDetail")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnPrintDeliveryDetail")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnCloseDeliveryDetail")).disabled = false;
             },
             error => {
                 this.toastr.error('', 'Something`s went wrong!');
                 (<HTMLButtonElement>document.getElementById("btnSaveDeliveryDetail")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
                 (<HTMLButtonElement>document.getElementById("btnSaveDeliveryDetail")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnPrintDeliveryDetail")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnCloseDeliveryDetail")).disabled = false;
             }
         )
@@ -365,5 +373,22 @@ export class DeliveryService {
                 (<HTMLButtonElement>document.getElementById("btnActivityCloseDeleteConfirmation")).disabled = false;
             }
         )
+    }
+
+    printDeliveryPaper(id: number, deliveryObject: Object) {
+        let url = "http://api.innosoft.ph/RepKickOffProductDeliveryDetail/deliveryDetail?deliveryId=" + id;
+        this.http.post(url, JSON.stringify(deliveryObject), {
+            method: RequestMethod.Post,
+            responseType: ResponseContentType.Blob,
+            headers: new Headers({
+                'Authorization': 'Bearer ' + localStorage.getItem('access_token'),
+                'Content-Type': 'application/json'
+            })
+        }).subscribe((response) => {
+            var blob = new Blob([response.blob()], { type: 'application/pdf' });
+            var filename = 'file.pdf';
+            var fileURL = URL.createObjectURL(blob);
+            window.open(fileURL);
+        });
     }
 }

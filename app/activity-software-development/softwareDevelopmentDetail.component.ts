@@ -120,7 +120,8 @@ export class SoftwareDevelopmentDetailComponent implements OnInit {
     this.softwareDevelopmentProjectSelectedValue = parseInt((<HTMLInputElement>document.getElementById("softwareDevelopmentProjectSelectedValue")).value.toString());
     this.softwareDevelopmentAssignedUserSelectedValue = parseInt((<HTMLInputElement>document.getElementById("softwareDevelopmentAssignedUserSelectedValue")).value.toString());
     this.softwareDevelopmentStatusSelectedValue = (<HTMLInputElement>document.getElementById("softwareDevelopmentStatusSelectedValue")).value.toString();
-  }
+    this.softwareDevelopmentNoOfHoursSelectedValue = (<HTMLInputElement>document.getElementById("softwareDevelopmentNoOfHoursSelectedValue")).value.toString();;
+}
 
   // software dev data
   public getSoftwareDevelopmentServiceData() {

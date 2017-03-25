@@ -95,6 +95,8 @@ var SoftwareDevelopmentDetailComponent = (function () {
         this.softwareDevelopmentProjectSelectedValue = parseInt(document.getElementById("softwareDevelopmentProjectSelectedValue").value.toString());
         this.softwareDevelopmentAssignedUserSelectedValue = parseInt(document.getElementById("softwareDevelopmentAssignedUserSelectedValue").value.toString());
         this.softwareDevelopmentStatusSelectedValue = document.getElementById("softwareDevelopmentStatusSelectedValue").value.toString();
+        this.softwareDevelopmentNoOfHoursSelectedValue = document.getElementById("softwareDevelopmentNoOfHoursSelectedValue").value.toString();
+        ;
     };
     // software dev data
     SoftwareDevelopmentDetailComponent.prototype.getSoftwareDevelopmentServiceData = function () {

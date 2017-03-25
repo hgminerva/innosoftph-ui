@@ -38,6 +38,12 @@ var DeliveryDetailComponent = (function () {
         this.activityStatusSelectedIndex = 0;
         this.isFinishLoading = false;
         this.isLoading = true;
+        this.productCollectionArray = new wijmo.collections.ObservableArray();
+        this.productId = 0;
+        this.checkListCollectionArray = new wijmo.collections.ObservableArray();
+        this.checkListId = 0;
+        this.deliveryPrintPreparedByUserObservableArray = new wijmo.collections.ObservableArray();
+        this.deliveryPrintSalesUserObservableArray = new wijmo.collections.ObservableArray();
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -53,6 +59,7 @@ var DeliveryDetailComponent = (function () {
         this.isFinishLoading = true;
         this.isLoading = false;
         document.getElementById("btnSaveDeliveryDetail").disabled = false;
+        document.getElementById("btnPrintDeliveryDetail").disabled = false;
         document.getElementById("btnCloseDeliveryDetail").disabled = false;
     };
     // get url Id parameter
@@ -70,7 +77,20 @@ var DeliveryDetailComponent = (function () {
         this.activityDateValue = new Date();
         this.getListActivity(false);
         document.getElementById("btnSaveDeliveryDetail").disabled = true;
+        document.getElementById("btnPrintDeliveryDetail").disabled = true;
         document.getElementById("btnCloseDeliveryDetail").disabled = true;
+        var checkListArray = [
+            "Hardware and Infrastructure (c/o customer)",
+            "List of Items in XLS",
+            "List of Customer in XLS",
+            "List of Supplier in XLS",
+            "List of Users that needed to be trained"
+        ];
+        for (var i = 0; i < checkListArray.length; i++) {
+            this.checkListCollectionArray.push({
+                checkListDescription: checkListArray[i]
+            });
+        }
     };
     // list article
     DeliveryDetailComponent.prototype.getQuotationData = function () {
@@ -139,6 +159,7 @@ var DeliveryDetailComponent = (function () {
         var toastr;
         document.getElementById("btnSaveDeliveryDetail").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
         document.getElementById("btnSaveDeliveryDetail").disabled = true;
+        document.getElementById("btnPrintDeliveryDetail").disabled = true;
         document.getElementById("btnCloseDeliveryDetail").disabled = true;
         this.deliveryService.putDeliveryData(this.getIdUrlParameter(), this.getDeliveryValue(), toastr);
     };
@@ -230,6 +251,185 @@ var DeliveryDetailComponent = (function () {
     };
     DeliveryDetailComponent.prototype.backClicked = function () {
         window.history.back();
+    };
+    DeliveryDetailComponent.prototype.productOnclick = function () {
+        this.printProductDeliveryString = "Add";
+        this.isAddProduct = true;
+    };
+    DeliveryDetailComponent.prototype.btnAddProductDataClick = function () {
+        this.printDeliveryProductDescription = document.getElementById("printDeliveryProductDescription").value;
+        if (this.isAddProduct) {
+            this.productId += 1;
+            this.productCollectionArray.push({
+                Id: this.productId,
+                ProductDescription: this.printDeliveryProductDescription
+            });
+        }
+        else {
+            var currentSelectedProduct = this.productCollectionView.currentItem;
+            currentSelectedProduct.ProductDescription = this.printDeliveryProductDescription;
+        }
+        this.productProductData();
+        document.getElementById("btnProductCloseModal").click();
+    };
+    DeliveryDetailComponent.prototype.productEdit = function () {
+        this.printProductDeliveryString = "Edit";
+        this.isAddProduct = false;
+        var currentSelectedProduct = this.productCollectionView.currentItem;
+        document.getElementById("printDeliveryProductDescription").value = currentSelectedProduct.ProductDescription;
+    };
+    DeliveryDetailComponent.prototype.btnProductDeleteConfirmationClick = function () {
+        var currentSelectedProduct = this.productCollectionView.currentItem;
+        var searchTerm = currentSelectedProduct.Id;
+        var index = -1;
+        for (var i = 0, len = this.productCollectionArray.length; i < len; i++) {
+            if (this.productCollectionArray[i].Id === searchTerm) {
+                index = i;
+                break;
+            }
+        }
+        this.productCollectionArray.splice(index, 1);
+        this.productProductData();
+        document.getElementById("btProductCloseDeleteConfirmation").click();
+    };
+    DeliveryDetailComponent.prototype.productTabClick = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.productProductData();
+        }, 500);
+    };
+    DeliveryDetailComponent.prototype.productProductData = function () {
+        this.productCollectionView = new wijmo.collections.CollectionView(this.productCollectionArray);
+        this.productCollectionView.pageSize = 7;
+        this.productCollectionView.trackChanges = true;
+    };
+    // =====================================
+    DeliveryDetailComponent.prototype.checkListOnclick = function () {
+        this.printCheckListString = "Add";
+        this.isAddCheckList = true;
+        document.getElementById("printdeliveryCheckListDescription").value = "";
+    };
+    DeliveryDetailComponent.prototype.btnAddCheckListDataClick = function () {
+        this.checkListDescription = document.getElementById("printdeliveryCheckListDescription").value;
+        if (this.isAddCheckList) {
+            this.checkListId += 1;
+            this.checkListCollectionArray.push({
+                Id: this.checkListId,
+                checkListDescription: this.checkListDescription
+            });
+        }
+        else {
+            var currentSelectedCheckList = this.checkListCollectionView.currentItem;
+            currentSelectedCheckList.checkListDescription = this.checkListDescription;
+        }
+        this.checkListData();
+        document.getElementById("btnCheckListCloseModal").click();
+    };
+    DeliveryDetailComponent.prototype.checkListEdit = function () {
+        this.printCheckListString = "Edit";
+        this.isAddCheckList = false;
+        var currentSelectedCheckList = this.checkListCollectionView.currentItem;
+        document.getElementById("printdeliveryCheckListDescription").value = currentSelectedCheckList.checkListDescription;
+    };
+    DeliveryDetailComponent.prototype.btnCheckListDeleteConfirmationClick = function () {
+        var currentSelectedCheckList = this.checkListCollectionView.currentItem;
+        var searchTerm = currentSelectedCheckList.Id;
+        var index = -1;
+        for (var i = 0, len = this.checkListCollectionArray.length; i < len; i++) {
+            if (this.checkListCollectionArray[i].Id === searchTerm) {
+                index = i;
+                break;
+            }
+        }
+        this.checkListCollectionArray.splice(index, 1);
+        this.checkListData();
+        document.getElementById("btnCheckListCloseDeleteConfirmation").click();
+    };
+    DeliveryDetailComponent.prototype.checkListTabClick = function () {
+        var _this = this;
+        setTimeout(function () {
+            _this.checkListData();
+        }, 500);
+    };
+    DeliveryDetailComponent.prototype.checkListData = function () {
+        this.checkListCollectionView = new wijmo.collections.CollectionView(this.checkListCollectionArray);
+        this.checkListCollectionView.pageSize = 7;
+        this.checkListCollectionView.trackChanges = true;
+    };
+    // print delivery detail
+    DeliveryDetailComponent.prototype.btnPrintDeliveryDetailClick = function () {
+        this.deliveryPrintPreparedByUserObservableArray = this.deliveryService.getListUserData("quotationDetail", "");
+        this.deliveryPrintSalesUserObservableArray = this.deliveryService.getListUserData("quotationDetail", "");
+        var searchTerm = this.deliveryFunctionalUserSelectedValue;
+        var index = -1;
+        for (var i = 0, len = this.deliveryFunctionalUserObservableArray.length; i < len; i++) {
+            if (this.deliveryFunctionalUserObservableArray[i].Id === searchTerm) {
+                index = i;
+                break;
+            }
+        }
+        document.getElementById("deliveryPrintUserFunctional").value = this.deliveryFunctionalUserObservableArray[index].FullName;
+        var searchTermTechnical = this.deliveryTechnicalUserSelectedValue;
+        var indexTechnical = -1;
+        for (var i = 0, len = this.deliveryTechnicalUserObservableArray.length; i < len; i++) {
+            if (this.deliveryTechnicalUserObservableArray[i].Id === searchTermTechnical) {
+                indexTechnical = i;
+                break;
+            }
+        }
+        document.getElementById("deliveryPrintUserTechnical").value = this.deliveryTechnicalUserObservableArray[indexTechnical].FullName;
+    };
+    DeliveryDetailComponent.prototype.btnPrintDeliveryClick = function () {
+        var ISFormNumber = document.getElementById("printDeliveryInnosoftFormNo").value;
+        var Customer = document.getElementById("printDeliveryCustomer").value;
+        var CustomerPhoneNumber = document.getElementById("printDeliveryPhoneNumber").value;
+        var CustomerAddress = document.getElementById("printDeliveryAddress").value;
+        var DocumentNumber = document.getElementById("printDeliveryDocumentNo").value;
+        var ContactPerson = document.getElementById("pprintDeliveryContactPerson").value;
+        var ContactPersonPhoneNumber = document.getElementById("printDeliveryContactPersonPhoneNumber").value;
+        var ContactPersonAddress = document.getElementById("printDeliveryContactPersonAddress").value;
+        var Particulars = document.getElementById("printDeliveryParticulars").value;
+        var PreparedByUser = this.deliveryPrintPreparedBySelectedValue;
+        var SalesUser = this.deliveryPrintSalesUserSelectedValue;
+        var TechnicalUser = document.getElementById("deliveryPrintUserTechnical").value;
+        var FunctionalUser = document.getElementById("deliveryPrintUserFunctional").value;
+        var CustomerUser = document.getElementById("deliveryPrintUserCustomer").value;
+        var productArray = this.productCollectionArray;
+        var emptyProductArray = [];
+        for (var i = 0; i < productArray.length; i++) {
+            emptyProductArray.push({
+                Id: productArray[i].Id,
+                ProductDescription: productArray[i].ProductDescription
+            });
+        }
+        var checkListArray = this.checkListCollectionArray;
+        var emptyCheckListArray = [];
+        for (var i = 0; i < checkListArray.length; i++) {
+            emptyCheckListArray.push({
+                Id: checkListArray[i].Id,
+                CheckListDescription: checkListArray[i].checkListDescription
+            });
+        }
+        var printDeliveryArray = [];
+        printDeliveryArray.push({
+            ISFormNumber: ISFormNumber,
+            Customer: Customer,
+            CustomerPhoneNumber: CustomerPhoneNumber,
+            CustomerAddress: CustomerAddress,
+            DocumentNumber: DocumentNumber,
+            ContactPerson: ContactPerson,
+            ContactPersonPhoneNumber: ContactPersonPhoneNumber,
+            ContactPersonAddress: ContactPersonAddress,
+            ProductLists: emptyProductArray,
+            Particulars: Particulars,
+            CheckLists: emptyCheckListArray,
+            PreparedByUser: PreparedByUser,
+            SalesUser: SalesUser,
+            TechnicalUser: TechnicalUser,
+            FunctionalUser: FunctionalUser,
+            CustomerUser: CustomerUser
+        });
+        this.deliveryService.printDeliveryPaper(this.getIdUrlParameter(), printDeliveryArray);
     };
     // initialization
     DeliveryDetailComponent.prototype.ngOnInit = function () {
