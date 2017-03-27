@@ -467,13 +467,14 @@ export class DeliveryDetailComponent implements OnInit {
     var DocumentNumber = (<HTMLInputElement>document.getElementById("printDeliveryDocumentNo")).value;
     var ContactPerson = (<HTMLInputElement>document.getElementById("pprintDeliveryContactPerson")).value;
     var ContactPersonPhoneNumber = (<HTMLInputElement>document.getElementById("printDeliveryContactPersonPhoneNumber")).value;
-    var ContactPersonAddress = (<HTMLInputElement>document.getElementById("printDeliveryContactPersonAddress")).value;
+    // var ContactPersonAddress = (<HTMLInputElement>document.getElementById("printDeliveryContactPersonAddress")).value;
     var Particulars = (<HTMLInputElement>document.getElementById("printDeliveryParticulars")).value;
     var PreparedByUser = this.deliveryPrintPreparedBySelectedValue;
     var SalesUser = this.deliveryPrintSalesUserSelectedValue;
     var TechnicalUser = (<HTMLInputElement>document.getElementById("deliveryPrintUserTechnical")).value;
     var FunctionalUser = (<HTMLInputElement>document.getElementById("deliveryPrintUserFunctional")).value;
     var CustomerUser = (<HTMLInputElement>document.getElementById("deliveryPrintUserCustomer")).value;
+    var KickOffDeliveryDate = (<HTMLInputElement>document.getElementById("printDeliveryDate")).value;
 
     var productArray = this.productCollectionArray;
     var emptyProductArray = [];
@@ -502,7 +503,6 @@ export class DeliveryDetailComponent implements OnInit {
       DocumentNumber: DocumentNumber,
       ContactPerson: ContactPerson,
       ContactPersonPhoneNumber: ContactPersonPhoneNumber,
-      ContactPersonAddress: ContactPersonAddress,
       ProductLists: emptyProductArray,
       Particulars: Particulars,
       CheckLists: emptyCheckListArray,
@@ -510,7 +510,8 @@ export class DeliveryDetailComponent implements OnInit {
       SalesUser: SalesUser,
       TechnicalUser: TechnicalUser,
       FunctionalUser: FunctionalUser,
-      CustomerUser: CustomerUser
+      CustomerUser: CustomerUser,
+      KickOffDeliveryDate: KickOffDeliveryDate
     });
 
     this.deliveryService.printDeliveryPaper(this.getIdUrlParameter(), printDeliveryArray);

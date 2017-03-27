@@ -200,6 +200,7 @@ export class DeliveryService {
                         (<HTMLInputElement>document.getElementById("printDeliveryAddress")).value = results.CustomerAddress;
                         (<HTMLInputElement>document.getElementById("printDeliveryProductDescription")).value = results.Product;
                         (<HTMLInputElement>document.getElementById("printDeliveryDocumentNo")).value = "DN-" + results.DeliveryNumber;
+                        (<HTMLInputElement>document.getElementById("printDeliveryDate")).value = results.DeliveryDate;
                         document.getElementById("btn-hidden-selectedValue-data").click();
                         document.getElementById("btn-hidden-complete-loading").click();
                     }, 200);
@@ -376,7 +377,7 @@ export class DeliveryService {
     }
 
     printDeliveryPaper(id: number, deliveryObject: Object) {
-        let url = "http://api.innosoft.ph/RepKickOffProductDeliveryDetail/deliveryDetail?deliveryId=" + id;
+        let url = "http://localhost:22626/RepKickOffProductDeliveryDetail/deliveryDetail?deliveryId=" + id;
         this.http.post(url, JSON.stringify(deliveryObject), {
             method: RequestMethod.Post,
             responseType: ResponseContentType.Blob,

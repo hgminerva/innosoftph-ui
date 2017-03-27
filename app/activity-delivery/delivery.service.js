@@ -189,6 +189,7 @@ var DeliveryService = (function () {
                     document.getElementById("printDeliveryAddress").value = results.CustomerAddress;
                     document.getElementById("printDeliveryProductDescription").value = results.Product;
                     document.getElementById("printDeliveryDocumentNo").value = "DN-" + results.DeliveryNumber;
+                    document.getElementById("printDeliveryDate").value = results.DeliveryDate;
                     document.getElementById("btn-hidden-selectedValue-data").click();
                     document.getElementById("btn-hidden-complete-loading").click();
                 }, 200);
@@ -342,7 +343,7 @@ var DeliveryService = (function () {
         });
     };
     DeliveryService.prototype.printDeliveryPaper = function (id, deliveryObject) {
-        var url = "http://api.innosoft.ph/RepKickOffProductDeliveryDetail/deliveryDetail?deliveryId=" + id;
+        var url = "http://localhost:22626/RepKickOffProductDeliveryDetail/deliveryDetail?deliveryId=" + id;
         this.http.post(url, JSON.stringify(deliveryObject), {
             method: http_1.RequestMethod.Post,
             responseType: http_1.ResponseContentType.Blob,

@@ -387,13 +387,14 @@ var DeliveryDetailComponent = (function () {
         var DocumentNumber = document.getElementById("printDeliveryDocumentNo").value;
         var ContactPerson = document.getElementById("pprintDeliveryContactPerson").value;
         var ContactPersonPhoneNumber = document.getElementById("printDeliveryContactPersonPhoneNumber").value;
-        var ContactPersonAddress = document.getElementById("printDeliveryContactPersonAddress").value;
+        // var ContactPersonAddress = (<HTMLInputElement>document.getElementById("printDeliveryContactPersonAddress")).value;
         var Particulars = document.getElementById("printDeliveryParticulars").value;
         var PreparedByUser = this.deliveryPrintPreparedBySelectedValue;
         var SalesUser = this.deliveryPrintSalesUserSelectedValue;
         var TechnicalUser = document.getElementById("deliveryPrintUserTechnical").value;
         var FunctionalUser = document.getElementById("deliveryPrintUserFunctional").value;
         var CustomerUser = document.getElementById("deliveryPrintUserCustomer").value;
+        var KickOffDeliveryDate = document.getElementById("printDeliveryDate").value;
         var productArray = this.productCollectionArray;
         var emptyProductArray = [];
         for (var i = 0; i < productArray.length; i++) {
@@ -419,7 +420,6 @@ var DeliveryDetailComponent = (function () {
             DocumentNumber: DocumentNumber,
             ContactPerson: ContactPerson,
             ContactPersonPhoneNumber: ContactPersonPhoneNumber,
-            ContactPersonAddress: ContactPersonAddress,
             ProductLists: emptyProductArray,
             Particulars: Particulars,
             CheckLists: emptyCheckListArray,
@@ -427,7 +427,8 @@ var DeliveryDetailComponent = (function () {
             SalesUser: SalesUser,
             TechnicalUser: TechnicalUser,
             FunctionalUser: FunctionalUser,
-            CustomerUser: CustomerUser
+            CustomerUser: CustomerUser,
+            KickOffDeliveryDate: KickOffDeliveryDate
         });
         this.deliveryService.printDeliveryPaper(this.getIdUrlParameter(), printDeliveryArray);
     };
