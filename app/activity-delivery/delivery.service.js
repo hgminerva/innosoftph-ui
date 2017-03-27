@@ -343,7 +343,7 @@ var DeliveryService = (function () {
         });
     };
     DeliveryService.prototype.printDeliveryPaper = function (id, deliveryObject) {
-        var url = "http://localhost:22626/RepKickOffProductDeliveryDetail/deliveryDetail?deliveryId=" + id;
+        var url = "http://api.innosoft.ph/RepKickOffProductDeliveryDetail/deliveryDetail?deliveryId=" + id;
         this.http.post(url, JSON.stringify(deliveryObject), {
             method: http_1.RequestMethod.Post,
             responseType: http_1.ResponseContentType.Blob,

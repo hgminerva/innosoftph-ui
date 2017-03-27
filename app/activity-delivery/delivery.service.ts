@@ -377,7 +377,7 @@ export class DeliveryService {
     }
 
     printDeliveryPaper(id: number, deliveryObject: Object) {
-        let url = "http://localhost:22626/RepKickOffProductDeliveryDetail/deliveryDetail?deliveryId=" + id;
+        let url = "http://api.innosoft.ph/RepKickOffProductDeliveryDetail/deliveryDetail?deliveryId=" + id;
         this.http.post(url, JSON.stringify(deliveryObject), {
             method: RequestMethod.Post,
             responseType: ResponseContentType.Blob,
