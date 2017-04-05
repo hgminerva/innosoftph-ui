@@ -8,9 +8,9 @@ import { ToastModule } from 'ng2-toastr/ng2-toastr';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
+import { CustomReuseStrategy } from './reuse-strategy';
 import * as wjFlexGrid from 'wijmo/wijmo.angular2.grid';
 import * as wjInput from 'wijmo/wijmo.angular2.input';
-import { CustomReuseStrategy } from './reuse-strategy';
 
 // components
 import { AppComponent } from './app.component';
@@ -38,6 +38,7 @@ import { ActivityComponent } from './activity/activity.component';
 import { ProjectComponent } from './activity-project/project.component';
 import { SoftwareDevelopmentComponent } from './activity-software-development/softwareDevelopment.component';
 import { SoftwareDevelopmentDetailComponent } from './activity-software-development/softwareDevelopmentDetail.component';
+import { RequestComponent } from './activity-request/request.component';
 
 // services
 import { LoginService } from './security-login/login.service';
@@ -52,6 +53,7 @@ import { SupportService } from './activity-support/support.service';
 import { ActivityService } from './activity/activity.service';
 import { ProjectService } from './activity-project/project.service';
 import { SoftwareDevelopmentService } from './activity-software-development/softwareDevelopment.service';
+import { RequestService } from './activity-request/request.service';
 
 // paths and Routes
 const appRoutes: Routes = [
@@ -78,7 +80,8 @@ const appRoutes: Routes = [
   { path: 'activity', component: ActivityComponent },
   { path: 'project', component: ProjectComponent },
   { path: 'softwareDevelopment', component: SoftwareDevelopmentComponent },
-  { path: 'softwareDevelopmentDetail/:id', component: SoftwareDevelopmentDetailComponent }
+  { path: 'softwareDevelopmentDetail/:id', component: SoftwareDevelopmentDetailComponent },
+  { path: 'request', component: RequestComponent },
 ];
 
 // module
@@ -121,7 +124,8 @@ const appRoutes: Routes = [
     ActivityComponent,
     ProjectComponent,
     SoftwareDevelopmentComponent,
-    SoftwareDevelopmentDetailComponent
+    SoftwareDevelopmentDetailComponent,
+    RequestComponent
   ],
   providers: [
     LoginService,
@@ -137,6 +141,7 @@ const appRoutes: Routes = [
     ActivityService,
     ProjectService,
     SoftwareDevelopmentService,
+    RequestService,
     { provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
   ],
   bootstrap: [

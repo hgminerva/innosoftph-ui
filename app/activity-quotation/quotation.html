@@ -25,50 +25,36 @@
                             </div>
                         </td>
                         <td align="right">
-                            <button class="btn btn-primary" (click)="btnAddQotationClick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#quotation-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
+                            <button class="btn btn-primary" (click)="btnAddQotationClick()" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                data-target="#quotation-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
                             <button class="btn btn-danger" (click)="backClicked()"><i class="fa fa-close fa-fw"></i> Close</button>
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="panel-heading">
-               <table border="0" style="width: 100%;">
+                <table border="0" style="width: 100%;">
                     <tr>
                         <td style="width: 30%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
-                                <wj-input-date
-                                    [(value)]="quotationStartDateValue" 
-                                    [format]="'yyyy-MM-dd'"
-                                    [mask]="'9999-99-99'" 
-                                    (valueChanged)="quotationStartDateOnValueChanged()"
-                                    style="border-radius: 0px;">
+                                <wj-input-date [(value)]="quotationStartDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="quotationStartDateOnValueChanged()">
                                 </wj-input-date>
                             </div>
                         </td>
                         <td style="width: 30%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
-                                <wj-input-date
-                                    [(value)]="quotationEndDateValue" 
-                                    [format]="'yyyy-MM-dd'"
-                                    [mask]="'9999-99-99'" 
-                                    (valueChanged)="quotationEndDateOnValueChanged()"
-                                    style="border-radius: 0px;">
+                                <wj-input-date [(value)]="quotationEndDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="quotationEndDateOnValueChanged()">
                                 </wj-input-date>
                             </div>
                         </td>
                         <td style="width: 30%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-question-circle-o fa-fw"></i> Status</span>
-                                 <wj-combo-box 
-                                    [itemsSource]="fliterQuotationStatusArray" 
-                                    [placeholder]="'Select Status'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [(selectedValue)]="filterQuotationStatusSelectedValue"
-                                    (selectedIndexChanged)="filterQuotationStatusSelectedIndexChangedClick()"
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-combo-box [itemsSource]="fliterQuotationStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
+                                    [(selectedValue)]="filterQuotationStatusSelectedValue" (selectedIndexChanged)="filterQuotationStatusSelectedIndexChangedClick()"
+                                    style="width: 100%;">
                                 </wj-combo-box>
                             </div>
                         </td>
@@ -80,7 +66,7 @@
                 </table>
             </div>
             <div class="panel-body">
-                 <wj-flex-grid [itemsSource]="quotationCollectionView" [selectionMode]="3" style="border-radius: 0px;">
+                <wj-flex-grid [itemsSource]="quotationCollectionView" [selectionMode]="3">
                     <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="60">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
                             <button class="btn btn-primary btn-xs btn-block" (click)="btnEditQuotation()">
@@ -90,7 +76,8 @@
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="80">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                            <button class="btn btn-danger btn-xs btn-block" (click)="btnDeleteQuotationClick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#quotation-delete-confirmation-modal">
+                            <button class="btn btn-danger btn-xs btn-block" (click)="btnDeleteQuotationClick()" data-toggle="modal" data-backdrop="static"
+                                data-keyboard="false" data-target="#quotation-delete-confirmation-modal">
                                 <i class="fa fa-trash fa-fw"></i> Delete
                             </button>
                         </template>
@@ -118,7 +105,7 @@
                         <button type="button" class="btn btn-default" (click)="quotationCollectionView.moveToPreviousPage()">
                             <span class="glyphicon glyphicon-step-backward"></span> Previous
                         </button>
-                        <button type="button" class="btn btn-default" disabled  style="width:100px">
+                        <button type="button" class="btn btn-default" disabled style="width:100px">
                             {{ quotationCollectionView.pageIndex + 1 }} / {{ quotationCollectionView.pageCount }}
                         </button>
                         <button type="button" class="btn btn-default" (click)="quotationCollectionView.moveToNextPage()">
@@ -127,8 +114,8 @@
                         <button type="button" class="btn btn-default" (click)="quotationCollectionView.moveToLastPage()">
                             Last <span class="glyphicon glyphicon-fast-forward"></span>
                         </button>
-                    </div> 
-                </div> 
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -150,75 +137,48 @@
                         <div class="form-group">
                             <label class="control-label col-sm-4">Quotation Date</label>
                             <div class="col-sm-8">
-                                <wj-input-date
-                                    [(value)]="quotationDateValue" 
-                                    [format]="'yyyy-MM-dd'"
-                                    [mask]="'9999-99-99'" 
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-input-date [(value)]="quotationDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" style="width: 100%;">
                                 </wj-input-date>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Lead Number</label>
                             <div class="col-sm-8">
-                                <wj-combo-box 
-                                    [itemsSource]="quotationLeadObservableArray" 
-                                    [placeholder]="'Select Lead Number'"
-                                    [displayMemberPath]="'LeadNumberDetail'" 
-                                    [selectedValuePath]="'Id'"
-                                    [(selectedValue)]="quotationLeadSelectedValue"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-combo-box [itemsSource]="quotationLeadObservableArray" [placeholder]="'Select Lead Number'" [displayMemberPath]="'LeadNumberDetail'"
+                                    [selectedValuePath]="'Id'" [(selectedValue)]="quotationLeadSelectedValue" [isEditable]="false"
+                                    [isRequired]="true" style="width: 100%;">
                                 </wj-combo-box>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Customer</label>
                             <div class="col-sm-8">
-                                <wj-combo-box 
-                                    [itemsSource]="quotationCustomerObservableArray" 
-                                    [placeholder]="'Select Customer'"
-                                    [displayMemberPath]="'Article'" 
-                                    [selectedValuePath]="'Id'"
-                                    [(selectedValue)]="quotationCustomerSelectedValue"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-combo-box [itemsSource]="quotationCustomerObservableArray" [placeholder]="'Select Customer'" [displayMemberPath]="'Article'"
+                                    [selectedValuePath]="'Id'" [(selectedValue)]="quotationCustomerSelectedValue" [isEditable]="false"
+                                    [isRequired]="true" style="width: 100%;">
                                 </wj-combo-box>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Product</label>
                             <div class="col-sm-8">
-                                <wj-combo-box 
-                                    [itemsSource]="quotationProductObservableArray" 
-                                    [placeholder]="'Select Product'"
-                                    [displayMemberPath]="'Article'" 
-                                    [selectedValuePath]="'Id'"
-                                    [(selectedValue)]="quotationProductSelectedValue"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-combo-box [itemsSource]="quotationProductObservableArray" [placeholder]="'Select Product'" [displayMemberPath]="'Article'"
+                                    [selectedValuePath]="'Id'" [(selectedValue)]="quotationProductSelectedValue" [isEditable]="false"
+                                    [isRequired]="true" style="width: 100%;">
                                 </wj-combo-box>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Remarks</label>
                             <div class="col-sm-8">
-                                <textarea [(ngModel)]="quotationRemarks" class="form-control" rows="7" id="quotationRemarks" name="quotationRemarks"  placeholder="Remarks"></textarea>
+                                <textarea [(ngModel)]="quotationRemarks" class="form-control" rows="7" id="quotationRemarks" name="quotationRemarks" placeholder="Remarks"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Status</label>
                             <div class="col-sm-8">
-                                <wj-combo-box 
-                                    [itemsSource]="quotationStatusArray" 
-                                    [placeholder]="'Select Status'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [(selectedValue)]="quotationStatusSelectedValue"
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-combo-box [itemsSource]="quotationStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
+                                    [(selectedValue)]="quotationStatusSelectedValue" style="width: 100%;">
                                 </wj-combo-box>
                             </div>
                         </div>
@@ -226,7 +186,7 @@
                 </div>
             </div>
             <div class="modal-footer" align="right">
-                <button type="button" id="btnSaveQuotation"  class="btn btn-primary" (click)="btnSaveQuotation()"><i class="fa fa-save fa-fw"></i> Save</button>
+                <button type="button" id="btnSaveQuotation" class="btn btn-primary" (click)="btnSaveQuotation()"><i class="fa fa-save fa-fw"></i> Save</button>
                 <button type="button" id="btnCloseQuotation" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
             </div>
         </div>

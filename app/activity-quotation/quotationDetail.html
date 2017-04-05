@@ -11,22 +11,24 @@
 </div>
 <div class="custom-content-a">
     <div class="container">
-         <div class="well well-sm">
-            <a routerLink="/dashboard">Dashboard</a> &nbsp; / &nbsp; <a routerLink="/quotation">Quotations</a> &nbsp; / &nbsp; Quotation Detail
+        <div class="well well-sm">
+            <a routerLink="/dashboard">Dashboard</a> &nbsp; / &nbsp; <a routerLink="/quotation">Quotations</a> &nbsp; / &nbsp;
+            Quotation Detail
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
-                 <table border="0" style="width: 100%;">
+                <table border="0" style="width: 100%;">
                     <tr>
                         <td align="right">
                             <button class="btn btn-primary" id="btnSaveQuotationDetail" name="btnSaveQuotationDetail" (click)="btnSaveQuotationDetailClick()"><i class="fa fa-save fa-fw"></i> Save</button>
-                            <button class="btn btn-primary" id="btnPrintQuotationDetail" name="btnPrintQuotationDetail" (click)="btnPrintQuotationDetailClick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#print-quotation-detail-modal"><i class="fa fa-print fa-fw"></i> Print</button>
+                            <button class="btn btn-primary" id="btnPrintQuotationDetail" name="btnPrintQuotationDetail" (click)="btnPrintQuotationDetailClick()"
+                                data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#print-quotation-detail-modal"><i class="fa fa-print fa-fw"></i> Print</button>
                             <button class="btn btn-danger" id="btnCloseQuotationDetail" name="btnCloseQuotationDetail" (click)="backClicked()"><i class="fa fa-close fa-fw"></i> Close</button>
                         </td>
                     </tr>
                 </table>
             </div>
-            <div class="panel-body"> 
+            <div class="panel-body">
                 <div *ngIf="isLoading" align="center">
                     <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
                 </div>
@@ -37,17 +39,14 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Quotation Number</label>
                                     <div class="col-sm-8">
-                                        <input type="text" [(ngModel)]="quotationNumber" [disabled]="true" class="form-control" id="quotationNumber" name="quotationNumber" placeholder="Quotation Number" />
+                                        <input type="text" [(ngModel)]="quotationNumber" [disabled]="true" class="form-control" id="quotationNumber" name="quotationNumber"
+                                            placeholder="Quotation Number" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Quotation Date</label>
                                     <div class="col-sm-8">
-                                        <wj-input-date
-                                            [(value)]="quotationDateValue" 
-                                            [format]="'yyyy-MM-dd'"
-                                            [mask]="'9999-99-99'" 
-                                            style="width: 100%; border-radius: 0px;">
+                                        <wj-input-date [(value)]="quotationDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" style="width: 100%;">
                                         </wj-input-date>
                                         <input type="hidden" class="form-control" id="quotationDateValue" />
                                     </div>
@@ -55,15 +54,9 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Lead Number</label>
                                     <div class="col-sm-8">
-                                        <wj-combo-box 
-                                            [itemsSource]="quotationLeadObservableArray" 
-                                            [placeholder]="'Select Lead Number'"
-                                            [displayMemberPath]="'LeadNumberDetail'" 
-                                            [selectedValuePath]="'Id'"
-                                            [isEditable]="false"
-                                            [isRequired]="true"
-                                            [(selectedValue)]="quotationLeadSelectedValue"
-                                            style="width: 100%; border-radius: 0px;">
+                                        <wj-combo-box [itemsSource]="quotationLeadObservableArray" [placeholder]="'Select Lead Number'" [displayMemberPath]="'LeadNumberDetail'"
+                                            [selectedValuePath]="'Id'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="quotationLeadSelectedValue"
+                                            style="width: 100%;">
                                         </wj-combo-box>
                                         <input type="hidden" class="form-control" id="quotationLeadSelectedValue" />
                                     </div>
@@ -71,15 +64,9 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Customer</label>
                                     <div class="col-sm-8">
-                                        <wj-combo-box 
-                                            [itemsSource]="quotationCustomerObservableArray" 
-                                            [placeholder]="'Select Customer'"
-                                            [displayMemberPath]="'Article'" 
-                                            [selectedValuePath]="'Id'"
-                                            [isEditable]="false"
-                                            [isRequired]="true"
-                                            [(selectedValue)]="quotationCustomerSelectedValue"
-                                            style="width: 100%; border-radius: 0px;">
+                                        <wj-combo-box [itemsSource]="quotationCustomerObservableArray" [placeholder]="'Select Customer'" [displayMemberPath]="'Article'"
+                                            [selectedValuePath]="'Id'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="quotationCustomerSelectedValue"
+                                            style="width: 100%;">
                                         </wj-combo-box>
                                         <input type="hidden" class="form-control" id="quotationCustomerSelectedValue" />
                                     </div>
@@ -87,15 +74,9 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Product</label>
                                     <div class="col-sm-8">
-                                        <wj-combo-box 
-                                            [itemsSource]="quotationProductObservableArray" 
-                                            [placeholder]="'Select Product'"
-                                            [displayMemberPath]="'Article'" 
-                                            [selectedValuePath]="'Id'"
-                                            [isEditable]="false"
-                                            [isRequired]="true"
-                                            [(selectedValue)]="quotationProductSelectedValue"
-                                            style="width: 100%; border-radius: 0px;">
+                                        <wj-combo-box [itemsSource]="quotationProductObservableArray" [placeholder]="'Select Product'" [displayMemberPath]="'Article'"
+                                            [selectedValuePath]="'Id'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="quotationProductSelectedValue"
+                                            style="width: 100%;">
                                         </wj-combo-box>
                                         <input type="hidden" class="form-control" id="quotationProductSelectedValue" />
                                     </div>
@@ -103,7 +84,8 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Encoded By</label>
                                     <div class="col-sm-8">
-                                        <input type="text" [(ngModel)]="quotationEncodedBySelectedValue" [disabled]="true" class="form-control" id="quotationEncodedBySelectedValue" name="quotationEncodedBySelectedValue" placeholder="Staff" />
+                                        <input type="text" [(ngModel)]="quotationEncodedBySelectedValue" [disabled]="true" class="form-control" id="quotationEncodedBySelectedValue"
+                                            name="quotationEncodedBySelectedValue" placeholder="Staff" />
                                     </div>
                                 </div>
                                 <!--<div class="form-group">
@@ -118,7 +100,7 @@
                                             [isRequired]="true"
                                             [isDisabled]="true"
                                             [(selectedValue)]="quotationEncodedBySelectedValue"
-                                            style="width: 100%; border-radius: 0px;">
+                                            style="width: 100%;">
                                         </wj-combo-box>
                                         <input type="hidden" class="form-control" id="quotationEncodedBySelectedValue" />
                                     </div>
@@ -130,19 +112,14 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Remarks</label>
                                     <div class="col-sm-8">
-                                        <textarea [(ngModel)]="quotationRemarks" class="form-control" rows="7" id="quotationRemarks" name="quotationRemarks"  placeholder="Remarks"></textarea>
+                                        <textarea [(ngModel)]="quotationRemarks" class="form-control" rows="7" id="quotationRemarks" name="quotationRemarks" placeholder="Remarks"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Status</label>
                                     <div class="col-sm-8">
-                                        <wj-combo-box 
-                                            [itemsSource]="quotationStatusArray" 
-                                            [placeholder]="'Select Status'"
-                                            [isEditable]="true"
-                                            [isRequired]="false"
-                                            [(selectedValue)]="quotationStatusSelectedValue"
-                                            style="width: 100%; border-radius: 0px;">
+                                        <wj-combo-box [itemsSource]="quotationStatusArray" [placeholder]="'Select Status'" [isEditable]="true" [isRequired]="false"
+                                            [(selectedValue)]="quotationStatusSelectedValue" style="width: 100%;">
                                         </wj-combo-box>
                                         <input type="hidden" class="form-control" id="quotationStatusSelectedValue" />
                                     </div>
@@ -158,26 +135,29 @@
                 <table border="0" style="width: 100%;">
                     <tr>
                         <td>
-                            <h4> Activity  </h4>
+                            <h4> Activity </h4>
                         </td>
                         <td align="right">
-                            <button class="btn btn-primary" (click)="btnActivityDetailModal(true)" data-toggle="modal"  data-backdrop="static" data-keyboard="false" data-target="#activity-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
+                            <button class="btn btn-primary" (click)="btnActivityDetailModal(true)" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                data-target="#activity-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="panel-body">
-                <wj-flex-grid [itemsSource]="activityCollectionView" [selectionMode]="3" style="border-radius: 0px;">
+                <wj-flex-grid [itemsSource]="activityCollectionView" [selectionMode]="3">
                     <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="60">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                            <button class="btn btn-primary btn-xs btn-block" (click)="btnActivityDetailModal(false)" data-toggle="modal"  data-backdrop="static" data-keyboard="false" data-target="#activity-detail-modal">
+                            <button class="btn btn-primary btn-xs btn-block" (click)="btnActivityDetailModal(false)" data-toggle="modal" data-backdrop="static"
+                                data-keyboard="false" data-target="#activity-detail-modal">
                                 <i class="fa fa-edit fa-fw"></i> Edit
                             </button>
                         </template>
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="80">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                            <button class="btn btn-danger btn-xs btn-block" (click)="btnActivityDeleteConfirmationModal()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#activity-delete-confirmation-modal">
+                            <button class="btn btn-danger btn-xs btn-block" (click)="btnActivityDeleteConfirmationModal()" data-toggle="modal" data-backdrop="static"
+                                data-keyboard="false" data-target="#activity-delete-confirmation-modal">
                                 <i class="fa fa-trash fa-fw"></i> Delete
                             </button>
                         </template>
@@ -210,7 +190,7 @@
                         <button type="button" class="btn btn-default" (click)="activityCollectionView.moveToPreviousPage()">
                             <span class="glyphicon glyphicon-step-backward"></span> Previous
                         </button>
-                        <button type="button" class="btn btn-default" disabled  style="width:100px">
+                        <button type="button" class="btn btn-default" disabled style="width:100px">
                             {{ activityCollectionView.pageIndex + 1 }} / {{ activityCollectionView.pageCount }}
                         </button>
                         <button type="button" class="btn btn-default" (click)="activityCollectionView.moveToNextPage()">
@@ -219,8 +199,8 @@
                         <button type="button" class="btn btn-default" (click)="activityCollectionView.moveToLastPage()">
                             Last <span class="glyphicon glyphicon-fast-forward"></span>
                         </button>
-                    </div> 
-                </div> 
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -238,62 +218,45 @@
                     <div class="form-group">
                         <label class="control-label col-sm-4">Activity Date</label>
                         <div class="col-sm-8">
-                                <wj-input-date
-                                [(value)]="activityDateValue" 
-                                [format]="'yyyy-MM-dd'"
-                                [mask]="'9999-99-99'" 
-                                style="width: 100%; border-radius: 0px;">
+                            <wj-input-date [(value)]="activityDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" style="width: 100%;">
                             </wj-input-date>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4">Particular Category</label>
                         <div class="col-sm-8">
-                                <wj-combo-box 
-                                [itemsSource]="activityParticularCategories" 
-                                [placeholder]="'Select Particular Category'"
-                                [isEditable]="false"
-                                [isRequired]="true"
-                                [(selectedValue)]="activityParticularCategorySelectedValue"
-                                style="width: 100%; border-radius: 0px;">
+                            <wj-combo-box [itemsSource]="activityParticularCategories" [placeholder]="'Select Particular Category'" [isEditable]="false"
+                                [isRequired]="true" [(selectedValue)]="activityParticularCategorySelectedValue" style="width: 100%;">
                             </wj-combo-box>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4">Particulars</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" rows="3" id="activityParticulars" name="Particulars" placeholder="Particulars"></textarea>
+                            <textarea class="form-control" rows="7" id="activityParticulars" name="Particulars" placeholder="Particulars"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4">No. of Hours</label>
                         <div class="col-sm-8">
-                            <wj-combo-box 
-                                [itemsSource]="activityNoOfHours" 
-                                [placeholder]="'Select No. of Hours'"
-                                [isEditable]="false"
-                                [isRequired]="true"
-                                [(selectedValue)]="activityNoOfHoursSelectedValue"
-                                style="width: 30%; border-radius: 0px;">
+                            <wj-combo-box [itemsSource]="activityNoOfHours" [placeholder]="'Select No. of Hours'" [isEditable]="false" [isRequired]="true"
+                                [(selectedValue)]="activityNoOfHoursSelectedValue" style="width: 30%;">
                             </wj-combo-box>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4">Amount</label>
                         <div class="col-sm-8">
-                            <input type="text" style="text-align: right;" [(ngModel)]="activityAmount" (keypress)="onKeyPressOnlyDecimalNumberKey($event)" (blur)="onBlurOnlyDecimalNumberKey()" class="form-control" id="activityAmount" name="" placeholder="0.00" />
+                            <input type="text" style="text-align: right;" [(ngModel)]="activityAmount" (keypress)="onKeyPressOnlyDecimalNumberKey($event)"
+                                (blur)="onBlurOnlyDecimalNumberKey()" class="form-control" id="activityAmount" name="" placeholder="0.00"
+                            />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4">Status</label>
                         <div class="col-sm-8">
-                            <wj-combo-box 
-                                [itemsSource]="activityStatus" 
-                                [placeholder]="'Select Status'"
-                                [isEditable]="false"
-                                [isRequired]="true"
-                                [(selectedValue)]="activityStatusSelectedValue"
-                                style="width: 100%; border-radius: 0px;">
+                            <wj-combo-box [itemsSource]="activityStatus" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="activityStatusSelectedValue"
+                                style="width: 100%;">
                             </wj-combo-box>
                         </div>
                     </div>
@@ -357,7 +320,7 @@
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4">Address</label>
                                                 <div class="col-sm-8">
-                                                    <textarea class="form-control" rows="5" id="printQuotationAddress" name="printQuotationAddress" placeholder="Address"></textarea>
+                                                    <textarea class="form-control" rows="7" id="printQuotationAddress" name="printQuotationAddress" placeholder="Address"></textarea>
                                                 </div>
                                             </div>
                                             <div class="form-group">
@@ -417,15 +380,17 @@
                         </div>
                     </div>
                     <div id="product" class="tab-pane fade">
-                         <div class="panel panel-default">
+                        <div class="panel panel-default">
                             <div class="panel-heading" align="right">
-                                <button class="btn btn-primary" (click)="productOnclick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#quotation-print-add-product"><i class="fa fa-plus fa-fw"></i> Add</button>
+                                <button class="btn btn-primary" (click)="productOnclick()" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                    data-target="#quotation-print-add-product"><i class="fa fa-plus fa-fw"></i> Add</button>
                             </div>
                             <div class="panel-body">
-                                <wj-flex-grid [itemsSource]="productCollectionView" [selectionMode]="3" style="border-radius: 0px;">
+                                <wj-flex-grid [itemsSource]="productCollectionView" [selectionMode]="3">
                                     <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="70">
                                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                                            <button class="btn btn-primary btn-xs btn-block" (click)="productEdit()" data-toggle="modal"  data-backdrop="static" data-keyboard="false" data-target="#quotation-print-add-product">
+                                            <button class="btn btn-primary btn-xs btn-block" (click)="productEdit()" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                                data-target="#quotation-print-add-product">
                                                 <i class="fa fa-edit fa-fw"></i> Edit
                                             </button>
                                         </template>
@@ -449,7 +414,7 @@
                                     </wj-flex-grid-column>
                                 </wj-flex-grid>
                             </div>
-                             <div class="panel-footer">
+                            <div class="panel-footer">
                                 <div class="row">
                                     <div class="col-sm-12 btn-group" id="">
                                         <button type="button" class="btn btn-default" (click)="productCollectionView.moveToFirstPage()">
@@ -467,21 +432,23 @@
                                         <button type="button" class="btn btn-default" (click)="productCollectionView.moveToLastPage()">
                                             Last <span class="glyphicon glyphicon-fast-forward"></span>
                                         </button>
-                                    </div> 
-                                </div> 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div id="payment" class="tab-pane fade">
                         <div class="panel panel-default">
                             <div class="panel-heading" align="right">
-                                <button class="btn btn-primary" (click)="paymentOnclick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#quotation-print-add-payment"><i class="fa fa-plus fa-fw"></i> Add</button>
+                                <button class="btn btn-primary" (click)="paymentOnclick()" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                    data-target="#quotation-print-add-payment"><i class="fa fa-plus fa-fw"></i> Add</button>
                             </div>
                             <div class="panel-body">
-                                <wj-flex-grid [itemsSource]="paymentScheduleCollectionView" [selectionMode]="3" style="border-radius: 0px;">
+                                <wj-flex-grid [itemsSource]="paymentScheduleCollectionView" [selectionMode]="3">
                                     <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="70">
                                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                                            <button class="btn btn-primary btn-xs btn-block" (click)="paymentEdit()" data-toggle="modal"  data-backdrop="static" data-keyboard="false" data-target="#quotation-print-add-payment">
+                                            <button class="btn btn-primary btn-xs btn-block" (click)="paymentEdit()" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                                data-target="#quotation-print-add-payment">
                                                 <i class="fa fa-edit fa-fw"></i> Edit
                                             </button>
                                         </template>
@@ -501,7 +468,7 @@
                                     </wj-flex-grid-column>
                                 </wj-flex-grid>
                             </div>
-                             <div class="panel-footer">
+                            <div class="panel-footer">
                                 <div class="row">
                                     <div class="col-sm-12 btn-group" id="">
                                         <button type="button" class="btn btn-default" (click)="paymentScheduleCollectionView.moveToFirstPage()">
@@ -519,21 +486,23 @@
                                         <button type="button" class="btn btn-default" (click)="paymentScheduleCollectionView.moveToLastPage()">
                                             Last <span class="glyphicon glyphicon-fast-forward"></span>
                                         </button>
-                                    </div> 
-                                </div> 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                     <div id="timeline" class="tab-pane fade">
                         <div class="panel panel-default">
                             <div class="panel-heading" align="right">
-                                <button class="btn btn-primary" (click)="timelineOnclick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#quotation-print-add-timeline"><i class="fa fa-plus fa-fw"></i> Add</button>
+                                <button class="btn btn-primary" (click)="timelineOnclick()" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                    data-target="#quotation-print-add-timeline"><i class="fa fa-plus fa-fw"></i> Add</button>
                             </div>
                             <div class="panel-body">
-                                <wj-flex-grid [itemsSource]="timelineCollectionView" [selectionMode]="3" style="border-radius: 0px;">
+                                <wj-flex-grid [itemsSource]="timelineCollectionView" [selectionMode]="3">
                                     <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="70">
                                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                                            <button class="btn btn-primary btn-xs btn-block" (click)="timelineEdit()" data-toggle="modal"  data-backdrop="static" data-keyboard="false" data-target="#quotation-print-add-timeline">
+                                            <button class="btn btn-primary btn-xs btn-block" (click)="timelineEdit()" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                                data-target="#quotation-print-add-timeline">
                                                 <i class="fa fa-edit fa-fw"></i> Edit
                                             </button>
                                         </template>
@@ -553,7 +522,7 @@
                                     </wj-flex-grid-column>
                                 </wj-flex-grid>
                             </div>
-                             <div class="panel-footer">
+                            <div class="panel-footer">
                                 <div class="row">
                                     <div class="col-sm-12 btn-group" id="">
                                         <button type="button" class="btn btn-default" (click)="timelineCollectionView.moveToFirstPage()">
@@ -571,8 +540,8 @@
                                         <button type="button" class="btn btn-default" (click)="timelineCollectionView.moveToLastPage()">
                                             Last <span class="glyphicon glyphicon-fast-forward"></span>
                                         </button>
-                                    </div> 
-                                </div> 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -581,34 +550,22 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-6">
-                                          <div class="form-horizontal">
+                                        <div class="form-horizontal">
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4">Prepared By</label>
                                                 <div class="col-sm-8">
-                                                    <wj-combo-box 
-                                                        [itemsSource]="quotationPrintPreparedByUserObservableArray" 
-                                                        [placeholder]="'Select User'"
-                                                        [displayMemberPath]="'FullName'" 
-                                                        [selectedValuePath]="'FullName'"
-                                                        [isEditable]="false"
-                                                        [isRequired]="true"
-                                                        [(selectedValue)]="quotationPrintPreparedByUserSelectedValue"
-                                                        style="width: 100%; border-radius: 0px;">
+                                                    <wj-combo-box [itemsSource]="quotationPrintPreparedByUserObservableArray" [placeholder]="'Select User'" [displayMemberPath]="'FullName'"
+                                                        [selectedValuePath]="'FullName'" [isEditable]="false" [isRequired]="true"
+                                                        [(selectedValue)]="quotationPrintPreparedByUserSelectedValue" style="width: 100%;">
                                                     </wj-combo-box>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4">Approved By</label>
                                                 <div class="col-sm-8">
-                                                    <wj-combo-box 
-                                                        [itemsSource]="quotationPrintApprovedByUserObservableArray" 
-                                                        [placeholder]="'Select User'"
-                                                        [displayMemberPath]="'FullName'" 
-                                                        [selectedValuePath]="'FullName'"
-                                                        [isEditable]="false"
-                                                        [isRequired]="true"
-                                                        [(selectedValue)]="quotationPrintApprovedByUserSelectedValue"
-                                                        style="width: 100%; border-radius: 0px;">
+                                                    <wj-combo-box [itemsSource]="quotationPrintApprovedByUserObservableArray" [placeholder]="'Select User'" [displayMemberPath]="'FullName'"
+                                                        [selectedValuePath]="'FullName'" [isEditable]="false" [isRequired]="true"
+                                                        [(selectedValue)]="quotationPrintApprovedByUserSelectedValue" style="width: 100%;">
                                                     </wj-combo-box>
                                                 </div>
                                             </div>
@@ -643,19 +600,22 @@
                     <div class="form-group">
                         <label class="control-label col-sm-4">Description</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" rows="3" [(ngModel)]="quotationPrintDescription" id="quotationPrintDescription" name="Particulars" placeholder="Description"></textarea>
+                            <textarea class="form-control" rows="5" [(ngModel)]="quotationPrintDescription" id="quotationPrintDescription" name="Particulars"
+                                placeholder="Description"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4">Amount</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" style="text-align: right;" [(ngModel)]="quotationPrintAmount" id="quotationPrintAmount" (keypress)="onKeyPressOnlyDecimalNumberKey($event)" (blur)="onBlurOnlyDecimalNumberKeyForPrintQuotation()" placeholder="Amount" />
+                            <input type="text" class="form-control" style="text-align: right;" [(ngModel)]="quotationPrintAmount" id="quotationPrintAmount"
+                                (keypress)="onKeyPressOnlyDecimalNumberKey($event)" (blur)="onBlurOnlyDecimalNumberKeyForPrintQuotation()"
+                                placeholder="Amount" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4">Remarks</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" rows="5" [(ngModel)]="quotationPrintRemarks" id="quotationPrintRemarks" name="Remarks" placeholder="Remarks"></textarea>
+                            <textarea class="form-control" rows="7" [(ngModel)]="quotationPrintRemarks" id="quotationPrintRemarks" name="Remarks" placeholder="Remarks"></textarea>
                         </div>
                     </div>
                 </div>
@@ -710,19 +670,25 @@
                     <div class="form-group">
                         <label class="control-label col-sm-4">Price</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" style="text-align: right;" (keyup)="priceOnKeyEvent($event)" [(ngModel)]="printQuotationProductPrice" id="printQuotationProductPrice" (keypress)="onKeyPressOnlyDecimalNumberKey($event)" (blur)="onBlurOnlyDecimalNumberKeyForProductPricePrintQuotation()"  placeholder="Price" />
+                            <input type="text" class="form-control" style="text-align: right;" (keyup)="priceOnKeyEvent($event)" [(ngModel)]="printQuotationProductPrice"
+                                id="printQuotationProductPrice" (keypress)="onKeyPressOnlyDecimalNumberKey($event)" (blur)="onBlurOnlyDecimalNumberKeyForProductPricePrintQuotation()"
+                                placeholder="Price" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4">Quantity</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" style="text-align: right;" (keyup)="quantityOnKeyEvent($event)"  [(ngModel)]="printQuotationProductQuantity" id="printQuotationProductQuantity" (keypress)="onKeyPressOnlyDecimalNumberKey($event)" (blur)="onBlurOnlyDecimalNumberKeyForProductQuantityPrintQuotation()"  placeholder="Quantity" />
+                            <input type="text" class="form-control" style="text-align: right;" (keyup)="quantityOnKeyEvent($event)" [(ngModel)]="printQuotationProductQuantity"
+                                id="printQuotationProductQuantity" (keypress)="onKeyPressOnlyDecimalNumberKey($event)" (blur)="onBlurOnlyDecimalNumberKeyForProductQuantityPrintQuotation()"
+                                placeholder="Quantity" />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4">Amount</label>
                         <div class="col-sm-8">
-                            <input type="text" class="form-control" style="text-align: right;" [(ngModel)]="printQuotationProductAmount" id="printQuotationProductAmount" (keypress)="onKeyPressOnlyDecimalNumberKey($event)" (blur)="onBlurOnlyDecimalNumberKeyForProductAmountPrintQuotation()"  placeholder="Amount" />
+                            <input type="text" class="form-control" style="text-align: right;" [(ngModel)]="printQuotationProductAmount" id="printQuotationProductAmount"
+                                (keypress)="onKeyPressOnlyDecimalNumberKey($event)" (blur)="onBlurOnlyDecimalNumberKeyForProductAmountPrintQuotation()"
+                                placeholder="Amount" />
                         </div>
                     </div>
                 </div>
@@ -777,7 +743,8 @@
                     <div class="form-group">
                         <label class="control-label col-sm-4">Remarks</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" rows="5" [(ngModel)]="printQuotationTimeLineRemarks" id="printQuotationTimeLineRemarks" name="printQuotationTimeLineRemarks" placeholder="Remarks"></textarea>
+                            <textarea class="form-control" rows="7" [(ngModel)]="printQuotationTimeLineRemarks" id="printQuotationTimeLineRemarks" name="printQuotationTimeLineRemarks"
+                                placeholder="Remarks"></textarea>
                         </div>
                     </div>
                 </div>

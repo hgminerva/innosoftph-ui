@@ -3,7 +3,7 @@
         <div class="container">
             <button class="menu-button pull-right" (click)="showMenu()"><i class="fa fa-bars fa-3x"></i></button>
             <h1 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: #fff; font-size: 35px;">KICK-OFF MEETING / PRODUCT DELIVERY DETAIL</h1>
-             <p class="lead">
+            <p class="lead">
                 Kick-Off Meeting and Product Delivery Header Detail and Activities
             </p>
         </div>
@@ -12,16 +12,18 @@
 
 <div class="custom-content-a">
     <div class="container">
-         <div class="well well-sm">
-            <a routerLink="/dashboard">Dashboard</a> &nbsp; / &nbsp; <a routerLink="/delivery">Deliveries</a> &nbsp; / &nbsp; Delivery Detail
+        <div class="well well-sm">
+            <a routerLink="/dashboard">Dashboard</a> &nbsp; / &nbsp; <a routerLink="/delivery">Deliveries</a> &nbsp; / &nbsp;
+            Delivery Detail
         </div>
         <div class="panel panel-default">
             <div class="panel-heading">
-                 <table border="0" style="width: 100%;">
+                <table border="0" style="width: 100%;">
                     <tr>
                         <td align="right">
                             <button class="btn btn-primary" id="btnSaveDeliveryDetail" name="btnSaveDeliveryDetail" (click)="btnSaveDeliveryDetailClick()"><i class="fa fa-save fa-fw"></i> Save</button>
-                            <button class="btn btn-primary" id="btnPrintDeliveryDetail" name="btnPrintDeliveryDetail" (click)="btnPrintDeliveryDetailClick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#print-delivery-detail-modal"><i class="fa fa-print fa-fw"></i> Print</button>
+                            <button class="btn btn-primary" id="btnPrintDeliveryDetail" name="btnPrintDeliveryDetail" (click)="btnPrintDeliveryDetailClick()"
+                                data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#print-delivery-detail-modal"><i class="fa fa-print fa-fw"></i> Print</button>
                             <button class="btn btn-danger" id="btnCloseDeliveryDetail" name="btnCloseDeliveryDetail" (click)="backClicked()"><i class="fa fa-close fa-fw"></i> Close</button>
                         </td>
                     </tr>
@@ -31,24 +33,21 @@
                 <div *ngIf="isLoading" align="center">
                     <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
                 </div>
-                <div *ngIf="isFinishLoading"> 
+                <div *ngIf="isFinishLoading">
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="form-horizontal">
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Delivery Number</label>
                                     <div class="col-sm-8">
-                                        <input type="text" [(ngModel)]="deliveryNumber" [disabled]="true" class="form-control" id="deliveryNumber" name="deliveryNumber" placeholder="Delivery Number" />
+                                        <input type="text" [(ngModel)]="deliveryNumber" [disabled]="true" class="form-control" id="deliveryNumber" name="deliveryNumber"
+                                            placeholder="Delivery Number" />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Delivery Date</label>
                                     <div class="col-sm-8">
-                                        <wj-input-date
-                                            [(value)]="deliveryDateValue"
-                                            [format]="'yyyy-MM-dd'"
-                                            [mask]="'9999-99-99'" 
-                                            style="width: 100%; border-radius: 0px;">
+                                        <wj-input-date [(value)]="deliveryDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" style="width: 100%;">
                                         </wj-input-date>
                                         <input type="hidden" class="form-control" id="deliveryDateValue" />
                                     </div>
@@ -56,16 +55,9 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Quotaion No.</label>
                                     <div class="col-sm-8">
-                                        <wj-combo-box 
-                                            [itemsSource]="deliveryQuotaionObservableArray" 
-                                            [placeholder]="'Select Quotation Number'"
-                                            [displayMemberPath]="'QuotationNumberDetail'" 
-                                            [selectedValuePath]="'Id'"
-                                            [isEditable]="false"
-                                            [isRequired]="true"
-                                            [(selectedIndex)]="deliveryQuotaionSelectedIndex"
-                                            [(selectedValue)]="deliveryQuotaionSelectedValue"
-                                            style="width: 100%; border-radius: 0px;">
+                                        <wj-combo-box [itemsSource]="deliveryQuotaionObservableArray" [placeholder]="'Select Quotation Number'" [displayMemberPath]="'QuotationNumberDetail'"
+                                            [selectedValuePath]="'Id'" [isEditable]="false" [isRequired]="true" [(selectedIndex)]="deliveryQuotaionSelectedIndex"
+                                            [(selectedValue)]="deliveryQuotaionSelectedValue" style="width: 100%;">
                                         </wj-combo-box>
                                         <input type="hidden" class="form-control" id="deliveryQuotaionSelectedValue" />
                                     </div>
@@ -73,11 +65,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Meeting Date</label>
                                     <div class="col-sm-8">
-                                        <wj-input-date
-                                            [(value)]="deliveryMeetingDateValue" 
-                                            [format]="'yyyy-MM-dd'"
-                                            [mask]="'9999-99-99'" 
-                                            style="width: 100%; border-radius: 0px;">
+                                        <wj-input-date [(value)]="deliveryMeetingDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" style="width: 100%;">
                                         </wj-input-date>
                                         <input type="hidden" class="form-control" id="deliveryMeetingDateValue" />
                                     </div>
@@ -85,7 +73,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Remarks</label>
                                     <div class="col-sm-8">
-                                        <textarea [(ngModel)]="deliveryRemarks" class="form-control" rows="5" id="deliveryRemarks" name="deliveryRemarks"  placeholder="Remarks"></textarea>
+                                        <textarea [(ngModel)]="deliveryRemarks" class="form-control" rows="7" id="deliveryRemarks" name="deliveryRemarks" placeholder="Remarks"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -95,7 +83,8 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Sales Staff</label>
                                     <div class="col-sm-8">
-                                        <input type="text" [(ngModel)]="deliverySalesUserSelectedValue" [disabled]="true" class="form-control" id="deliverySalesUserSelectedValue" name="deliverySalesUserSelectedValue" placeholder="Staff" />
+                                        <input type="text" [(ngModel)]="deliverySalesUserSelectedValue" [disabled]="true" class="form-control" id="deliverySalesUserSelectedValue"
+                                            name="deliverySalesUserSelectedValue" placeholder="Staff" />
                                     </div>
                                 </div>
                                 <!--<div class="form-group">
@@ -110,7 +99,7 @@
                                             [isEditable]="false"
                                             [isRequired]="true"
                                             [(selectedValue)]="deliverySalesUserSelectedValue"
-                                            style="width: 100%; border-radius: 0px;">
+                                            style="width: 100%;">
                                         </wj-combo-box>
                                         <input type="hidden" class="form-control" id="deliverySalesUserSelectedValue" />
                                     </div>
@@ -118,15 +107,9 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Technical Staff</label>
                                     <div class="col-sm-8">
-                                        <wj-combo-box 
-                                            [itemsSource]="deliveryTechnicalUserObservableArray" 
-                                            [placeholder]="'Select User'"
-                                            [displayMemberPath]="'FullName'" 
-                                            [selectedValuePath]="'Id'"
-                                            [isEditable]="false"
-                                            [isRequired]="true"
-                                            [(selectedValue)]="deliveryTechnicalUserSelectedValue"
-                                            style="width: 100%; border-radius: 0px;">
+                                        <wj-combo-box [itemsSource]="deliveryTechnicalUserObservableArray" [placeholder]="'Select User'" [displayMemberPath]="'FullName'"
+                                            [selectedValuePath]="'Id'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="deliveryTechnicalUserSelectedValue"
+                                            style="width: 100%;">
                                         </wj-combo-box>
                                         <input type="hidden" class="form-control" id="deliveryTechnicalUserSelectedValue" />
                                     </div>
@@ -134,15 +117,9 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Functional Staff</label>
                                     <div class="col-sm-8">
-                                        <wj-combo-box 
-                                            [itemsSource]="deliveryFunctionalUserObservableArray" 
-                                            [placeholder]="'Select User'"
-                                            [displayMemberPath]="'FullName'" 
-                                            [selectedValuePath]="'Id'"
-                                            [isEditable]="false"
-                                            [isRequired]="true"
-                                            [(selectedValue)]="deliveryFunctionalUserSelectedValue"
-                                            style="width: 100%; border-radius: 0px;">
+                                        <wj-combo-box [itemsSource]="deliveryFunctionalUserObservableArray" [placeholder]="'Select User'" [displayMemberPath]="'FullName'"
+                                            [selectedValuePath]="'Id'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="deliveryFunctionalUserSelectedValue"
+                                            style="width: 100%;">
                                         </wj-combo-box>
                                         <input type="hidden" class="form-control" id="deliveryFunctionalUserSelectedValue" />
                                     </div>
@@ -150,13 +127,8 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Status</label>
                                     <div class="col-sm-8">
-                                        <wj-combo-box 
-                                            [itemsSource]="deliveryStatusArray" 
-                                            [placeholder]="'Select Status'"
-                                            [isEditable]="false"
-                                            [isRequired]="true"
-                                            [(selectedValue)]="deliveryStatusSelectedValue"
-                                            style="width: 100%; border-radius: 0px;">
+                                        <wj-combo-box [itemsSource]="deliveryStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
+                                            [(selectedValue)]="deliveryStatusSelectedValue" style="width: 100%;">
                                         </wj-combo-box>
                                         <input type="hidden" class="form-control" id="deliveryStatusSelectedValue" />
                                     </div>
@@ -172,26 +144,29 @@
                 <table border="0" style="width: 100%;">
                     <tr>
                         <td>
-                            <h4> Activity  </h4>
+                            <h4> Activity </h4>
                         </td>
                         <td align="right">
-                            <button class="btn btn-primary" (click)="btnActivityDetailModal(true)" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#activity-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
+                            <button class="btn btn-primary" (click)="btnActivityDetailModal(true)" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                data-target="#activity-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="panel-body">
-                <wj-flex-grid [itemsSource]="activityCollectionView" [selectionMode]="3" style="border-radius: 0px;">
+                <wj-flex-grid [itemsSource]="activityCollectionView" [selectionMode]="3">
                     <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="60">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                            <button class="btn btn-primary btn-xs btn-block" (click)="btnActivityDetailModal(false)" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#activity-detail-modal">
+                            <button class="btn btn-primary btn-xs btn-block" (click)="btnActivityDetailModal(false)" data-toggle="modal" data-backdrop="static"
+                                data-keyboard="false" data-target="#activity-detail-modal">
                                 <i class="fa fa-edit fa-fw"></i> Edit
                             </button>
                         </template>
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="80">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                            <button class="btn btn-danger btn-xs btn-block" (click)="btnActivityDeleteConfirmationModal()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#activity-delete-confirmation-modal">
+                            <button class="btn btn-danger btn-xs btn-block" (click)="btnActivityDeleteConfirmationModal()" data-toggle="modal" data-backdrop="static"
+                                data-keyboard="false" data-target="#activity-delete-confirmation-modal">
                                 <i class="fa fa-trash fa-fw"></i> Delete
                             </button>
                         </template>
@@ -224,7 +199,7 @@
                         <button type="button" class="btn btn-default" (click)="activityCollectionView.moveToPreviousPage()">
                             <span class="glyphicon glyphicon-step-backward"></span> Previous
                         </button>
-                        <button type="button" class="btn btn-default" disabled  style="width:100px">
+                        <button type="button" class="btn btn-default" disabled style="width:100px">
                             {{ activityCollectionView.pageIndex + 1 }} / {{ activityCollectionView.pageCount }}
                         </button>
                         <button type="button" class="btn btn-default" (click)="activityCollectionView.moveToNextPage()">
@@ -233,8 +208,8 @@
                         <button type="button" class="btn btn-default" (click)="activityCollectionView.moveToLastPage()">
                             Last <span class="glyphicon glyphicon-fast-forward"></span>
                         </button>
-                    </div> 
-                </div> 
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -252,62 +227,45 @@
                     <div class="form-group">
                         <label class="control-label col-sm-4">Activity Date</label>
                         <div class="col-sm-8">
-                                <wj-input-date
-                                [(value)]="activityDateValue" 
-                                [format]="'yyyy-MM-dd'"
-                                [mask]="'9999-99-99'" 
-                                style="width: 100%; border-radius: 0px;">
+                            <wj-input-date [(value)]="activityDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" style="width: 100%;">
                             </wj-input-date>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4">Particular Category</label>
                         <div class="col-sm-8">
-                                <wj-combo-box 
-                                [itemsSource]="activityParticularCategories" 
-                                [placeholder]="'Select Particular Category'"
-                                [isEditable]="false"
-                                [isRequired]="true"
-                                [(selectedValue)]="activityParticularCategorySelectedValue"
-                                style="width: 100%; border-radius: 0px;">
+                            <wj-combo-box [itemsSource]="activityParticularCategories" [placeholder]="'Select Particular Category'" [isEditable]="false"
+                                [isRequired]="true" [(selectedValue)]="activityParticularCategorySelectedValue" style="width: 100%;">
                             </wj-combo-box>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4">Particulars</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" rows="3" id="activityParticulars" name="Particulars" placeholder="Particularss"></textarea>
+                            <textarea class="form-control" rows="7" id="activityParticulars" name="Particulars" placeholder="Particularss"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4">No. of Hours</label>
                         <div class="col-sm-8">
-                            <wj-combo-box 
-                                [itemsSource]="activityNoOfHours" 
-                                [placeholder]="'Select No. of Hours'"
-                                [isEditable]="false"
-                                [isRequired]="true"
-                                [(selectedValue)]="activityNoOfHoursSelectedValue"
-                                style="width: 30%; border-radius: 0px;">
+                            <wj-combo-box [itemsSource]="activityNoOfHours" [placeholder]="'Select No. of Hours'" [isEditable]="false" [isRequired]="true"
+                                [(selectedValue)]="activityNoOfHoursSelectedValue" style="width: 30%;">
                             </wj-combo-box>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4">Amount</label>
                         <div class="col-sm-8">
-                            <input type="text" style="text-align: right;" [(ngModel)]="activityAmount" (keypress)="onKeyPressOnlyDecimalNumberKey($event)" (blur)="onBlurOnlyDecimalNumberKey()" class="form-control" id="activityAmount" name="" placeholder="0.00" />
+                            <input type="text" style="text-align: right;" [(ngModel)]="activityAmount" (keypress)="onKeyPressOnlyDecimalNumberKey($event)"
+                                (blur)="onBlurOnlyDecimalNumberKey()" class="form-control" id="activityAmount" name="" placeholder="0.00"
+                            />
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4">Status</label>
                         <div class="col-sm-8">
-                            <wj-combo-box 
-                                [itemsSource]="activityStatus" 
-                                [placeholder]="'Select Status'"
-                                [isEditable]="false"
-                                [isRequired]="true"
-                                [(selectedValue)]="activityStatusSelectedValue"
-                                style="width: 100%; border-radius: 0px;">
+                            <wj-combo-box [itemsSource]="activityStatus" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="activityStatusSelectedValue"
+                                style="width: 100%;">
                             </wj-combo-box>
                         </div>
                     </div>
@@ -347,7 +305,7 @@
                 <h4 class="modal-title">Print Kick-Off / Product Delivery</h4>
             </div>
             <div class="modal-body">
-                 <ul class="nav nav-tabs">
+                <ul class="nav nav-tabs">
                     <li class="active"><a data-toggle="tab" href="#customer">Customer</a></li>
                     <li><a data-toggle="tab" href="#product" (click)="productTabClick()">Product / Service</a></li>
                     <li><a data-toggle="tab" href="#particulars">Particulars</a></li>
@@ -395,7 +353,7 @@
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4">Address</label>
                                                 <div class="col-sm-8">
-                                                    <textarea class="form-control" rows="5" id="printDeliveryAddress" placeholder="Address"></textarea>
+                                                    <textarea class="form-control" rows="7" id="printDeliveryAddress" placeholder="Address"></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -425,15 +383,17 @@
                         </div>
                     </div>
                     <div id="product" class="tab-pane fade">
-                         <div class="panel panel-default">
+                        <div class="panel panel-default">
                             <div class="panel-heading" align="right">
-                                <button class="btn btn-primary" (click)="productOnclick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#delivery-print-add-product"><i class="fa fa-plus fa-fw"></i> Add</button>
+                                <button class="btn btn-primary" (click)="productOnclick()" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                    data-target="#delivery-print-add-product"><i class="fa fa-plus fa-fw"></i> Add</button>
                             </div>
                             <div class="panel-body">
-                                <wj-flex-grid [itemsSource]="productCollectionView" [selectionMode]="3" style="border-radius: 0px;">
+                                <wj-flex-grid [itemsSource]="productCollectionView" [selectionMode]="3">
                                     <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="70">
                                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                                            <button class="btn btn-primary btn-xs btn-block" (click)="productEdit()" data-toggle="modal"  data-backdrop="static" data-keyboard="false" data-target="#delivery-print-add-product">
+                                            <button class="btn btn-primary btn-xs btn-block" (click)="productEdit()" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                                data-target="#delivery-print-add-product">
                                                 <i class="fa fa-edit fa-fw"></i> Edit
                                             </button>
                                         </template>
@@ -449,7 +409,7 @@
                                     </wj-flex-grid-column>
                                 </wj-flex-grid>
                             </div>
-                             <div class="panel-footer">
+                            <div class="panel-footer">
                                 <div class="row">
                                     <div class="col-sm-12 btn-group" id="">
                                         <button type="button" class="btn btn-default" (click)="productCollectionView.moveToFirstPage()">
@@ -464,8 +424,8 @@
                                         <button type="button" class="btn btn-default" (click)="productCollectionView.moveToLastPage()">
                                             Last <span class="glyphicon glyphicon-fast-forward"></span>
                                         </button>
-                                    </div> 
-                                </div> 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -476,7 +436,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-3">Particulars</label>
                                         <div class="col-sm-9">
-                                            <textarea class="form-control" rows="5" id="printDeliveryParticulars" placeholder="Particulars"></textarea>
+                                            <textarea class="form-control" rows="7" id="printDeliveryParticulars" placeholder="Particulars"></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -484,15 +444,17 @@
                         </div>
                     </div>
                     <div id="checklist" class="tab-pane fade">
-                         <div class="panel panel-default">
+                        <div class="panel panel-default">
                             <div class="panel-heading" align="right">
-                                <button class="btn btn-primary" (click)="checkListOnclick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#delivery-print-add-checkList"><i class="fa fa-plus fa-fw"></i> Add</button>
+                                <button class="btn btn-primary" (click)="checkListOnclick()" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                    data-target="#delivery-print-add-checkList"><i class="fa fa-plus fa-fw"></i> Add</button>
                             </div>
                             <div class="panel-body">
-                                <wj-flex-grid [itemsSource]="checkListCollectionView" [selectionMode]="3" style="border-radius: 0px;">
+                                <wj-flex-grid [itemsSource]="checkListCollectionView" [selectionMode]="3">
                                     <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="70">
                                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                                            <button class="btn btn-primary btn-xs btn-block" (click)="checkListEdit()" data-toggle="modal"  data-backdrop="static" data-keyboard="false" data-target="#delivery-print-add-checkList">
+                                            <button class="btn btn-primary btn-xs btn-block" (click)="checkListEdit()" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                                data-target="#delivery-print-add-checkList">
                                                 <i class="fa fa-edit fa-fw"></i> Edit
                                             </button>
                                         </template>
@@ -508,7 +470,7 @@
                                     </wj-flex-grid-column>
                                 </wj-flex-grid>
                             </div>
-                             <div class="panel-footer">
+                            <div class="panel-footer">
                                 <div class="row">
                                     <div class="col-sm-12 btn-group" id="">
                                         <button type="button" class="btn btn-default" (click)="checkListCollectionView.moveToFirstPage()">
@@ -523,8 +485,8 @@
                                         <button type="button" class="btn btn-default" (click)="checkListCollectionView.moveToLastPage()">
                                             Last <span class="glyphicon glyphicon-fast-forward"></span>
                                         </button>
-                                    </div> 
-                                </div> 
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -533,34 +495,22 @@
                             <div class="panel-body">
                                 <div class="row">
                                     <div class="col-md-6">
-                                          <div class="form-horizontal">
+                                        <div class="form-horizontal">
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4">Prepared By</label>
                                                 <div class="col-sm-8">
-                                                    <wj-combo-box 
-                                                        [itemsSource]="deliveryPrintPreparedByUserObservableArray" 
-                                                        [placeholder]="'Select User'"
-                                                        [displayMemberPath]="'FullName'" 
-                                                        [selectedValuePath]="'FullName'"
-                                                        [isEditable]="false"
-                                                        [isRequired]="true"
-                                                        [(selectedValue)]="deliveryPrintPreparedBySelectedValue"
-                                                        style="width: 100%; border-radius: 0px;">
+                                                    <wj-combo-box [itemsSource]="deliveryPrintPreparedByUserObservableArray" [placeholder]="'Select User'" [displayMemberPath]="'FullName'"
+                                                        [selectedValuePath]="'FullName'" [isEditable]="false" [isRequired]="true"
+                                                        [(selectedValue)]="deliveryPrintPreparedBySelectedValue" style="width: 100%;">
                                                     </wj-combo-box>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4">Sales</label>
                                                 <div class="col-sm-8">
-                                                    <wj-combo-box 
-                                                        [itemsSource]="deliveryPrintSalesUserObservableArray" 
-                                                        [placeholder]="'Select User'"
-                                                        [displayMemberPath]="'FullName'" 
-                                                        [selectedValuePath]="'FullName'"
-                                                        [isEditable]="false"
-                                                        [isRequired]="true"
-                                                        [(selectedValue)]="deliveryPrintSalesUserSelectedValue"
-                                                        style="width: 100%; border-radius: 0px;">
+                                                    <wj-combo-box [itemsSource]="deliveryPrintSalesUserObservableArray" [placeholder]="'Select User'" [displayMemberPath]="'FullName'"
+                                                        [selectedValuePath]="'FullName'" [isEditable]="false" [isRequired]="true"
+                                                        [(selectedValue)]="deliveryPrintSalesUserSelectedValue" style="width: 100%;">
                                                     </wj-combo-box>
                                                 </div>
                                             </div>
@@ -573,7 +523,7 @@
                                             <div class="form-group">
                                                 <label class="control-label col-sm-4">Functional</label>
                                                 <div class="col-sm-8">
-                                                     <input type="text" class="form-control" id="deliveryPrintUserFunctional" placeholder="Customer Name" disabled />
+                                                    <input type="text" class="form-control" id="deliveryPrintUserFunctional" placeholder="Customer Name" disabled />
                                                 </div>
                                             </div>
                                         </div>

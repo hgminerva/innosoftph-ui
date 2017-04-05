@@ -257,6 +257,10 @@ var ProjectComponent = (function () {
         document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
         this.getProjectData();
     };
+    // show menu
+    ProjectComponent.prototype.showMenu = function () {
+        document.getElementById("showTop").click();
+    };
     // initialization
     ProjectComponent.prototype.ngOnInit = function () {
         this.setProjectDateRanged();

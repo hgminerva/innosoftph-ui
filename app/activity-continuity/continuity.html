@@ -25,50 +25,36 @@
                             </div>
                         </td>
                         <td align="right">
-                            <button class="btn btn-primary" (click)="btnContinuityDetailClick(true)" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#continuity-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
-                            <button class="btn btn-danger"  (click)="backClicked()"><i class="fa fa-close fa-fw"></i> Close</button>
+                            <button class="btn btn-primary" (click)="btnContinuityDetailClick(true)" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                data-target="#continuity-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
+                            <button class="btn btn-danger" (click)="backClicked()"><i class="fa fa-close fa-fw"></i> Close</button>
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="panel-heading">
-               <table border="0" style="width: 100%;">
+                <table border="0" style="width: 100%;">
                     <tr>
                         <td style="width: 30%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
-                                <wj-input-date
-                                    [(value)]="continuityStartDateValue" 
-                                    [format]="'yyyy-MM-dd'"
-                                    [mask]="'9999-99-99'"
-                                    (valueChanged)="continuityStartDateOnValueChanged()"
-                                    style="border-radius: 0px;">
+                                <wj-input-date [(value)]="continuityStartDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="continuityStartDateOnValueChanged()">
                                 </wj-input-date>
                             </div>
                         </td>
                         <td style="width: 30%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
-                                <wj-input-date
-                                    [(value)]="continuityEndDateValue" 
-                                    [format]="'yyyy-MM-dd'"
-                                    [mask]="'9999-99-99'"
-                                    (valueChanged)="continuityEndDateOnValueChanged()"
-                                    style="border-radius: 0px;">
+                                <wj-input-date [(value)]="continuityEndDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="continuityEndDateOnValueChanged()">
                                 </wj-input-date>
                             </div>
                         </td>
                         <td style="width: 30%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-question-circle-o fa-fw"></i> Status</span>
-                                 <wj-combo-box 
-                                    [itemsSource]="fliterContinuityStatusArray" 
-                                    [placeholder]="'Select Status'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [(selectedValue)]="filterContinuityStatusSelectedValue"
-                                    (selectedIndexChanged)="filterContinuityStatusSelectedIndexChangedClick()"
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-combo-box [itemsSource]="fliterContinuityStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
+                                    [(selectedValue)]="filterContinuityStatusSelectedValue" (selectedIndexChanged)="filterContinuityStatusSelectedIndexChangedClick()"
+                                    style="width: 100%;">
                                 </wj-combo-box>
                             </div>
                         </td>
@@ -80,17 +66,19 @@
                 </table>
             </div>
             <div class="panel-body">
-                 <wj-flex-grid [itemsSource]="continuityCollectionView" [selectionMode]="3" style="border-radius: 0px;">
+                <wj-flex-grid [itemsSource]="continuityCollectionView" [selectionMode]="3">
                     <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="60">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                            <button class="btn btn-primary btn-xs btn-block" (click)="btnContinuityDetailClick(false)" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#continuity-detail-modal">
+                            <button class="btn btn-primary btn-xs btn-block" (click)="btnContinuityDetailClick(false)" data-toggle="modal" data-backdrop="static"
+                                data-keyboard="false" data-target="#continuity-detail-modal">
                                 <i class="fa fa-edit fa-fw"></i> Edit
                             </button>
                         </template>
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="80">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                            <button class="btn btn-danger btn-xs btn-block" (click)="btnDeleteContinuityClick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#continuity-delete-confirmation-modal">
+                            <button class="btn btn-danger btn-xs btn-block" (click)="btnDeleteContinuityClick()" data-toggle="modal" data-backdrop="static"
+                                data-keyboard="false" data-target="#continuity-delete-confirmation-modal">
                                 <i class="fa fa-trash fa-fw"></i> Delete
                             </button>
                         </template>
@@ -120,7 +108,7 @@
                         <button type="button" class="btn btn-default" (click)="continuityCollectionView.moveToPreviousPage()">
                             <span class="glyphicon glyphicon-step-backward"></span> Previous
                         </button>
-                        <button type="button" class="btn btn-default" disabled  style="width:100px">
+                        <button type="button" class="btn btn-default" disabled style="width:100px">
                             {{ continuityCollectionView.pageIndex + 1 }} / {{ continuityCollectionView.pageCount }}
                         </button>
                         <button type="button" class="btn btn-default" (click)="continuityCollectionView.moveToNextPage()">
@@ -129,8 +117,8 @@
                         <button type="button" class="btn btn-default" (click)="continuityCollectionView.moveToLastPage()">
                             Last <span class="glyphicon glyphicon-fast-forward"></span>
                         </button>
-                    </div> 
-                </div> 
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -153,109 +141,57 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Continuity No.</label>
                                 <div class="col-sm-8">
-                                    <input type="text" [disabled]="true" [(ngModel)]="continuityNumber" class="form-control" id="continuityNumber" name="continuityNumber" placeholder="Continuity Number" />
+                                    <input type="text" [disabled]="true" [(ngModel)]="continuityNumber" class="form-control" id="continuityNumber" name="continuityNumber"
+                                        placeholder="Continuity Number" />
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Continuity Date</label>
                             <div class="col-sm-8">
-                                <wj-input-date
-                                    [(value)]="continuityDateValue" 
-                                    [format]="'MMM dd, yyyy'"
-                                    (valueChanged)="continuityDateOnValueChanged()"
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-input-date [(value)]="continuityDateValue" [format]="'MMM dd, yyyy'" (valueChanged)="continuityDateOnValueChanged()"
+                                    style="width: 100%;">
                                 </wj-input-date>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Delivery No.</label>
                             <div class="col-sm-8">
-                                <wj-combo-box 
-                                    [itemsSource]="continuityDeliveryObservableArray" 
-                                    [placeholder]="'Select Delivery Number'"
-                                    [displayMemberPath]="'DeliveryNumberDetail'" 
-                                    [selectedValuePath]="'Id'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [(selectedValue)]="continuityDeliverySelectedValue"
-                                    (selectedIndexChanged)="cboContinuityDeliverySelectedIndexChanged()"
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-combo-box [itemsSource]="continuityDeliveryObservableArray" [placeholder]="'Select Delivery Number'" [displayMemberPath]="'DeliveryNumberDetail'"
+                                    [selectedValuePath]="'Id'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="continuityDeliverySelectedValue"
+                                    (selectedIndexChanged)="cboContinuityDeliverySelectedIndexChanged()" style="width: 100%;">
                                 </wj-combo-box>
                             </div>
                         </div>
-                        <!--<div class="form-group">
-                            <label class="control-label col-sm-4">Customer</label>
-                            <div class="col-sm-8">
-                                <wj-combo-box 
-                                    [itemsSource]="continuityCustomerObservableArray" 
-                                    [placeholder]="'Select Customer'"
-                                    [displayMemberPath]="'Article'" 
-                                    [selectedValuePath]="'Article'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [isDisabled]="true"
-                                    [(selectedIndex)]="continuityCustomerSelectedIndex"
-                                    [selectedValue]="continuityCustomerSelectedValue"
-                                    (selectedIndexChanged)="cboContinuityCustomerSelectedIndexChanged()"
-                                    style="width: 100%; border-radius: 0px;">
-                                </wj-combo-box>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Product</label>
-                            <div class="col-sm-8">
-                                <wj-combo-box 
-                                    [itemsSource]="continuityProductObservableArray" 
-                                    [placeholder]="'Select Product'"
-                                    [displayMemberPath]="'Article'" 
-                                    [selectedValuePath]="'Article'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [isDisabled]="true"
-                                    [(selectedIndex)]="continuityProductSelectedIndex"
-                                    [selectedValue]="continuityProductSelectedValue"
-                                    (selectedIndexChanged)="cboContinuityProductSelectedIndexChanged()"
-                                    style="width: 100%; border-radius: 0px;">
-                                </wj-combo-box>
-                            </div>
-                        </div>-->
                         <div class="form-group">
                             <label class="control-label col-sm-4">Expiry Date</label>
                             <div class="col-sm-8">
-                                <wj-input-date
-                                    [(value)]="continuityExpiryDateValue" 
-                                    [format]="'MMM dd, yyyy'"
-                                    (valueChanged)="continuityExpiryDateOnValueChanged()"
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-input-date [(value)]="continuityExpiryDateValue" [format]="'MMM dd, yyyy'" (valueChanged)="continuityExpiryDateOnValueChanged()"
+                                    style="width: 100%;">
                                 </wj-input-date>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Remarks</label>
                             <div class="col-sm-8">
-                                <textarea [(ngModel)]="continuityRemarks" class="form-control" rows="5" id="continuityRemarks" name="continuityRemarks"  placeholder="Remarks"></textarea>
+                                <textarea [(ngModel)]="continuityRemarks" class="form-control" rows="7" id="continuityRemarks" name="continuityRemarks" placeholder="Remarks"></textarea>
                             </div>
                         </div>
                         <div *ngIf="isAdd">
                             <div class="form-group">
                                 <label class="control-label col-sm-4">Staff</label>
                                 <div class="col-sm-8">
-                                    <input type="text" [disabled]="true" [(ngModel)]="continuityStaffUser" class="form-control" id="continuityStaffUser" name="continuityStaffUser" placeholder="Staff" />
+                                    <input type="text" [disabled]="true" [(ngModel)]="continuityStaffUser" class="form-control" id="continuityStaffUser" name="continuityStaffUser"
+                                        placeholder="Staff" />
                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Status</label>
                             <div class="col-sm-8">
-                                <wj-combo-box 
-                                    [itemsSource]="continuityStatusArray" 
-                                    [placeholder]="'Select Status'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [(selectedValue)]="continuityStatusSelectedValue"
-                                    (selectedIndexChanged)="cboContinuityStatusSelectedIndexChanged()"
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-combo-box [itemsSource]="continuityStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
+                                    [(selectedValue)]="continuityStatusSelectedValue" (selectedIndexChanged)="cboContinuityStatusSelectedIndexChanged()"
+                                    style="width: 100%;">
                                 </wj-combo-box>
                             </div>
                         </div>
@@ -263,7 +199,7 @@
                 </div>
             </div>
             <div class="modal-footer" align="right">
-                <button type="button" id="btnSaveContinuity"  class="btn btn-primary" (click)="btnSaveContinuity()"><i class="fa fa-save fa-fw"></i> Save</button>
+                <button type="button" id="btnSaveContinuity" class="btn btn-primary" (click)="btnSaveContinuity()"><i class="fa fa-save fa-fw"></i> Save</button>
                 <button type="button" id="btnCloseContinuity" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
             </div>
         </div>

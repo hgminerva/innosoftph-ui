@@ -129,14 +129,14 @@ p.copyright {
 }
 
 .panel, .well, .dashboardTable {
-    border-radius: 0px;
+    /*border-radius: 0px;*/
     box-shadow: 5px 5px 10px -5px #808080;
 }
 
 .btn-info {
     box-shadow: 5px 5px 15px -5px #808080;
 }
-
+/*
 .form-control,
 .btn,
 .custom-grid,
@@ -145,7 +145,7 @@ p.copyright {
 .alert,
 .input-group-addon {
     border-radius: 0px;
-}
+}*/
 
 .navbar-default {
     background-color: #f8f8f8;
@@ -306,7 +306,7 @@ p.copyright {
 .picture-bg {
     background-color: #112540;
     padding: 20px;
-    border-radius: 10px;
+    /*border-radius: 10px;*/
 }
 
 @media (max-width: 767px) {
@@ -315,7 +315,7 @@ p.copyright {
         padding: 5px;
         margin-left: 5px;
         margin-right: 5px;
-        border-radius: 15px;
+        /*border-radius: 15px;*/
     }
 }
 
@@ -325,7 +325,7 @@ a.client-links {
 
 
 a.client-links > .thumbnail {
-    border-radius: 0px;
+    /*border-radius: 0px;*/
     margin-bottom: 0px;
     transition: 0.5s all;
 }
@@ -546,12 +546,12 @@ table.features-style {
 }
 
 .nav-tabs > li > a  {
-    border-radius: 0;
+    /*border-radius: 0;*/
 }
 
 .dropdown-submenu {
     position: relative;
-    border-radius: 0;
+    /*border-radius: 0;*/
 }
 
 .dropdown-submenu>.dropdown-menu {
@@ -655,12 +655,12 @@ textarea {
 }
 
 .modal-header {
-  background-color: #2e6da4;
-  color: #fff;
+  /*background-color: #2e6da4;*/
+  /*color: #fff;*/
 }
 
 .modal-footer {
-  background-color: #eaeaea;
+  /*background-color: #eaeaea;*/
 }
 
 .social {

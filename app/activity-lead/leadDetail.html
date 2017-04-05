@@ -46,7 +46,7 @@
                                             [(value)]="leadDateValue" 
                                             [format]="'yyyy-MM-dd'"
                                             [mask]="'9999-99-99'" 
-                                            style="width: 100%; border-radius: 0px;">
+                                            style="width: 100%;">
                                         </wj-input-date>
                                         <input type="hidden" class="form-control" id="leadDateValue" />
                                     </div>
@@ -60,7 +60,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Address</label>
                                     <div class="col-sm-8">
-                                        <textarea [(ngModel)]="leadAddress" class="form-control" rows="3" id="leadAddress" name="leadAddress" placeholder="Address" ></textarea>
+                                        <textarea [(ngModel)]="leadAddress" class="form-control" rows="5" id="leadAddress" name="leadAddress" placeholder="Address" ></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -82,7 +82,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-4">Contact Numbers</label>
+                                    <label class="control-label col-sm-4">Contact No's.</label>
                                     <div class="col-sm-8">
                                         <textarea class="form-control" [(ngModel)]="leadContactNumber" rows="3" id="leadContactNumber" name="leadContactNumber" placeholder="Contact Numbers"></textarea>
                                     </div>
@@ -115,7 +115,7 @@
                                             [isRequired]="true"
                                             [isDisabled]="true"
                                             [(selectedValue)]="leadEncodedBySelectedValue"
-                                            style="width: 100%; border-radius: 0px;">
+                                            style="width: 100%;">
                                         </wj-combo-box>
                                         <input type="hidden" class="form-control" id="leadEncodedBySelectedValue" />
                                     </div>
@@ -132,7 +132,7 @@
                                             [isRequired]="false"
                                             [(selectedValue)]="leadAssignedToSelectedValue"
                                             (selectedIndexChanged)="cboAssignedToSelectedIndexChangedClick()"
-                                            style="width: 100%; border-radius: 0px;">
+                                            style="width: 100%;">
                                         </wj-combo-box>
                                         <input type="hidden" class="form-control" id="leadAssignedToSelectedValue" />
                                     </div>
@@ -152,7 +152,7 @@
                                             [isEditable]="false"
                                             [isRequired]="true"
                                             [(selectedValue)]="leadStatusSelectedValue"
-                                            style="width: 100%; border-radius: 0px;">
+                                            style="width: 100%;">
                                         </wj-combo-box>
                                         <input type="hidden" class="form-control" id="leadStatusSelectedValue" />
                                     </div>
@@ -177,7 +177,7 @@
                 </table>
             </div>
             <div class="panel-body">
-                <wj-flex-grid [itemsSource]="activityCollectionView" [selectionMode]="3" style="border-radius: 0px;">
+                <wj-flex-grid [itemsSource]="activityCollectionView" [selectionMode]="3" style="">
                     <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="60">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
                             <button class="btn btn-primary btn-xs btn-block" (click)="btnActivityDetailModal(false)" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#activity-detail-modal">
@@ -252,7 +252,7 @@
                                 [(value)]="activityDateValue" 
                                 [format]="'yyyy-MM-dd'"
                                 [mask]="'9999-99-99'" 
-                                style="width: 100%; border-radius: 0px;">
+                                style="width: 100%;">
                             </wj-input-date>
                         </div>
                     </div>
@@ -265,14 +265,14 @@
                                 [isEditable]="false"
                                 [isRequired]="true"
                                 [(selectedValue)]="activityParticularCategorySelectedValue"
-                                style="width: 100%; border-radius: 0px;">
+                                style="width: 100%;">
                             </wj-combo-box>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-sm-4">Particulars</label>
                         <div class="col-sm-8">
-                            <textarea class="form-control" rows="3" id="activityParticulars" name="Particulars" placeholder="Particulars"></textarea>
+                            <textarea class="form-control" rows="7" id="activityParticulars" name="Particulars" placeholder="Particulars"></textarea>
                         </div>
                     </div>
                     <div class="form-group">
@@ -284,7 +284,7 @@
                                 [isEditable]="false"
                                 [isRequired]="true"
                                 [(selectedValue)]="activityNoOfHoursSelectedValue"
-                                style="width: 30%; border-radius: 0px;">
+                                style="width: 30%;">
                             </wj-combo-box>
                         </div>
                     </div>
@@ -303,7 +303,7 @@
                                 [isEditable]="false"
                                 [isRequired]="true"
                                 [(selectedValue)]="activityStatusSelectedValue"
-                                style="width: 100%; border-radius: 0px;">
+                                style="width: 100%;">
                             </wj-combo-box>
                         </div>
                     </div>

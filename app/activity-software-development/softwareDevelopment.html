@@ -25,50 +25,36 @@
                             </div>
                         </td>
                         <td align="right">
-                            <button class="btn btn-primary" (click)="btnAddSoftwareDevelopmentClick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#softwareDevelopment-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
+                            <button class="btn btn-primary" (click)="btnAddSoftwareDevelopmentClick()" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                data-target="#softwareDevelopment-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
                             <button class="btn btn-danger" (click)="backClicked()"><i class="fa fa-close fa-fw"></i> Close</button>
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="panel-heading">
-               <table border="0" style="width: 100%;">
+                <table border="0" style="width: 100%;">
                     <tr>
                         <td style="width: 30%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
-                                <wj-input-date
-                                    [(value)]="softwareDevelopmentStartDateValue" 
-                                    [format]="'yyyy-MM-dd'"
-                                    [mask]="'9999-99-99'" 
-                                    (valueChanged)="softwareDevelopmentStartDateOnValueChanged()"
-                                    style="border-radius: 0px;">
+                                <wj-input-date [(value)]="softwareDevelopmentStartDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="softwareDevelopmentStartDateOnValueChanged()">
                                 </wj-input-date>
                             </div>
                         </td>
                         <td style="width: 30%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
-                                <wj-input-date
-                                    [(value)]="softwareDevelopmentEndDateValue" 
-                                    [format]="'yyyy-MM-dd'"
-                                    [mask]="'9999-99-99'" 
-                                    (valueChanged)="softwareDevelopmentEndDateOnValueChanged()"
-                                    style="border-radius: 0px;">
+                                <wj-input-date [(value)]="softwareDevelopmentEndDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="softwareDevelopmentEndDateOnValueChanged()">
                                 </wj-input-date>
                             </div>
                         </td>
                         <td style="width: 30%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-question-circle-o fa-fw"></i> Status</span>
-                                 <wj-combo-box 
-                                    [itemsSource]="fliterSoftwareDevelopmentStatusArray" 
-                                    [placeholder]="'Select Status'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [(selectedValue)]="filterSoftwareDevelopmentStatusSelectedValue"
-                                    (selectedIndexChanged)="filterSoftwareDevelopmentStatusSelectedIndexChangedClick()"
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-combo-box [itemsSource]="fliterSoftwareDevelopmentStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
+                                    [(selectedValue)]="filterSoftwareDevelopmentStatusSelectedValue" (selectedIndexChanged)="filterSoftwareDevelopmentStatusSelectedIndexChangedClick()"
+                                    style="width: 100%; ">
                                 </wj-combo-box>
                             </div>
                         </td>
@@ -80,7 +66,7 @@
                 </table>
             </div>
             <div class="panel-body">
-                 <wj-flex-grid #grid [itemsSource]="softwareDevelopmentCollectionView" [selectionMode]="3" style="border-radius: 0px;">
+                <wj-flex-grid #grid [itemsSource]="softwareDevelopmentCollectionView" [selectionMode]="3">
                     <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="60">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
                             <button class="btn btn-primary btn-xs btn-block" (click)="btnEditSoftwareDevelopment()">
@@ -90,7 +76,8 @@
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="80">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                            <button class="btn btn-danger btn-xs btn-block" (click)="btnDeleteSoftwareDevelopmentClick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#softwareDevelopment-delete-confirmation-modal">
+                            <button class="btn btn-danger btn-xs btn-block" (click)="btnDeleteSoftwareDevelopmentClick()" data-toggle="modal" data-backdrop="static"
+                                data-keyboard="false" data-target="#softwareDevelopment-delete-confirmation-modal">
                                 <i class="fa fa-trash fa-fw"></i> Delete
                             </button>
                         </template>
@@ -120,7 +107,7 @@
                         <button type="button" class="btn btn-default" (click)="softwareDevelopmentCollectionView.moveToPreviousPage()">
                             <span class="glyphicon glyphicon-step-backward"></span> Previous
                         </button>
-                        <button type="button" class="btn btn-default" disabled  style="width:100px">
+                        <button type="button" class="btn btn-default" disabled style="width:100px">
                             {{ softwareDevelopmentCollectionView.pageIndex + 1 }} / {{ softwareDevelopmentCollectionView.pageCount }}
                         </button>
                         <button type="button" class="btn btn-default" (click)="softwareDevelopmentCollectionView.moveToNextPage()">
@@ -129,8 +116,8 @@
                         <button type="button" class="btn btn-default" (click)="softwareDevelopmentCollectionView.moveToLastPage()">
                             Last <span class="glyphicon glyphicon-fast-forward"></span>
                         </button>
-                    </div> 
-                </div> 
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -152,79 +139,55 @@
                         <div class="form-group">
                             <label class="control-label col-sm-4">SoftDev Date</label>
                             <div class="col-sm-8">
-                                <wj-input-date
-                                    [(value)]="softwareDevelopmentDateValue" 
-                                    [format]="'yyyy-MM-dd'"
-                                    [mask]="'9999-99-99'" 
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-input-date [(value)]="softwareDevelopmentDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" style="width: 100%; ">
                                 </wj-input-date>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Project Number</label>
                             <div class="col-sm-8">
-                                <wj-combo-box 
-                                    [itemsSource]="softwareDevelopmentProjectObservableArray" 
-                                    [placeholder]="'Select Project Number'"
-                                    [displayMemberPath]="'ProjectNumberDetail'" 
-                                    [selectedValuePath]="'Id'"
-                                    [(selectedValue)]="softwareDevelopmentProjectSelectedValue"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-combo-box [itemsSource]="softwareDevelopmentProjectObservableArray" [placeholder]="'Select Project Number'" [displayMemberPath]="'ProjectNumberDetail'"
+                                    [selectedValuePath]="'Id'" [(selectedValue)]="softwareDevelopmentProjectSelectedValue" [isEditable]="false"
+                                    [isRequired]="true" style="width: 100%; ">
                                 </wj-combo-box>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Task</label>
                             <div class="col-sm-8">
-                                <textarea [(ngModel)]="softwareDevelopmentTask" class="form-control" rows="5" id="softwareDevelopmentTask" name="softwareDevelopmentTask"  placeholder="Remarks"></textarea>
+                                <textarea [(ngModel)]="softwareDevelopmentTask" class="form-control" rows="7" id="softwareDevelopmentTask" name="softwareDevelopmentTask"
+                                    placeholder="Remarks"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Remarks</label>
                             <div class="col-sm-8">
-                                <textarea [(ngModel)]="softwareDevelopmentRemarks" class="form-control" rows="5" id="softwareDevelopmentRemarks" name="softwareDevelopmentRemarks"  placeholder="Remarks"></textarea>
+                                <textarea [(ngModel)]="softwareDevelopmentRemarks" class="form-control" rows="7" id="softwareDevelopmentRemarks" name="softwareDevelopmentRemarks"
+                                    placeholder="Remarks"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">No. of Hours</label>
                             <div class="col-sm-8">
-                                <wj-combo-box 
-                                    [itemsSource]="softwareDevelopmentNoOfHoursArray" 
-                                    [placeholder]="'Select No. of Hours'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [(selectedValue)]="softwareDevelopmentNoOfHoursSelectedValue"
-                                    style="width: 30%; border-radius: 0px;">
+                                <wj-combo-box [itemsSource]="softwareDevelopmentNoOfHoursArray" [placeholder]="'Select No. of Hours'" [isEditable]="false"
+                                    [isRequired]="true" [(selectedValue)]="softwareDevelopmentNoOfHoursSelectedValue" style="width: 30%; ">
                                 </wj-combo-box>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Assigned To</label>
                             <div class="col-sm-8">
-                                <wj-combo-box 
-                                    [itemsSource]="softwareDevelopmentAssignedUserObservableArray" 
-                                    [placeholder]="'Select User'"
-                                    [displayMemberPath]="'FullName'" 
-                                    [selectedValuePath]="'Id'"
-                                    [(selectedValue)]="softwareDevelopmentAssignedUserSelectedValue"
-                                    [isEditable]="true"
-                                    [isRequired]="false"
-                                    style="width: 100%; border-radius: 0px; padding-left: 3px;">
+                                <wj-combo-box [itemsSource]="softwareDevelopmentAssignedUserObservableArray" [placeholder]="'Select User'" [displayMemberPath]="'FullName'"
+                                    [selectedValuePath]="'Id'" [(selectedValue)]="softwareDevelopmentAssignedUserSelectedValue"
+                                    [isEditable]="true" [isRequired]="false" style="width: 100%;  padding-left: 3px;">
                                 </wj-combo-box>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Status</label>
                             <div class="col-sm-8">
-                                <wj-combo-box 
-                                    [itemsSource]="softwareDevelopmentStatusArray" 
-                                    [placeholder]="'Select Status'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [(selectedValue)]="softwareDevelopmentStatusSelectedValue"
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-combo-box [itemsSource]="softwareDevelopmentStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
+                                    [(selectedValue)]="softwareDevelopmentStatusSelectedValue" style="width: 100%; ">
                                 </wj-combo-box>
                             </div>
                         </div>
@@ -232,7 +195,7 @@
                 </div>
             </div>
             <div class="modal-footer" align="right">
-                <button type="button" id="btnSaveSoftwareDevelopment"  class="btn btn-primary" (click)="btnSaveSoftwareDevelopment()"><i class="fa fa-save fa-fw"></i> Save</button>
+                <button type="button" id="btnSaveSoftwareDevelopment" class="btn btn-primary" (click)="btnSaveSoftwareDevelopment()"><i class="fa fa-save fa-fw"></i> Save</button>
                 <button type="button" id="btnCloseSoftwareDevelopment" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
             </div>
         </div>

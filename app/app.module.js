@@ -18,9 +18,9 @@ var ng2_toastr_1 = require('ng2-toastr/ng2-toastr');
 var ng2_toastr_2 = require('ng2-toastr/ng2-toastr');
 var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
 var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
+var reuse_strategy_1 = require('./reuse-strategy');
 var wjFlexGrid = require('wijmo/wijmo.angular2.grid');
 var wjInput = require('wijmo/wijmo.angular2.input');
-var reuse_strategy_1 = require('./reuse-strategy');
 // components
 var app_component_1 = require('./app.component');
 var header_component_1 = require('./shared-header/header.component');
@@ -47,6 +47,7 @@ var activity_component_1 = require('./activity/activity.component');
 var project_component_1 = require('./activity-project/project.component');
 var softwareDevelopment_component_1 = require('./activity-software-development/softwareDevelopment.component');
 var softwareDevelopmentDetail_component_1 = require('./activity-software-development/softwareDevelopmentDetail.component');
+var request_component_1 = require('./activity-request/request.component');
 // services
 var login_service_1 = require('./security-login/login.service');
 var customer_service_1 = require('./setup-customer/customer.service');
@@ -60,6 +61,7 @@ var support_service_1 = require('./activity-support/support.service');
 var activity_service_1 = require('./activity/activity.service');
 var project_service_1 = require('./activity-project/project.service');
 var softwareDevelopment_service_1 = require('./activity-software-development/softwareDevelopment.service');
+var request_service_1 = require('./activity-request/request.service');
 // paths and Routes
 var appRoutes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -85,7 +87,8 @@ var appRoutes = [
     { path: 'activity', component: activity_component_1.ActivityComponent },
     { path: 'project', component: project_component_1.ProjectComponent },
     { path: 'softwareDevelopment', component: softwareDevelopment_component_1.SoftwareDevelopmentComponent },
-    { path: 'softwareDevelopmentDetail/:id', component: softwareDevelopmentDetail_component_1.SoftwareDevelopmentDetailComponent }
+    { path: 'softwareDevelopmentDetail/:id', component: softwareDevelopmentDetail_component_1.SoftwareDevelopmentDetailComponent },
+    { path: 'request', component: request_component_1.RequestComponent },
 ];
 // module
 var AppModule = (function () {
@@ -131,7 +134,8 @@ var AppModule = (function () {
                 activity_component_1.ActivityComponent,
                 project_component_1.ProjectComponent,
                 softwareDevelopment_component_1.SoftwareDevelopmentComponent,
-                softwareDevelopmentDetail_component_1.SoftwareDevelopmentDetailComponent
+                softwareDevelopmentDetail_component_1.SoftwareDevelopmentDetailComponent,
+                request_component_1.RequestComponent
             ],
             providers: [
                 login_service_1.LoginService,
@@ -147,6 +151,7 @@ var AppModule = (function () {
                 activity_service_1.ActivityService,
                 project_service_1.ProjectService,
                 softwareDevelopment_service_1.SoftwareDevelopmentService,
+                request_service_1.RequestService,
                 { provide: router_1.RouteReuseStrategy, useClass: reuse_strategy_1.CustomReuseStrategy }
             ],
             bootstrap: [

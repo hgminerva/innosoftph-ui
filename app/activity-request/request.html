@@ -1,0 +1,311 @@
+<div class="content-section-b">
+    <div class="section-heading-custom">
+        <div class="container">
+            <button class="menu-button pull-right" (click)="showMenu()"><i class="fa fa-bars fa-3x"></i></button>
+            <h1 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: #fff; font-size: 35px;">REQUESTS</h1>
+            <p class="lead">
+                List of Requests
+            </p>
+        </div>
+    </div>
+</div>
+
+<div class="custom-content-a">
+    <div class="container">
+        <div class="well well-sm">
+            <a routerLink="/dashboard">Dashboard</a> &nbsp; / &nbsp; Requests
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <table border="0" style="width: 100%;">
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
+                                <input type="text" class="form-control" placeholder="filter" [(ngModel)]="filter" />
+                            </div>
+                        </td>
+                        <td align="right">
+                            <button class="btn btn-primary" (click)="btnRequestDetailClick(true)" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                data-target="#request-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
+                            <button class="btn btn-danger" (click)="backClicked()"><i class="fa fa-close fa-fw"></i> Close</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-heading">
+                <table border="0" style="width: 100%;">
+                    <tr>
+                        <td style="width: 30%;">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
+                                <wj-input-date [(value)]="requestStartDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="requestStartDateOnValueChanged()">
+                                </wj-input-date>
+                            </div>
+                        </td>
+                        <td style="width: 30%;">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
+                                <wj-input-date [(value)]="requestEndDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="requestEndDateOnValueChanged()">
+                                </wj-input-date>
+                            </div>
+                        </td>
+                        <td style="width: 31%;"></td>
+                        <td style="width: 9%;">
+                            <button class="btn btn-default btn-sm btn-block" id="btnRefresh" (click)="refreshGrid()"><i class="fa fa-refresh fa-fw"></i> Refresh</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-body">
+                <wj-flex-grid [itemsSource]="requestCollectionView" [selectionMode]="3">
+                    <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="60">
+                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                            <button class="btn btn-primary btn-xs btn-block" (click)="btnRequestDetailClick(false)" data-toggle="modal" data-backdrop="static"
+                                data-keyboard="false" data-target="#request-detail-modal">
+                                <i class="fa fa-edit fa-fw"></i> Edit
+                            </button>
+                        </template>
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="80">
+                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                            <button class="btn btn-danger btn-xs btn-block" (click)="btnDeleteRequestClick()" data-toggle="modal" data-backdrop="static"
+                                data-keyboard="false" data-target="#request-delete-confirmation-modal">
+                                <i class="fa fa-trash fa-fw"></i> Delete
+                            </button>
+                        </template>
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Request No.'" [binding]="'RequestNumber'" [isReadOnly]="true" [width]="120">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Request Date'" [binding]="'RequestDate'" [isReadOnly]="true" [width]="120">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Type'" [binding]="'RequestType'" [isReadOnly]="true" [width]="150">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Particulars'" [binding]="'Particulars'" [isReadOnly]="true" [width]="200">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Encoded By'" [binding]="'EncodedByUser'" [isReadOnly]="true" [width]="180">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Checked By'" [binding]="'CheckedByUser'" [isReadOnly]="true" [width]="180">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Approved By'" [binding]="'ApprovedByUser'" [isReadOnly]="true" [width]="180">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="Check" [isReadOnly]="true" [width]="100">
+                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                            <button class="btn btn-success btn-xs btn-block" (click)="btnCheckApprove(true)" data-toggle="modal" data-backdrop="static"
+                                data-keyboard="false" data-target="#request-detail-check-approve-modal">
+                                <i class="fa fa-check fa-fw"></i> Check
+                            </button>
+                        </template>
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="Approve" [isReadOnly]="true" [width]="100">
+                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                            <button class="btn btn-success btn-xs btn-block" (click)="btnCheckApprove(false)" data-toggle="modal" data-backdrop="static"
+                                data-keyboard="false" data-target="#request-detail-check-approve-modal">
+                                <i class="fa fa-check fa-fw"></i> Approve
+                            </button>
+                        </template>
+                    </wj-flex-grid-column>
+                </wj-flex-grid>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-12 btn-group" id="">
+                        <button type="button" class="btn btn-default" (click)="requestCollectionView.moveToFirstPage()">
+                            <span class="glyphicon glyphicon-fast-backward"></span> First
+                        </button>
+                        <button type="button" class="btn btn-default" (click)="requestCollectionView.moveToPreviousPage()">
+                            <span class="glyphicon glyphicon-step-backward"></span> Previous
+                        </button>
+                        <button type="button" class="btn btn-default" disabled style="width:100px">
+                            {{ requestCollectionView.pageIndex + 1 }} / {{ requestCollectionView.pageCount }}
+                        </button>
+                        <button type="button" class="btn btn-default" (click)="requestCollectionView.moveToNextPage()">
+                            Next <span class="glyphicon glyphicon-step-forward"></span>
+                        </button>
+                        <button type="button" class="btn btn-default" (click)="requestCollectionView.moveToLastPage()">
+                            Last <span class="glyphicon glyphicon-fast-forward"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- request detail modal -->
+<div class="modal fade" id="request-detail-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ requestDetailModalString }} Request</h4>
+            </div>
+            <div class="modal-body">
+                <div *ngIf="isLoading" align="center">
+                    <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
+                </div>
+                <div *ngIf="isFinishLoading">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#Request">Request</a></li>
+                        <li><a data-toggle="tab" href="#CheckedRemarks">Checked Remarks</a></li>
+                        <li><a data-toggle="tab" href="#ApprovedRemarks">Approved Remarks</a></li>
+                    </ul>
+                    <br />
+                    <div class="tab-content">
+                        <div id="Request" class="tab-pane fade in active">
+                            <div class="form-horizontal">
+                                <div *ngIf="isAdd">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Request No.</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" [disabled]="true" [(ngModel)]="requestNumber" class="form-control" id="requestNumber" name="requestNumber"
+                                                placeholder="Request Number" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Request Date</label>
+                                    <div class="col-sm-8">
+                                        <wj-input-date [(value)]="requestDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" style="width: 100%;">
+                                        </wj-input-date>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Type</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box [itemsSource]="requestTypeObservableArray" [placeholder]="'Select Request Type'" [isEditable]="false" [isRequired]="true"
+                                            [(selectedValue)]="requestTypeSelectedValue" style="width: 100%;">
+                                        </wj-combo-box>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Particulars</label>
+                                    <div class="col-sm-8">
+                                        <textarea [(ngModel)]="requestParticulars" class="form-control" rows="8" id="requestParticulars" name="requestParticulars"
+                                            placeholder="Particulars"></textarea>
+                                    </div>
+                                </div>
+                                <div *ngIf="isAdd">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Encoded By</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" [disabled]="true" [(ngModel)]="requestEncodedByUser" class="form-control" id="requestEncodedByUser" name="requestEncodedByUser"
+                                                placeholder="Staff" disabled />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="CheckedRemarks" class="tab-pane fade">
+                            <div *ngIf="isChecked">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Checked Remarks</label>
+                                        <div class="col-sm-8">
+                                            <textarea [(ngModel)]="requestCheckedRemarks" class="form-control" rows="8" id="requestCheckedRemarks" name="requestCheckedRemarks"
+                                                placeholder="Remarks" disabled></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Checked By</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" [disabled]="true" [(ngModel)]="requestCheckedBy" class="form-control" id="requestCheckedBy" name="requestCheckedBy"
+                                                placeholder="Checked By" disabled/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="isNotChecked">
+                                <div class="alert alert-info text-center">
+                                    <strong>Not Checked</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="ApprovedRemarks" class="tab-pane fade">
+                            <div *ngIf="isApproved">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Approved Remarks</label>
+                                        <div class="col-sm-8">
+                                            <textarea [(ngModel)]="requestApprovedRemarks" class="form-control" rows="8" id="requestApprovedRemarks" name="requestApprovedRemarks"
+                                                placeholder="Remarks" disabled></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Approved By</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" [disabled]="true" [(ngModel)]="requestApprovedBy" class="form-control" id="requestApprovedBy" name="requestApprovedBy"
+                                                placeholder="Apprroved By" disabled />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div *ngIf="isNotApproved">
+                                <div class="alert alert-info text-center">
+                                    <strong>Not Approved</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" align="right">
+                <button type="button" id="btnSaveRequest" class="btn btn-primary" (click)="btnSaveRequest()"><i class="fa fa-save fa-fw"></i> Save</button>
+                <button type="button" id="btnCloseRequest" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- delete modal -->
+<div class="modal fade" id="request-delete-confirmation-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Delete</h4>
+            </div>
+            <div class="modal-body">
+                Delete Request?
+            </div>
+            <div class="modal-footer" align="right">
+                <button type="button" id="btnDeleteRequest" class="btn btn-danger" (click)="btnDeleteConfirmRequestClick()"><i class="fa fa-trash fa-fw"></i> Delete</button>
+                <button type="button" id="btnDeleteCloseRequest" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- request detail modal -->
+<div class="modal fade" id="request-detail-check-approve-modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ requestCheckApproveDetailModalString }}</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <label class="control-label col-sm-4">Remarks</label>
+                        <div class="col-sm-8">
+                            <textarea [(ngModel)]="requestRemarks" class="form-control" rows="8" id="requestRemarks" name="requestRemarks" placeholder="Remarks"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" align="right">
+                <button type="button" id="btnSaveCheckApproveRequest" class="btn btn-primary" (click)="btnSaveCheckApproveRequestClick()"><i class="fa fa-save fa-fw"></i> Save</button>
+                <button type="button" id="btnCloseCheckApproveRequest" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- hidden elements to execute functions in API services -->
+<button id="btn-hidden-start-loading" [hidden]="true" (click)="startLoading()"></button>
+<button id="btn-hidden-complete-loading" [hidden]="true" (click)="completeLoading()"></button>
+<button id="btn-hidden-request-detail-modal" [hidden]="true" data-toggle="modal" data-target="#request-detail-modal"></button>
+<button id="btn-hidden-request-delete-modal" [hidden]="true" data-toggle="modal" data-target="#request-delete-confirmation-modal"></button>
+<button id="btn-hidden-customer-data" [hidden]="true" (click)="getListCustomerServiceData()"></button>
+<button id="btn-hidden-user-data" [hidden]="true" (click)="getListUserServiceData()"></button>
+<button id="btn-hidden-request-data" [hidden]="true" (click)="getRequestData()"></button>
+<button id="btn-hidden-finished-load" [hidden]="true" (click)="finishedLoad()"></button>
+<button id="btn-hidden-request-check-approve-modal" [hidden]="true" data-toggle="modal" data-target="#request-detail-check-approve-modal"></button>

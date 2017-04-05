@@ -25,50 +25,36 @@
                             </div>
                         </td>
                         <td align="right">
-                            <button class="btn btn-primary" (click)="btnProjectDetailClick(true)" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#project-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
+                            <button class="btn btn-primary" (click)="btnProjectDetailClick(true)" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                data-target="#project-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
                             <button class="btn btn-danger" (click)="backClicked()"><i class="fa fa-close fa-fw"></i> Close</button>
                         </td>
                     </tr>
                 </table>
             </div>
             <div class="panel-heading">
-               <table border="0" style="width: 100%;">
+                <table border="0" style="width: 100%;">
                     <tr>
                         <td style="width: 30%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
-                                <wj-input-date
-                                    [(value)]="projectStartDateValue" 
-                                    [format]="'yyyy-MM-dd'"
-                                    [mask]="'9999-99-99'" 
-                                    (valueChanged)="projectStartDateOnValueChanged()"
-                                    style="border-radius: 0px;">
+                                <wj-input-date [(value)]="projectStartDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="projectStartDateOnValueChanged()">
                                 </wj-input-date>
                             </div>
                         </td>
                         <td style="width: 30%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
-                                <wj-input-date
-                                    [(value)]="projectEndDateValue" 
-                                    [format]="'yyyy-MM-dd'"
-                                    [mask]="'9999-99-99'" 
-                                    (valueChanged)="projectEndDateOnValueChanged()"
-                                    style="border-radius: 0px;">
+                                <wj-input-date [(value)]="projectEndDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="projectEndDateOnValueChanged()">
                                 </wj-input-date>
                             </div>
                         </td>
                         <td style="width: 30%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-question-circle-o fa-fw"></i> Status</span>
-                                 <wj-combo-box 
-                                    [itemsSource]="fliterProjectStatusArray" 
-                                    [placeholder]="'Select Status'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [(selectedValue)]="filterProjectStatusSelectedValue"
-                                    (selectedIndexChanged)="filterProjectStatusSelectedIndexChangedClick()"
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-combo-box [itemsSource]="fliterProjectStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
+                                    [(selectedValue)]="filterProjectStatusSelectedValue" (selectedIndexChanged)="filterProjectStatusSelectedIndexChangedClick()"
+                                    style="width: 100%;">
                                 </wj-combo-box>
                             </div>
                         </td>
@@ -80,17 +66,19 @@
                 </table>
             </div>
             <div class="panel-body">
-                 <wj-flex-grid [itemsSource]="projectCollectionView" [selectionMode]="3" style="border-radius: 0px;">
+                <wj-flex-grid [itemsSource]="projectCollectionView" [selectionMode]="3">
                     <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="60">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                            <button class="btn btn-primary btn-xs btn-block" (click)="btnProjectDetailClick(false)" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#project-detail-modal">
+                            <button class="btn btn-primary btn-xs btn-block" (click)="btnProjectDetailClick(false)" data-toggle="modal" data-backdrop="static"
+                                data-keyboard="false" data-target="#project-detail-modal">
                                 <i class="fa fa-edit fa-fw"></i> Edit
                             </button>
                         </template>
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="80">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                            <button class="btn btn-danger btn-xs btn-block" (click)="btnDeleteProjectClick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#project-delete-confirmation-modal">
+                            <button class="btn btn-danger btn-xs btn-block" (click)="btnDeleteProjectClick()" data-toggle="modal" data-backdrop="static"
+                                data-keyboard="false" data-target="#project-delete-confirmation-modal">
                                 <i class="fa fa-trash fa-fw"></i> Delete
                             </button>
                         </template>
@@ -120,7 +108,7 @@
                         <button type="button" class="btn btn-default" (click)="projectCollectionView.moveToPreviousPage()">
                             <span class="glyphicon glyphicon-step-backward"></span> Previous
                         </button>
-                        <button type="button" class="btn btn-default" disabled  style="width:100px">
+                        <button type="button" class="btn btn-default" disabled style="width:100px">
                             {{ projectCollectionView.pageIndex + 1 }} / {{ projectCollectionView.pageCount }}
                         </button>
                         <button type="button" class="btn btn-default" (click)="projectCollectionView.moveToNextPage()">
@@ -129,8 +117,8 @@
                         <button type="button" class="btn btn-default" (click)="projectCollectionView.moveToLastPage()">
                             Last <span class="glyphicon glyphicon-fast-forward"></span>
                         </button>
-                    </div> 
-                </div> 
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -148,66 +136,54 @@
                     <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
                 </div>
                 <div *ngIf="isFinishLoading">
-                     <div class="row">
+                    <div class="row">
                         <div class="col-md-6">
                             <div class="form-horizontal">
                                 <div *ngIf="isAdd">
                                     <div class="form-group">
                                         <label class="control-label col-sm-4">Project No.</label>
                                         <div class="col-sm-8">
-                                            <input type="text" [disabled]="true" [(ngModel)]="projectNumber" class="form-control" id="projectNumber" name="projectNumber" placeholder="Project Number" />
+                                            <input type="text" [disabled]="true" [(ngModel)]="projectNumber" class="form-control" id="projectNumber" name="projectNumber"
+                                                placeholder="Project Number" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Project Date</label>
                                     <div class="col-sm-8">
-                                        <wj-input-date
-                                            [(value)]="projectDateValue" 
-                                            [format]="'yyyy-MM-dd'"
-                                            [mask]="'9999-99-99'" 
-                                            style="width: 100%; border-radius: 0px;">
+                                        <wj-input-date [(value)]="projectDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" style="width: 100%;">
                                         </wj-input-date>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Project Name</label>
                                     <div class="col-sm-8">
-                                        <input type="text" [(ngModel)]="projectName" class="form-control" id="projectName" name="projectName" placeholder="Project Name" />
+                                        <input type="text" [(ngModel)]="projectName" class="form-control" id="projectName" name="projectName" placeholder="Project Name"
+                                        />
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Type</label>
                                     <div class="col-sm-8">
-                                        <wj-combo-box 
-                                            [itemsSource]="projectTypeObservableArray" 
-                                            [placeholder]="'Select Project Type'"
-                                            [isEditable]="false"
-                                            [isRequired]="true"
-                                            [(selectedValue)]="projectTypeSelectedValue"
-                                            style="width: 100%; border-radius: 0px;">
+                                        <wj-combo-box [itemsSource]="projectTypeObservableArray" [placeholder]="'Select Project Type'" [isEditable]="false" [isRequired]="true"
+                                            [(selectedValue)]="projectTypeSelectedValue" style="width: 100%;">
                                         </wj-combo-box>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Customer</label>
                                     <div class="col-sm-8">
-                                        <wj-combo-box 
-                                            [itemsSource]="projectCustomerObservableArray" 
-                                            [placeholder]="'Select Customer'"
-                                            [displayMemberPath]="'Article'" 
-                                            [selectedValuePath]="'Id'"
-                                            [isEditable]="false"
-                                            [isRequired]="true"
-                                            [(selectedValue)]="projectCustomerSelectedValue"
-                                            style="width: 100%; border-radius: 0px;">
+                                        <wj-combo-box [itemsSource]="projectCustomerObservableArray" [placeholder]="'Select Customer'" [displayMemberPath]="'Article'"
+                                            [selectedValuePath]="'Id'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="projectCustomerSelectedValue"
+                                            style="width: 100%;">
                                         </wj-combo-box>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Particulars</label>
                                     <div class="col-sm-8">
-                                        <textarea [(ngModel)]="projectParticulars" class="form-control" rows="3" id="projectParticulars" name="projectParticulars" placeholder="Particulars" ></textarea>
+                                        <textarea [(ngModel)]="projectParticulars" class="form-control" rows="7" id="projectParticulars" name="projectParticulars"
+                                            placeholder="Particulars"></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -218,57 +194,39 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-4">Encoded By</label>
                                         <div class="col-sm-8">
-                                            <input type="text" [disabled]="true" [(ngModel)]="projectEncodedByUser" class="form-control" id="projectEncodedByUser" name="projectEncodedByUser" placeholder="Staff" />
+                                            <input type="text" [disabled]="true" [(ngModel)]="projectEncodedByUser" class="form-control" id="projectEncodedByUser" name="projectEncodedByUser"
+                                                placeholder="Staff" />
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Project Manager</label>
                                     <div class="col-sm-8">
-                                        <wj-combo-box 
-                                            [itemsSource]="projectManagerObservableArray" 
-                                            [placeholder]="'Select User'"
-                                            [displayMemberPath]="'FullName'" 
-                                            [selectedValuePath]="'Id'"
-                                            [isEditable]="false"
-                                            [isRequired]="true"
-                                            [(selectedValue)]="projectManagerSelectedValue"
-                                            style="width: 100%; border-radius: 0px;">
+                                        <wj-combo-box [itemsSource]="projectManagerObservableArray" [placeholder]="'Select User'" [displayMemberPath]="'FullName'"
+                                            [selectedValuePath]="'Id'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="projectManagerSelectedValue"
+                                            style="width: 100%;">
                                         </wj-combo-box>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Project Start Date</label>
                                     <div class="col-sm-8">
-                                        <wj-input-date
-                                            [(value)]="projectStartDateDataValue" 
-                                            [format]="'yyyy-MM-dd'"
-                                            [mask]="'9999-99-99'" 
-                                            style="width: 100%; border-radius: 0px;">
+                                        <wj-input-date [(value)]="projectStartDateDataValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" style="width: 100%;">
                                         </wj-input-date>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Project End Date</label>
                                     <div class="col-sm-8">
-                                        <wj-input-date
-                                            [(value)]="projectEndDateDataValue" 
-                                            [format]="'yyyy-MM-dd'"
-                                            [mask]="'9999-99-99'" 
-                                            style="width: 100%; border-radius: 0px;">
+                                        <wj-input-date [(value)]="projectEndDateDataValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" style="width: 100%;">
                                         </wj-input-date>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Status</label>
                                     <div class="col-sm-8">
-                                        <wj-combo-box 
-                                            [itemsSource]="projectStatusArray" 
-                                            [placeholder]="'Select Status'"
-                                            [isEditable]="false"
-                                            [isRequired]="true"
-                                            [(selectedValue)]="projectStatusSelectedValue"
-                                            style="width: 100%; border-radius: 0px;">
+                                        <wj-combo-box [itemsSource]="projectStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
+                                            [(selectedValue)]="projectStatusSelectedValue" style="width: 100%;">
                                         </wj-combo-box>
                                     </div>
                                 </div>
@@ -278,7 +236,7 @@
                 </div>
             </div>
             <div class="modal-footer" align="right">
-                <button type="button" id="btnSaveProject"  class="btn btn-primary" (click)="btnSaveProject()"><i class="fa fa-save fa-fw"></i> Save</button>
+                <button type="button" id="btnSaveProject" class="btn btn-primary" (click)="btnSaveProject()"><i class="fa fa-save fa-fw"></i> Save</button>
                 <button type="button" id="btnCloseProject" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
             </div>
         </div>

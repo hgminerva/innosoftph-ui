@@ -9,7 +9,7 @@
         </div>
     </div>
 </div>
-<div class="custom-content-a"> 
+<div class="custom-content-a">
     <div class="container">
         <div class="well well-sm">
             <a routerLink="/dashboard">Dashboard</a> &nbsp; / &nbsp; Activities
@@ -36,38 +36,22 @@
                         <td style="width: 30%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
-                                <wj-input-date
-                                    [(value)]="activityStartDateValue" 
-                                    [format]="'yyyy-MM-dd'"
-                                    [mask]="'9999-99-99'"
-                                    (valueChanged)="activityStartDateOnValueChanged()"
-                                    style="border-radius: 0px;">
+                                <wj-input-date [(value)]="activityStartDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="activityStartDateOnValueChanged()">
                                 </wj-input-date>
                             </div>
                         </td>
                         <td style="width: 30%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
-                                <wj-input-date
-                                    [(value)]="activityEndDateValue" 
-                                    [format]="'yyyy-MM-dd'"
-                                    [mask]="'9999-99-99'"
-                                    (valueChanged)="activityEndDateOnValueChanged()"
-                                    style="border-radius: 0px;">
+                                <wj-input-date [(value)]="activityEndDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="activityEndDateOnValueChanged()">
                                 </wj-input-date>
                             </div>
                         </td>
                         <td style="width: 40%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Document</span>
-                                <wj-combo-box 
-                                    [itemsSource]="documentArray" 
-                                    [placeholder]="'Select Document'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [(selectedValue)]="documentSelectedValue"
-                                    (selectedIndexChanged)="cboDocumentSelectedIndexChangedClick()"
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-combo-box [itemsSource]="documentArray" [placeholder]="'Select Document'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="documentSelectedValue"
+                                    (selectedIndexChanged)="cboDocumentSelectedIndexChangedClick()" style="width: 100%; ">
                                 </wj-combo-box>
                             </div>
                         </td>
@@ -80,19 +64,14 @@
                         <td style="width: 40%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-question-circle-o fa-fw"></i> Status</span>
-                                <wj-combo-box 
-                                    [itemsSource]="activityStatusesArray" 
-                                    [placeholder]="'Select Document'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [(selectedValue)]="activityStatusesSelectedValue"
-                                    (selectedIndexChanged)="activityStatusesSelectedIndexChangedClick()"
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-combo-box [itemsSource]="activityStatusesArray" [placeholder]="'Select Document'" [isEditable]="false" [isRequired]="true"
+                                    [(selectedValue)]="activityStatusesSelectedValue" (selectedIndexChanged)="activityStatusesSelectedIndexChangedClick()"
+                                    style="width: 100%; ">
                                 </wj-combo-box>
                             </div>
                         </td>
                         <td style="width: 1%;"></td>
-                         <td style="width: 9%;">
+                        <td style="width: 9%;">
                             <button class="btn btn-default btn-sm btn-block" id="btnRefresh" (click)="refreshGrid()"><i class="fa fa-refresh fa-fw"></i> Refresh</button>
                         </td>
                         <td style="width: 50%;"></td>
@@ -100,17 +79,19 @@
                 </table>
             </div>
             <div class="panel-body">
-                 <wj-flex-grid #grid [itemsSource]="activityCollectionView" [selectionMode]="3" style="border-radius: 0px;" (initialized)="init(grid)">
+                <wj-flex-grid #grid [itemsSource]="activityCollectionView" [selectionMode]="3" (initialized)="init(grid)">
                     <wj-flex-grid-column [isReadOnly]="true" [isContentHtml]="true" [width]="80">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                            <button class="btn btn-primary btn-xs btn-block" (click)="btnActivityDetailModal(true)" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#activity-detail-modal">
+                            <button class="btn btn-primary btn-xs btn-block" (click)="btnActivityDetailModal(true)" data-toggle="modal" data-backdrop="static"
+                                data-keyboard="false" data-target="#activity-detail-modal">
                                 <i class="fa fa-plus fa-fw"></i> Add
                             </button>
                         </template>
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [isReadOnly]="true" [width]="80">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                            <button class="btn btn-primary btn-xs btn-block" (click)="btnActivityDetailModal(false)" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#activity-detail-modal">
+                            <button class="btn btn-primary btn-xs btn-block" (click)="btnActivityDetailModal(false)" data-toggle="modal" data-backdrop="static"
+                                data-keyboard="false" data-target="#activity-detail-modal">
                                 <i class="fa fa-edit fa-fw"></i> Edit
                             </button>
                         </template>
@@ -124,7 +105,7 @@
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [isReadOnly]="true" [binding]="'Document'" [width]="130">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                            <button class="btn btn-default btn-xs btn-block" (click)="btnDocumentClick()" >
+                            <button class="btn btn-default btn-xs btn-block" (click)="btnDocumentClick()">
                                 {{ '' }} {{cell.item.Document}} {{ '' }}
                             </button>
                         </template>
@@ -152,7 +133,7 @@
                         <button type="button" class="btn btn-default" (click)="activityCollectionView.moveToPreviousPage()">
                             <span class="glyphicon glyphicon-step-backward"></span> Previous
                         </button>
-                        <button type="button" class="btn btn-default" disabled  style="width:100px">
+                        <button type="button" class="btn btn-default" disabled style="width:100px">
                             {{ activityCollectionView.pageIndex + 1 }} / {{ activityCollectionView.pageCount }}
                         </button>
                         <button type="button" class="btn btn-default" (click)="activityCollectionView.moveToNextPage()">
@@ -161,8 +142,8 @@
                         <button type="button" class="btn btn-default" (click)="activityCollectionView.moveToLastPage()">
                             Last <span class="glyphicon glyphicon-fast-forward"></span>
                         </button>
-                    </div> 
-                </div> 
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -186,49 +167,39 @@
                         <div class="form-group">
                             <label class="control-label col-sm-4">Activity Date</label>
                             <div class="col-sm-8">
-                                    <wj-input-date
-                                    [(value)]="activityDateValue" 
-                                    [format]="'MMM dd, yyyy'"
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-input-date [(value)]="activityDateValue" [format]="'MMM dd, yyyy'" style="width: 100%; ">
                                 </wj-input-date>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Particular Category</label>
                             <div class="col-sm-8">
-                                    <wj-combo-box 
-                                    [itemsSource]="activityParticularCategories" 
-                                    [placeholder]="'Select Particular Category'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [(selectedValue)]="activityParticularCategorySelectedValue"
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-combo-box [itemsSource]="activityParticularCategories" [placeholder]="'Select Particular Category'" [isEditable]="false"
+                                    [isRequired]="true" [(selectedValue)]="activityParticularCategorySelectedValue" style="width: 100%; ">
                                 </wj-combo-box>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Particulars</label>
                             <div class="col-sm-8">
-                                <textarea class="form-control" rows="3" [(ngModel)]="activityParticulars" id="activityParticulars" name="activityParticulars" placeholder="Particulars"></textarea>
+                                <textarea class="form-control" rows="7" [(ngModel)]="activityParticulars" id="activityParticulars" name="activityParticulars"
+                                    placeholder="Particulars"></textarea>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">No. of Hours</label>
                             <div class="col-sm-8">
-                                <wj-combo-box 
-                                    [itemsSource]="activityNoOfHours" 
-                                    [placeholder]="'Select No. of Hours'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [(selectedValue)]="activityNoOfHoursSelectedValue"
-                                    style="width: 30%; border-radius: 0px;">
+                                <wj-combo-box [itemsSource]="activityNoOfHours" [placeholder]="'Select No. of Hours'" [isEditable]="false" [isRequired]="true"
+                                    [(selectedValue)]="activityNoOfHoursSelectedValue" style="width: 30%; ">
                                 </wj-combo-box>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-sm-4">Amount</label>
                             <div class="col-sm-8">
-                                <input type="text" style="text-align: right;" [(ngModel)]="activityAmount" (keypress)="onKeyPressOnlyDecimalNumberKey($event)" (blur)="onBlurOnlyDecimalNumberKey()" class="form-control" id="activityAmount" name="" placeholder="0.00" />
+                                <input type="text" style="text-align: right;" [(ngModel)]="activityAmount" (keypress)="onKeyPressOnlyDecimalNumberKey($event)"
+                                    (blur)="onBlurOnlyDecimalNumberKey()" class="form-control" id="activityAmount" name="" placeholder="0.00"
+                                />
                             </div>
                         </div>
                         <div *ngIf="isSupport">
@@ -239,15 +210,9 @@
                                         <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
                                     </div>
                                     <div *ngIf="isFinishLoading">
-                                        <wj-combo-box 
-                                            [itemsSource]="activityAssignedUserObservableArray" 
-                                            [placeholder]="'Select User'"
-                                            [displayMemberPath]="'FullName'" 
-                                            [selectedValuePath]="'Id'"
-                                            [(selectedValue)]="activityAssignedToSelectedValue"
-                                            [isEditable]="true"
-                                            [isRequired]="false"
-                                            style="width: 100%; border-radius: 0px; padding-left: 3px;">
+                                        <wj-combo-box [itemsSource]="activityAssignedUserObservableArray" [placeholder]="'Select User'" [displayMemberPath]="'FullName'"
+                                            [selectedValuePath]="'Id'" [(selectedValue)]="activityAssignedToSelectedValue" [isEditable]="true"
+                                            [isRequired]="false" style="width: 100%;  padding-left: 3px;">
                                         </wj-combo-box>
                                     </div>
                                 </div>
@@ -256,13 +221,8 @@
                         <div class="form-group">
                             <label class="control-label col-sm-4">Status</label>
                             <div class="col-sm-8">
-                                <wj-combo-box 
-                                    [itemsSource]="activityStatus" 
-                                    [placeholder]="'Select Status'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [(selectedValue)]="activityStatusSelectedValue"
-                                    style="width: 100%; border-radius: 0px;">
+                                <wj-combo-box [itemsSource]="activityStatus" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="activityStatusSelectedValue"
+                                    style="width: 100%; ">
                                 </wj-combo-box>
                             </div>
                         </div>

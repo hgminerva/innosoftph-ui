@@ -294,6 +294,11 @@ export class ProjectComponent {
     this.getProjectData();
   }
 
+  // show menu
+  public showMenu() {
+    document.getElementById("showTop").click();
+  }
+
   // initialization
   ngOnInit() {
     this.setProjectDateRanged();
