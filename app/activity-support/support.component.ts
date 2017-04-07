@@ -38,7 +38,7 @@ export class SupportActivityComponent implements OnInit {
   ];
   public supportIssueCategorySelectedValue = "New Installation";
   public supportIssue: String;
-  public supportTypeArray = ["Technical", "Functional"];
+  public supportTypeArray = ["Technical", "Functional", "Customize"];
   public supportTypeSelectedValue = "Technical";
   public supportSeverityArray = [
     'High (3hrs. resolution)',
@@ -62,7 +62,7 @@ export class SupportActivityComponent implements OnInit {
   public filterSupportStatusSelectedValue = "OPEN";
   public isStartDateClicked = false;
   public isEndDateClicked = false;
-  public fliterSupportTypeArray = ['ALL', 'Technical', 'Functional'];
+  public fliterSupportTypeArray = ['ALL', 'Technical', 'Functional', 'Customize'];
   public filterSupportTypeSelectedValue = "ALL";
   public supportStatusClicked = false;
   public supportTypeClicked = false;

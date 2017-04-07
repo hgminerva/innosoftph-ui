@@ -34,7 +34,7 @@ export class SupportDetailComponent implements OnInit {
   ];
   public supportIssueCategorySelectedValue: String;
   public supportIssue: String;
-  public supportTypeArray = ["Technical", "Functional"];
+  public supportTypeArray = ["Technical", "Functional", "Customize"];
   public supportTypeSelectedValue: String;
   public supportSeverityArray = [
     'High (3hrs. resolution)',

@@ -38,7 +38,7 @@ var SupportDetailComponent = (function () {
             'Progam Update',
             'Data Archive'
         ];
-        this.supportTypeArray = ["Technical", "Functional"];
+        this.supportTypeArray = ["Technical", "Functional", "Customize"];
         this.supportSeverityArray = [
             'High (3hrs. resolution)',
             'Moderate (1 day resolution)',

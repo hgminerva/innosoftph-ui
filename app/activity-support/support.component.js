@@ -38,7 +38,7 @@ var SupportActivityComponent = (function () {
             'Data Archive'
         ];
         this.supportIssueCategorySelectedValue = "New Installation";
-        this.supportTypeArray = ["Technical", "Functional"];
+        this.supportTypeArray = ["Technical", "Functional", "Customize"];
         this.supportTypeSelectedValue = "Technical";
         this.supportSeverityArray = [
             'High (3hrs. resolution)',
@@ -55,7 +55,7 @@ var SupportActivityComponent = (function () {
         this.filterSupportStatusSelectedValue = "OPEN";
         this.isStartDateClicked = false;
         this.isEndDateClicked = false;
-        this.fliterSupportTypeArray = ['ALL', 'Technical', 'Functional'];
+        this.fliterSupportTypeArray = ['ALL', 'Technical', 'Functional', 'Customize'];
         this.filterSupportTypeSelectedValue = "ALL";
         this.supportStatusClicked = false;
         this.supportTypeClicked = false;

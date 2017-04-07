@@ -15,7 +15,7 @@ export class ActivityComponent implements OnInit {
   public isActivtyStartDateSelected = true;
   public activityEndDateValue: Date;
   public isActivtyEndDateSelected = true;
-  public documentArray = ['Lead', 'Quotation', 'Delivery', 'Support', 'Support - Technical', 'Support - Functional', 'Software Development'];
+  public documentArray = ['Lead', 'Quotation', 'Delivery', 'Support', 'Support - Technical', 'Support - Functional', 'Support - Customize', 'Software Development'];
   public documentSelectedValue = 'Lead';
   public activityCollectionView: wijmo.collections.CollectionView;
   public activityFilter = '';
