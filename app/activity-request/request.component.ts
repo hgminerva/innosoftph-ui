@@ -43,6 +43,10 @@ export class RequestComponent {
   public requestCheckApproveDetailModalString: String;
   public requestRemarks: String;
   public isCheckedOrApprovedForSave: Boolean;
+  public requestTypeFilterObservableArray = ["Purchase", "Payment", "Leave", "Overtime"];
+  public requestTypeClicked = false;
+  public isRequestTypeClicked = false;
+  public filterRequestTypeSelectedValue: String;
 
   // inject request service
   constructor(
@@ -144,6 +148,21 @@ export class RequestComponent {
     }
   }
 
+  public cboRequestTypeSelectedIndexChangedClick() {
+    if (this.requestTypeClicked) {
+      if (this.isRequestTypeClicked) {
+        this.startLoading();
+        this.getRequestData();
+      }
+      else {
+        this.isRequestTypeClicked = true;
+      }
+    }
+    else {
+      this.requestTypeClicked = true;
+    }
+  }
+
   public getListRequestData() {
     if (!localStorage.getItem('access_token')) {
       this.router.navigate(['login']);
@@ -154,7 +173,7 @@ export class RequestComponent {
 
   // request data
   public getRequestData() {
-    this.requestCollectionView = new wijmo.collections.CollectionView(this.requestService.getListRequestData(this.requestEndDateValue, this.requestEndDateValue));
+    this.requestCollectionView = new wijmo.collections.CollectionView(this.requestService.getListRequestData(this.requestEndDateValue, this.requestEndDateValue, this.filterRequestTypeSelectedValue));
     this.requestCollectionView.filter = this.filterFunction.bind(this);
     this.requestCollectionView.pageSize = 15;
     this.requestCollectionView.trackChanges = true;

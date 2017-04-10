@@ -25,8 +25,8 @@ export class RequestService {
     }
 
     // list request by date ranged (start date and end date)
-    public getListRequestData(requestStartDate: Date, requestEndDate: Date): wijmo.collections.ObservableArray {
-        let url = "http://api.innosoft.ph/api/request/list/byRequestDateRange/" + requestStartDate.toDateString() + "/" + requestEndDate.toDateString();
+    public getListRequestData(requestStartDate: Date, requestEndDate: Date, filterRequestType: String): wijmo.collections.ObservableArray {
+        let url = "http://api.innosoft.ph/api/request/list/byRequestDateRange/" + requestStartDate.toDateString() + "/" + requestEndDate.toDateString() + "/" + filterRequestType;
         let requestObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {

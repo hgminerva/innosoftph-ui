@@ -31,6 +31,9 @@ var RequestComponent = (function () {
         this.isFinishLoading = false;
         this.isLoading = true;
         this.requestTypeObservableArray = ["Purchase", "Payment", "Leave", "Overtime"];
+        this.requestTypeFilterObservableArray = ["Purchase", "Payment", "Leave", "Overtime"];
+        this.requestTypeClicked = false;
+        this.isRequestTypeClicked = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
     RequestComponent.prototype.backClicked = function () {
@@ -115,6 +118,20 @@ var RequestComponent = (function () {
             this.isRequestEndDateSelected = false;
         }
     };
+    RequestComponent.prototype.cboRequestTypeSelectedIndexChangedClick = function () {
+        if (this.requestTypeClicked) {
+            if (this.isRequestTypeClicked) {
+                this.startLoading();
+                this.getRequestData();
+            }
+            else {
+                this.isRequestTypeClicked = true;
+            }
+        }
+        else {
+            this.requestTypeClicked = true;
+        }
+    };
     RequestComponent.prototype.getListRequestData = function () {
         if (!localStorage.getItem('access_token')) {
             this.router.navigate(['login']);
@@ -123,7 +140,7 @@ var RequestComponent = (function () {
     };
     // request data
     RequestComponent.prototype.getRequestData = function () {
-        this.requestCollectionView = new wijmo.collections.CollectionView(this.requestService.getListRequestData(this.requestEndDateValue, this.requestEndDateValue));
+        this.requestCollectionView = new wijmo.collections.CollectionView(this.requestService.getListRequestData(this.requestEndDateValue, this.requestEndDateValue, this.filterRequestTypeSelectedValue));
         this.requestCollectionView.filter = this.filterFunction.bind(this);
         this.requestCollectionView.pageSize = 15;
         this.requestCollectionView.trackChanges = true;

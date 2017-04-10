@@ -30,9 +30,9 @@ var RequestService = (function () {
         return (n < 10) ? ("0" + n) : n;
     };
     // list request by date ranged (start date and end date)
-    RequestService.prototype.getListRequestData = function (requestStartDate, requestEndDate) {
+    RequestService.prototype.getListRequestData = function (requestStartDate, requestEndDate, filterRequestType) {
         var _this = this;
-        var url = "http://api.innosoft.ph/api/request/list/byRequestDateRange/" + requestStartDate.toDateString() + "/" + requestEndDate.toDateString();
+        var url = "http://api.innosoft.ph/api/request/list/byRequestDateRange/" + requestStartDate.toDateString() + "/" + requestEndDate.toDateString() + "/" + filterRequestType;
         var requestObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
