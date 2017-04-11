@@ -46,7 +46,6 @@ export class RequestComponent {
   public requestTypeFilterObservableArray = ["Purchase", "Payment", "Leave", "Overtime"];
   public requestTypeClicked = false;
   public isRequestTypeClicked = false;
-  public filterRequestTypeSelectedValue: String;
 
   // inject request service
   constructor(
@@ -173,7 +172,7 @@ export class RequestComponent {
 
   // request data
   public getRequestData() {
-    this.requestCollectionView = new wijmo.collections.CollectionView(this.requestService.getListRequestData(this.requestEndDateValue, this.requestEndDateValue, this.filterRequestTypeSelectedValue));
+    this.requestCollectionView = new wijmo.collections.CollectionView(this.requestService.getListRequestData(this.requestEndDateValue, this.requestEndDateValue, this.requestTypeSelectedValue));
     this.requestCollectionView.filter = this.filterFunction.bind(this);
     this.requestCollectionView.pageSize = 15;
     this.requestCollectionView.trackChanges = true;

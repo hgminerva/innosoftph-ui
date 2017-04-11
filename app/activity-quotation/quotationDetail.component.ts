@@ -81,6 +81,7 @@ export class QuotationDetailComponent implements OnInit {
   public quotationPrintPreparedByUserSelectedValue: String;
   public quotationPrintApprovedByUserObservableArray = new wijmo.collections.ObservableArray();
   public quotationPrintApprovedByUserSelectedValue: String;
+  public printQuotationIsDiscount: Boolean;
 
   // inject quotation detail service
   constructor(
@@ -379,6 +380,8 @@ export class QuotationDetailComponent implements OnInit {
     (<HTMLInputElement>document.getElementById("LeadsRefNo")).value = "LN-" + this.quotationLeadObservableArray[leadIndex].LeadNumber;
     this.quotationPrintPreparedByUserObservableArray = this.quotationService.getListUserData("quotationDetail");
     this.quotationPrintApprovedByUserObservableArray = this.quotationService.getListUserData("quotationDetail");
+    this.printQuotationIsDiscount = false;
+    (<HTMLInputElement>document.getElementById("printQuotationIsDiscount")).checked = false;
   }
 
   public paymentTabClick() {
@@ -494,6 +497,8 @@ export class QuotationDetailComponent implements OnInit {
 
     (<HTMLInputElement>document.getElementById("printQuotationProductCode")).value = this.quotationProductObservableArray[index].ArticleCode;
     (<HTMLInputElement>document.getElementById("printQuotationProductDescription")).value = this.quotationProductObservableArray[index].Article;
+    this.printQuotationIsDiscount = false;
+    (<HTMLInputElement>document.getElementById("printQuotationIsDiscount")).checked = false;
   }
 
   public btnAddProductDataClick() {
@@ -502,6 +507,7 @@ export class QuotationDetailComponent implements OnInit {
     this.printQuotationProductPrice = (<HTMLInputElement>document.getElementById("printQuotationProductPrice")).value;
     this.printQuotationProductQuantity = (<HTMLInputElement>document.getElementById("printQuotationProductQuantity")).value;
     this.printQuotationProductAmount = (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value;
+    this.printQuotationIsDiscount = (<HTMLInputElement>document.getElementById("printQuotationIsDiscount")).checked;
 
     if (this.isAddProduct) {
       this.productId += 1;
@@ -509,6 +515,7 @@ export class QuotationDetailComponent implements OnInit {
         Id: this.productId,
         ProductCode: this.printQuotationProductCode,
         ProductDescription: this.printQuotationProductDescription,
+        IsDiscount: this.printQuotationIsDiscount,
         Price: this.printQuotationProductPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
         Quantity: this.printQuotationProductQuantity.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
         Amount: this.printQuotationProductAmount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -517,6 +524,7 @@ export class QuotationDetailComponent implements OnInit {
       let currentSelectedProduct = this.productCollectionView.currentItem;
       currentSelectedProduct.ProductCode = this.printQuotationProductCode;
       currentSelectedProduct.ProductDescription = this.printQuotationProductDescription;
+      currentSelectedProduct.IsDiscount = this.printQuotationIsDiscount;
       currentSelectedProduct.Price = this.printQuotationProductPrice;
       currentSelectedProduct.Quantity = this.printQuotationProductQuantity;
       currentSelectedProduct.Amount = this.printQuotationProductAmount;
@@ -532,6 +540,7 @@ export class QuotationDetailComponent implements OnInit {
     let currentSelectedProduct = this.productCollectionView.currentItem;
     (<HTMLInputElement>document.getElementById("printQuotationProductCode")).value = currentSelectedProduct.ProductCode;
     (<HTMLInputElement>document.getElementById("printQuotationProductDescription")).value = currentSelectedProduct.ProductDescription;
+    (<HTMLInputElement>document.getElementById("printQuotationIsDiscount")).checked = currentSelectedProduct.IsDiscount;
     (<HTMLInputElement>document.getElementById("printQuotationProductPrice")).value = currentSelectedProduct.Price;
     (<HTMLInputElement>document.getElementById("printQuotationProductQuantity")).value = currentSelectedProduct.Quantity;
     (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value = currentSelectedProduct.Amount;
@@ -614,6 +623,7 @@ export class QuotationDetailComponent implements OnInit {
         Id: productArray[i].Id,
         ProductCode: productArray[i].ProductCode,
         ProductDescription: productArray[i].ProductDescription,
+        IsDiscount: productArray[i].IsDiscount,
         Price: parseFloat(productArray[i].Price.split(',').join('')),
         Quantity: parseFloat(productArray[i].Quantity.split(',').join('')),
         Amount: parseFloat(productArray[i].Amount.split(',').join(''))
@@ -754,6 +764,20 @@ export class QuotationDetailComponent implements OnInit {
     if (!localStorage.getItem('access_token')) {
       this.router.navigate(['login']);
     }
+
+    this.quotationPaymentScheduleArray.push({
+        Id: 0,
+        Description: "50% Downpayment",
+        Amount: "0",
+        Remarks: "Upon signing of Quote"
+      });
+
+    this.quotationPaymentScheduleArray.push({
+        Id: 0,
+        Description: "50% Upon Installation",
+        Amount: "0",
+        Remarks: " "
+      });
 
     this.setQuotationDateValue();
   }

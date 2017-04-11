@@ -54,7 +54,7 @@
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Request Type</span>
                                 <wj-combo-box [itemsSource]="requestTypeFilterObservableArray" [placeholder]="'Select Request Type'" [isEditable]="false"
-                                    (selectedIndexChanged)="cboRequestTypeSelectedIndexChangedClick()" [isRequired]="true" [(selectedValue)]="filterRequestTypeSelectedValue"
+                                    (selectedIndexChanged)="cboRequestTypeSelectedIndexChangedClick()" [isRequired]="true" [(selectedValue)]="requestTypeSelectedValue"
                                     style="width: 100%;">
                                 </wj-combo-box>
                             </div>
@@ -94,9 +94,9 @@
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="'Encoded By'" [binding]="'EncodedByUser'" [isReadOnly]="true" [width]="180">
                     </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'Checked By'" [binding]="'CheckedByUser'" [isReadOnly]="true" [width]="180">
+                    <wj-flex-grid-column [header]="'Checked'" [binding]="'CheckedByUser'" [isReadOnly]="true" [width]="180">
                     </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'Approved By'" [binding]="'ApprovedByUser'" [isReadOnly]="true" [width]="180">
+                    <wj-flex-grid-column [header]="'Approved'" [binding]="'ApprovedByUser'" [isReadOnly]="true" [width]="180">
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="Check" [isReadOnly]="true" [width]="100">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">

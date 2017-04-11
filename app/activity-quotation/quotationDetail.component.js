@@ -301,6 +301,8 @@ var QuotationDetailComponent = (function () {
         document.getElementById("LeadsRefNo").value = "LN-" + this.quotationLeadObservableArray[leadIndex].LeadNumber;
         this.quotationPrintPreparedByUserObservableArray = this.quotationService.getListUserData("quotationDetail");
         this.quotationPrintApprovedByUserObservableArray = this.quotationService.getListUserData("quotationDetail");
+        this.printQuotationIsDiscount = false;
+        document.getElementById("printQuotationIsDiscount").checked = false;
     };
     QuotationDetailComponent.prototype.paymentTabClick = function () {
         var _this = this;
@@ -402,6 +404,8 @@ var QuotationDetailComponent = (function () {
         }
         document.getElementById("printQuotationProductCode").value = this.quotationProductObservableArray[index].ArticleCode;
         document.getElementById("printQuotationProductDescription").value = this.quotationProductObservableArray[index].Article;
+        this.printQuotationIsDiscount = false;
+        document.getElementById("printQuotationIsDiscount").checked = false;
     };
     QuotationDetailComponent.prototype.btnAddProductDataClick = function () {
         this.printQuotationProductCode = document.getElementById("printQuotationProductCode").value;
@@ -409,12 +413,14 @@ var QuotationDetailComponent = (function () {
         this.printQuotationProductPrice = document.getElementById("printQuotationProductPrice").value;
         this.printQuotationProductQuantity = document.getElementById("printQuotationProductQuantity").value;
         this.printQuotationProductAmount = document.getElementById("printQuotationProductAmount").value;
+        this.printQuotationIsDiscount = document.getElementById("printQuotationIsDiscount").checked;
         if (this.isAddProduct) {
             this.productId += 1;
             this.productCollectionArray.push({
                 Id: this.productId,
                 ProductCode: this.printQuotationProductCode,
                 ProductDescription: this.printQuotationProductDescription,
+                IsDiscount: this.printQuotationIsDiscount,
                 Price: this.printQuotationProductPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
                 Quantity: this.printQuotationProductQuantity.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
                 Amount: this.printQuotationProductAmount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -424,6 +430,7 @@ var QuotationDetailComponent = (function () {
             var currentSelectedProduct = this.productCollectionView.currentItem;
             currentSelectedProduct.ProductCode = this.printQuotationProductCode;
             currentSelectedProduct.ProductDescription = this.printQuotationProductDescription;
+            currentSelectedProduct.IsDiscount = this.printQuotationIsDiscount;
             currentSelectedProduct.Price = this.printQuotationProductPrice;
             currentSelectedProduct.Quantity = this.printQuotationProductQuantity;
             currentSelectedProduct.Amount = this.printQuotationProductAmount;
@@ -437,6 +444,7 @@ var QuotationDetailComponent = (function () {
         var currentSelectedProduct = this.productCollectionView.currentItem;
         document.getElementById("printQuotationProductCode").value = currentSelectedProduct.ProductCode;
         document.getElementById("printQuotationProductDescription").value = currentSelectedProduct.ProductDescription;
+        document.getElementById("printQuotationIsDiscount").checked = currentSelectedProduct.IsDiscount;
         document.getElementById("printQuotationProductPrice").value = currentSelectedProduct.Price;
         document.getElementById("printQuotationProductQuantity").value = currentSelectedProduct.Quantity;
         document.getElementById("printQuotationProductAmount").value = currentSelectedProduct.Amount;
@@ -513,6 +521,7 @@ var QuotationDetailComponent = (function () {
                 Id: productArray[i].Id,
                 ProductCode: productArray[i].ProductCode,
                 ProductDescription: productArray[i].ProductDescription,
+                IsDiscount: productArray[i].IsDiscount,
                 Price: parseFloat(productArray[i].Price.split(',').join('')),
                 Quantity: parseFloat(productArray[i].Quantity.split(',').join('')),
                 Amount: parseFloat(productArray[i].Amount.split(',').join(''))
@@ -637,6 +646,18 @@ var QuotationDetailComponent = (function () {
         if (!localStorage.getItem('access_token')) {
             this.router.navigate(['login']);
         }
+        this.quotationPaymentScheduleArray.push({
+            Id: 0,
+            Description: "50% Downpayment",
+            Amount: "0",
+            Remarks: "Upon signing of Quote"
+        });
+        this.quotationPaymentScheduleArray.push({
+            Id: 0,
+            Description: "50% Upon Installation",
+            Amount: "0",
+            Remarks: " "
+        });
         this.setQuotationDateValue();
     };
     QuotationDetailComponent = __decorate([

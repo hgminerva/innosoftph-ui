@@ -140,7 +140,7 @@ var RequestComponent = (function () {
     };
     // request data
     RequestComponent.prototype.getRequestData = function () {
-        this.requestCollectionView = new wijmo.collections.CollectionView(this.requestService.getListRequestData(this.requestEndDateValue, this.requestEndDateValue, this.filterRequestTypeSelectedValue));
+        this.requestCollectionView = new wijmo.collections.CollectionView(this.requestService.getListRequestData(this.requestEndDateValue, this.requestEndDateValue, this.requestTypeSelectedValue));
         this.requestCollectionView.filter = this.filterFunction.bind(this);
         this.requestCollectionView.pageSize = 15;
         this.requestCollectionView.trackChanges = true;

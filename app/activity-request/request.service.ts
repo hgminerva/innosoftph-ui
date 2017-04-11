@@ -45,10 +45,10 @@ export class RequestService {
                             EncodedByUserId: results[i].EncodedByUserId,
                             EncodedByUser: results[i].EncodedByUser,
                             CheckedByUserId: results[i].CheckedByUserId,
-                            CheckedByUser: results[i].CheckedByUser,
+                            CheckedByUser: results[i].CheckedByUser == null &&  results[i].CheckedRemarks == null ? " " : results[i].CheckedByUser + " - " + results[i].CheckedRemarks,
                             CheckedRemarks: results[i].CheckedRemarks,
                             ApprovedByUserId: results[i].ApprovedByUserId,
-                            ApprovedByUser: results[i].ApprovedByUser,
+                            ApprovedByUser: results[i].ApprovedByUser == null && results[i].ApprovedRemarks == null ? " " : results[i].ApprovedByUser + " - " + results[i].ApprovedRemarks,
                             ApprovedRemarks: results[i].ApprovedRemarks
                         });
                     }
