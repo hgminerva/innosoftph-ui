@@ -48,6 +48,7 @@ var project_component_1 = require('./activity-project/project.component');
 var softwareDevelopment_component_1 = require('./activity-software-development/softwareDevelopment.component');
 var softwareDevelopmentDetail_component_1 = require('./activity-software-development/softwareDevelopmentDetail.component');
 var request_component_1 = require('./activity-request/request.component');
+var report_component_1 = require('./activity-report/report.component');
 // services
 var login_service_1 = require('./security-login/login.service');
 var customer_service_1 = require('./setup-customer/customer.service');
@@ -62,6 +63,7 @@ var activity_service_1 = require('./activity/activity.service');
 var project_service_1 = require('./activity-project/project.service');
 var softwareDevelopment_service_1 = require('./activity-software-development/softwareDevelopment.service');
 var request_service_1 = require('./activity-request/request.service');
+var report_service_1 = require('./activity-report/report.service');
 // paths and Routes
 var appRoutes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -89,6 +91,7 @@ var appRoutes = [
     { path: 'softwareDevelopment', component: softwareDevelopment_component_1.SoftwareDevelopmentComponent },
     { path: 'softwareDevelopmentDetail/:id', component: softwareDevelopmentDetail_component_1.SoftwareDevelopmentDetailComponent },
     { path: 'request', component: request_component_1.RequestComponent },
+    { path: 'report', component: report_component_1.ReportComponent },
 ];
 // module
 var AppModule = (function () {
@@ -135,7 +138,8 @@ var AppModule = (function () {
                 project_component_1.ProjectComponent,
                 softwareDevelopment_component_1.SoftwareDevelopmentComponent,
                 softwareDevelopmentDetail_component_1.SoftwareDevelopmentDetailComponent,
-                request_component_1.RequestComponent
+                request_component_1.RequestComponent,
+                report_component_1.ReportComponent
             ],
             providers: [
                 login_service_1.LoginService,
@@ -152,6 +156,7 @@ var AppModule = (function () {
                 project_service_1.ProjectService,
                 softwareDevelopment_service_1.SoftwareDevelopmentService,
                 request_service_1.RequestService,
+                report_service_1.ReportService,
                 { provide: router_1.RouteReuseStrategy, useClass: reuse_strategy_1.CustomReuseStrategy }
             ],
             bootstrap: [

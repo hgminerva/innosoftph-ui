@@ -1,0 +1,153 @@
+<div class="content-section-b">
+    <div class="section-heading-custom">
+        <div class="container">
+            <button class="menu-button pull-right" (click)="showMenu()"><i class="fa fa-bars fa-3x"></i></button>
+            <h1 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: #fff; font-size: 35px;">Report</h1>
+            <p class="report">
+                Activity Report
+            </p>
+        </div>
+    </div>
+</div>
+<div class="custom-content-a">
+    <div class="container">
+        <div class="well well-sm">
+            <a routerLink="/dashboard">Dashboard</a> &nbsp; / &nbsp; Report
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <table border="0" style="width: 100%;">
+                    <tr>
+                        <td>
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
+                                <input type="text" class="form-control" placeholder="filter" [(ngModel)]="filter" />
+                            </div>
+                        </td>
+                        <td align="right">
+                            <button class="btn btn-danger" (click)="backClicked()"><i class="fa fa-close fa-fw"></i> Close</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-heading">
+                <table border="0" style="width: 100%;">
+                    <tr>
+                        <td style="width: 30%;">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
+                                <wj-input-date [(value)]="reportStartDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="reportStartDateOnValueChanged()">
+                                </wj-input-date>
+                            </div>
+                        </td>
+                        <td style="width: 30%;">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
+                                <wj-input-date [(value)]="reportEndDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="reportEndDateOnValueChanged()">
+                                </wj-input-date>
+                            </div>
+                        </td>
+                        <td style="width: 30%;">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-question-circle-o fa-fw"></i> Status</span>
+                                <wj-combo-box [itemsSource]="fliterReportStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
+                                    [(selectedValue)]="filterReportStatusSelectedValue" (selectedIndexChanged)="filterReportStatusSelectedIndexChangedClick()"
+                                    style="width: 100%; ">
+                                </wj-combo-box>
+                            </div>
+                        </td>
+                        <td style="width: 1%;"></td>
+                        <td style="width: 9%;">
+                            <button class="btn btn-default btn-sm btn-block" id="btnRefresh" (click)="refreshGrid()"><i class="fa fa-refresh fa-fw"></i> Refresh</button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-heading">
+                <table border="0" style="width: 100%;">
+                    <tr>
+                        <td style="width: 30%;">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-file-text-o fa-fw"></i> Document Type</span>
+                                <wj-combo-box [itemsSource]="fliterReportDocumentTypeArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
+                                    [(selectedValue)]="fliterReportDocumentTypeSelectedValue" (selectedIndexChanged)="fliterReportDocumentTypeSelectedIndexChangedClick()"
+                                    style="width: 100%; ">
+                                </wj-combo-box>
+                            </div>
+                        </td>
+                        <td style="width: 1%;"></td>
+                        <td style="width: 30%;">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user fa-fw"></i> User (Staff)</span>
+                                <wj-combo-box [itemsSource]="reportAssignedUserObservableArray" [placeholder]="'Select User'" [displayMemberPath]="'FullName'"
+                                    [selectedValuePath]="'Id'" [(selectedValue)]="reportAssignedToSelectedValue" [isEditable]="true"
+                                    (selectedIndexChanged)="reportAssignedToSelectedIndexChangedClick()" [isRequired]="false"
+                                    style="width: 100%;  padding-left: 3px;">
+                                </wj-combo-box>
+                            </div>
+                        </td>
+                        <td style="width: 39%;"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-body">
+                <wj-flex-grid [itemsSource]="reportCollectionView" [selectionMode]="3">
+                    <wj-flex-grid-column [isReadOnly]="true" [binding]="'Document'" [width]="130">
+                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                            <button class="btn btn-default btn-xs btn-block" (click)="btnDocumentClick()">
+                                {{ '' }} {{cell.item.Document}} {{ '' }}
+                            </button>
+                        </template>
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Activity No.'" [binding]="'ActivityNumber'" [isReadOnly]="true" [width]="100">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Activity Date'" [binding]="'ActivityDate'" [isReadOnly]="true" [width]="100">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Customer'" [binding]="'Customer'" [isReadOnly]="true" [width]="200">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Product'" [binding]="'Product'" [isReadOnly]="true" [width]="200">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Remarks / Issue / Task'" [binding]="'HeaderRemarks'" [isReadOnly]="true" [width]="350">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Category'" [binding]="'ParticularCategory'" [isReadOnly]="true" [width]="200">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Activity'" [binding]="'Particulars'" [isReadOnly]="true" [width]="350">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'No. of Hrs.'" [binding]="'NumberOfHours'" [isReadOnly]="true" [width]="100">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Amount'" [binding]="'ActivityAmount'" [isReadOnly]="true" [width]="100">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Assigned To'" [binding]="'StaffUser'" [isReadOnly]="true" [width]="150">
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Status'" [binding]="'HeaderStatus'" [isReadOnly]="true" [width]="150">
+                    </wj-flex-grid-column>
+                </wj-flex-grid>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-12 btn-group" id="">
+                        <button type="button" class="btn btn-default" (click)="reportCollectionView.moveToFirstPage()">
+                            <span class="glyphicon glyphicon-fast-backward"></span> First
+                        </button>
+                        <button type="button" class="btn btn-default" (click)="reportCollectionView.moveToPreviousPage()">
+                            <span class="glyphicon glyphicon-step-backward"></span> Previous
+                        </button>
+                        <button type="button" class="btn btn-default" disabled style="width:100px">
+                            {{ reportCollectionView.pageIndex + 1 }} / {{ reportCollectionView.pageCount }}
+                        </button>
+                        <button type="button" class="btn btn-default" (click)="reportCollectionView.moveToNextPage()">
+                            Next <span class="glyphicon glyphicon-step-forward"></span>
+                        </button>
+                        <button type="button" class="btn btn-default" (click)="reportCollectionView.moveToLastPage()">
+                            Last <span class="glyphicon glyphicon-fast-forward"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- hidden elements to execute functions in API services -->
+<button id="btn-hidden-start-loading" [hidden]="true" (click)="startLoading()"></button>
+<button id="btn-hidden-complete-loading" [hidden]="true" (click)="completeLoading()"></button>

@@ -39,6 +39,7 @@ import { ProjectComponent } from './activity-project/project.component';
 import { SoftwareDevelopmentComponent } from './activity-software-development/softwareDevelopment.component';
 import { SoftwareDevelopmentDetailComponent } from './activity-software-development/softwareDevelopmentDetail.component';
 import { RequestComponent } from './activity-request/request.component';
+import { ReportComponent } from './activity-report/report.component';
 
 // services
 import { LoginService } from './security-login/login.service';
@@ -54,6 +55,7 @@ import { ActivityService } from './activity/activity.service';
 import { ProjectService } from './activity-project/project.service';
 import { SoftwareDevelopmentService } from './activity-software-development/softwareDevelopment.service';
 import { RequestService } from './activity-request/request.service';
+import { ReportService } from './activity-report/report.service';
 
 // paths and Routes
 const appRoutes: Routes = [
@@ -82,6 +84,7 @@ const appRoutes: Routes = [
   { path: 'softwareDevelopment', component: SoftwareDevelopmentComponent },
   { path: 'softwareDevelopmentDetail/:id', component: SoftwareDevelopmentDetailComponent },
   { path: 'request', component: RequestComponent },
+  { path: 'report', component: ReportComponent },
 ];
 
 // module
@@ -125,7 +128,8 @@ const appRoutes: Routes = [
     ProjectComponent,
     SoftwareDevelopmentComponent,
     SoftwareDevelopmentDetailComponent,
-    RequestComponent
+    RequestComponent,
+    ReportComponent
   ],
   providers: [
     LoginService,
@@ -142,6 +146,7 @@ const appRoutes: Routes = [
     ProjectService,
     SoftwareDevelopmentService,
     RequestService,
+    ReportService,
     { provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
   ],
   bootstrap: [
