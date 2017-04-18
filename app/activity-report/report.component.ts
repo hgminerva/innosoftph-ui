@@ -65,7 +65,7 @@ export class ReportComponent implements OnInit {
                 this.isReportStartDateClicked = true;
             }
         } else {
-            this.isReportStartDateSelected = true;
+            this.isReportStartDateSelected = false;
         }
     }
 
@@ -79,7 +79,7 @@ export class ReportComponent implements OnInit {
                 this.isReportEndDateClicked = true;
             }
         } else {
-            this.isReportEndDateSelected = true;
+            this.isReportEndDateSelected = false;
         }
     }
 
@@ -172,20 +172,30 @@ export class ReportComponent implements OnInit {
     // filter function
     public filterFunction(item: any) {
         if (this.reportFilter) {
-            return (item.DocumentNumber.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
+            return (item.Document.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
                 (item.ActivityNumber.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
                 (item.Customer.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
                 (item.Product.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
                 (item.HeaderRemarks.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
                 (item.ParticularCategory.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
-                (item.Activity.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
-                (item.NumberOfHours.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
-                (item.ActivityAmount.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
+                (item.Particulars.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
                 (item.StaffUser.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
                 (item.HeaderStatus.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1);
         }
 
         return true;
+    }
+
+    // refresh grid
+    public refreshGrid() {
+        this.startLoading();
+        (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = true;
+        (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+        this.getReporData();
+    }
+
+    public backClicked() {
+        window.history.back();
     }
 
     // initialization

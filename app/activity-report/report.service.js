@@ -63,11 +63,11 @@ var ReportService = (function () {
                         ActivityNumber: results[i].ActivityNumber,
                         ActivityDate: myDateValue,
                         StaffUserId: results[i].StaffUserId,
-                        StaffUser: results[i].StaffUser,
+                        StaffUser: results[i].StaffUser != null ? results[i].StaffUser : " ",
                         CustomerId: results[i].CustomerId,
                         Customer: results[i].Customer,
                         ProductId: results[i].ProductId,
-                        Product: results[i].Product,
+                        Product: results[i].Product != null ? results[i].Product : " ",
                         ParticularCategory: results[i].ParticularCategory,
                         Particulars: results[i].Particulars,
                         NumberOfHours: results[i].NumberOfHours,
@@ -84,6 +84,8 @@ var ReportService = (function () {
                 }
             }
             document.getElementById("btn-hidden-complete-loading").click();
+            document.getElementById("btnRefresh").disabled = false;
+            document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-refresh fa-fw'></i> Refresh";
         });
         return activityObservableArray;
     };

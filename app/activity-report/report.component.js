@@ -59,7 +59,7 @@ var ReportComponent = (function () {
             }
         }
         else {
-            this.isReportStartDateSelected = true;
+            this.isReportStartDateSelected = false;
         }
     };
     // end date value changed
@@ -74,7 +74,7 @@ var ReportComponent = (function () {
             }
         }
         else {
-            this.isReportEndDateSelected = true;
+            this.isReportEndDateSelected = false;
         }
     };
     // status selected index changed
@@ -165,19 +165,27 @@ var ReportComponent = (function () {
     // filter function
     ReportComponent.prototype.filterFunction = function (item) {
         if (this.reportFilter) {
-            return (item.DocumentNumber.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
+            return (item.Document.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
                 (item.ActivityNumber.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
                 (item.Customer.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
                 (item.Product.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
                 (item.HeaderRemarks.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
                 (item.ParticularCategory.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
-                (item.Activity.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
-                (item.NumberOfHours.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
-                (item.ActivityAmount.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
+                (item.Particulars.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
                 (item.StaffUser.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1) ||
                 (item.HeaderStatus.toLowerCase().indexOf(this.reportFilter.toLowerCase()) > -1);
         }
         return true;
+    };
+    // refresh grid
+    ReportComponent.prototype.refreshGrid = function () {
+        this.startLoading();
+        document.getElementById("btnRefresh").disabled = true;
+        document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+        this.getReporData();
+    };
+    ReportComponent.prototype.backClicked = function () {
+        window.history.back();
     };
     // initialization
     ReportComponent.prototype.ngOnInit = function () {
