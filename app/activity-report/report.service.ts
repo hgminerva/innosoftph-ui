@@ -47,7 +47,7 @@ export class ReportService {
 
     // list activities
     public getListActivities(documentType: String, startDate: Date, endDate: Date, status: String, staffId: String): wijmo.collections.ObservableArray {
-        let url = "http://localhost:22626/api/activity/list/byDocument/byDateRange/withStaff/" + documentType + "/" + startDate.toDateString() + "/" + endDate.toDateString() + "/" + status + "/" + staffId;
+        let url = "http://api.innosoft.ph/api/activity/list/byDocument/byDateRange/withStaff/" + documentType + "/" + startDate.toDateString() + "/" + endDate.toDateString() + "/" + status + "/" + staffId;
         let activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
