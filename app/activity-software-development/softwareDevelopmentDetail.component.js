@@ -37,10 +37,11 @@ var SoftwareDevelopmentDetailComponent = (function () {
         ];
         this.softwareDevelopmentNoOfHoursSelectedValue = "0";
         this.activityParticularCategories = [
-            'Report',
             'Form',
-            'Query',
             'Module',
+            'Report',
+            'Query',
+            'Table',
             'Others'
         ];
         this.activityParticularCategorySelectedIndex = 0;

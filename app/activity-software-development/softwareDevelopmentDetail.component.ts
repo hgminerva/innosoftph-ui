@@ -38,10 +38,11 @@ export class SoftwareDevelopmentDetailComponent implements OnInit {
   public activityId: number;
   public activityDateValue: Date;
   public activityParticularCategories = [
-    'Report',
     'Form',
-    'Query',
     'Module',
+    'Report',
+    'Query',
+    'Table',
     'Others'
   ];
   public activityParticularCategorySelectedIndex = 0;
