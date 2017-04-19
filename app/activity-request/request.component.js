@@ -30,9 +30,11 @@ var RequestComponent = (function () {
         this.isEndDateClicked = false;
         this.isFinishLoading = false;
         this.isLoading = true;
-        this.requestTypeObservableArray = ["Purchase", "Payment", "Leave", "Overtime"];
         this.requestTypeFilterObservableArray = ["Purchase", "Payment", "Leave", "Overtime"];
-        this.requestTypeClicked = false;
+        this.requestTypeFilterSelectedValue = "Purchase";
+        this.requestTypeObservableArray = ["Purchase", "Payment", "Leave", "Overtime"];
+        this.requestTypeSelectedValue = "Purchase";
+        this.requestTypeClicked = true;
         this.isRequestTypeClicked = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
@@ -86,7 +88,7 @@ var RequestComponent = (function () {
         this.startLoading();
         this.requestStartDateValue = new Date();
         this.requestEndDateValue = new Date();
-        this.getListRequestData();
+        this.getListRequestDataOnInit();
     };
     // event: request start date
     RequestComponent.prototype.requestStartDateOnValueChanged = function () {
@@ -119,20 +121,15 @@ var RequestComponent = (function () {
         }
     };
     RequestComponent.prototype.cboRequestTypeSelectedIndexChangedClick = function () {
-        if (this.requestTypeClicked) {
-            if (this.isRequestTypeClicked) {
-                this.startLoading();
-                this.getRequestData();
-            }
-            else {
-                this.isRequestTypeClicked = true;
-            }
+        if (!this.requestTypeClicked) {
+            this.startLoading();
+            this.getRequestData();
         }
         else {
-            this.requestTypeClicked = true;
+            this.requestTypeClicked = false;
         }
     };
-    RequestComponent.prototype.getListRequestData = function () {
+    RequestComponent.prototype.getListRequestDataOnInit = function () {
         if (!localStorage.getItem('access_token')) {
             this.router.navigate(['login']);
         }
@@ -140,7 +137,7 @@ var RequestComponent = (function () {
     };
     // request data
     RequestComponent.prototype.getRequestData = function () {
-        this.requestCollectionView = new wijmo.collections.CollectionView(this.requestService.getListRequestData(this.requestEndDateValue, this.requestEndDateValue, this.requestTypeSelectedValue));
+        this.requestCollectionView = new wijmo.collections.CollectionView(this.requestService.getListRequestData(this.requestStartDateValue, this.requestEndDateValue, this.requestTypeFilterSelectedValue));
         this.requestCollectionView.filter = this.filterFunction.bind(this);
         this.requestCollectionView.pageSize = 15;
         this.requestCollectionView.trackChanges = true;

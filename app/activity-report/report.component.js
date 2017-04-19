@@ -25,7 +25,7 @@ var ReportComponent = (function () {
         this.isReportStartDateClicked = false;
         this.isReportEndDateSelected = true;
         this.isReportEndDateClicked = false;
-        this.fliterReportDocumentTypeArray = ['Lead', 'Quotation', 'Delivery', 'Support', 'Support - Technical', 'Support - Functional', 'Support - Customize', 'Software Development'];
+        this.fliterReportDocumentTypeArray = ['ALL', 'Lead', 'Quotation', 'Delivery', 'Support', 'Support - Technical', 'Support - Functional', 'Support - Customize', 'Software Development'];
         this.fliterReportDocumentTypeSelectedValue = 'Lead';
         this.fliterReportStatusArray = ['ALL', 'OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED'];
         this.filterReportStatusSelectedValue = 'OPEN';
@@ -186,6 +186,41 @@ var ReportComponent = (function () {
     };
     ReportComponent.prototype.backClicked = function () {
         window.history.back();
+    };
+    // document
+    ReportComponent.prototype.btnDocumentClick = function () {
+        var currentSelectedActivity = this.reportCollectionView.currentItem;
+        if (currentSelectedActivity.LeadId > 0) {
+            this.startLoading();
+            this.router.navigate(['/leadDetail', currentSelectedActivity.LeadId]);
+        }
+        else {
+            if (currentSelectedActivity.QuotationId > 0) {
+                this.startLoading();
+                this.router.navigate(['/quotationDetail', currentSelectedActivity.QuotationId]);
+            }
+            else {
+                if (currentSelectedActivity.DeliveryId > 0) {
+                    this.startLoading();
+                    this.router.navigate(['/deliveryDetail', currentSelectedActivity.DeliveryId]);
+                }
+                else {
+                    if (currentSelectedActivity.SupportId > 0) {
+                        this.startLoading();
+                        this.router.navigate(['/supportDetail', currentSelectedActivity.SupportId]);
+                    }
+                    else {
+                        if (currentSelectedActivity.SoftwareDevelopmentId > 0) {
+                            this.startLoading();
+                            this.router.navigate(['/softwareDevelopmentDetail', currentSelectedActivity.SoftwareDevelopmentId]);
+                        }
+                        else {
+                            this.toastr.error('', 'No Document');
+                        }
+                    }
+                }
+            }
+        }
     };
     // initialization
     ReportComponent.prototype.ngOnInit = function () {

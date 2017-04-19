@@ -17,7 +17,7 @@ export class ReportComponent implements OnInit {
     public reportEndDateValue: Date;
     public isReportEndDateSelected = true;
     public isReportEndDateClicked = false;
-    public fliterReportDocumentTypeArray = ['Lead', 'Quotation', 'Delivery', 'Support', 'Support - Technical', 'Support - Functional', 'Support - Customize', 'Software Development'];
+    public fliterReportDocumentTypeArray = ['ALL', 'Lead', 'Quotation', 'Delivery', 'Support', 'Support - Technical', 'Support - Functional', 'Support - Customize', 'Software Development'];
     public fliterReportDocumentTypeSelectedValue = 'Lead';
     public fliterReportStatusArray = ['ALL', 'OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED'];
     public filterReportStatusSelectedValue = 'OPEN';
@@ -197,6 +197,38 @@ export class ReportComponent implements OnInit {
     public backClicked() {
         window.history.back();
     }
+
+    // document
+    public btnDocumentClick() {
+        let currentSelectedActivity = this.reportCollectionView.currentItem;
+        if (currentSelectedActivity.LeadId > 0) {
+            this.startLoading()
+            this.router.navigate(['/leadDetail', currentSelectedActivity.LeadId]);
+        } else {
+            if (currentSelectedActivity.QuotationId > 0) {
+                this.startLoading()
+                this.router.navigate(['/quotationDetail', currentSelectedActivity.QuotationId]);
+            } else {
+                if (currentSelectedActivity.DeliveryId > 0) {
+                    this.startLoading()
+                    this.router.navigate(['/deliveryDetail', currentSelectedActivity.DeliveryId]);
+                } else {
+                    if (currentSelectedActivity.SupportId > 0) {
+                        this.startLoading()
+                        this.router.navigate(['/supportDetail', currentSelectedActivity.SupportId]);
+                    } else {
+                        if (currentSelectedActivity.SoftwareDevelopmentId > 0) {
+                            this.startLoading()
+                            this.router.navigate(['/softwareDevelopmentDetail', currentSelectedActivity.SoftwareDevelopmentId]);
+                        } else {
+                            this.toastr.error('', 'No Document');
+                        }
+                    }
+                }
+            }
+        }
+    }
+
 
     // initialization
     ngOnInit() {

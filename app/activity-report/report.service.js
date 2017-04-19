@@ -49,7 +49,7 @@ var ReportService = (function () {
     // list activities
     ReportService.prototype.getListActivities = function (documentType, startDate, endDate, status, staffId) {
         var _this = this;
-        var url = "http://api.innosoft.ph/api/activity/list/byDocument/byDateRange/withStaff/" + documentType + "/" + startDate.toDateString() + "/" + endDate.toDateString() + "/" + status + "/" + staffId;
+        var url = "http://localhost:22626/api/activity/list/byDocument/byDateRange/withStaff/" + documentType + "/" + startDate.toDateString() + "/" + endDate.toDateString() + "/" + status + "/" + staffId;
         var activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
@@ -73,11 +73,11 @@ var ReportService = (function () {
                         NumberOfHours: results[i].NumberOfHours,
                         ActivityAmount: results[i].ActivityAmount,
                         ActivityStatus: results[i].ActivityStatus,
-                        LeadId: results[i].LeadId,
-                        QuotationId: results[i].QuotationId,
-                        DeliveryId: results[i].DeliveryId,
-                        SupportId: results[i].SupportId,
-                        SoftwareDevelopmentId: results[i].SoftwareDevelopmentId,
+                        LeadId: results[i].LeadId == null ? 0 : results[i].LeadId,
+                        QuotationId: results[i].QuotationId == null ? 0 : results[i].QuotationId,
+                        DeliveryId: results[i].DeliveryId == null ? 0 : results[i].DeliveryId,
+                        SupportId: results[i].SupportId == null ? 0 : results[i].SupportId,
+                        SoftwareDevelopmentId: results[i].SoftwareDevelopmentId == null ? 0 : results[i].SoftwareDevelopmentId,
                         HeaderRemarks: results[i].HeaderRemarks,
                         HeaderStatus: results[i].HeaderStatus
                     });

@@ -30,8 +30,6 @@ export class RequestComponent {
   public isApproved: Boolean;
   public isNotApproved: Boolean;
   public requestNumber: String;
-  public requestTypeObservableArray = ["Purchase", "Payment", "Leave", "Overtime"];
-  public requestTypeSelectedValue: String;
   public requestParticulars: String;
   public requestEncodedByUser: String;
   public requestCheckedBy: String;
@@ -44,7 +42,10 @@ export class RequestComponent {
   public requestRemarks: String;
   public isCheckedOrApprovedForSave: Boolean;
   public requestTypeFilterObservableArray = ["Purchase", "Payment", "Leave", "Overtime"];
-  public requestTypeClicked = false;
+  public requestTypeFilterSelectedValue = "Purchase";
+  public requestTypeObservableArray = ["Purchase", "Payment", "Leave", "Overtime"];
+  public requestTypeSelectedValue = "Purchase";
+  public requestTypeClicked = true;
   public isRequestTypeClicked = false;
 
   // inject request service
@@ -114,7 +115,7 @@ export class RequestComponent {
     this.startLoading();
     this.requestStartDateValue = new Date();
     this.requestEndDateValue = new Date();
-    this.getListRequestData();
+    this.getListRequestDataOnInit();
   }
 
   // event: request start date
@@ -123,8 +124,7 @@ export class RequestComponent {
       if (this.isStartDateClicked) {
         this.startLoading();
         this.getRequestData();
-      }
-      else {
+      } else {
         this.isStartDateClicked = true;
       }
     } else {
@@ -138,8 +138,7 @@ export class RequestComponent {
       if (this.isEndDateClicked) {
         this.startLoading();
         this.getRequestData();
-      }
-      else {
+      } else {
         this.isEndDateClicked = true;
       }
     } else {
@@ -148,21 +147,15 @@ export class RequestComponent {
   }
 
   public cboRequestTypeSelectedIndexChangedClick() {
-    if (this.requestTypeClicked) {
-      if (this.isRequestTypeClicked) {
-        this.startLoading();
-        this.getRequestData();
-      }
-      else {
-        this.isRequestTypeClicked = true;
-      }
-    }
-    else {
-      this.requestTypeClicked = true;
+    if (!this.requestTypeClicked) {
+      this.startLoading();
+      this.getRequestData();
+    } else {
+      this.requestTypeClicked = false;
     }
   }
 
-  public getListRequestData() {
+  public getListRequestDataOnInit() {
     if (!localStorage.getItem('access_token')) {
       this.router.navigate(['login']);
     }
@@ -172,7 +165,7 @@ export class RequestComponent {
 
   // request data
   public getRequestData() {
-    this.requestCollectionView = new wijmo.collections.CollectionView(this.requestService.getListRequestData(this.requestEndDateValue, this.requestEndDateValue, this.requestTypeSelectedValue));
+    this.requestCollectionView = new wijmo.collections.CollectionView(this.requestService.getListRequestData(this.requestStartDateValue, this.requestEndDateValue, this.requestTypeFilterSelectedValue));
     this.requestCollectionView.filter = this.filterFunction.bind(this);
     this.requestCollectionView.pageSize = 15;
     this.requestCollectionView.trackChanges = true;

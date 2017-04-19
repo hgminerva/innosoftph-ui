@@ -47,7 +47,7 @@ export class ReportService {
 
     // list activities
     public getListActivities(documentType: String, startDate: Date, endDate: Date, status: String, staffId: String): wijmo.collections.ObservableArray {
-        let url = "http://api.innosoft.ph/api/activity/list/byDocument/byDateRange/withStaff/" + documentType + "/" + startDate.toDateString() + "/" + endDate.toDateString() + "/" + status + "/" + staffId;
+        let url = "http://localhost:22626/api/activity/list/byDocument/byDateRange/withStaff/" + documentType + "/" + startDate.toDateString() + "/" + endDate.toDateString() + "/" + status + "/" + staffId;
         let activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
@@ -73,11 +73,11 @@ export class ReportService {
                             NumberOfHours: results[i].NumberOfHours,
                             ActivityAmount: results[i].ActivityAmount,
                             ActivityStatus: results[i].ActivityStatus,
-                            LeadId: results[i].LeadId,
-                            QuotationId: results[i].QuotationId,
-                            DeliveryId: results[i].DeliveryId,
-                            SupportId: results[i].SupportId,
-                            SoftwareDevelopmentId: results[i].SoftwareDevelopmentId,
+                            LeadId: results[i].LeadId == null ? 0 : results[i].LeadId,
+                            QuotationId: results[i].QuotationId == null ? 0 : results[i].QuotationId,
+                            DeliveryId: results[i].DeliveryId == null ? 0 : results[i].DeliveryId,
+                            SupportId: results[i].SupportId == null ? 0 : results[i].SupportId,
+                            SoftwareDevelopmentId: results[i].SoftwareDevelopmentId == null ? 0 : results[i].SoftwareDevelopmentId,
                             HeaderRemarks: results[i].HeaderRemarks,
                             HeaderStatus: results[i].HeaderStatus
                         });
