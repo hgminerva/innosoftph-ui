@@ -148,6 +148,7 @@ export class QuotationComponent implements OnInit {
     this.getListLead();
     this.quotationRemarks = "";
     this.quotationStatusSelectedValue = "OPEN";
+    (<HTMLButtonElement>document.getElementById("quotationRemarks")).value = " ";
   }
 
   // list lead

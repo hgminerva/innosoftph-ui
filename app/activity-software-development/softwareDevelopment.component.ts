@@ -38,6 +38,8 @@ export class SoftwareDevelopmentComponent implements OnInit {
   public isEndDateClicked = false;
   public softwareDevelopmentStatusClicked = false;
   public isSoftwareDevelopmentStatusSelected = false;
+  public softwareDevelopmentTask: String;
+  public softwareDevelopmentRemarks: String;
 
   // inject softwareDevelopment service
   constructor(
@@ -192,6 +194,12 @@ export class SoftwareDevelopmentComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnCloseSoftwareDevelopment")).disabled = true;
     this.softwareDevelopmentDateValue = new Date();
     this.getListProject();
+    
+    this.softwareDevelopmentTask = "";
+    this.softwareDevelopmentRemarks = "";
+
+    (<HTMLButtonElement>document.getElementById("softwareDevelopmentTask")).value = " ";
+    (<HTMLButtonElement>document.getElementById("softwareDevelopmentRemarks")).value = " ";
   }
 
   // get software development data

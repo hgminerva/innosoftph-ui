@@ -198,6 +198,14 @@ var SupportActivityComponent = (function () {
         document.getElementById("btnCloseSupport").disabled = true;
         this.supportCustomerSelectedIndex = 0;
         this.getListCustomer();
+        this.supportCaller = "";
+        this.supportIssue = "";
+        this.supportRemarks = "";
+        this.supportScreenShotURL = "";
+        document.getElementById("supportIssue").value = " ";
+        document.getElementById("supportCaller").value = " ";
+        document.getElementById("supportRemarks").value = " ";
+        document.getElementById("supportScreenShotURL").value = " ";
     };
     SupportActivityComponent.prototype.setSelectedValueContinuity = function () {
         this.supportContinuitySelectedValue = parseInt(document.getElementById("supportContinuitySelectedValue").value);

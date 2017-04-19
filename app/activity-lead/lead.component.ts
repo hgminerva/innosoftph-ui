@@ -239,6 +239,24 @@ export class LeadComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnSaveLead")).disabled = true;
     (<HTMLButtonElement>document.getElementById("btnCloseLead")).disabled = true;
     this.getListUser();
+
+    this.leadName = "";
+    this.leadAddress = "";
+    this.leadContactPerson = "";
+    this.leadContactPosition = "";
+    this.leadContactEmail = "";
+    this.leadContactNumber = "";
+    this.leadReferredBy = "";
+    this.leadRemarks = "";
+
+    (<HTMLButtonElement>document.getElementById("leadName")).value = " ";
+    (<HTMLButtonElement>document.getElementById("leadAddress")).value = " ";
+    (<HTMLButtonElement>document.getElementById("leadContactPerson")).value = " ";
+    (<HTMLButtonElement>document.getElementById("leadContactPosition")).value = " ";
+    (<HTMLButtonElement>document.getElementById("leadContactEmail")).value = " ";
+    (<HTMLButtonElement>document.getElementById("leadContactNumber")).value = " ";
+    (<HTMLButtonElement>document.getElementById("leadReferredBy")).value = " ";
+    (<HTMLButtonElement>document.getElementById("leadRemarks")).value = " ";
   }
 
   // btn edit lead

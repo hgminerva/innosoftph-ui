@@ -170,6 +170,10 @@ var SoftwareDevelopmentComponent = (function () {
         document.getElementById("btnCloseSoftwareDevelopment").disabled = true;
         this.softwareDevelopmentDateValue = new Date();
         this.getListProject();
+        this.softwareDevelopmentTask = "";
+        this.softwareDevelopmentRemarks = "";
+        document.getElementById("softwareDevelopmentTask").value = " ";
+        document.getElementById("softwareDevelopmentRemarks").value = " ";
     };
     // get software development data
     SoftwareDevelopmentComponent.prototype.getSoftwareDevelopmentDataValue = function () {

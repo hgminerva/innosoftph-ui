@@ -160,6 +160,8 @@ var DeliveryComponent = (function () {
         document.getElementById("btnCloseDelivery").disabled = true;
         this.deliveryDateValue = new Date();
         this.getListQuotation();
+        this.deliveryRemarks = "";
+        document.getElementById("deliveryRemarks").value = " ";
     };
     // delivery date on value changed
     DeliveryComponent.prototype.deliveryDateOnValueChanged = function () {

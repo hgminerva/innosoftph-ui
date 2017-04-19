@@ -187,6 +187,9 @@ export class DeliveryComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnCloseDelivery")).disabled = true;
     this.deliveryDateValue = new Date();
     this.getListQuotation();
+
+    this.deliveryRemarks = "";
+    (<HTMLButtonElement>document.getElementById("deliveryRemarks")).value = " ";
   }
 
   // delivery date on value changed

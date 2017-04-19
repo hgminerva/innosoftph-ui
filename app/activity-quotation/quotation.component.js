@@ -128,6 +128,7 @@ var QuotationComponent = (function () {
         this.getListLead();
         this.quotationRemarks = "";
         this.quotationStatusSelectedValue = "OPEN";
+        document.getElementById("quotationRemarks").value = " ";
     };
     // list lead
     QuotationComponent.prototype.getListLead = function () {

@@ -232,6 +232,16 @@ export class SupportActivityComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnCloseSupport")).disabled = true;
     this.supportCustomerSelectedIndex = 0;
     this.getListCustomer();
+
+    this.supportCaller = "";
+    this.supportIssue = "";
+    this.supportRemarks = "";
+    this.supportScreenShotURL = "";
+
+    (<HTMLButtonElement>document.getElementById("supportIssue")).value = " ";
+    (<HTMLButtonElement>document.getElementById("supportCaller")).value = " ";
+    (<HTMLButtonElement>document.getElementById("supportRemarks")).value = " ";
+    (<HTMLButtonElement>document.getElementById("supportScreenShotURL")).value = " ";
   }
 
   public setSelectedValueContinuity() {

@@ -204,6 +204,22 @@ var LeadComponent = (function () {
         document.getElementById("btnSaveLead").disabled = true;
         document.getElementById("btnCloseLead").disabled = true;
         this.getListUser();
+        this.leadName = "";
+        this.leadAddress = "";
+        this.leadContactPerson = "";
+        this.leadContactPosition = "";
+        this.leadContactEmail = "";
+        this.leadContactNumber = "";
+        this.leadReferredBy = "";
+        this.leadRemarks = "";
+        document.getElementById("leadName").value = " ";
+        document.getElementById("leadAddress").value = " ";
+        document.getElementById("leadContactPerson").value = " ";
+        document.getElementById("leadContactPosition").value = " ";
+        document.getElementById("leadContactEmail").value = " ";
+        document.getElementById("leadContactNumber").value = " ";
+        document.getElementById("leadReferredBy").value = " ";
+        document.getElementById("leadRemarks").value = " ";
     };
     // btn edit lead
     LeadComponent.prototype.btnEditLead = function () {
