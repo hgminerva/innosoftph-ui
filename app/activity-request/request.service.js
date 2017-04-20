@@ -49,10 +49,12 @@ var RequestService = (function () {
                         EncodedByUserId: results[i].EncodedByUserId,
                         EncodedByUser: results[i].EncodedByUser,
                         CheckedByUserId: results[i].CheckedByUserId,
-                        CheckedByUser: results[i].CheckedByUser == null && results[i].CheckedRemarks == null ? " " : results[i].CheckedByUser + " - " + results[i].CheckedRemarks,
+                        CheckedByUserRemarks: results[i].CheckedByUser == null && results[i].CheckedRemarks == null ? " " : results[i].CheckedByUser + " - " + results[i].CheckedRemarks,
+                        CheckedByUser: results[i].CheckedByUser,
                         CheckedRemarks: results[i].CheckedRemarks,
                         ApprovedByUserId: results[i].ApprovedByUserId,
-                        ApprovedByUser: results[i].ApprovedByUser == null && results[i].ApprovedRemarks == null ? " " : results[i].ApprovedByUser + " - " + results[i].ApprovedRemarks,
+                        ApprovedByUserRemarks: results[i].ApprovedByUser == null && results[i].ApprovedRemarks == null ? " " : results[i].ApprovedByUser + " - " + results[i].ApprovedRemarks,
+                        ApprovedByUser: results[i].ApprovedByUser,
                         ApprovedRemarks: results[i].ApprovedRemarks
                     });
                 }
