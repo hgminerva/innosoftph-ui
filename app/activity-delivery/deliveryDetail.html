@@ -87,23 +87,6 @@
                                             name="deliverySalesUserSelectedValue" placeholder="Staff" />
                                     </div>
                                 </div>
-                                <!--<div class="form-group">
-                                    <label class="control-label col-sm-4">Sales Staff</label>
-                                    <div class="col-sm-8">
-                                        <wj-combo-box 
-                                            [itemsSource]="deliverySalesUserObservableArray" 
-                                            [placeholder]="'Select User'"
-                                            [displayMemberPath]="'FullName'" 
-                                            [selectedValuePath]="'Id'"
-                                            [isDisabled]="true"
-                                            [isEditable]="false"
-                                            [isRequired]="true"
-                                            [(selectedValue)]="deliverySalesUserSelectedValue"
-                                            style="width: 100%;">
-                                        </wj-combo-box>
-                                        <input type="hidden" class="form-control" id="deliverySalesUserSelectedValue" />
-                                    </div>
-                                </div>-->
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Technical Staff</label>
                                     <div class="col-sm-8">
@@ -315,67 +298,64 @@
                 <br />
                 <div class="tab-content">
                     <div id="customer" class="tab-pane fade in active">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div class="form-horizontal">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">IS Form No</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="printDeliveryInnosoftFormNo" placeholder="Innosoft Form No" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Document No</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="printDeliveryDocumentNo" placeholder="Document No" />
-                                                </div>
-                                            </div>
+
+                        <div class="form-horizontal">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">IS Form No</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="printDeliveryInnosoftFormNo" placeholder="Innosoft Form No" />
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Customer</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="printDeliveryCustomer" placeholder="Customer Name" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Phone Number</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="printDeliveryPhoneNumber" placeholder="Phone Number" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Address</label>
-                                                <div class="col-sm-8">
-                                                    <textarea class="form-control" rows="7" id="printDeliveryAddress" placeholder="Address"></textarea>
-                                                </div>
-                                            </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Document No</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="printDeliveryDocumentNo" placeholder="Document No" />
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Contact Person</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="pprintDeliveryContactPerson" placeholder="Contact Person" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Phone Number</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="printDeliveryContactPersonPhoneNumber" placeholder="Phone Number" />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Date</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="printDeliveryDate" placeholder="Date" disabled />
-                                                </div>
-                                            </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Customer</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="printDeliveryCustomer" placeholder="Customer Name" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Phone Number</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="printDeliveryPhoneNumber" placeholder="Phone Number" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Address</label>
+                                        <div class="col-sm-8">
+                                            <textarea class="form-control" rows="7" id="printDeliveryAddress" placeholder="Address"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Contact Person</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="pprintDeliveryContactPerson" placeholder="Contact Person" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Phone Number</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="printDeliveryContactPersonPhoneNumber" placeholder="Phone Number" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Date</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="printDeliveryDate" placeholder="Date" disabled />
                                         </div>
                                     </div>
                                 </div>
@@ -430,15 +410,11 @@
                         </div>
                     </div>
                     <div id="particulars" class="tab-pane fade">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div class="form-horizontal">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-3">Particulars</label>
-                                        <div class="col-sm-9">
-                                            <textarea class="form-control" rows="7" id="printDeliveryParticulars" placeholder="Particulars"></textarea>
-                                        </div>
-                                    </div>
+                        <div class="form-horizontal">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3">Particulars</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" rows="7" id="printDeliveryParticulars" placeholder="Particulars"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -491,51 +467,47 @@
                         </div>
                     </div>
                     <div id="user" class="tab-pane fade">
-                        <div class="panel panel-default">
-                            <div class="panel-body">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-horizontal">
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Prepared By</label>
-                                                <div class="col-sm-8">
-                                                    <wj-combo-box [itemsSource]="deliveryPrintPreparedByUserObservableArray" [placeholder]="'Select User'" [displayMemberPath]="'FullName'"
-                                                        [selectedValuePath]="'FullName'" [isEditable]="false" [isRequired]="true"
-                                                        [(selectedValue)]="deliveryPrintPreparedBySelectedValue" style="width: 100%;">
-                                                    </wj-combo-box>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Sales</label>
-                                                <div class="col-sm-8">
-                                                    <wj-combo-box [itemsSource]="deliveryPrintSalesUserObservableArray" [placeholder]="'Select User'" [displayMemberPath]="'FullName'"
-                                                        [selectedValuePath]="'FullName'" [isEditable]="false" [isRequired]="true"
-                                                        [(selectedValue)]="deliveryPrintSalesUserSelectedValue" style="width: 100%;">
-                                                    </wj-combo-box>
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Technical</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="deliveryPrintUserTechnical" placeholder="Customer Name" disabled />
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Functional</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="deliveryPrintUserFunctional" placeholder="Customer Name" disabled />
-                                                </div>
-                                            </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Prepared By</label>
+                                        <div class="col-sm-8">
+                                            <wj-combo-box [itemsSource]="deliveryPrintPreparedByUserObservableArray" [placeholder]="'Select User'" [displayMemberPath]="'FullName'"
+                                                [selectedValuePath]="'FullName'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="deliveryPrintPreparedBySelectedValue"
+                                                style="width: 100%;">
+                                            </wj-combo-box>
                                         </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <div class="form-horizontal">
-                                            <div class="form-group">
-                                                <label class="control-label col-sm-4">Customer</label>
-                                                <div class="col-sm-8">
-                                                    <input type="text" class="form-control" id="deliveryPrintUserCustomer" placeholder="Customer Name" />
-                                                </div>
-                                            </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Sales</label>
+                                        <div class="col-sm-8">
+                                            <wj-combo-box [itemsSource]="deliveryPrintSalesUserObservableArray" [placeholder]="'Select User'" [displayMemberPath]="'FullName'"
+                                                [selectedValuePath]="'FullName'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="deliveryPrintSalesUserSelectedValue"
+                                                style="width: 100%;">
+                                            </wj-combo-box>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Technical</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="deliveryPrintUserTechnical" placeholder="Customer Name" disabled />
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Functional</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="deliveryPrintUserFunctional" placeholder="Customer Name" disabled />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-horizontal">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm-4">Customer</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" class="form-control" id="deliveryPrintUserCustomer" placeholder="Customer Name" />
                                         </div>
                                     </div>
                                 </div>

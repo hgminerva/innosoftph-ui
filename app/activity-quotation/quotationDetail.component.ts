@@ -68,7 +68,7 @@ export class QuotationDetailComponent implements OnInit {
   public printQuotationProductDescription: String;
   public printQuotationProductPrice: String;
   public printQuotationProductQuantity: String;
-  public printQuotationProductAmount: String;
+  // public printQuotationProductAmount: String;
   public timelineCollectionView: wijmo.collections.CollectionView;
   public quotationTimeLineArray = new wijmo.collections.ObservableArray();
   public timelineId: number = 0;
@@ -81,7 +81,7 @@ export class QuotationDetailComponent implements OnInit {
   public quotationPrintPreparedByUserSelectedValue: String;
   public quotationPrintApprovedByUserObservableArray = new wijmo.collections.ObservableArray();
   public quotationPrintApprovedByUserSelectedValue: String;
-  public printQuotationIsDiscount: Boolean;
+  // public printQuotationIsDiscount: Boolean;
 
   // inject quotation detail service
   constructor(
@@ -235,13 +235,13 @@ export class QuotationDetailComponent implements OnInit {
   public priceOnKeyEvent(event: any) {
     var price = parseFloat(event.target.value.split(',').join(''));
     var quantity = parseFloat((<HTMLInputElement>document.getElementById("printQuotationProductQuantity")).value.split(',').join(''));
-    (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value = (price * quantity).toLocaleString();
+    // (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value = (price * quantity).toLocaleString();
   }
 
   public quantityOnKeyEvent(event: any) {
     var quantity = parseFloat(event.target.value.split(',').join(''));
     var price = parseFloat((<HTMLInputElement>document.getElementById("printQuotationProductPrice")).value.split(',').join(''));
-    (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value = (price * quantity).toLocaleString();
+    // (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value = (price * quantity).toLocaleString();
   }
 
   // on blur 
@@ -377,11 +377,25 @@ export class QuotationDetailComponent implements OnInit {
       }
     }
 
+    let quotationsearchTerm = this.quotationProductSelectedValue;
+    let quotationindex = -1;
+    let quotationlen = this.quotationProductObservableArray.length;
+    for (var i = 0; i < quotationlen; i++) {
+      if (this.quotationProductObservableArray[i].Id === quotationsearchTerm) {
+        quotationindex = i;
+        break;
+      }
+    }
+
     (<HTMLInputElement>document.getElementById("LeadsRefNo")).value = "LN-" + this.quotationLeadObservableArray[leadIndex].LeadNumber;
     this.quotationPrintPreparedByUserObservableArray = this.quotationService.getListUserData("quotationDetail");
     this.quotationPrintApprovedByUserObservableArray = this.quotationService.getListUserData("quotationDetail");
-    this.printQuotationIsDiscount = false;
-    (<HTMLInputElement>document.getElementById("printQuotationIsDiscount")).checked = false;
+    // this.printQuotationIsDiscount = false;
+    // (<HTMLInputElement>document.getElementById("printQuotationIsDiscount")).checked = false;
+    (<HTMLInputElement>document.getElementById("printQuotationProductCode")).value = this.quotationProductObservableArray[quotationindex].ArticleCode;
+    (<HTMLInputElement>document.getElementById("printQuotationProductDescription")).value = this.quotationProductObservableArray[quotationindex].Article;
+    this.printQuotationProductPrice = "0";
+    this.printQuotationProductQuantity = "0";
   }
 
   public paymentTabClick() {
@@ -477,13 +491,13 @@ export class QuotationDetailComponent implements OnInit {
     (<HTMLInputElement>document.getElementById("printQuotationProductDescription")).value = "";
     (<HTMLInputElement>document.getElementById("printQuotationProductPrice")).value = "0";
     (<HTMLInputElement>document.getElementById("printQuotationProductQuantity")).value = "0";
-    (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value = "0";
+    // (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value = "0";
 
     this.printQuotationProductCode = "";
     this.printQuotationProductDescription = "";
     this.printQuotationProductPrice = "0";
     this.printQuotationProductQuantity = "0";
-    this.printQuotationProductAmount = "0";
+    // this.printQuotationProductAmount = "0";
 
     let searchTerm = this.quotationProductSelectedValue;
     let index = -1;
@@ -497,8 +511,8 @@ export class QuotationDetailComponent implements OnInit {
 
     (<HTMLInputElement>document.getElementById("printQuotationProductCode")).value = this.quotationProductObservableArray[index].ArticleCode;
     (<HTMLInputElement>document.getElementById("printQuotationProductDescription")).value = this.quotationProductObservableArray[index].Article;
-    this.printQuotationIsDiscount = false;
-    (<HTMLInputElement>document.getElementById("printQuotationIsDiscount")).checked = false;
+    // this.printQuotationIsDiscount = false;
+    // (<HTMLInputElement>document.getElementById("printQuotationIsDiscount")).checked = false;
   }
 
   public btnAddProductDataClick() {
@@ -506,8 +520,8 @@ export class QuotationDetailComponent implements OnInit {
     this.printQuotationProductDescription = (<HTMLInputElement>document.getElementById("printQuotationProductDescription")).value;
     this.printQuotationProductPrice = (<HTMLInputElement>document.getElementById("printQuotationProductPrice")).value;
     this.printQuotationProductQuantity = (<HTMLInputElement>document.getElementById("printQuotationProductQuantity")).value;
-    this.printQuotationProductAmount = (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value;
-    this.printQuotationIsDiscount = (<HTMLInputElement>document.getElementById("printQuotationIsDiscount")).checked;
+    // this.printQuotationProductAmount = (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value;
+    // this.printQuotationIsDiscount = (<HTMLInputElement>document.getElementById("printQuotationIsDiscount")).checked;
 
     if (this.isAddProduct) {
       this.productId += 1;
@@ -515,19 +529,19 @@ export class QuotationDetailComponent implements OnInit {
         Id: this.productId,
         ProductCode: this.printQuotationProductCode,
         ProductDescription: this.printQuotationProductDescription,
-        IsDiscount: this.printQuotationIsDiscount,
+        // IsDiscount: this.printQuotationIsDiscount,
         Price: this.printQuotationProductPrice.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
         Quantity: this.printQuotationProductQuantity.replace(/\B(?=(\d{3})+(?!\d))/g, ","),
-        Amount: this.printQuotationProductAmount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        // Amount: this.printQuotationProductAmount.replace(/\B(?=(\d{3})+(?!\d))/g, ",")
       });
     } else {
       let currentSelectedProduct = this.productCollectionView.currentItem;
       currentSelectedProduct.ProductCode = this.printQuotationProductCode;
       currentSelectedProduct.ProductDescription = this.printQuotationProductDescription;
-      currentSelectedProduct.IsDiscount = this.printQuotationIsDiscount;
+      // currentSelectedProduct.IsDiscount = this.printQuotationIsDiscount;
       currentSelectedProduct.Price = this.printQuotationProductPrice;
       currentSelectedProduct.Quantity = this.printQuotationProductQuantity;
-      currentSelectedProduct.Amount = this.printQuotationProductAmount;
+      // currentSelectedProduct.Amount = this.printQuotationProductAmount;
     }
 
     this.productProductData();
@@ -540,7 +554,7 @@ export class QuotationDetailComponent implements OnInit {
     let currentSelectedProduct = this.productCollectionView.currentItem;
     (<HTMLInputElement>document.getElementById("printQuotationProductCode")).value = currentSelectedProduct.ProductCode;
     (<HTMLInputElement>document.getElementById("printQuotationProductDescription")).value = currentSelectedProduct.ProductDescription;
-    (<HTMLInputElement>document.getElementById("printQuotationIsDiscount")).checked = currentSelectedProduct.IsDiscount;
+    // (<HTMLInputElement>document.getElementById("printQuotationIsDiscount")).checked = currentSelectedProduct.IsDiscount;
     (<HTMLInputElement>document.getElementById("printQuotationProductPrice")).value = currentSelectedProduct.Price;
     (<HTMLInputElement>document.getElementById("printQuotationProductQuantity")).value = currentSelectedProduct.Quantity;
     (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value = currentSelectedProduct.Amount;
@@ -585,10 +599,10 @@ export class QuotationDetailComponent implements OnInit {
   }
 
   public onBlurOnlyDecimalNumberKeyForProductAmountPrintQuotation() {
-    (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value = "";
-    setTimeout(() => {
-      (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value = this.printQuotationProductAmount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
-    }, 100);
+    // (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value = "";
+    // setTimeout(() => {
+    //   (<HTMLInputElement>document.getElementById("printQuotationProductAmount")).value = this.printQuotationProductAmount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    // }, 100);
   }
 
   public btnPrintQuotationDetailPrintButtonClick() {
@@ -602,33 +616,11 @@ export class QuotationDetailComponent implements OnInit {
     var ClientPONo = (<HTMLInputElement>document.getElementById("ClientPONo")).value;
     var ClientPODate = (<HTMLInputElement>document.getElementById("ClientPODate")).value;
     var LeadsRefNo = (<HTMLInputElement>document.getElementById("LeadsRefNo")).value;
-
-    var customerDetailArray = [];
-    customerDetailArray.push({
-      CustomerName: printQuotationCustomer,
-      CustomerAddress: printQuotationAddress,
-      CustomerContactPerson: printQuotationContactPerson,
-      CustomerContactNumber: printQuotationContactNumber,
-      CustomerContactEmail: printQuotationContactEmail,
-      QRefNumber: QRefNo,
-      QDate: QDate,
-      ClientPONo: ClientPONo,
-      LeadsRefNo: LeadsRefNo
-    });
-
-    var productArray = this.productCollectionArray;
-    var emptyProductArray = [];
-    for (var i = 0; i < productArray.length; i++) {
-      emptyProductArray.push({
-        Id: productArray[i].Id,
-        ProductCode: productArray[i].ProductCode,
-        ProductDescription: productArray[i].ProductDescription,
-        IsDiscount: productArray[i].IsDiscount,
-        Price: parseFloat(productArray[i].Price.split(',').join('')),
-        Quantity: parseFloat(productArray[i].Quantity.split(',').join('')),
-        Amount: parseFloat(productArray[i].Amount.split(',').join(''))
-      });
-    }
+    var productCode = (<HTMLInputElement>document.getElementById("printQuotationProductCode")).value;
+    var productDescription = (<HTMLInputElement>document.getElementById("printQuotationProductDescription")).value;
+    var productPrice = (<HTMLInputElement>document.getElementById("printQuotationProductPrice")).value;
+    var productQuantity = (<HTMLInputElement>document.getElementById("printQuotationProductQuantity")).value;
+    var productRemarks = (<HTMLInputElement>document.getElementById("printQuotationProductRemarks")).value;
 
     var paymentArray = this.quotationPaymentScheduleArray;
     var emptyPaymentArray = [];
@@ -663,7 +655,11 @@ export class QuotationDetailComponent implements OnInit {
       QDate: QDate,
       ClientPONo: ClientPONo,
       LeadsRefNo: LeadsRefNo,
-      ProdcutLists: emptyProductArray,
+      ProductCode: productCode,
+      ProductDescription: productDescription,
+      Price: parseFloat(productPrice.split(',').join('')),
+      Quantity: parseFloat(productQuantity.split(',').join('')),
+      Remarks: productRemarks,
       PaymentLists: emptyPaymentArray,
       TimelineLists: emptyTimelineArray,
       PreparedByUser: this.quotationPrintPreparedByUserSelectedValue,
@@ -766,18 +762,18 @@ export class QuotationDetailComponent implements OnInit {
     }
 
     this.quotationPaymentScheduleArray.push({
-        Id: 0,
-        Description: "50% Downpayment",
-        Amount: "0",
-        Remarks: "Upon signing of Quote"
-      });
+      Id: 0,
+      Description: "50% Downpayment",
+      Amount: "0",
+      Remarks: "Upon signing of Quote"
+    });
 
     this.quotationPaymentScheduleArray.push({
-        Id: 0,
-        Description: "50% Upon Installation",
-        Amount: "0",
-        Remarks: " "
-      });
+      Id: 0,
+      Description: "50% Upon Installation",
+      Amount: "0",
+      Remarks: " "
+    });
 
     this.setQuotationDateValue();
   }
