@@ -9,7 +9,7 @@
         </div>
     </div>
 </div>
-<div class="custom-content-a"> 
+<div class="custom-content-a">
     <div class="container">
         <div class="well well-sm">
             <a routerLink="/dashboard">Dashboard</a> &nbsp; / &nbsp; Leads
@@ -25,7 +25,8 @@
                             </div>
                         </td>
                         <td align="right">
-                            <button class="btn btn-primary" (click)="btnAddLeadClick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#lead-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
+                            <button class="btn btn-primary" (click)="btnAddLeadClick()" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                data-target="#lead-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
                             <button class="btn btn-danger" (click)="backClicked()"><i class="fa fa-close fa-fw"></i> Close</button>
                         </td>
                     </tr>
@@ -37,35 +38,22 @@
                         <td style="width: 30%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
-                                <wj-input-date
-                                    [(value)]="leadStartDateValue" 
-                                    [format]="'yyyy-MM-dd'"
-                                    [mask]="'9999-99-99'" 
-                                    (valueChanged)="leadStartDateOnValueChanged()">
+                                <wj-input-date [(value)]="leadStartDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="leadStartDateOnValueChanged()">
                                 </wj-input-date>
                             </div>
                         </td>
                         <td style="width: 30%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
-                                <wj-input-date
-                                    [(value)]="leadEndDateValue" 
-                                    [format]="'yyyy-MM-dd'"
-                                    [mask]="'9999-99-99'" 
-                                    (valueChanged)="leadEndDateOnValueChanged()">
+                                <wj-input-date [(value)]="leadEndDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="leadEndDateOnValueChanged()">
                                 </wj-input-date>
                             </div>
                         </td>
                         <td style="width: 30%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-question-circle-o fa-fw"></i> Status</span>
-                                 <wj-combo-box 
-                                    [itemsSource]="fliterLeadStatusArray" 
-                                    [placeholder]="'Select Status'"
-                                    [isEditable]="false"
-                                    [isRequired]="true"
-                                    [(selectedValue)]="filterLeadStatusSelectedValue"
-                                    (selectedIndexChanged)="filterLeadStatusSelectedIndexChangedClick()"
+                                <wj-combo-box [itemsSource]="fliterLeadStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
+                                    [(selectedValue)]="filterLeadStatusSelectedValue" (selectedIndexChanged)="filterLeadStatusSelectedIndexChangedClick()"
                                     style="width: 100%; ">
                                 </wj-combo-box>
                             </div>
@@ -78,7 +66,7 @@
                 </table>
             </div>
             <div class="panel-body">
-                 <wj-flex-grid [itemsSource]="leadCollectionView" [selectionMode]="3">
+                <wj-flex-grid [itemsSource]="leadCollectionView" [selectionMode]="3">
                     <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="60">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
                             <button class="btn btn-primary btn-xs btn-block" (click)="btnEditLead()">
@@ -88,7 +76,8 @@
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="Delete" [isReadOnly]="true" [width]="80">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
-                            <button class="btn btn-danger btn-xs btn-block" (click)="deleteLeadClick()" data-toggle="modal" data-backdrop="static" data-keyboard="false" data-target="#lead-delete-confirmation-modal">
+                            <button class="btn btn-danger btn-xs btn-block" (click)="deleteLeadClick()" data-toggle="modal" data-backdrop="static" data-keyboard="false"
+                                data-target="#lead-delete-confirmation-modal">
                                 <i class="fa fa-trash fa-fw"></i> Delete
                             </button>
                         </template>
@@ -118,7 +107,7 @@
                         <button type="button" class="btn btn-default" (click)="leadCollectionView.moveToPreviousPage()">
                             <span class="glyphicon glyphicon-step-backward"></span> Previous
                         </button>
-                        <button type="button" class="btn btn-default" disabled  style="width:100px">
+                        <button type="button" class="btn btn-default" disabled style="width:100px">
                             {{ leadCollectionView.pageIndex + 1 }} / {{ leadCollectionView.pageCount }}
                         </button>
                         <button type="button" class="btn btn-default" (click)="leadCollectionView.moveToNextPage()">
@@ -127,8 +116,8 @@
                         <button type="button" class="btn btn-default" (click)="leadCollectionView.moveToLastPage()">
                             Last <span class="glyphicon glyphicon-fast-forward"></span>
                         </button>
-                    </div> 
-                </div> 
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -136,7 +125,7 @@
 
 <!-- lead  detail modal -->
 <div class="modal fade" id="lead-detail-modal" role="dialog">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
         <div class="modal-content">
             <form (ngSubmit)="btnSaveLead()" #leadForm="ngForm">
                 <div class="modal-header">
@@ -147,17 +136,19 @@
                         <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
                     </div>
                     <div *ngIf="isFinishLoading">
-                        <div class="row">
-                            <div class="col-md-6">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#Lead">Lead Detail</a></li>
+                            <li><a data-toggle="tab" href="#More">More</a></li>
+                        </ul>
+                        <br />
+                        <div class="tab-content">
+                            <div id="Lead" class="tab-pane fade in active">
+
                                 <div class="form-horizontal">
                                     <div class="form-group">
                                         <label class="control-label col-sm-4">Lead Date</label>
                                         <div class="col-sm-8">
-                                            <wj-input-date
-                                                [(value)]="leadDateValue" 
-                                                [format]="'yyyy-MM-dd'"
-                                                [mask]="'9999-99-99'" 
-                                                (valueChanged)="leadDateOnValueChanged()"
+                                            <wj-input-date [(value)]="leadDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="leadDateOnValueChanged()"
                                                 style="width: 100%;  padding-left: 3px; border-left: 5px solid #42A948;">
                                             </wj-input-date>
                                         </div>
@@ -165,7 +156,8 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-4">Lead Name</label>
                                         <div class="col-sm-8">
-                                            <input type="text" [(ngModel)]="leadName" class="form-control" id="leadName" name="leadName" #LeadName="ngModel" placeholder="Lead Name" required/>
+                                            <input type="text" [(ngModel)]="leadName" class="form-control" id="leadName" name="leadName" #LeadName="ngModel" placeholder="Lead Name"
+                                                required/>
                                             <div [hidden]="LeadName.valid || LeadName.pristine" class="alert alert-danger" style="margin-bottom: 0px;">
                                                 <b>Required!</b>
                                             </div>
@@ -174,7 +166,8 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-4">Address</label>
                                         <div class="col-sm-8">
-                                            <textarea [(ngModel)]="leadAddress" class="form-control" rows="5" id="leadAddress" name="leadAddress" #Address="ngModel" placeholder="Address" required></textarea>
+                                            <textarea [(ngModel)]="leadAddress" class="form-control" rows="3" id="leadAddress" name="leadAddress" #Address="ngModel"
+                                                placeholder="Address" required></textarea>
                                             <div [hidden]="Address.valid || Address.pristine" class="alert alert-danger" style="margin-bottom: 0px;">
                                                 <b>Required!</b>
                                             </div>
@@ -183,7 +176,8 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-4">Contact Person</label>
                                         <div class="col-sm-8">
-                                            <input type="text" [(ngModel)]="leadContactPerson" class="form-control" id="leadContactPerson" name="leadContactPerson" #ContactPerson="ngModel"  placeholder="Contact Person" required/>
+                                            <input type="text" [(ngModel)]="leadContactPerson" class="form-control" id="leadContactPerson" name="leadContactPerson" #ContactPerson="ngModel"
+                                                placeholder="Contact Person" required/>
                                             <div [hidden]="ContactPerson.valid || ContactPerson.pristine" class="alert alert-danger" style="margin-bottom: 0px;">
                                                 <b>Required!</b>
                                             </div>
@@ -192,7 +186,8 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-4">Contact Position</label>
                                         <div class="col-sm-8">
-                                            <input type="text" [(ngModel)]="leadContactPosition" class="form-control" id="leadContactPosition" name="leadContactPosition"  #ContactPosition="ngModel" placeholder="Contact Position" required/>
+                                            <input type="text" [(ngModel)]="leadContactPosition" class="form-control" id="leadContactPosition" name="leadContactPosition"
+                                                #ContactPosition="ngModel" placeholder="Contact Position" required/>
                                             <div [hidden]="ContactPosition.valid || ContactPosition.pristine" class="alert alert-danger" style="margin-bottom: 0px;">
                                                 <b>Required!</b>
                                             </div>
@@ -201,7 +196,8 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-4">Contact Email</label>
                                         <div class="col-sm-8">
-                                            <input type="text" [(ngModel)]="leadContactEmail" class="form-control" id="leadContactEmail" name="leadContactEmail" #ContactEmail="ngModel" placeholder="Contact Email" required/>
+                                            <input type="text" [(ngModel)]="leadContactEmail" class="form-control" id="leadContactEmail" name="leadContactEmail" #ContactEmail="ngModel"
+                                                placeholder="Contact Email" required/>
                                             <div [hidden]="ContactEmail.valid || ContactEmail.pristine" class="alert alert-danger" style="margin-bottom: 0px;">
                                                 <b>Required!</b>
                                             </div>
@@ -210,7 +206,8 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-4">Contact No's.</label>
                                         <div class="col-sm-8">
-                                            <textarea class="form-control" [(ngModel)]="leadContactNumber" rows="3" id="leadContactNumber" name="leadContactNumber" #ContactPhoneNo="ngModel" placeholder="Contact Numbers" required></textarea>
+                                            <textarea class="form-control" [(ngModel)]="leadContactNumber" rows="2" id="leadContactNumber" name="leadContactNumber" #ContactPhoneNo="ngModel"
+                                                placeholder="Contact Numbers" required></textarea>
                                             <div [hidden]="ContactPhoneNo.valid || ContactPhoneNo.pristine" class="alert alert-danger" style="margin-bottom: 0px;">
                                                 <b>Required!</b>
                                             </div>
@@ -218,12 +215,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div id="More" class="tab-pane fade">
                                 <div class="form-horizontal">
                                     <div class="form-group">
                                         <label class="control-label col-sm-4">Referred By</label>
                                         <div class="col-sm-8">
-                                            <input type="text" [(ngModel)]="leadReferredBy" class="form-control" id="leadReferredBy" name="leadReferredBy" #ReferredBy="ngModel" placeholder="Referred By" required/>
+                                            <input type="text" [(ngModel)]="leadReferredBy" class="form-control" id="leadReferredBy" name="leadReferredBy" #ReferredBy="ngModel"
+                                                placeholder="Referred By" required/>
                                             <div [hidden]="ReferredBy.valid || ReferredBy.pristine" class="alert alert-danger" style="margin-bottom: 0px;">
                                                 <b>Required!</b>
                                             </div>
@@ -233,15 +231,9 @@
                                         <label class="control-label col-sm-4">Assigned To</label>
                                         <div class="col-sm-8">
                                             <!--<div [ngStyle]="{'border-left' : getBorderColor()}">-->
-                                            <wj-combo-box 
-                                                [itemsSource]="leadAssignedUserObservableArray" 
-                                                [placeholder]="'Select User'"
-                                                [displayMemberPath]="'FullName'" 
-                                                [selectedValuePath]="'Id'"
-                                                [(selectedValue)]="leadAssignedToSelectedValue"
-                                                [isEditable]="true"
-                                                [isRequired]="false"
-                                                (selectedIndexChanged)="cboAssignedToSelectedIndexChangedClick()"
+                                            <wj-combo-box [itemsSource]="leadAssignedUserObservableArray" [placeholder]="'Select User'" [displayMemberPath]="'FullName'"
+                                                [selectedValuePath]="'Id'" [(selectedValue)]="leadAssignedToSelectedValue" [isEditable]="true"
+                                                [isRequired]="false" (selectedIndexChanged)="cboAssignedToSelectedIndexChangedClick()"
                                                 style="width: 100%;  padding-left: 3px; border-left: 5px solid #42A948;">
                                             </wj-combo-box>
                                             <!--</div>-->
@@ -255,7 +247,8 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-4">Remarks</label>
                                         <div class="col-sm-8">
-                                            <textarea [(ngModel)]="leadRemarks" class="form-control" rows="5" id="leadRemarks" name="leadRemarks" #Remarks="ngModel" placeholder="Remarks" required></textarea>
+                                            <textarea [(ngModel)]="leadRemarks" class="form-control" rows="5" id="leadRemarks" name="leadRemarks" #Remarks="ngModel"
+                                                placeholder="Remarks" required></textarea>
                                             <div [hidden]="Remarks.valid || Remarks.pristine" class="alert alert-danger" style="margin-bottom: 0px;">
                                                 <b>Required!</b>
                                             </div>
@@ -264,14 +257,8 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-4">Status</label>
                                         <div class="col-sm-8">
-                                            <wj-combo-box 
-                                                [itemsSource]="leadStatusArray" 
-                                                [placeholder]="'Select Status'"
-                                                [isEditable]="false"
-                                                [isRequired]="true"
-                                                [(selectedValue)]="leadStatusSelectedValue"
-                                                (selectedIndexChanged)="cboStatusSelectedIndexChangedClick()"
-                                                style="width: 100%;  padding-left: 3px; border-left: 5px solid #42A948;">
+                                            <wj-combo-box [itemsSource]="leadStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="leadStatusSelectedValue"
+                                                (selectedIndexChanged)="cboStatusSelectedIndexChangedClick()" style="width: 100%;  padding-left: 3px; border-left: 5px solid #42A948;">
                                             </wj-combo-box>
                                         </div>
                                     </div>

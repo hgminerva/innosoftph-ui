@@ -147,7 +147,7 @@
 
 <!-- support  detail modal -->
 <div class="modal fade" id="support-detail-modal" role="dialog">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Add Support</h4>
@@ -157,8 +157,13 @@
                     <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
                 </div>
                 <div *ngIf="isFinishLoading">
-                    <div class="row">
-                        <div class="col-md-6">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#Issue">Issue Detail</a></li>
+                        <li><a data-toggle="tab" href="#More">More</a></li>
+                    </ul>
+                    <br />
+                    <div class="tab-content">
+                        <div id="Issue" class="tab-pane fade in active">
                             <div class="form-horizontal">
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Support Date</label>
@@ -198,7 +203,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Issue</label>
                                     <div class="col-sm-8">
-                                        <textarea [(ngModel)]="supportIssue" class="form-control" rows="7" id="supportIssue" name="supportIssue" placeholder="Issue"></textarea>
+                                        <textarea [(ngModel)]="supportIssue" class="form-control" rows="5" id="supportIssue" name="supportIssue" placeholder="Issue"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -217,6 +222,10 @@
                                         </wj-combo-box>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                        <div id="More" class="tab-pane fade">
+                            <div class="form-horizontal">
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Caller</label>
                                     <div class="col-sm-8">
@@ -224,20 +233,16 @@
                                         />
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-horizontal">
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Remarks</label>
                                     <div class="col-sm-8">
-                                        <textarea [(ngModel)]="supportRemarks" class="form-control" rows="7" id="supportRemarks" name="supportRemarks" placeholder="Remarks"></textarea>
+                                        <textarea [(ngModel)]="supportRemarks" class="form-control" rows="5" id="supportRemarks" name="supportRemarks" placeholder="Remarks"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Screen Shot URL</label>
                                     <div class="col-sm-8">
-                                        <textarea [(ngModel)]="supportScreenShotURL" class="form-control" rows="7" id="supportScreenShotURL" name="supportScreenShotURL"
+                                        <textarea [(ngModel)]="supportScreenShotURL" class="form-control" rows="5" id="supportScreenShotURL" name="supportScreenShotURL"
                                             placeholder="Screen Shot URL"></textarea>
                                     </div>
                                 </div>

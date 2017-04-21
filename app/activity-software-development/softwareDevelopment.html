@@ -137,60 +137,75 @@
                     <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
                 </div>
                 <div *ngIf="isFinishLoading">
-                    <div class="form-horizontal">
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">SoftDev Date</label>
-                            <div class="col-sm-8">
-                                <wj-input-date [(value)]="softwareDevelopmentDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" style="width: 100%; ">
-                                </wj-input-date>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#Task">Task Detail</a></li>
+                        <li><a data-toggle="tab" href="#More">More</a></li>
+                    </ul>
+                    <br />
+                    <div class="tab-content">
+                        <div id="Task" class="tab-pane fade in active">
+
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">SoftDev Date</label>
+                                    <div class="col-sm-8">
+                                        <wj-input-date [(value)]="softwareDevelopmentDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" style="width: 100%; ">
+                                        </wj-input-date>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Project Number</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box [itemsSource]="softwareDevelopmentProjectObservableArray" [placeholder]="'Select Project Number'" [displayMemberPath]="'ProjectNumberDetail'"
+                                            [selectedValuePath]="'Id'" [(selectedValue)]="softwareDevelopmentProjectSelectedValue"
+                                            [isEditable]="false" [isRequired]="true" style="width: 100%; ">
+                                        </wj-combo-box>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Task</label>
+                                    <div class="col-sm-8">
+                                        <textarea [(ngModel)]="softwareDevelopmentTask" class="form-control" rows="7" id="softwareDevelopmentTask" name="softwareDevelopmentTask"
+                                            placeholder="Task"></textarea>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Project Number</label>
-                            <div class="col-sm-8">
-                                <wj-combo-box [itemsSource]="softwareDevelopmentProjectObservableArray" [placeholder]="'Select Project Number'" [displayMemberPath]="'ProjectNumberDetail'"
-                                    [selectedValuePath]="'Id'" [(selectedValue)]="softwareDevelopmentProjectSelectedValue" [isEditable]="false"
-                                    [isRequired]="true" style="width: 100%; ">
-                                </wj-combo-box>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Task</label>
-                            <div class="col-sm-8">
-                                <textarea [(ngModel)]="softwareDevelopmentTask" class="form-control" rows="7" id="softwareDevelopmentTask" name="softwareDevelopmentTask"
-                                    placeholder="Remarks"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Remarks</label>
-                            <div class="col-sm-8">
-                                <textarea [(ngModel)]="softwareDevelopmentRemarks" class="form-control" rows="7" id="softwareDevelopmentRemarks" name="softwareDevelopmentRemarks"
-                                    placeholder="Remarks"></textarea>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">No. of Hours</label>
-                            <div class="col-sm-8">
-                                <wj-combo-box [itemsSource]="softwareDevelopmentNoOfHoursArray" [placeholder]="'Select No. of Hours'" [isEditable]="false"
-                                    [isRequired]="true" [(selectedValue)]="softwareDevelopmentNoOfHoursSelectedValue" style="width: 30%; ">
-                                </wj-combo-box>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Assigned To</label>
-                            <div class="col-sm-8">
-                                <wj-combo-box [itemsSource]="softwareDevelopmentAssignedUserObservableArray" [placeholder]="'Select User'" [displayMemberPath]="'FullName'"
-                                    [selectedValuePath]="'Id'" [(selectedValue)]="softwareDevelopmentAssignedUserSelectedValue"
-                                    [isEditable]="true" [isRequired]="false" style="width: 100%;  padding-left: 3px;">
-                                </wj-combo-box>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-sm-4">Status</label>
-                            <div class="col-sm-8">
-                                <wj-combo-box [itemsSource]="softwareDevelopmentStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
-                                    [(selectedValue)]="softwareDevelopmentStatusSelectedValue" style="width: 100%; ">
-                                </wj-combo-box>
+                        <div id="More" class="tab-pane fade">
+                            <div class="form-horizontal">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Remarks</label>
+                                    <div class="col-sm-8">
+                                        <textarea [(ngModel)]="softwareDevelopmentRemarks" class="form-control" rows="5" id="softwareDevelopmentRemarks" name="softwareDevelopmentRemarks"
+                                            placeholder="Remarks"></textarea>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">No. of Hours</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box [itemsSource]="softwareDevelopmentNoOfHoursArray" [placeholder]="'Select No. of Hours'" [isEditable]="false"
+                                            [isRequired]="true" [(selectedValue)]="softwareDevelopmentNoOfHoursSelectedValue"
+                                            style="width: 30%; ">
+                                        </wj-combo-box>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Assigned To</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box [itemsSource]="softwareDevelopmentAssignedUserObservableArray" [placeholder]="'Select User'" [displayMemberPath]="'FullName'"
+                                            [selectedValuePath]="'Id'" [(selectedValue)]="softwareDevelopmentAssignedUserSelectedValue"
+                                            [isEditable]="true" [isRequired]="false" style="width: 100%;  padding-left: 3px;">
+                                        </wj-combo-box>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-4">Status</label>
+                                    <div class="col-sm-8">
+                                        <wj-combo-box [itemsSource]="softwareDevelopmentStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
+                                            [(selectedValue)]="softwareDevelopmentStatusSelectedValue" style="width: 100%; ">
+                                        </wj-combo-box>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

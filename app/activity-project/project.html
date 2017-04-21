@@ -126,7 +126,7 @@
 
 <!-- project detail modal -->
 <div class="modal fade" id="project-detail-modal" role="dialog">
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">{{ projectDetailModalString }} Project</h4>
@@ -136,8 +136,13 @@
                     <i class="fa fa-spinner fa-spin fa-lg fa-fw"></i>
                 </div>
                 <div *ngIf="isFinishLoading">
-                    <div class="row">
-                        <div class="col-md-6">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#Project">Project Detail</a></li>
+                        <li><a data-toggle="tab" href="#More">More</a></li>
+                    </ul>
+                    <br />
+                    <div class="tab-content">
+                        <div id="Project" class="tab-pane fade in active">
                             <div class="form-horizontal">
                                 <div *ngIf="isAdd">
                                     <div class="form-group">
@@ -188,7 +193,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                        <div id="More" class="tab-pane fade">
                             <div class="form-horizontal">
                                 <div *ngIf="isAdd">
                                     <div class="form-group">
