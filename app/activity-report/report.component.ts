@@ -33,6 +33,21 @@ export class ReportComponent implements OnInit {
     public assignedUserClicked = true;
     public isAssignedUserSelected = false;
 
+    public reportSummaryStartDateValue: Date;
+    public isReportSummaryStartDateValueSelected = true;
+    public reportSummaryEndDateValue: Date;
+    public isReportSummaryEndDateValueSelected = true;
+    public isReportSummaryStartdDateClicked = false;
+    public isReportSummaryEndDateClicked = false;
+
+    public fliterReportSummaryStatusArray = ['ALL', 'OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED'];
+    public filterReportSummaryStatusSelectedValue = 'OPEN';
+    public reportSummaryStatusClicked = false;
+    public isReportSummaryStatusSelected = false;
+    public reportSummaryCollectionView: wijmo.collections.CollectionView;
+    public filterSummaryReportFilter = '';
+    public filterSummaryReportToFilter: any;
+
     // inject service
     constructor(
         private reportService: ReportService,
@@ -128,8 +143,11 @@ export class ReportComponent implements OnInit {
         this.startLoading();
         this.reportStartDateValue = new Date();
         this.reportEndDateValue = new Date();
+        this.reportSummaryStartDateValue = new Date();
+        this.reportSummaryEndDateValue = new Date();
         this.getReporData();
         this.getUserStaff();
+        this.getActivitySummaryReportData();
     }
 
     public getUserStaff() {
@@ -229,6 +247,97 @@ export class ReportComponent implements OnInit {
         }
     }
 
+    public activityReportTabClick() {
+        this.refreshGrid();
+    }
+
+    public activitySummaryReportTabClick() {
+        this.refreshReportSummaryGrid();
+    }
+
+    public reportSummaryStartDateOnValueChanged() {
+        if (!this.isReportSummaryStartDateValueSelected) {
+            if (this.isReportStartDateClicked) {
+                this.startLoading();
+                this.getActivitySummaryReportData();
+            } else {
+                this.isReportStartDateClicked = true;
+            }
+        } else {
+            this.isReportSummaryStartDateValueSelected = false;
+        }
+    }
+
+    public reportSummaryEndDateOnValueChanged() {
+        if (!this.isReportSummaryEndDateValueSelected) {
+            if (this.isReportEndDateClicked) {
+                this.startLoading();
+                this.getActivitySummaryReportData();
+            } else {
+                this.isReportEndDateClicked = true;
+            }
+        } else {
+            this.isReportSummaryEndDateValueSelected = false;
+        }
+    }
+
+    public filterReportSummaryStatusSelectedIndexChangedClick() {
+        if (this.reportSummaryStatusClicked) {
+            if (this.isReportSummaryStatusSelected) {
+                this.startLoading();
+                this.getActivitySummaryReportData();
+            } else {
+                this.isReportSummaryStatusSelected = true;
+            }
+        } else {
+            this.reportSummaryStatusClicked = true;
+        }
+    }
+
+    public getActivitySummaryReportData() {
+        this.reportSummaryCollectionView = new wijmo.collections.CollectionView(this.reportService.getListSummaryActivities(this.reportSummaryStartDateValue, this.reportSummaryEndDateValue, this.filterReportSummaryStatusSelectedValue));
+        this.reportSummaryCollectionView.filter = this.filterSummaryReportFunction.bind(this);
+        this.reportSummaryCollectionView.pageSize = 15;
+        this.reportSummaryCollectionView.trackChanges = true;
+    }
+
+    // filter
+    get filterSummaryReport(): string {
+        return this.filterSummaryReportFilter;
+    }
+
+    // filter
+    set filterSummaryReport(value: string) {
+        if (this.filterSummaryReportFilter != value) {
+            this.filterSummaryReportFilter = value;
+
+            if (this.filterSummaryReportToFilter) {
+                clearTimeout(this.filterSummaryReportToFilter);
+            }
+
+            var self = this;
+            this.filterSummaryReportToFilter = setTimeout(function () {
+                self.reportSummaryCollectionView.refresh();
+            }, 500);
+        }
+    }
+
+    // filter function
+    public filterSummaryReportFunction(item: any) {
+        if (this.filterSummaryReportFilter) {
+            return (item.StaffUser.toLowerCase().indexOf(this.filterSummaryReportFilter.toLowerCase()) > -1);
+        }
+
+        return true;
+    }
+
+    // refresh grid
+    public refreshReportSummaryGrid() {
+        this.startLoading();
+        (<HTMLButtonElement>document.getElementById("btnRefreshReportSummary")).disabled = true;
+        (<HTMLButtonElement>document.getElementById("btnRefreshReportSummary")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+        this.getActivitySummaryReportData();
+    }
 
     // initialization
     ngOnInit() {

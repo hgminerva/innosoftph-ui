@@ -93,4 +93,41 @@ export class ReportService {
 
         return activityObservableArray;
     }
+    
+    // list activities
+    public getListSummaryActivities(startDate: Date, endDate: Date, status: String): wijmo.collections.ObservableArray {
+        let url = "http://api.innosoft.ph/api/activity/list/no_of_activities_per_staff/" + startDate.toDateString() + "/" + endDate.toDateString() + "/" + status;
+        let activityObservableArray = new wijmo.collections.ObservableArray();
+        this.http.get(url, this.options).subscribe(
+            response => {
+                var results = new wijmo.collections.ObservableArray(response.json());
+                if (results.length > 0) {
+                    for (var i = 0; i <= results.length - 1; i++) {
+                        var myDate = new Date(results[i].ActivityDate);
+                        var myDateValue = [myDate.getFullYear(), this.pad(myDate.getMonth() + 1), this.pad(myDate.getDate())].join('-');
+
+                        var total = parseInt(results[i].No_of_Lead_Activities)  + parseInt(results[i].No_of_Quotation_Activities) + parseInt(results[i].No_of_Delivery_Activities) + parseInt(results[i].No_of_Support_Activities) + parseInt(results[i].No_of_Software_Development_Activities);
+
+                        activityObservableArray.push({
+                            Id: results[i].Id,
+                            StaffUser: results[i].StaffUser,
+                            No_of_Lead_Activities: results[i].No_of_Lead_Activities,
+                            No_of_Quotation_Activities: results[i].No_of_Quotation_Activities,
+                            No_of_Delivery_Activities: results[i].No_of_Delivery_Activities,
+                            No_of_Support_Activities: results[i].No_of_Support_Activities,
+                            No_of_Software_Development_Activities: results[i].No_of_Software_Development_Activities,
+                            Total: total
+                        });
+                    }
+                }
+
+                document.getElementById("btn-hidden-complete-loading").click();
+
+                (<HTMLButtonElement>document.getElementById("btnRefreshReportSummary")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnRefreshReportSummary")).innerHTML = "<i class='fa fa-refresh fa-fw'></i> Refresh";
+            }
+        );
+
+        return activityObservableArray;
+    }
 }

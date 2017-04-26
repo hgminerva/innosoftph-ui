@@ -36,6 +36,15 @@ var ReportComponent = (function () {
         this.isReportDocumentTypeSelected = false;
         this.assignedUserClicked = true;
         this.isAssignedUserSelected = false;
+        this.isReportSummaryStartDateValueSelected = true;
+        this.isReportSummaryEndDateValueSelected = true;
+        this.isReportSummaryStartdDateClicked = false;
+        this.isReportSummaryEndDateClicked = false;
+        this.fliterReportSummaryStatusArray = ['ALL', 'OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED'];
+        this.filterReportSummaryStatusSelectedValue = 'OPEN';
+        this.reportSummaryStatusClicked = false;
+        this.isReportSummaryStatusSelected = false;
+        this.filterSummaryReportFilter = '';
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -125,8 +134,11 @@ var ReportComponent = (function () {
         this.startLoading();
         this.reportStartDateValue = new Date();
         this.reportEndDateValue = new Date();
+        this.reportSummaryStartDateValue = new Date();
+        this.reportSummaryEndDateValue = new Date();
         this.getReporData();
         this.getUserStaff();
+        this.getActivitySummaryReportData();
     };
     ReportComponent.prototype.getUserStaff = function () {
         this.reportAssignedUserObservableArray = this.reportService.getListUserData();
@@ -221,6 +233,95 @@ var ReportComponent = (function () {
                 }
             }
         }
+    };
+    ReportComponent.prototype.activityReportTabClick = function () {
+        this.refreshGrid();
+    };
+    ReportComponent.prototype.activitySummaryReportTabClick = function () {
+        this.refreshReportSummaryGrid();
+    };
+    ReportComponent.prototype.reportSummaryStartDateOnValueChanged = function () {
+        if (!this.isReportSummaryStartDateValueSelected) {
+            if (this.isReportStartDateClicked) {
+                this.startLoading();
+                this.getActivitySummaryReportData();
+            }
+            else {
+                this.isReportStartDateClicked = true;
+            }
+        }
+        else {
+            this.isReportSummaryStartDateValueSelected = false;
+        }
+    };
+    ReportComponent.prototype.reportSummaryEndDateOnValueChanged = function () {
+        if (!this.isReportSummaryEndDateValueSelected) {
+            if (this.isReportEndDateClicked) {
+                this.startLoading();
+                this.getActivitySummaryReportData();
+            }
+            else {
+                this.isReportEndDateClicked = true;
+            }
+        }
+        else {
+            this.isReportSummaryEndDateValueSelected = false;
+        }
+    };
+    ReportComponent.prototype.filterReportSummaryStatusSelectedIndexChangedClick = function () {
+        if (this.reportSummaryStatusClicked) {
+            if (this.isReportSummaryStatusSelected) {
+                this.startLoading();
+                this.getActivitySummaryReportData();
+            }
+            else {
+                this.isReportSummaryStatusSelected = true;
+            }
+        }
+        else {
+            this.reportSummaryStatusClicked = true;
+        }
+    };
+    ReportComponent.prototype.getActivitySummaryReportData = function () {
+        this.reportSummaryCollectionView = new wijmo.collections.CollectionView(this.reportService.getListSummaryActivities(this.reportSummaryStartDateValue, this.reportSummaryEndDateValue, this.filterReportSummaryStatusSelectedValue));
+        this.reportSummaryCollectionView.filter = this.filterSummaryReportFunction.bind(this);
+        this.reportSummaryCollectionView.pageSize = 15;
+        this.reportSummaryCollectionView.trackChanges = true;
+    };
+    Object.defineProperty(ReportComponent.prototype, "filterSummaryReport", {
+        // filter
+        get: function () {
+            return this.filterSummaryReportFilter;
+        },
+        // filter
+        set: function (value) {
+            if (this.filterSummaryReportFilter != value) {
+                this.filterSummaryReportFilter = value;
+                if (this.filterSummaryReportToFilter) {
+                    clearTimeout(this.filterSummaryReportToFilter);
+                }
+                var self = this;
+                this.filterSummaryReportToFilter = setTimeout(function () {
+                    self.reportSummaryCollectionView.refresh();
+                }, 500);
+            }
+        },
+        enumerable: true,
+        configurable: true
+    });
+    // filter function
+    ReportComponent.prototype.filterSummaryReportFunction = function (item) {
+        if (this.filterSummaryReportFilter) {
+            return (item.StaffUser.toLowerCase().indexOf(this.filterSummaryReportFilter.toLowerCase()) > -1);
+        }
+        return true;
+    };
+    // refresh grid
+    ReportComponent.prototype.refreshReportSummaryGrid = function () {
+        this.startLoading();
+        document.getElementById("btnRefreshReportSummary").disabled = true;
+        document.getElementById("btnRefreshReportSummary").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
+        this.getActivitySummaryReportData();
     };
     // initialization
     ReportComponent.prototype.ngOnInit = function () {
