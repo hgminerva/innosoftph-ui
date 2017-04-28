@@ -328,6 +328,10 @@ export class ContinuityComponent implements OnInit {
 
   // initialization
   ngOnInit() {
+    if (!localStorage.getItem('access_token')) {
+      this.router.navigate(['login']);
+    }
+
     this.setContinuityDateRanged();
   }
 }

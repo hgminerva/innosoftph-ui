@@ -18,13 +18,14 @@
             <div class="panel-heading">
                 <table border="0" style="width: 100%;">
                     <tr>
-                        <td>
+                        <td style="width: 59%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
                                 <input type="text" class="form-control" placeholder="filter" [(ngModel)]="filter" />
                             </div>
                         </td>
-                        <td align="right">
+                        <td style="width: 1%;"></td>
+                        <td style="width: 40%;" align="right">
                             <button class="btn btn-primary" (click)="btnContinuityDetailClick(true)" data-toggle="modal" data-backdrop="static" data-keyboard="false"
                                 data-target="#continuity-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
                             <button class="btn btn-danger" (click)="backClicked()"><i class="fa fa-close fa-fw"></i> Close</button>
@@ -35,21 +36,23 @@
             <div class="panel-heading">
                 <table border="0" style="width: 100%;">
                     <tr>
-                        <td style="width: 30%;">
+                        <td style="width: 29%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
                                 <wj-input-date [(value)]="continuityStartDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="continuityStartDateOnValueChanged()">
                                 </wj-input-date>
                             </div>
                         </td>
-                        <td style="width: 30%;">
+                        <td style="width: 1%;"></td>
+                        <td style="width: 29%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
                                 <wj-input-date [(value)]="continuityEndDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="continuityEndDateOnValueChanged()">
                                 </wj-input-date>
                             </div>
                         </td>
-                        <td style="width: 30%;">
+                        <td style="width: 1%;"></td>
+                        <td style="width: 29%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-question-circle-o fa-fw"></i> Status</span>
                                 <wj-combo-box [itemsSource]="fliterContinuityStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
@@ -59,8 +62,8 @@
                             </div>
                         </td>
                         <td style="width: 1%;"></td>
-                        <td style="width: 9%;">
-                            <button class="btn btn-default btn-sm btn-block" id="btnRefresh" (click)="refreshGrid()"><i class="fa fa-refresh fa-fw"></i> Refresh</button>
+                        <td style="width: 10%;">
+                            <button class="btn btn-default btn-block" id="btnRefresh" (click)="refreshGrid()"><i class="fa fa-refresh fa-fw"></i> Refresh</button>
                         </td>
                     </tr>
                 </table>

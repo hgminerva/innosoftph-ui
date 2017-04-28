@@ -25,13 +25,14 @@
                     <div class="panel-heading">
                         <table border="0" style="width: 100%;">
                             <tr>
-                                <td>
+                                <td style="width: 59%;">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
                                         <input type="text" class="form-control" placeholder="filter" [(ngModel)]="filter" />
                                     </div>
                                 </td>
-                                <td align="right">
+                                <td style="width: 1%;"></td>
+                                <td style="width: 40%;" align="right">
                                     <button class="btn btn-danger" (click)="backClicked()"><i class="fa fa-close fa-fw"></i> Close</button>
                                 </td>
                             </tr>
@@ -40,21 +41,23 @@
                     <div class="panel-heading">
                         <table border="0" style="width: 100%;">
                             <tr>
-                                <td style="width: 30%;">
+                                <td style="width: 29%;">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
                                         <wj-input-date [(value)]="reportStartDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="reportStartDateOnValueChanged()">
                                         </wj-input-date>
                                     </div>
                                 </td>
-                                <td style="width: 30%;">
+                                <td style="width: 1%;"></td>
+                                <td style="width: 29%;">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
                                         <wj-input-date [(value)]="reportEndDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="reportEndDateOnValueChanged()">
                                         </wj-input-date>
                                     </div>
                                 </td>
-                                <td style="width: 30%;">
+                                <td style="width: 1%;"></td>
+                                <td style="width: 29%;">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-question-circle-o fa-fw"></i> Status</span>
                                         <wj-combo-box [itemsSource]="fliterReportStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
@@ -64,8 +67,8 @@
                                     </div>
                                 </td>
                                 <td style="width: 1%;"></td>
-                                <td style="width: 9%;">
-                                    <button class="btn btn-default btn-sm btn-block" id="btnRefresh" (click)="refreshGrid()"><i class="fa fa-refresh fa-fw"></i> Refresh</button>
+                                <td style="width: 10%;">
+                                    <button class="btn btn-default btn-block" id="btnRefresh" (click)="refreshGrid()"><i class="fa fa-refresh fa-fw"></i> Refresh</button>
                                 </td>
                             </tr>
                         </table>
@@ -73,9 +76,9 @@
                     <div class="panel-heading">
                         <table border="0" style="width: 100%;">
                             <tr>
-                                <td style="width: 30%;">
+                                <td style="width: 29%;">
                                     <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-file-text-o fa-fw"></i> Document Type</span>
+                                        <span class="input-group-addon"><i class="fa fa-file-text-o fa-fw"></i> Document</span>
                                         <wj-combo-box [itemsSource]="fliterReportDocumentTypeArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
                                             [(selectedValue)]="fliterReportDocumentTypeSelectedValue" (selectedIndexChanged)="fliterReportDocumentTypeSelectedIndexChangedClick()"
                                             style="width: 100%; ">
@@ -83,9 +86,9 @@
                                     </div>
                                 </td>
                                 <td style="width: 1%;"></td>
-                                <td style="width: 30%;">
+                                <td style="width: 29%;">
                                     <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-user fa-fw"></i> User (Staff)</span>
+                                        <span class="input-group-addon"><i class="fa fa-user fa-fw"></i> Staff</span>
                                         <wj-combo-box [itemsSource]="reportAssignedUserObservableArray" [placeholder]="'Select User'" [displayMemberPath]="'FullName'"
                                             [selectedValuePath]="'Id'" [(selectedValue)]="reportAssignedToSelectedValue" [isEditable]="true"
                                             (selectedIndexChanged)="reportAssignedToSelectedIndexChangedClick()" [isRequired]="false"
@@ -93,7 +96,8 @@
                                         </wj-combo-box>
                                     </div>
                                 </td>
-                                <td style="width: 39%;"></td>
+                                <td style="width: 1%;"></td>
+                                <td style="width: 40%;"></td>
                             </tr>
                         </table>
                     </div>
@@ -112,10 +116,6 @@
                             </wj-flex-grid-column>
                             <wj-flex-grid-column [header]="'Customer'" [binding]="'Customer'" [isReadOnly]="true" [width]="200">
                             </wj-flex-grid-column>
-                            <wj-flex-grid-column [header]="'Product'" [binding]="'Product'" [isReadOnly]="true" [width]="200">
-                            </wj-flex-grid-column>
-                            <wj-flex-grid-column [header]="'Remarks / Issue / Task'" [binding]="'HeaderRemarks'" [isReadOnly]="true" [width]="350">
-                            </wj-flex-grid-column>
                             <wj-flex-grid-column [header]="'Category'" [binding]="'ParticularCategory'" [isReadOnly]="true" [width]="200">
                             </wj-flex-grid-column>
                             <wj-flex-grid-column [header]="'Activity'" [binding]="'Particulars'" [isReadOnly]="true" [width]="350">
@@ -123,6 +123,10 @@
                             <wj-flex-grid-column [header]="'No. of Hrs.'" [binding]="'NumberOfHours'" [isReadOnly]="true" [width]="100">
                             </wj-flex-grid-column>
                             <wj-flex-grid-column [header]="'Amount'" [binding]="'ActivityAmount'" [isReadOnly]="true" [width]="100">
+                            </wj-flex-grid-column>
+                            <wj-flex-grid-column [header]="'Product'" [binding]="'Product'" [isReadOnly]="true" [width]="200">
+                            </wj-flex-grid-column>
+                            <wj-flex-grid-column [header]="'Remarks / Issue / Task'" [binding]="'HeaderRemarks'" [isReadOnly]="true" [width]="350">
                             </wj-flex-grid-column>
                             <wj-flex-grid-column [header]="'Assigned To'" [binding]="'StaffUser'" [isReadOnly]="true" [width]="150">
                             </wj-flex-grid-column>
@@ -158,13 +162,14 @@
                     <div class="panel-heading">
                         <table border="0" style="width: 100%;">
                             <tr>
-                                <td>
+                                <td style="width: 59%;">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
                                         <input type="text" class="form-control" placeholder="filter" [(ngModel)]="filterSummaryReport" />
                                     </div>
                                 </td>
-                                <td align="right">
+                                <td style="width: 1%;"></td>
+                                <td style="width: 40%;" align="right">
                                     <button class="btn btn-danger" (click)="backClicked()"><i class="fa fa-close fa-fw"></i> Close</button>
                                 </td>
                             </tr>
@@ -173,21 +178,23 @@
                     <div class="panel-heading">
                         <table border="0" style="width: 100%;">
                             <tr>
-                                <td style="width: 30%;">
+                                <td style="width: 29%;">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
                                         <wj-input-date [(value)]="reportSummaryStartDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="reportSummaryStartDateOnValueChanged()">
                                         </wj-input-date>
                                     </div>
                                 </td>
-                                <td style="width: 30%;">
+                                <td style="width: 1%;"></td>
+                                <td style="width: 29%;">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
                                         <wj-input-date [(value)]="reportSummaryEndDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="reportSummaryEndDateOnValueChanged()">
                                         </wj-input-date>
                                     </div>
                                 </td>
-                                <td style="width: 30%;">
+                                <td style="width: 1%;"></td>
+                                <td style="width: 29%;">
                                     <div class="input-group">
                                         <span class="input-group-addon"><i class="fa fa-question-circle-o fa-fw"></i> Status</span>
                                         <wj-combo-box [itemsSource]="fliterReportSummaryStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
@@ -197,8 +204,8 @@
                                     </div>
                                 </td>
                                 <td style="width: 1%;"></td>
-                                <td style="width: 9%;">
-                                    <button class="btn btn-default btn-sm btn-block" id="btnRefreshReportSummary" (click)="refreshReportSummaryGrid()"><i class="fa fa-refresh fa-fw"></i> Refresh</button>
+                                <td style="width: 10%;">
+                                    <button class="btn btn-default btn-block" id="btnRefreshReportSummary" (click)="refreshReportSummaryGrid()"><i class="fa fa-refresh fa-fw"></i> Refresh</button>
                                 </td>
                             </tr>
                         </table>

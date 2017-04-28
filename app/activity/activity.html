@@ -18,13 +18,14 @@
             <div class="panel-heading">
                 <table border="0" style="width: 100%;">
                     <tr>
-                        <td>
+                        <td style="width: 59%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
                                 <input type="text" class="form-control" placeholder="filter" [(ngModel)]="filter" />
                             </div>
                         </td>
-                        <td align="right">
+                        <td style="width: 1%;"></td>
+                        <td style="width: 40%;" align="right">
                             <button class="btn btn-danger" (click)="backClicked()"><i class="fa fa-close fa-fw"></i> Close</button>
                         </td>
                     </tr>
@@ -33,35 +34,23 @@
             <div class="panel-heading">
                 <table border="0" style="width: 100%;">
                     <tr>
-                        <td style="width: 30%;">
+                        <td style="width: 29%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
                                 <wj-input-date [(value)]="activityStartDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="activityStartDateOnValueChanged()">
                                 </wj-input-date>
                             </div>
                         </td>
-                        <td style="width: 30%;">
+                        <td style="width: 1%;"></td>
+                        <td style="width: 29%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
                                 <wj-input-date [(value)]="activityEndDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="activityEndDateOnValueChanged()">
                                 </wj-input-date>
                             </div>
                         </td>
-                        <td style="width: 40%;">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Document</span>
-                                <wj-combo-box [itemsSource]="documentArray" [placeholder]="'Select Document'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="documentSelectedValue"
-                                    (selectedIndexChanged)="cboDocumentSelectedIndexChangedClick()" style="width: 100%; ">
-                                </wj-combo-box>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="panel-heading">
-                <table border="0" style="width: 100%;">
-                    <tr>
-                        <td style="width: 40%;">
+                        <td style="width: 1%;"></td>
+                        <td style="width: 29%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-question-circle-o fa-fw"></i> Status</span>
                                 <wj-combo-box [itemsSource]="activityStatusesArray" [placeholder]="'Select Document'" [isEditable]="false" [isRequired]="true"
@@ -71,10 +60,24 @@
                             </div>
                         </td>
                         <td style="width: 1%;"></td>
-                        <td style="width: 9%;">
-                            <button class="btn btn-default btn-sm btn-block" id="btnRefresh" (click)="refreshGrid()"><i class="fa fa-refresh fa-fw"></i> Refresh</button>
+                        <td style="width: 10%;">
+                            <button class="btn btn-default btn-block" id="btnRefresh" (click)="refreshGrid()"><i class="fa fa-refresh fa-fw"></i> Refresh</button>
                         </td>
-                        <td style="width: 50%;"></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="panel-heading">
+                <table border="0" style="width: 100%;">
+                    <tr>
+                        <td style="width: 29%;">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Document</span>
+                                <wj-combo-box [itemsSource]="documentArray" [placeholder]="'Select Document'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="documentSelectedValue"
+                                    (selectedIndexChanged)="cboDocumentSelectedIndexChangedClick()" style="width: 100%; ">
+                                </wj-combo-box>
+                            </div>
+                        </td>
+                        <td style="width: 71%;"></td>
                     </tr>
                 </table>
             </div>

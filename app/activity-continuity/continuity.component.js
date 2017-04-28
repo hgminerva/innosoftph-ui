@@ -284,6 +284,9 @@ var ContinuityComponent = (function () {
     };
     // initialization
     ContinuityComponent.prototype.ngOnInit = function () {
+        if (!localStorage.getItem('access_token')) {
+            this.router.navigate(['login']);
+        }
         this.setContinuityDateRanged();
     };
     ContinuityComponent = __decorate([
