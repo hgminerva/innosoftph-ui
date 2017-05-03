@@ -52,6 +52,7 @@ export class ContinuityComponent implements OnInit {
   public dateTypeSelectedValue = "Continuity Date";
   public isDateTypeSelected = false;
   public isDateTypeClicked = false;
+  public continuityAmount: String;
 
   // inject continuity service
   constructor(
@@ -261,6 +262,7 @@ export class ContinuityComponent implements OnInit {
       this.continuityStatus = "OPEN";
       this.continuityStaffUser = "--";
       this.continuityRemarks = "";
+      this.continuityAmount = "0";
     } else {
       this.isAdd = true;
       let currentSelectedContinuity = this.continuityCollectionView.currentItem;
@@ -274,7 +276,26 @@ export class ContinuityComponent implements OnInit {
       this.continuityStatus = currentSelectedContinuity.ContinuityStatus;
       this.continuityStaffUser = currentSelectedContinuity.StaffUser;
       this.continuityRemarks = currentSelectedContinuity.Remarks;
+      this.continuityAmount = currentSelectedContinuity.ContinuityAmount;
     }
+  }
+
+  // on key press decimal key
+  public onKeyPressOnlyDecimalNumberKey(event: any) {
+    let charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  // on blur 
+  public onBlurOnlyDecimalNumberKey() {
+    (<HTMLInputElement>document.getElementById("continuityAmount")).value = "";
+    setTimeout(() => {
+      (<HTMLInputElement>document.getElementById("continuityAmount")).value = this.continuityAmount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    }, 100);
   }
 
   // continuity status selected index changed
@@ -289,6 +310,7 @@ export class ContinuityComponent implements OnInit {
       DeliveryId: this.continuityDeliverySelectedValue,
       ExpiryDate: this.continuityExpiryDateValue.toLocaleDateString(),
       Remarks: this.continuityRemarks,
+      ContinuityAmount: this.continuityAmount,
       ContinuityStatus: this.continuityStatus
     }
 

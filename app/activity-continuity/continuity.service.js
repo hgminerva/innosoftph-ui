@@ -98,6 +98,7 @@ var ContinuityService = (function () {
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
             if (results.length > 0) {
+                var totalContinuityAmount = 0;
                 for (var i = 0; i <= results.length - 1; i++) {
                     var myDate = new Date(results[i].ContinuityDate);
                     var myDateValue = [myDate.getFullYear(), _this.pad(myDate.getMonth() + 1), _this.pad(myDate.getDate())].join('-');
@@ -115,13 +116,16 @@ var ContinuityService = (function () {
                         Product: results[i].Product,
                         ExpiryDate: myExpireDateValue,
                         Remarks: results[i].Remarks,
+                        ContinuityAmount: results[i].ContinuityAmount,
                         StaffUserId: results[i].StaffUserId,
                         StaffUser: results[i].StaffUser,
                         ContinuityStatus: results[i].ContinuityStatus
                     });
+                    totalContinuityAmount += parseFloat(results[i].ContinuityAmount);
                 }
             }
             document.getElementById("btn-hidden-complete-loading").click();
+            document.getElementById("totalContinuityAmount").value = totalContinuityAmount.toLocaleString();
             document.getElementById("btnRefresh").disabled = false;
             document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-refresh fa-fw'></i> Refresh";
         });

@@ -108,6 +108,8 @@ export class ContinuityService {
             response => {
                 var results = new wijmo.collections.ObservableArray(response.json());
                 if (results.length > 0) {
+                    var totalContinuityAmount = 0;
+
                     for (var i = 0; i <= results.length - 1; i++) {
                         var myDate = new Date(results[i].ContinuityDate);
                         var myDateValue = [myDate.getFullYear(), this.pad(myDate.getMonth() + 1), this.pad(myDate.getDate())].join('-');
@@ -127,15 +129,19 @@ export class ContinuityService {
                             Product: results[i].Product,
                             ExpiryDate: myExpireDateValue,
                             Remarks: results[i].Remarks,
+                            ContinuityAmount: results[i].ContinuityAmount,
                             StaffUserId: results[i].StaffUserId,
                             StaffUser: results[i].StaffUser,
                             ContinuityStatus: results[i].ContinuityStatus
                         });
+
+                        totalContinuityAmount += parseFloat(results[i].ContinuityAmount);
                     }
                 }
 
                 document.getElementById("btn-hidden-complete-loading").click();
 
+                (<HTMLButtonElement>document.getElementById("totalContinuityAmount")).value = totalContinuityAmount.toLocaleString();
                 (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = false;
                 (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-refresh fa-fw'></i> Refresh";
             }

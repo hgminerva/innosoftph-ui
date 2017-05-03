@@ -225,6 +225,7 @@ var ContinuityComponent = (function () {
             this.continuityStatus = "OPEN";
             this.continuityStaffUser = "--";
             this.continuityRemarks = "";
+            this.continuityAmount = "0";
         }
         else {
             this.isAdd = true;
@@ -239,7 +240,26 @@ var ContinuityComponent = (function () {
             this.continuityStatus = currentSelectedContinuity.ContinuityStatus;
             this.continuityStaffUser = currentSelectedContinuity.StaffUser;
             this.continuityRemarks = currentSelectedContinuity.Remarks;
+            this.continuityAmount = currentSelectedContinuity.ContinuityAmount;
         }
+    };
+    // on key press decimal key
+    ContinuityComponent.prototype.onKeyPressOnlyDecimalNumberKey = function (event) {
+        var charCode = (event.which) ? event.which : event.keyCode;
+        if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    };
+    // on blur 
+    ContinuityComponent.prototype.onBlurOnlyDecimalNumberKey = function () {
+        var _this = this;
+        document.getElementById("continuityAmount").value = "";
+        setTimeout(function () {
+            document.getElementById("continuityAmount").value = _this.continuityAmount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        }, 100);
     };
     // continuity status selected index changed
     ContinuityComponent.prototype.cboContinuityStatusSelectedIndexChanged = function () {
@@ -252,6 +272,7 @@ var ContinuityComponent = (function () {
             DeliveryId: this.continuityDeliverySelectedValue,
             ExpiryDate: this.continuityExpiryDateValue.toLocaleDateString(),
             Remarks: this.continuityRemarks,
+            ContinuityAmount: this.continuityAmount,
             ContinuityStatus: this.continuityStatus
         };
         return dataObject;
