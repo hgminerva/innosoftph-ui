@@ -40,8 +40,26 @@ var ContinuityComponent = (function () {
         this.isEndDateClicked = false;
         this.continuityStatusClicked = false;
         this.isContinuityStatusSelected = false;
+        this.dateTypeArray = ['Continuity Date', 'Expiry Date'];
+        this.dateTypeSelectedValue = "Continuity Date";
+        this.isDateTypeSelected = false;
+        this.isDateTypeClicked = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
+    ContinuityComponent.prototype.cboDateTypeSelectedIndexChangedClick = function () {
+        if (!this.isDateTypeSelected) {
+            if (this.isDateTypeClicked) {
+                this.startLoading();
+                this.getContinuityData();
+            }
+            else {
+                this.isDateTypeClicked = true;
+            }
+        }
+        else {
+            this.isDateTypeSelected = false;
+        }
+    };
     // start loading
     ContinuityComponent.prototype.startLoading = function () {
         this.slimLoadingBarService.progress = 30;
@@ -119,7 +137,7 @@ var ContinuityComponent = (function () {
     };
     // continuity data
     ContinuityComponent.prototype.getContinuityData = function () {
-        this.continuityCollectionView = new wijmo.collections.CollectionView(this.continuityService.getListContinuityData(this.continuityStartDateValue, this.continuityEndDateValue, this.filterContinuityStatusSelectedValue));
+        this.continuityCollectionView = new wijmo.collections.CollectionView(this.continuityService.getListContinuityData(this.dateTypeSelectedValue, this.continuityStartDateValue, this.continuityEndDateValue, this.filterContinuityStatusSelectedValue));
         this.continuityCollectionView.filter = this.filterFunction.bind(this);
         this.continuityCollectionView.pageSize = 15;
         this.continuityCollectionView.trackChanges = true;

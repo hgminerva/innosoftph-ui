@@ -48,6 +48,10 @@ export class ContinuityComponent implements OnInit {
   public continuityStatusClicked = false;
   public continuityRemarks: String;
   public isContinuityStatusSelected = false;
+  public dateTypeArray = ['Continuity Date', 'Expiry Date']
+  public dateTypeSelectedValue = "Continuity Date";
+  public isDateTypeSelected = false;
+  public isDateTypeClicked = false;
 
   // inject continuity service
   constructor(
@@ -58,6 +62,20 @@ export class ContinuityComponent implements OnInit {
     private slimLoadingBarService: SlimLoadingBarService
   ) {
     this.toastr.setRootViewContainerRef(vRef);
+  }
+
+  public cboDateTypeSelectedIndexChangedClick() {
+    if (!this.isDateTypeSelected) {
+      if (this.isDateTypeClicked) {
+        this.startLoading();
+        this.getContinuityData();
+      }
+      else {
+        this.isDateTypeClicked = true;
+      }
+    } else {
+      this.isDateTypeSelected = false;
+    }
   }
 
   // start loading
@@ -146,7 +164,7 @@ export class ContinuityComponent implements OnInit {
 
   // continuity data
   public getContinuityData() {
-    this.continuityCollectionView = new wijmo.collections.CollectionView(this.continuityService.getListContinuityData(this.continuityStartDateValue, this.continuityEndDateValue, this.filterContinuityStatusSelectedValue));
+    this.continuityCollectionView = new wijmo.collections.CollectionView(this.continuityService.getListContinuityData(this.dateTypeSelectedValue, this.continuityStartDateValue, this.continuityEndDateValue, this.filterContinuityStatusSelectedValue));
     this.continuityCollectionView.filter = this.filterFunction.bind(this);
     this.continuityCollectionView.pageSize = 15;
     this.continuityCollectionView.trackChanges = true;

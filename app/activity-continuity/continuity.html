@@ -68,6 +68,21 @@
                     </tr>
                 </table>
             </div>
+            <div class="panel-heading">
+                <table border="0" style="width: 100%;">
+                    <tr>
+                        <td style="width: 29%;">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Date Type</span>
+                                <wj-combo-box [itemsSource]="dateTypeArray" [placeholder]="'Select Date Type'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="dateTypeSelectedValue"
+                                    (selectedIndexChanged)="cboDateTypeSelectedIndexChangedClick()" style="width: 100%; ">
+                                </wj-combo-box>
+                            </div>
+                        </td>
+                        <td style="width: 71%;"></td>
+                    </tr>
+                </table>
+            </div>
             <div class="panel-body">
                 <wj-flex-grid [itemsSource]="continuityCollectionView" [selectionMode]="3">
                     <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="60">

@@ -91,9 +91,9 @@ var ContinuityService = (function () {
         return (n < 10) ? ("0" + n) : n;
     };
     // list continuity by date ranged (start date and end date)
-    ContinuityService.prototype.getListContinuityData = function (continuityStartDate, continuityEndDate, status) {
+    ContinuityService.prototype.getListContinuityData = function (dateType, continuityStartDate, continuityEndDate, status) {
         var _this = this;
-        var url = "http://api.innosoft.ph/api/continuity/list/byContinuityDateRange/" + continuityStartDate.toDateString() + "/" + continuityEndDate.toDateString() + "/" + status;
+        var url = "http://api.innosoft.ph/api/continuity/list/byContinuityDateRange/" + dateType + "/" + continuityStartDate.toDateString() + "/" + continuityEndDate.toDateString() + "/" + status;
         var continuityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
