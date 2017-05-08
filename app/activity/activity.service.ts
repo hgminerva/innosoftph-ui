@@ -81,6 +81,7 @@ export class ActivityService {
                             ActivityStatus: results[i].ActivityStatus,
                             HeaderStatus: results[i].HeaderStatus,
                             EncodedBy: results[i].EncodedBy,
+                            NoOfDays: parseInt(results[i].NoOfDays),
                         });
                     }
                 }
