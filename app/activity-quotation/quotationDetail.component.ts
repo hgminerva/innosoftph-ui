@@ -23,7 +23,7 @@ export class QuotationDetailComponent implements OnInit {
   public quotationEncodedUserObservableArray: wijmo.collections.ObservableArray;
   // public quotationEncodedBySelectedValue: number;
   public quotationEncodedBySelectedValue: String;
-  public quotationStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
+  public quotationStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
   public quotationStatusSelectedValue: String;
   public activityCollectionView: wijmo.collections.CollectionView;
   public activityDetailModalString: String;
@@ -38,7 +38,7 @@ export class QuotationDetailComponent implements OnInit {
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
   ];
   public activityNoOfHoursSelectedValue: String;
-  public activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
+  public activityStatus = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
   public activityStatusSelectedValue: String;
   public activityAmount: String;
   public isFinishLoading = false;

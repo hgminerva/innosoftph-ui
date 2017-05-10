@@ -29,7 +29,7 @@ export class LeadDetailComponent implements OnInit {
   public leadAssignedUserObservableArray: wijmo.collections.ObservableArray;
   public leadAssignedToSelectedValue: number;
   public leadRemarks: String;
-  public leadStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
+  public leadStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
   public leadStatusSelectedValue: String;
   public activityCollectionView: wijmo.collections.CollectionView;
   public activityDetailModalString: String;
@@ -44,7 +44,7 @@ export class LeadDetailComponent implements OnInit {
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
   ];
   public activityNoOfHoursSelectedValue: String;
-  public activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
+  public activityStatus = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
   public activityStatusSelectedValue: String;
   public activityAmount: String;
   public isFinishLoading = false;
@@ -70,8 +70,8 @@ export class LeadDetailComponent implements OnInit {
 
   // start loading
   public startLoading() {
-    this.slimLoadingBarService.progress = 30;
     this.slimLoadingBarService.start();
+    this.slimLoadingBarService.progress = 30;
   }
 
   // complete loading

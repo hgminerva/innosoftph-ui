@@ -26,13 +26,13 @@ var SoftwareDevelopmentComponent = (function () {
         this.isFinishLoading = false;
         this.isLoading = true;
         this.softwareDevelopmentFilter = '';
-        this.softwareDevelopmentStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
+        this.softwareDevelopmentStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
         this.softwareDevelopmentStatusSelectedValue = "OPEN";
         this.softwareDevelopmentNoOfHoursArray = [
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
         ];
         this.softwareDevelopmentNoOfHoursSelectedValue = "0";
-        this.fliterSoftwareDevelopmentStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
+        this.fliterSoftwareDevelopmentStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
         this.filterSoftwareDevelopmentStatusSelectedValue = "OPEN";
         this.isStartDateClicked = false;
         this.isEndDateClicked = false;

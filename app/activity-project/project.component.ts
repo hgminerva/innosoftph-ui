@@ -37,9 +37,9 @@ export class ProjectComponent {
   public projectManagerSelectedValue: String;
   public projectStartDateDataValue: Date;
   public projectEndDateDataValue: Date;
-  public projectStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
+  public projectStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
   public projectStatusSelectedValue = "OPEN";
-  public fliterProjectStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
+  public fliterProjectStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
   public filterProjectStatusSelectedValue = "OPEN";
   public isStartDateClicked = false;
   public isEndDateClicked = false;

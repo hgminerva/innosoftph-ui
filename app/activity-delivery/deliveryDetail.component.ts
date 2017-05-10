@@ -24,7 +24,7 @@ export class DeliveryDetailComponent implements OnInit {
   public deliveryTechnicalUserSelectedValue: number;
   public deliveryFunctionalUserObservableArray: wijmo.collections.ObservableArray;
   public deliveryFunctionalUserSelectedValue: number;
-  public deliveryStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
+  public deliveryStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
   public deliveryStatusSelectedValue: String;
   public deliveryRemarks: String;
   public activityCollectionView: wijmo.collections.CollectionView;
@@ -41,7 +41,7 @@ export class DeliveryDetailComponent implements OnInit {
   ];
   public activityNoOfHoursSelectedIndex = 0;
   public activityNoOfHoursSelectedValue: String;
-  public activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED'];
+  public activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED', 'FOR CLOSING'];
   public activityStatusSelectedIndex = 0;
   public activityStatusSelectedValue: String;
   public activityAmount: String;

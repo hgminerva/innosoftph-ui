@@ -26,7 +26,7 @@ export class DeliveryComponent implements OnInit {
   public deliveryTechnicalUserSelectedValue: number;
   public deliveryFunctionalUserObservableArray: wijmo.collections.ObservableArray;
   public deliveryFunctionalUserSelectedValue: number;
-  public deliveryStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
+  public deliveryStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
   public deliveryStatusSelectedValue = "OPEN";
   public deliveryQuotationId: number;
   public deliveryRemarks: String;
@@ -35,7 +35,7 @@ export class DeliveryComponent implements OnInit {
   public deliveryStatus: String;
   public isFinishLoading = false;
   public isLoading = true;
-  public fliterDeliveryStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
+  public fliterDeliveryStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
   public filterDeliveryStatusSelectedValue = "OPEN";
   public isStartDateClicked = false;
   public isEndDateClicked = false;

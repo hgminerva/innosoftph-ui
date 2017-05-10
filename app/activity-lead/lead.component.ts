@@ -21,7 +21,7 @@ export class LeadComponent implements OnInit {
   public leadCollectionView: wijmo.collections.CollectionView;
   public leadAssignedUserObservableArray: wijmo.collections.ObservableArray;
   public leadAssignedToSelectedValue: number;
-  public leadStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
+  public leadStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
   public leadStatusSelectedValue = "OPEN";
   public leadName: String;
   public leadAddress: String;
@@ -42,7 +42,7 @@ export class LeadComponent implements OnInit {
   public isValidNullValues: Boolean;
   public isStartDateClicked = false;
   public isEndDateClicked = false;
-  public fliterLeadStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED'];
+  public fliterLeadStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
   public filterLeadStatusSelectedValue = "OPEN";
   public leadStatusClicked = false;
   public isLeadStatusSelected = false;

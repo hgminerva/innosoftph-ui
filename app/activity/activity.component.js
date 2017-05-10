@@ -32,10 +32,10 @@ var ActivityComponent = (function () {
         this.activityNoOfHours = [
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
         ];
-        this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED'];
+        this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING'];
         this.hasNoActivity = false;
         this.hasActivity = true;
-        this.activityStatusesArray = ['ALL', 'OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED'];
+        this.activityStatusesArray = ['ALL', 'OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING'];
         this.activityStatusesSelectedValue = "OPEN";
         this.isStartDateClicked = false;
         this.isEndDateClicked = false;
@@ -200,19 +200,19 @@ var ActivityComponent = (function () {
         if (currentSelectedActivity.LeadId > 0) {
             this.isSupport = false;
             this.activityParticularCategories = ['Lead'];
-            this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
+            this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
         }
         else {
             if (currentSelectedActivity.QuotationId > 0) {
                 this.isSupport = false;
                 this.activityParticularCategories = ['Quotation'];
-                this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
+                this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
             }
             else {
                 if (currentSelectedActivity.DeliveryId > 0) {
                     this.isSupport = false;
                     this.activityParticularCategories = ['Delivery'];
-                    this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED'];
+                    this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED', 'FOR CLOSING'];
                 }
                 else {
                     if (currentSelectedActivity.SupportId > 0) {
@@ -229,7 +229,7 @@ var ActivityComponent = (function () {
                             'Progam Update',
                             'Data Archive'
                         ];
-                        this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED'];
+                        this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING'];
                     }
                     else {
                         if (currentSelectedActivity.SoftwareDevelopmentId > 0) {
@@ -241,7 +241,7 @@ var ActivityComponent = (function () {
                                 'Module',
                                 'Others'
                             ];
-                            this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED'];
+                            this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED', 'FOR CLOSING'];
                         }
                         else {
                             this.activityParticularCategories = [''];

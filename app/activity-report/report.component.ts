@@ -19,7 +19,7 @@ export class ReportComponent implements OnInit {
     public isReportEndDateClicked = false;
     public fliterReportDocumentTypeArray = ['ALL', 'Lead', 'Quotation', 'Delivery', 'Support', 'Support - Technical', 'Support - Functional', 'Support - Customize', 'Software Development'];
     public fliterReportDocumentTypeSelectedValue = 'Lead';
-    public fliterReportStatusArray = ['ALL', 'OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED'];
+    public fliterReportStatusArray = ['ALL', 'OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING'];
     public filterReportStatusSelectedValue = 'OPEN';
     public reportStatusClicked = false;
     public isReportStatusSelected = false;
@@ -40,7 +40,7 @@ export class ReportComponent implements OnInit {
     public isReportSummaryStartdDateClicked = false;
     public isReportSummaryEndDateClicked = false;
 
-    public fliterReportSummaryStatusArray = ['ALL', 'OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED'];
+    public fliterReportSummaryStatusArray = ['ALL', 'OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING'];
     public filterReportSummaryStatusSelectedValue = 'OPEN';
     public reportSummaryStatusClicked = false;
     public isReportSummaryStatusSelected = false;

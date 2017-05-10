@@ -53,12 +53,12 @@ export class SupportActivityComponent implements OnInit {
   public supportAssignedUserObservableArray: wijmo.collections.ObservableArray;
   public supportAssignedToSelectedValue: number;
   public supportAssignedToUserId: number;
-  public supportStatusArray = ['OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED'];
+  public supportStatusArray = ['OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING'];
   public supportStatusSelectedValue = "OPEN";
   public supportCustomerSelectedIndex: number;
   public isFinishLoading = false;
   public isLoading = true;
-  public fliterSupportStatusArray = ['ALL', 'OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED'];
+  public fliterSupportStatusArray = ['ALL', 'OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING'];
   public filterSupportStatusSelectedValue = "OPEN";
   public isStartDateClicked = false;
   public isEndDateClicked = false;
@@ -274,7 +274,7 @@ export class SupportActivityComponent implements OnInit {
 
   // save support
   public btnSaveSupport() {
-    document.getElementById("btn-hidden-start-loading").click();
+    this.startLoading();
     let toastr: ToastsManager;
     (<HTMLButtonElement>document.getElementById("btnSaveSupport")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
     (<HTMLButtonElement>document.getElementById("btnSaveSupport")).disabled = true;
@@ -284,7 +284,7 @@ export class SupportActivityComponent implements OnInit {
 
   // edit support
   public btnEditSupport() {
-    document.getElementById("btn-hidden-start-loading").click();
+    this.startLoading();
     let currentSelectedSupport = this.supportCollectionView.currentItem;
     this.router.navigate(['/supportDetail', currentSelectedSupport.Id]);
   }

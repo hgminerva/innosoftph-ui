@@ -26,7 +26,7 @@ var QuotationDetailComponent = (function () {
         this.vRef = vRef;
         this.slimLoadingBarService = slimLoadingBarService;
         this.isQuotationDateSelected = true;
-        this.quotationStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
+        this.quotationStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
         this.activityParticularCategories = [
             'Quotation'
         ];
@@ -34,7 +34,7 @@ var QuotationDetailComponent = (function () {
         this.activityNoOfHours = [
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
         ];
-        this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
+        this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
         this.isFinishLoading = false;
         this.isLoading = true;
         this.quotationPaymentScheduleArray = new wijmo.collections.ObservableArray();

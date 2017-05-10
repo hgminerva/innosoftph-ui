@@ -25,7 +25,7 @@ var DeliveryDetailComponent = (function () {
         this.vRef = vRef;
         this.slimLoadingBarService = slimLoadingBarService;
         this.deliveryQuotaionSelectedIndex = -1;
-        this.deliveryStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
+        this.deliveryStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
         this.activityParticularCategories = [
             'Delivery'
         ];
@@ -34,7 +34,7 @@ var DeliveryDetailComponent = (function () {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
         ];
         this.activityNoOfHoursSelectedIndex = 0;
-        this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED'];
+        this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED', 'FOR CLOSING'];
         this.activityStatusSelectedIndex = 0;
         this.isFinishLoading = false;
         this.isLoading = true;

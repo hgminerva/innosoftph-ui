@@ -25,7 +25,7 @@ var LeadDetailComponent = (function () {
         this.vRef = vRef;
         this.slimLoadingBarService = slimLoadingBarService;
         this.isLeadDateSelected = true;
-        this.leadStatusArray = ['OPEN', 'CLOSE', 'CANCELLED'];
+        this.leadStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
         this.activityParticularCategories = [
             'Lead'
         ];
@@ -33,7 +33,7 @@ var LeadDetailComponent = (function () {
         this.activityNoOfHours = [
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
         ];
-        this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
+        this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
         this.isFinishLoading = false;
         this.isLoading = true;
         this.toastr.setRootViewContainerRef(vRef);
@@ -43,8 +43,8 @@ var LeadDetailComponent = (function () {
     };
     // start loading
     LeadDetailComponent.prototype.startLoading = function () {
-        this.slimLoadingBarService.progress = 30;
         this.slimLoadingBarService.start();
+        this.slimLoadingBarService.progress = 30;
     };
     // complete loading
     LeadDetailComponent.prototype.completeLoading = function () {

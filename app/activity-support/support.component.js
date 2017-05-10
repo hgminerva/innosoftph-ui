@@ -47,11 +47,11 @@ var SupportActivityComponent = (function () {
             'Gossip'
         ];
         this.supportSeveritySelectedValue = "High (3hrs. resolution)";
-        this.supportStatusArray = ['OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED'];
+        this.supportStatusArray = ['OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING'];
         this.supportStatusSelectedValue = "OPEN";
         this.isFinishLoading = false;
         this.isLoading = true;
-        this.fliterSupportStatusArray = ['ALL', 'OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED'];
+        this.fliterSupportStatusArray = ['ALL', 'OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING'];
         this.filterSupportStatusSelectedValue = "OPEN";
         this.isStartDateClicked = false;
         this.isEndDateClicked = false;
@@ -233,7 +233,7 @@ var SupportActivityComponent = (function () {
     };
     // save support
     SupportActivityComponent.prototype.btnSaveSupport = function () {
-        document.getElementById("btn-hidden-start-loading").click();
+        this.startLoading();
         var toastr;
         document.getElementById("btnSaveSupport").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Saving";
         document.getElementById("btnSaveSupport").disabled = true;
@@ -242,7 +242,7 @@ var SupportActivityComponent = (function () {
     };
     // edit support
     SupportActivityComponent.prototype.btnEditSupport = function () {
-        document.getElementById("btn-hidden-start-loading").click();
+        this.startLoading();
         var currentSelectedSupport = this.supportCollectionView.currentItem;
         this.router.navigate(['/supportDetail', currentSelectedSupport.Id]);
     };

@@ -30,12 +30,12 @@ export class ActivityComponent implements OnInit {
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
   ];
   public activityNoOfHoursSelectedValue: String;
-  public activityStatus = ['OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED'];
+  public activityStatus = ['OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING'];
   public activityStatusSelectedValue: String;
   public activityAmount: String;
   public hasNoActivity = false;
   public hasActivity = true;
-  public activityStatusesArray = ['ALL', 'OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED'];
+  public activityStatusesArray = ['ALL', 'OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING'];
   public activityStatusesSelectedValue = "OPEN";
   public isStartDateClicked = false;
   public isEndDateClicked = false;
@@ -231,17 +231,17 @@ export class ActivityComponent implements OnInit {
     if (currentSelectedActivity.LeadId > 0) {
       this.isSupport = false;
       this.activityParticularCategories = ['Lead'];
-      this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
+      this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
     } else {
       if (currentSelectedActivity.QuotationId > 0) {
         this.isSupport = false;
         this.activityParticularCategories = ['Quotation'];
-        this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED'];
+        this.activityStatus = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
       } else {
         if (currentSelectedActivity.DeliveryId > 0) {
           this.isSupport = false;
           this.activityParticularCategories = ['Delivery'];
-          this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED'];
+          this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED', 'FOR CLOSING'];
         } else {
           if (currentSelectedActivity.SupportId > 0) {
             this.isSupport = true;
@@ -257,7 +257,7 @@ export class ActivityComponent implements OnInit {
               'Progam Update',
               'Data Archive'
             ];
-            this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED'];
+            this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING'];
           } else {
             if (currentSelectedActivity.SoftwareDevelopmentId > 0) {
               this.isSupport = false;
@@ -268,7 +268,7 @@ export class ActivityComponent implements OnInit {
                 'Module',
                 'Others'
               ];
-              this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED'];
+              this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED', 'FOR CLOSING'];
             } else {
               this.activityParticularCategories = [''];
               this.activityStatus = [''];
