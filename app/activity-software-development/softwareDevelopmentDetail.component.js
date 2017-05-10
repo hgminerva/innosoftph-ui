@@ -30,7 +30,7 @@ var SoftwareDevelopmentDetailComponent = (function () {
         this.isLoading = true;
         this.softwareDevelopmentFilter = '';
         this.softwareDevelopmentProjectSelectedIndex = -1;
-        this.softwareDevelopmentStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
+        this.softwareDevelopmentStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING', 'DUPLICATE'];
         this.softwareDevelopmentStatusSelectedValue = "OPEN";
         this.softwareDevelopmentNoOfHoursArray = [
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'

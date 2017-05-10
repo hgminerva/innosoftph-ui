@@ -26,7 +26,7 @@ var QuotationDetailComponent = (function () {
         this.vRef = vRef;
         this.slimLoadingBarService = slimLoadingBarService;
         this.isQuotationDateSelected = true;
-        this.quotationStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
+        this.quotationStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING', 'DUPLICATE'];
         this.activityParticularCategories = [
             'Quotation'
         ];

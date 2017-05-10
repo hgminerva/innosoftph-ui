@@ -35,7 +35,7 @@ export class ActivityComponent implements OnInit {
   public activityAmount: String;
   public hasNoActivity = false;
   public hasActivity = true;
-  public activityStatusesArray = ['ALL', 'OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING'];
+  public activityStatusesArray = ['ALL', 'OPEN', 'CLOSE', 'DONE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING', 'DUPLICATE'];
   public activityStatusesSelectedValue = "OPEN";
   public isStartDateClicked = false;
   public isEndDateClicked = false;

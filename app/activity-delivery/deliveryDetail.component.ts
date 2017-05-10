@@ -24,7 +24,7 @@ export class DeliveryDetailComponent implements OnInit {
   public deliveryTechnicalUserSelectedValue: number;
   public deliveryFunctionalUserObservableArray: wijmo.collections.ObservableArray;
   public deliveryFunctionalUserSelectedValue: number;
-  public deliveryStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
+  public deliveryStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING', 'DUPLICATE'];
   public deliveryStatusSelectedValue: String;
   public deliveryRemarks: String;
   public activityCollectionView: wijmo.collections.CollectionView;

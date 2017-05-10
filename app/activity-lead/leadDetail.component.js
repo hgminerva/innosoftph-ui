@@ -25,7 +25,7 @@ var LeadDetailComponent = (function () {
         this.vRef = vRef;
         this.slimLoadingBarService = slimLoadingBarService;
         this.isLeadDateSelected = true;
-        this.leadStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
+        this.leadStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING', 'DUPLICATE'];
         this.activityParticularCategories = [
             'Lead'
         ];

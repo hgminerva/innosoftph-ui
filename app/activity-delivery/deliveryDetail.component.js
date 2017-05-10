@@ -25,7 +25,7 @@ var DeliveryDetailComponent = (function () {
         this.vRef = vRef;
         this.slimLoadingBarService = slimLoadingBarService;
         this.deliveryQuotaionSelectedIndex = -1;
-        this.deliveryStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
+        this.deliveryStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING', 'DUPLICATE'];
         this.activityParticularCategories = [
             'Delivery'
         ];

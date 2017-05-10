@@ -26,7 +26,7 @@ export class SoftwareDevelopmentDetailComponent implements OnInit {
   public softwareDevelopmentProjectSelectedIndex = -1;
   public softwareDevelopmentAssignedUserObservableArray: wijmo.collections.ObservableArray;
   public softwareDevelopmentAssignedUserSelectedValue: number;
-  public softwareDevelopmentStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
+  public softwareDevelopmentStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING', 'DUPLICATE'];
   public softwareDevelopmentStatusSelectedValue = "OPEN";
   public softwareDevelopmentNoOfHoursArray = [
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'

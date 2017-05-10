@@ -25,14 +25,14 @@ export class QuotationComponent implements OnInit {
   public quotationCustomerSelectedValue: number;
   public quotationProductObservableArray: wijmo.collections.ObservableArray;
   public quotationProductSelectedValue: number;
-  public quotationStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
+  public quotationStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING', 'DUPLICATE'];
   public quotationStatusSelectedValue = "OPEN";
   public quotationRemarks: String;
   public isFinishLoading = false;
   public isLoading = true;
   public isStartDateClicked = false;
   public isEndDateClicked = false;
-  public fliterQuotationStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
+  public fliterQuotationStatusArray = ['ALL', 'OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING', 'DUPLICATE'];
   public filterQuotationStatusSelectedValue = "OPEN";
   public quotationStatusClicked = false;
   public isQuotationStatusSelected = false;

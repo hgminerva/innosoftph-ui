@@ -23,7 +23,7 @@ export class QuotationDetailComponent implements OnInit {
   public quotationEncodedUserObservableArray: wijmo.collections.ObservableArray;
   // public quotationEncodedBySelectedValue: number;
   public quotationEncodedBySelectedValue: String;
-  public quotationStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING'];
+  public quotationStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING', 'DUPLICATE'];
   public quotationStatusSelectedValue: String;
   public activityCollectionView: wijmo.collections.CollectionView;
   public activityDetailModalString: String;
