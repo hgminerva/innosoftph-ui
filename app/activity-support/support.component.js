@@ -47,11 +47,11 @@ var SupportActivityComponent = (function () {
             'Gossip'
         ];
         this.supportSeveritySelectedValue = "High (3hrs. resolution)";
-        this.supportStatusArray = ['OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING'];
+        this.supportStatusArray = ['OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING', 'DUPLICATE'];
         this.supportStatusSelectedValue = "OPEN";
         this.isFinishLoading = false;
         this.isLoading = true;
-        this.fliterSupportStatusArray = ['ALL', 'OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING'];
+        this.fliterSupportStatusArray = ['ALL', 'OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING', 'DUPLICATE'];
         this.filterSupportStatusSelectedValue = "OPEN";
         this.isStartDateClicked = false;
         this.isEndDateClicked = false;

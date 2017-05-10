@@ -45,7 +45,7 @@ var SupportDetailComponent = (function () {
             'Low (2 day resolution)',
             'Gossip'
         ];
-        this.supportStatusArray = ['OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING'];
+        this.supportStatusArray = ['OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING', 'DUPLICATE'];
         this.activityParticularCategories = [
             'New Installation',
             'Software Bug',

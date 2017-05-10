@@ -52,7 +52,7 @@ export class SupportDetailComponent implements OnInit {
   public supportAssignedUserObservableArray: wijmo.collections.ObservableArray;
   public supportAssignedToSelectedValue: number;
   public supportAssignedToUserId: number;
-  public supportStatusArray = ['OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING'];
+  public supportStatusArray = ['OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING', 'DUPLICATE'];
   public supportStatusSelectedValue: String;
   public activityCollectionView: wijmo.collections.CollectionView;
   public activityDetailModalString: String;

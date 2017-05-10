@@ -53,12 +53,12 @@ export class SupportActivityComponent implements OnInit {
   public supportAssignedUserObservableArray: wijmo.collections.ObservableArray;
   public supportAssignedToSelectedValue: number;
   public supportAssignedToUserId: number;
-  public supportStatusArray = ['OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING'];
+  public supportStatusArray = ['OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING', 'DUPLICATE'];
   public supportStatusSelectedValue = "OPEN";
   public supportCustomerSelectedIndex: number;
   public isFinishLoading = false;
   public isLoading = true;
-  public fliterSupportStatusArray = ['ALL', 'OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING'];
+  public fliterSupportStatusArray = ['ALL', 'OPEN', 'CLOSE', 'WAITING FOR CLIENT', 'CANCELLED', 'FOR CLOSING', 'DUPLICATE'];
   public filterSupportStatusSelectedValue = "OPEN";
   public isStartDateClicked = false;
   public isEndDateClicked = false;
