@@ -99,8 +99,6 @@
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="'Checked'" [binding]="'CheckedByUserRemarks'" [isReadOnly]="true" [width]="180">
                     </wj-flex-grid-column>
-                    <wj-flex-grid-column [header]="'Approved'" [binding]="'ApprovedByUserRemarks'" [isReadOnly]="true" [width]="180">
-                    </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="Check" [isReadOnly]="true" [width]="100">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
                             <button class="btn btn-success btn-xs btn-block" (click)="btnCheckApprove(true)" data-toggle="modal" data-backdrop="static"
@@ -109,11 +107,29 @@
                             </button>
                         </template>
                     </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="Uncheck" [isReadOnly]="true" [width]="100">
+                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                            <button class="btn btn-danger btn-xs btn-block" (click)="btnUncheckDisapprove(true)" data-toggle="modal" data-backdrop="static"
+                                data-keyboard="false" data-target="#request-uncheck-disaapprove-modal">
+                                <i class="fa fa-times fa-fw"></i> Uncheck
+                            </button>
+                        </template>
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Approved'" [binding]="'ApprovedByUserRemarks'" [isReadOnly]="true" [width]="180">
+                    </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="Approve" [isReadOnly]="true" [width]="100">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
                             <button class="btn btn-success btn-xs btn-block" (click)="btnCheckApprove(false)" data-toggle="modal" data-backdrop="static"
                                 data-keyboard="false" data-target="#request-detail-check-approve-modal">
                                 <i class="fa fa-thumbs-o-up fa-fw"></i> Approve
+                            </button>
+                        </template>
+                    </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="Disapprove" [isReadOnly]="true" [width]="100">
+                        <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                            <button class="btn btn-danger btn-xs btn-block" (click)="btnUncheckDisapprove(false)" data-toggle="modal" data-backdrop="static"
+                                data-keyboard="false" data-target="#request-uncheck-disaapprove-modal">
+                                <i class="fa fa-thumbs-o-down fa-fw"></i> Disapprove
                             </button>
                         </template>
                     </wj-flex-grid-column>
@@ -311,6 +327,24 @@
     </div>
 </div>
 
+<!-- diapprove and uncheck modal -->
+<div class="modal fade" id="request-uncheck-disaapprove-modal" role="dialog">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">{{ requestUncheckDisapproveDetailModalString }}</h4>
+            </div>
+            <div class="modal-body">
+                {{ requestUncheckDisapproveDetailConfirmModalString }}
+            </div>
+            <div class="modal-footer" align="right">
+                <button type="button" id="btnSaveUncheckDisapproveRequest" class="btn btn-primary" (click)="btnSaveUncheckDisapproveRequestClick()"><i class="fa fa-save fa-fw"></i> Yes</button>
+                <button type="button" id="btnCloseUncheckDisapproveRequest" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- hidden elements to execute functions in API services -->
 <button id="btn-hidden-start-loading" [hidden]="true" (click)="startLoading()"></button>
 <button id="btn-hidden-complete-loading" [hidden]="true" (click)="completeLoading()"></button>
@@ -321,3 +355,4 @@
 <button id="btn-hidden-request-data" [hidden]="true" (click)="getRequestData()"></button>
 <button id="btn-hidden-finished-load" [hidden]="true" (click)="finishedLoad()"></button>
 <button id="btn-hidden-request-check-approve-modal" [hidden]="true" data-toggle="modal" data-target="#request-detail-check-approve-modal"></button>
+<button id="btn-hidden-request-uncheck-disapprove-modal" [hidden]="true" data-toggle="modal" data-target="#request-uncheck-disaapprove-modal"></button>

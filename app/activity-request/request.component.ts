@@ -48,6 +48,11 @@ export class RequestComponent {
   public requestTypeClicked = true;
   public isRequestTypeClicked = false;
 
+  public requestUncheckDisapproveDetailModalString: String;
+  public requestUncheckDisapproveDetailConfirmModalString: String;
+  public requestUncheckDisapproveDetailConfirmBtnString: String;
+  public isUncheckedOrDispprovedForSave: Boolean;
+
   // inject request service
   constructor(
     private requestService: RequestService,
@@ -328,6 +333,38 @@ export class RequestComponent {
   // show menu
   public showMenu() {
     document.getElementById("showTop").click();
+  }
+
+  public btnUncheckDisapprove(isUncheckedDisapproved: Boolean) {
+    if (isUncheckedDisapproved) {
+      this.requestUncheckDisapproveDetailConfirmModalString = "Uncheck Request?"
+      this.isUncheckedOrDispprovedForSave = true;
+      this.requestUncheckDisapproveDetailModalString = "Uncheck";
+    } else {
+      if (!isUncheckedDisapproved) {
+        this.requestUncheckDisapproveDetailConfirmModalString = "Disapprove Request?"
+        this.isUncheckedOrDispprovedForSave = false;
+        this.requestUncheckDisapproveDetailModalString = "Disapprove";
+      }
+    }
+    
+    (<HTMLButtonElement>document.getElementById("btnSaveUncheckDisapproveRequest")).innerHTML = "<i class='fa fa-save fa-fw'></i> Yes";
+    (<HTMLButtonElement>document.getElementById("btnSaveUncheckDisapproveRequest")).disabled = false;
+    (<HTMLButtonElement>document.getElementById("btnCloseUncheckDisapproveRequest")).disabled = false;
+  }
+
+  public btnSaveUncheckDisapproveRequestClick() {
+    let toastr: ToastsManager;
+    (<HTMLButtonElement>document.getElementById("btnSaveUncheckDisapproveRequest")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Processing";
+    (<HTMLButtonElement>document.getElementById("btnSaveUncheckDisapproveRequest")).disabled = true;
+    (<HTMLButtonElement>document.getElementById("btnCloseUncheckDisapproveRequest")).disabled = true;
+
+    let currentSelectedRequest = this.requestCollectionView.currentItem;
+    if (this.isUncheckedOrDispprovedForSave) {
+      this.requestService.uncheckRequestData(currentSelectedRequest.Id, toastr);
+    } else {
+      this.requestService.disapproveRequestData(currentSelectedRequest.Id, toastr);
+    }
   }
 
   // initialization

@@ -160,4 +160,47 @@ export class RequestService {
             }
         )
     }
+
+    // uncheck request
+    public uncheckRequestData(id: number, toastr: ToastsManager) {
+        let url = "http://api.innosoft.ph/api/request/uncheck/" + id;
+        let requestOject: Object = null;
+
+        this.http.put(url, JSON.stringify(requestOject), this.options).subscribe(
+            response => {
+                this.toastr.success('', 'Uncheck Successful');
+                document.getElementById("btn-hidden-request-uncheck-disapprove-modal").click();
+                document.getElementById("btn-hidden-request-data").click();
+            },
+            error => {
+                this.toastr.error('', 'Something`s went wrong!');
+                (<HTMLButtonElement>document.getElementById("btnSaveUncheckDisapproveRequest")).innerHTML = "<i class='fa fa-save fa-fw'></i> Yes";
+                (<HTMLButtonElement>document.getElementById("btnSaveUncheckDisapproveRequest")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnCloseUncheckDisapproveRequest")).disabled = false;
+                document.getElementById("btn-hidden-complete-loading").click();
+            }
+        )
+    }
+
+    // disapprove request
+    public disapproveRequestData(id: number, toastr: ToastsManager) {
+        let url = "http://api.innosoft.ph/api/request/disapprove/" + id;
+        let requestOject: Object = null;
+
+        this.http.put(url, JSON.stringify(requestOject), this.options).subscribe(
+            response => {
+                this.toastr.success('', 'Disapprove Successful');
+                document.getElementById("btn-hidden-request-uncheck-disapprove-modal").click();
+                document.getElementById("btn-hidden-request-data").click();
+            },
+            error => {
+                this.toastr.error('', 'Something`s went wrong!');
+                (<HTMLButtonElement>document.getElementById("btnSaveUncheckDisapproveRequest")).innerHTML = "<i class='fa fa-save fa-fw'></i> Yes";
+                (<HTMLButtonElement>document.getElementById("btnSaveUncheckDisapproveRequest")).disabled = false;
+                (<HTMLButtonElement>document.getElementById("btnCloseUncheckDisapproveRequest")).disabled = false;
+                document.getElementById("btn-hidden-complete-loading").click();
+            }
+        )
+    }
+
 }

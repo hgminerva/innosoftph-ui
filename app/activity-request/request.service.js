@@ -145,6 +145,40 @@ var RequestService = (function () {
             document.getElementById("btn-hidden-complete-loading").click();
         });
     };
+    // uncheck request
+    RequestService.prototype.uncheckRequestData = function (id, toastr) {
+        var _this = this;
+        var url = "http://api.innosoft.ph/api/request/uncheck/" + id;
+        var requestOject = null;
+        this.http.put(url, JSON.stringify(requestOject), this.options).subscribe(function (response) {
+            _this.toastr.success('', 'Uncheck Successful');
+            document.getElementById("btn-hidden-request-uncheck-disapprove-modal").click();
+            document.getElementById("btn-hidden-request-data").click();
+        }, function (error) {
+            _this.toastr.error('', 'Something`s went wrong!');
+            document.getElementById("btnSaveUncheckDisapproveRequest").innerHTML = "<i class='fa fa-save fa-fw'></i> Yes";
+            document.getElementById("btnSaveUncheckDisapproveRequest").disabled = false;
+            document.getElementById("btnCloseUncheckDisapproveRequest").disabled = false;
+            document.getElementById("btn-hidden-complete-loading").click();
+        });
+    };
+    // disapprove request
+    RequestService.prototype.disapproveRequestData = function (id, toastr) {
+        var _this = this;
+        var url = "http://api.innosoft.ph/api/request/disapprove/" + id;
+        var requestOject = null;
+        this.http.put(url, JSON.stringify(requestOject), this.options).subscribe(function (response) {
+            _this.toastr.success('', 'Disapprove Successful');
+            document.getElementById("btn-hidden-request-uncheck-disapprove-modal").click();
+            document.getElementById("btn-hidden-request-data").click();
+        }, function (error) {
+            _this.toastr.error('', 'Something`s went wrong!');
+            document.getElementById("btnSaveUncheckDisapproveRequest").innerHTML = "<i class='fa fa-save fa-fw'></i> Yes";
+            document.getElementById("btnSaveUncheckDisapproveRequest").disabled = false;
+            document.getElementById("btnCloseUncheckDisapproveRequest").disabled = false;
+            document.getElementById("btn-hidden-complete-loading").click();
+        });
+    };
     RequestService = __decorate([
         core_1.Injectable(), 
         __metadata('design:paramtypes', [router_1.Router, http_1.Http, ng2_toastr_1.ToastsManager])

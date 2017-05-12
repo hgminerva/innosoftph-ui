@@ -297,6 +297,36 @@ var RequestComponent = (function () {
     RequestComponent.prototype.showMenu = function () {
         document.getElementById("showTop").click();
     };
+    RequestComponent.prototype.btnUncheckDisapprove = function (isUncheckedDisapproved) {
+        if (isUncheckedDisapproved) {
+            this.requestUncheckDisapproveDetailConfirmModalString = "Uncheck Request?";
+            this.isUncheckedOrDispprovedForSave = true;
+            this.requestUncheckDisapproveDetailModalString = "Uncheck";
+        }
+        else {
+            if (!isUncheckedDisapproved) {
+                this.requestUncheckDisapproveDetailConfirmModalString = "Disapprove Request?";
+                this.isUncheckedOrDispprovedForSave = false;
+                this.requestUncheckDisapproveDetailModalString = "Disapprove";
+            }
+        }
+        document.getElementById("btnSaveUncheckDisapproveRequest").innerHTML = "<i class='fa fa-save fa-fw'></i> Yes";
+        document.getElementById("btnSaveUncheckDisapproveRequest").disabled = false;
+        document.getElementById("btnCloseUncheckDisapproveRequest").disabled = false;
+    };
+    RequestComponent.prototype.btnSaveUncheckDisapproveRequestClick = function () {
+        var toastr;
+        document.getElementById("btnSaveUncheckDisapproveRequest").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Processing";
+        document.getElementById("btnSaveUncheckDisapproveRequest").disabled = true;
+        document.getElementById("btnCloseUncheckDisapproveRequest").disabled = true;
+        var currentSelectedRequest = this.requestCollectionView.currentItem;
+        if (this.isUncheckedOrDispprovedForSave) {
+            this.requestService.uncheckRequestData(currentSelectedRequest.Id, toastr);
+        }
+        else {
+            this.requestService.disapproveRequestData(currentSelectedRequest.Id, toastr);
+        }
+    };
     // initialization
     RequestComponent.prototype.ngOnInit = function () {
         this.setRequestDateRanged();
