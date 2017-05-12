@@ -36,6 +36,11 @@ var RequestComponent = (function () {
         this.requestTypeSelectedValue = "Purchase";
         this.requestTypeClicked = true;
         this.isRequestTypeClicked = false;
+        this.fliterRequestStatusArray = ["ALL", "OPEN", "CLOSE", "CANCELLED", "DUPLICATE"];
+        this.filterRequestStatusSelectedValue = "OPEN";
+        this.requestStatusClicked = true;
+        this.requestStatusArray = ["OPEN", "CLOSE", "CANCELLED", "DUPLICATE"];
+        this.requestStatusSelectedValue = "OPEN";
         this.toastr.setRootViewContainerRef(vRef);
     }
     RequestComponent.prototype.backClicked = function () {
@@ -137,7 +142,7 @@ var RequestComponent = (function () {
     };
     // request data
     RequestComponent.prototype.getRequestData = function () {
-        this.requestCollectionView = new wijmo.collections.CollectionView(this.requestService.getListRequestData(this.requestStartDateValue, this.requestEndDateValue, this.requestTypeFilterSelectedValue));
+        this.requestCollectionView = new wijmo.collections.CollectionView(this.requestService.getListRequestData(this.requestStartDateValue, this.requestEndDateValue, this.requestTypeFilterSelectedValue, this.filterRequestStatusSelectedValue));
         this.requestCollectionView.filter = this.filterFunction.bind(this);
         this.requestCollectionView.pageSize = 15;
         this.requestCollectionView.trackChanges = true;
@@ -182,6 +187,7 @@ var RequestComponent = (function () {
                 _this.requestNumber = currentSelectedRequest.RequestNumber;
                 _this.requestTypeSelectedValue = currentSelectedRequest.RequestType;
                 _this.requestParticulars = currentSelectedRequest.Particulars;
+                _this.requestStatusSelectedValue = currentSelectedRequest.RequestStatus;
                 _this.requestEncodedByUser = currentSelectedRequest.EncodedByUser;
                 if (currentSelectedRequest.CheckedByUserId != null) {
                     _this.isChecked = true;
@@ -216,6 +222,7 @@ var RequestComponent = (function () {
             RequestDate: this.requestDateValue.toLocaleDateString(),
             RequestType: this.requestTypeSelectedValue,
             Particulars: this.requestParticulars,
+            RequestStatus: this.requestStatusSelectedValue
         };
         return dataObject;
     };
@@ -325,6 +332,15 @@ var RequestComponent = (function () {
         }
         else {
             this.requestService.disapproveRequestData(currentSelectedRequest.Id, toastr);
+        }
+    };
+    RequestComponent.prototype.filterRequestStatusSelectedIndexChangedClick = function () {
+        if (!this.requestStatusClicked) {
+            this.startLoading();
+            this.getRequestData();
+        }
+        else {
+            this.requestStatusClicked = false;
         }
     };
     // initialization

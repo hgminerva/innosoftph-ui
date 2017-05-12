@@ -25,8 +25,8 @@ export class RequestService {
     }
 
     // list request by date ranged (start date and end date)
-    public getListRequestData(requestStartDate: Date, requestEndDate: Date, filterRequestType: String): wijmo.collections.ObservableArray {
-        let url = "http://api.innosoft.ph/api/request/list/byRequestDateRange/" + requestStartDate.toDateString() + "/" + requestEndDate.toDateString() + "/" + filterRequestType;
+    public getListRequestData(requestStartDate: Date, requestEndDate: Date, filterRequestType: String, filterRequestStatusSelectedValue: String): wijmo.collections.ObservableArray {
+        let url = "http://api.innosoft.ph/api/request/list/byRequestDateRange/" + requestStartDate.toDateString() + "/" + requestEndDate.toDateString() + "/" + filterRequestType + "/" + filterRequestStatusSelectedValue;
         let requestObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
             response => {
@@ -45,13 +45,14 @@ export class RequestService {
                             EncodedByUserId: results[i].EncodedByUserId,
                             EncodedByUser: results[i].EncodedByUser,
                             CheckedByUserId: results[i].CheckedByUserId,
-                            CheckedByUserRemarks: results[i].CheckedByUser == null &&  results[i].CheckedRemarks == null ? " " : results[i].CheckedByUser + " - " + results[i].CheckedRemarks,
+                            CheckedByUserRemarks: results[i].CheckedByUser == null && results[i].CheckedRemarks == null ? " " : results[i].CheckedByUser + " - " + results[i].CheckedRemarks,
                             CheckedByUser: results[i].CheckedByUser,
                             CheckedRemarks: results[i].CheckedRemarks,
                             ApprovedByUserId: results[i].ApprovedByUserId,
                             ApprovedByUserRemarks: results[i].ApprovedByUser == null && results[i].ApprovedRemarks == null ? " " : results[i].ApprovedByUser + " - " + results[i].ApprovedRemarks,
                             ApprovedByUser: results[i].ApprovedByUser,
-                            ApprovedRemarks: results[i].ApprovedRemarks
+                            ApprovedRemarks: results[i].ApprovedRemarks,
+                            RequestStatus: results[i].RequestStatus
                         });
                     }
                 }
@@ -122,7 +123,7 @@ export class RequestService {
             }
         )
     }
-    
+
     // check request
     public checkRequestData(id: number, requestOject: Object, toastr: ToastsManager) {
         let url = "http://api.innosoft.ph/api/request/check/" + id;

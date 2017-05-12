@@ -30,9 +30,9 @@ var RequestService = (function () {
         return (n < 10) ? ("0" + n) : n;
     };
     // list request by date ranged (start date and end date)
-    RequestService.prototype.getListRequestData = function (requestStartDate, requestEndDate, filterRequestType) {
+    RequestService.prototype.getListRequestData = function (requestStartDate, requestEndDate, filterRequestType, filterRequestStatusSelectedValue) {
         var _this = this;
-        var url = "http://api.innosoft.ph/api/request/list/byRequestDateRange/" + requestStartDate.toDateString() + "/" + requestEndDate.toDateString() + "/" + filterRequestType;
+        var url = "http://api.innosoft.ph/api/request/list/byRequestDateRange/" + requestStartDate.toDateString() + "/" + requestEndDate.toDateString() + "/" + filterRequestType + "/" + filterRequestStatusSelectedValue;
         var requestObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
             var results = new wijmo.collections.ObservableArray(response.json());
@@ -55,7 +55,8 @@ var RequestService = (function () {
                         ApprovedByUserId: results[i].ApprovedByUserId,
                         ApprovedByUserRemarks: results[i].ApprovedByUser == null && results[i].ApprovedRemarks == null ? " " : results[i].ApprovedByUser + " - " + results[i].ApprovedRemarks,
                         ApprovedByUser: results[i].ApprovedByUser,
-                        ApprovedRemarks: results[i].ApprovedRemarks
+                        ApprovedRemarks: results[i].ApprovedRemarks,
+                        RequestStatus: results[i].RequestStatus
                     });
                 }
             }

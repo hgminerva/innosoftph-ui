@@ -47,11 +47,15 @@ export class RequestComponent {
   public requestTypeSelectedValue = "Purchase";
   public requestTypeClicked = true;
   public isRequestTypeClicked = false;
-
   public requestUncheckDisapproveDetailModalString: String;
   public requestUncheckDisapproveDetailConfirmModalString: String;
   public requestUncheckDisapproveDetailConfirmBtnString: String;
   public isUncheckedOrDispprovedForSave: Boolean;
+  public fliterRequestStatusArray = ["ALL", "OPEN", "CLOSE", "CANCELLED", "DUPLICATE"];
+  public filterRequestStatusSelectedValue = "OPEN";
+  public requestStatusClicked = true;
+  public requestStatusArray = ["OPEN", "CLOSE", "CANCELLED", "DUPLICATE"];
+  public requestStatusSelectedValue = "OPEN";
 
   // inject request service
   constructor(
@@ -170,7 +174,7 @@ export class RequestComponent {
 
   // request data
   public getRequestData() {
-    this.requestCollectionView = new wijmo.collections.CollectionView(this.requestService.getListRequestData(this.requestStartDateValue, this.requestEndDateValue, this.requestTypeFilterSelectedValue));
+    this.requestCollectionView = new wijmo.collections.CollectionView(this.requestService.getListRequestData(this.requestStartDateValue, this.requestEndDateValue, this.requestTypeFilterSelectedValue, this.filterRequestStatusSelectedValue));
     this.requestCollectionView.filter = this.filterFunction.bind(this);
     this.requestCollectionView.pageSize = 15;
     this.requestCollectionView.trackChanges = true;
@@ -214,6 +218,7 @@ export class RequestComponent {
         this.requestNumber = currentSelectedRequest.RequestNumber;
         this.requestTypeSelectedValue = currentSelectedRequest.RequestType;
         this.requestParticulars = currentSelectedRequest.Particulars;
+        this.requestStatusSelectedValue = currentSelectedRequest.RequestStatus;
         this.requestEncodedByUser = currentSelectedRequest.EncodedByUser;
         if (currentSelectedRequest.CheckedByUserId != null) {
           this.isChecked = true;
@@ -247,6 +252,7 @@ export class RequestComponent {
       RequestDate: this.requestDateValue.toLocaleDateString(),
       RequestType: this.requestTypeSelectedValue,
       Particulars: this.requestParticulars,
+      RequestStatus: this.requestStatusSelectedValue
     }
 
     return dataObject;
@@ -347,7 +353,7 @@ export class RequestComponent {
         this.requestUncheckDisapproveDetailModalString = "Disapprove";
       }
     }
-    
+
     (<HTMLButtonElement>document.getElementById("btnSaveUncheckDisapproveRequest")).innerHTML = "<i class='fa fa-save fa-fw'></i> Yes";
     (<HTMLButtonElement>document.getElementById("btnSaveUncheckDisapproveRequest")).disabled = false;
     (<HTMLButtonElement>document.getElementById("btnCloseUncheckDisapproveRequest")).disabled = false;
@@ -364,6 +370,15 @@ export class RequestComponent {
       this.requestService.uncheckRequestData(currentSelectedRequest.Id, toastr);
     } else {
       this.requestService.disapproveRequestData(currentSelectedRequest.Id, toastr);
+    }
+  }
+
+  public filterRequestStatusSelectedIndexChangedClick() {
+    if (!this.requestStatusClicked) {
+      this.startLoading();
+      this.getRequestData();
+    } else {
+      this.requestStatusClicked = false;
     }
   }
 
