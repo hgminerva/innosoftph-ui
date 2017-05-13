@@ -79,7 +79,8 @@ export class ReportService {
                             SupportId: results[i].SupportId == null ? 0 : results[i].SupportId,
                             SoftwareDevelopmentId: results[i].SoftwareDevelopmentId == null ? 0 : results[i].SoftwareDevelopmentId,
                             HeaderRemarks: results[i].HeaderRemarks,
-                            HeaderStatus: results[i].HeaderStatus
+                            HeaderStatus: results[i].HeaderStatus,
+                            NoOfDays: parseInt(results[i].NoOfDays)
                         });
                     }
                 }
