@@ -117,7 +117,7 @@ export class DashboardService {
         let sat_No_of_Support_Activities = "0";
         let sat_No_of_Software_Development_Activities = "0";
 
-        let url = "http://localhost:22626/api/activity/list/calendar/numberofActivities/" + month + "/" + status;
+        let url = "http://api.innosoft.ph/api/activity/list/calendar/numberofActivities/" + month + "/" + status;
         this.http.get(url, this.options).subscribe(
             response => {
                 var results = response.json();
