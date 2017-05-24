@@ -1051,3 +1051,7 @@ textarea {
     background-color: transparent;
     color: inherit;
 }
+
+#tableCalendar > .wj-cell {
+    font-weight: bold;
+}

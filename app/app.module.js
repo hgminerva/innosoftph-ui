@@ -64,6 +64,7 @@ var project_service_1 = require('./activity-project/project.service');
 var softwareDevelopment_service_1 = require('./activity-software-development/softwareDevelopment.service');
 var request_service_1 = require('./activity-request/request.service');
 var report_service_1 = require('./activity-report/report.service');
+var dashboard_service_1 = require('./dashboard/dashboard.service');
 // paths and Routes
 var appRoutes = [
     { path: '', redirectTo: '/home', pathMatch: 'full' },
@@ -157,6 +158,7 @@ var AppModule = (function () {
                 softwareDevelopment_service_1.SoftwareDevelopmentService,
                 request_service_1.RequestService,
                 report_service_1.ReportService,
+                dashboard_service_1.DashboardService,
                 { provide: router_1.RouteReuseStrategy, useClass: reuse_strategy_1.CustomReuseStrategy }
             ],
             bootstrap: [

@@ -56,6 +56,7 @@ import { ProjectService } from './activity-project/project.service';
 import { SoftwareDevelopmentService } from './activity-software-development/softwareDevelopment.service';
 import { RequestService } from './activity-request/request.service';
 import { ReportService } from './activity-report/report.service';
+import { DashboardService } from './dashboard/dashboard.service';
 
 // paths and Routes
 const appRoutes: Routes = [
@@ -147,6 +148,7 @@ const appRoutes: Routes = [
     SoftwareDevelopmentService,
     RequestService,
     ReportService,
+    DashboardService,
     { provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
   ],
   bootstrap: [

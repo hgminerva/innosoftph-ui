@@ -17,7 +17,8 @@
         </div>
         <div *ngIf="isFinishedLoadingDashboard">
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#sales">Sales</a></li>
+                <li class="active"><a data-toggle="tab" href="#calendar">Calendar</a></li>
+                <li><a data-toggle="tab" href="#sales">Sales</a></li>
                 <li><a data-toggle="tab" href="#support">Support</a></li>
                 <li><a data-toggle="tab" href="#soft-dev">Soft-Dev</a></li>
                 <li><a data-toggle="tab" href="#admin">Admin</a></li>
@@ -25,7 +26,133 @@
             </ul>
             <br />
             <div class="tab-content">
-                <div id="sales" class="tab-pane fade in active">
+                <div id="calendar" class="tab-pane fade in active">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <td style="width: 24%;">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Month</span>
+                                    <wj-combo-box [itemsSource]="listMonths" [placeholder]="'Select Month'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="monthSelectedValue"
+                                        (selectedIndexChanged)="monthSelectedIndexChangedClick()" style="width: 100%; ">
+                                    </wj-combo-box>
+                                </div>
+                            </td>
+                            <td style="width: 1%;"></td>
+                            <td style="width: 24%;">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Year</span>
+                                    <wj-combo-box [itemsSource]="listYears" [placeholder]="'Select Year'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="yearSelectedValue"
+                                        (selectedIndexChanged)="yearSelectedIndexChangedClick()" style="width: 100%; ">
+                                    </wj-combo-box>
+                                </div>
+                            </td>
+                            <td style="width: 1%;"></td>
+                            <td style="width: 24%;">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-question-circle-o fa-fw"></i> Status</span>
+                                    <wj-combo-box [itemsSource]="listStatus" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="statusSelectedValue"
+                                        (selectedIndexChanged)="statusSelectedIndexChangedClick()" style="width: 100%; ">
+                                    </wj-combo-box>
+                                </div>
+                            </td>
+                            <td style="width: 1%;"></td>
+                            <td style="width: 25%;">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-file-text-o fa-fw"></i> Document</span>
+                                    <wj-combo-box [itemsSource]="listDocument" [placeholder]="'Select Document'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="documentSelectedValue"
+                                        (selectedIndexChanged)="documentSelectedIndexChangedClick()" style="width: 100%; ">
+                                    </wj-combo-box>
+                                </div>
+                            </td>
+                        </div>
+                        <div class="panel-body">
+                            <wj-flex-grid [itemsSource]="calendarCollectionView" [headersVisibility]="1" id="tableCalendar" [itemFormatter]="itemFormatter"
+                                [selectionMode]="1">
+                                <wj-flex-grid-column [header]="'Sunday'" [binding]="'Sunday'" [isReadOnly]="true" [width]="'*'">
+                                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                                        <b style="color: red;"> {{ '' }} {{cell.item.Sunday.sunDay}} {{ '' }} </b>
+                                        <br /><br />
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Leads <span class="badge pull-right"> {{ '' }} {{cell.item.Sunday.sun_No_of_Lead_Activities}} {{ '' }} </span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Quotations <span class="badge pull-right">{{ '' }} {{cell.item.Sunday.sun_No_of_Quotation_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Deliveries <span class="badge pull-right">{{ '' }} {{cell.item.Sunday.sun_No_of_Delivery_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Support <span class="badge pull-right">{{ '' }} {{cell.item.Sunday.sun_No_of_Support_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Soft. Dev. <span class="badge pull-right">{{ '' }} {{cell.item.Sunday.sun_No_of_Software_Development_Activities}} {{ '' }}</span></button>
+                                    </template>
+                                </wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Monday'" [binding]="'Monday'" [isReadOnly]="true" [width]="'*'">
+                                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                                        <b> {{ '' }} {{cell.item.Monday.monDay}} {{ '' }} </b>
+                                        <br /><br />
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Leads <span class="badge pull-right"> {{ '' }} {{cell.item.Monday.mon_No_of_Lead_Activities}} {{ '' }} </span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Quotations <span class="badge pull-right">{{ '' }} {{cell.item.Monday.mon_No_of_Quotation_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Deliveries <span class="badge pull-right">{{ '' }} {{cell.item.Monday.mon_No_of_Delivery_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Support <span class="badge pull-right">{{ '' }} {{cell.item.Monday.mon_No_of_Support_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Soft. Dev. <span class="badge pull-right">{{ '' }} {{cell.item.Monday.mon_No_of_Software_Development_Activities}} {{ '' }}</span></button>
+                                    </template>
+                                </wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Tuesday'" [binding]="'Tuesday'" [isReadOnly]="true" [width]="'*'">
+                                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                                        <b> {{ '' }} {{cell.item.Tuesday.tuesDay}} {{ '' }} </b>
+                                        <br /><br />
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Leads <span class="badge pull-right"> {{ '' }} {{cell.item.Tuesday.tue_No_of_Lead_Activities}} {{ '' }} </span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Quotations <span class="badge pull-right">{{ '' }} {{cell.item.Tuesday.tue_No_of_Quotation_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Deliveries <span class="badge pull-right">{{ '' }} {{cell.item.Tuesday.tue_No_of_Delivery_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Support <span class="badge pull-right">{{ '' }} {{cell.item.Tuesday.tue_No_of_Support_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Soft. Dev. <span class="badge pull-right">{{ '' }} {{cell.item.Tuesday.tue_No_of_Software_Development_Activities}} {{ '' }}</span></button>
+                                    </template>
+                                </wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Wednesday'" [binding]="'Wednesday'" [isReadOnly]="true" [width]="'*'">
+                                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                                        <b> {{ '' }} {{cell.item.Wednesday.wednesDay}} {{ '' }} </b>
+                                        <br /><br />
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Leads <span class="badge pull-right"> {{ '' }} {{cell.item.Wednesday.wed_No_of_Lead_Activities}} {{ '' }} </span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Quotations <span class="badge pull-right">{{ '' }} {{cell.item.Wednesday.wed_No_of_Quotation_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Deliveries <span class="badge pull-right">{{ '' }} {{cell.item.Wednesday.wed_No_of_Delivery_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Support <span class="badge pull-right">{{ '' }} {{cell.item.Wednesday.wed_No_of_Support_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Soft. Dev. <span class="badge pull-right">{{ '' }} {{cell.item.Wednesday.wed_No_of_Software_Development_Activities}} {{ '' }}</span></button>
+                                    </template>
+                                </wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Thursday'" [binding]="'Thursday'" [isReadOnly]="true" [width]="'*'">
+                                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                                        <b> {{ '' }} {{cell.item.Thursday.thursDay}} {{ '' }} </b>
+                                        <br /><br />
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Leads <span class="badge pull-right"> {{ '' }} {{cell.item.Thursday.thu_No_of_Lead_Activities}} {{ '' }} </span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Quotations <span class="badge pull-right">{{ '' }} {{cell.item.Thursday.thu_No_of_Quotation_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Deliveries <span class="badge pull-right">{{ '' }} {{cell.item.Thursday.thu_No_of_Delivery_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Support <span class="badge pull-right">{{ '' }} {{cell.item.Thursday.thu_No_of_Support_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Soft. Dev. <span class="badge pull-right">{{ '' }} {{cell.item.Thursday.thu_No_of_Software_Development_Activities}} {{ '' }}</span></button>
+                                    </template>
+                                </wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Friday'" [binding]="'Friday'" [isReadOnly]="true" [width]="'*'">
+                                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                                        <b> {{ '' }} {{cell.item.Friday.friDay}} {{ '' }} </b>
+                                        <br /><br />
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Leads <span class="badge pull-right"> {{ '' }} {{cell.item.Friday.fri_No_of_Lead_Activities}} {{ '' }} </span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Quotations <span class="badge pull-right">{{ '' }} {{cell.item.Friday.fri_No_of_Quotation_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Deliveries <span class="badge pull-right">{{ '' }} {{cell.item.Friday.fri_No_of_Delivery_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Support <span class="badge pull-right">{{ '' }} {{cell.item.Friday.fri_No_of_Support_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Soft. Dev. <span class="badge pull-right">{{ '' }} {{cell.item.Friday.fri_No_of_Software_Development_Activities}} {{ '' }}</span></button>
+                                    </template>
+                                </wj-flex-grid-column>
+                                <wj-flex-grid-column [header]="'Saturday'" [binding]="'Saturday'" [isReadOnly]="true" [width]="'*'">
+                                    <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
+                                        <b> {{ '' }} {{cell.item.Saturday.saturDay}} {{ '' }} </b>
+                                        <br /><br />
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Leads <span class="badge pull-right"> {{ '' }} {{cell.item.Saturday.sat_No_of_Lead_Activities}} {{ '' }} </span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Quotations <span class="badge pull-right">{{ '' }} {{cell.item.Saturday.sat_No_of_Quotation_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Deliveries <span class="badge pull-right">{{ '' }} {{cell.item.Saturday.sat_No_of_Delivery_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Support <span class="badge pull-right">{{ '' }} {{cell.item.Saturday.sat_No_of_Support_Activities}} {{ '' }}</span></button>
+                                        <button class="btn btn-primary btn-xs btn-block" style="text-align: left;">Soft. Dev. <span class="badge pull-right">{{ '' }} {{cell.item.Saturday.sat_No_of_Software_Development_Activities}} {{ '' }}</span></button>
+                                    </template>
+                                </wj-flex-grid-column>
+                            </wj-flex-grid>
+                        </div>
+                        <div class="panel-footer">
+                            List of Activities and Schedules
+                        </div>
+                    </div>
+                </div>
+                <div id="sales" class="tab-pane fade">
                     <table class="table table-bordered dashboardTable" border="0">
                         <thead style="background-color: #112540; border: 1px sold #112540; color: #fff;">
                             <tr>
@@ -347,7 +474,7 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <button class="btn btn-success btn-lg btn-block" routerLink="/customer">
+                                    <button class="btn btn-primary btn-lg btn-block" routerLink="/customer">
                                         <i class="fa fa-file-text-o fa-3x fa-fw"></i>
                                         <br /><br />
                                         Customer
@@ -359,7 +486,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <button class="btn btn-success btn-lg btn-block" routerLink="/product">
+                                    <button class="btn btn-primary btn-lg btn-block" routerLink="/product">
                                         <i class="fa fa-file-text-o fa-3x fa-fw"></i>
                                         <br /><br />
                                         Product
@@ -371,7 +498,7 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <button class="btn btn-success btn-lg btn-block" routerLink="/user">
+                                    <button class="btn btn-primary btn-lg btn-block" routerLink="/user">
                                         <i class="fa fa-file-text-o fa-3x fa-fw"></i>
                                         <br /><br />
                                         User
