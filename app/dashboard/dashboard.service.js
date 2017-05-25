@@ -83,41 +83,41 @@ var DashboardService = (function () {
         var thu = " ";
         var fri = " ";
         var sat = " ";
-        var sun_No_of_Lead_Activities = "0";
-        var sun_No_of_Quotation_Activities = "0";
-        var sun_No_of_Delivery_Activities = "0";
-        var sun_No_of_Support_Activities = "0";
-        var sun_No_of_Software_Development_Activities = "0";
-        var mon_No_of_Lead_Activities = "0";
-        var mon_No_of_Quotation_Activities = "0";
-        var mon_No_of_Delivery_Activities = "0";
-        var mon_No_of_Support_Activities = "0";
-        var mon_No_of_Software_Development_Activities = "0";
-        var tue_No_of_Lead_Activities = "0";
-        var tue_No_of_Quotation_Activities = "0";
-        var tue_No_of_Delivery_Activities = "0";
-        var tue_No_of_Support_Activities = "0";
-        var tue_No_of_Software_Development_Activities = "0";
-        var wed_No_of_Lead_Activities = "0";
-        var wed_No_of_Quotation_Activities = "0";
-        var wed_No_of_Delivery_Activities = "0";
-        var wed_No_of_Support_Activities = "0";
-        var wed_No_of_Software_Development_Activities = "0";
-        var thu_No_of_Lead_Activities = "0";
-        var thu_No_of_Quotation_Activities = "0";
-        var thu_No_of_Delivery_Activities = "0";
-        var thu_No_of_Support_Activities = "0";
-        var thu_No_of_Software_Development_Activities = "0";
-        var fri_No_of_Lead_Activities = "0";
-        var fri_No_of_Quotation_Activities = "0";
-        var fri_No_of_Delivery_Activities = "0";
-        var fri_No_of_Support_Activities = "0";
-        var fri_No_of_Software_Development_Activities = "0";
-        var sat_No_of_Lead_Activities = "0";
-        var sat_No_of_Quotation_Activities = "0";
-        var sat_No_of_Delivery_Activities = "0";
-        var sat_No_of_Support_Activities = "0";
-        var sat_No_of_Software_Development_Activities = "0";
+        var sun_No_of_Lead_Activities = " ";
+        var sun_No_of_Quotation_Activities = " ";
+        var sun_No_of_Delivery_Activities = " ";
+        var sun_No_of_Support_Activities = " ";
+        var sun_No_of_Software_Development_Activities = " ";
+        var mon_No_of_Lead_Activities = " ";
+        var mon_No_of_Quotation_Activities = " ";
+        var mon_No_of_Delivery_Activities = " ";
+        var mon_No_of_Support_Activities = " ";
+        var mon_No_of_Software_Development_Activities = " ";
+        var tue_No_of_Lead_Activities = " ";
+        var tue_No_of_Quotation_Activities = " ";
+        var tue_No_of_Delivery_Activities = " ";
+        var tue_No_of_Support_Activities = " ";
+        var tue_No_of_Software_Development_Activities = " ";
+        var wed_No_of_Lead_Activities = " ";
+        var wed_No_of_Quotation_Activities = " ";
+        var wed_No_of_Delivery_Activities = " ";
+        var wed_No_of_Support_Activities = " ";
+        var wed_No_of_Software_Development_Activities = " ";
+        var thu_No_of_Lead_Activities = " ";
+        var thu_No_of_Quotation_Activities = " ";
+        var thu_No_of_Delivery_Activities = " ";
+        var thu_No_of_Support_Activities = " ";
+        var thu_No_of_Software_Development_Activities = " ";
+        var fri_No_of_Lead_Activities = " ";
+        var fri_No_of_Quotation_Activities = " ";
+        var fri_No_of_Delivery_Activities = " ";
+        var fri_No_of_Support_Activities = " ";
+        var fri_No_of_Software_Development_Activities = " ";
+        var sat_No_of_Lead_Activities = " ";
+        var sat_No_of_Quotation_Activities = " ";
+        var sat_No_of_Delivery_Activities = " ";
+        var sat_No_of_Support_Activities = " ";
+        var sat_No_of_Software_Development_Activities = " ";
         var url = "http://api.innosoft.ph/api/activity/list/calendar/numberofActivities/" + month + "/" + status;
         this.http.get(url, this.options).subscribe(function (response) {
             var results = response.json();
@@ -135,18 +135,28 @@ var DashboardService = (function () {
                                 var activityDate = new Date(results[fixIndex].ActivityDate);
                                 var activityDateValue = [activityDate.getFullYear(), _this.pad(activityDate.getMonth() + 1), _this.pad(activityDate.getDate())].join('-');
                                 if (activityDateValue == dateValue) {
-                                    sun_No_of_Lead_Activities = results[fixIndex].No_of_Lead_Activities;
-                                    sun_No_of_Quotation_Activities = results[fixIndex].No_of_Quotation_Activities;
-                                    sun_No_of_Delivery_Activities = results[fixIndex].No_of_Delivery_Activities;
-                                    sun_No_of_Support_Activities = results[fixIndex].No_of_Support_Activities;
-                                    sun_No_of_Software_Development_Activities = results[fixIndex].No_of_Software_Development_Activities;
+                                    if (results[fixIndex].No_of_Lead_Activities != 0) {
+                                        sun_No_of_Lead_Activities = "Leads (" + results[fixIndex].No_of_Lead_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Quotation_Activities != 0) {
+                                        sun_No_of_Quotation_Activities = "Quotations (" + results[fixIndex].No_of_Quotation_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Delivery_Activities != 0) {
+                                        sun_No_of_Delivery_Activities = "Deliveries (" + results[fixIndex].No_of_Delivery_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Support_Activities != 0) {
+                                        sun_No_of_Support_Activities = "Supports (" + results[fixIndex].No_of_Support_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Software_Development_Activities != 0) {
+                                        sun_No_of_Software_Development_Activities = "Soft. Dev. (" + results[fixIndex].No_of_Software_Development_Activities + ")";
+                                    }
                                 }
                                 else {
-                                    sun_No_of_Lead_Activities = "0";
-                                    sun_No_of_Quotation_Activities = "0";
-                                    sun_No_of_Delivery_Activities = "0";
-                                    sun_No_of_Support_Activities = "0";
-                                    sun_No_of_Software_Development_Activities = "0";
+                                    sun_No_of_Lead_Activities = " ";
+                                    sun_No_of_Quotation_Activities = " ";
+                                    sun_No_of_Delivery_Activities = " ";
+                                    sun_No_of_Support_Activities = " ";
+                                    sun_No_of_Software_Development_Activities = " ";
                                     fixIndex -= 1;
                                 }
                             }
@@ -159,18 +169,28 @@ var DashboardService = (function () {
                                 var activityDate = new Date(results[fixIndex].ActivityDate);
                                 var activityDateValue = [activityDate.getFullYear(), _this.pad(activityDate.getMonth() + 1), _this.pad(activityDate.getDate())].join('-');
                                 if (activityDateValue == dateValue) {
-                                    mon_No_of_Lead_Activities = results[fixIndex].No_of_Lead_Activities;
-                                    mon_No_of_Quotation_Activities = results[fixIndex].No_of_Quotation_Activities;
-                                    mon_No_of_Delivery_Activities = results[fixIndex].No_of_Delivery_Activities;
-                                    mon_No_of_Support_Activities = results[fixIndex].No_of_Support_Activities;
-                                    mon_No_of_Software_Development_Activities = results[fixIndex].No_of_Software_Development_Activities;
+                                    if (results[fixIndex].No_of_Lead_Activities != 0) {
+                                        mon_No_of_Lead_Activities = "Leads (" + results[fixIndex].No_of_Lead_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Quotation_Activities != 0) {
+                                        mon_No_of_Quotation_Activities = "Quotations (" + results[fixIndex].No_of_Quotation_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Delivery_Activities != 0) {
+                                        mon_No_of_Delivery_Activities = "Deliveries (" + results[fixIndex].No_of_Delivery_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Support_Activities != 0) {
+                                        mon_No_of_Support_Activities = "Supports (" + results[fixIndex].No_of_Support_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Software_Development_Activities != 0) {
+                                        mon_No_of_Software_Development_Activities = "Soft. Dev. (" + results[fixIndex].No_of_Software_Development_Activities + ")";
+                                    }
                                 }
                                 else {
-                                    mon_No_of_Lead_Activities = "0";
-                                    mon_No_of_Quotation_Activities = "0";
-                                    mon_No_of_Delivery_Activities = "0";
-                                    mon_No_of_Support_Activities = "0";
-                                    mon_No_of_Software_Development_Activities = "0";
+                                    mon_No_of_Lead_Activities = " ";
+                                    mon_No_of_Quotation_Activities = " ";
+                                    mon_No_of_Delivery_Activities = " ";
+                                    mon_No_of_Support_Activities = " ";
+                                    mon_No_of_Software_Development_Activities = " ";
                                     fixIndex -= 1;
                                 }
                             }
@@ -183,18 +203,28 @@ var DashboardService = (function () {
                                 var activityDate = new Date(results[fixIndex].ActivityDate);
                                 var activityDateValue = [activityDate.getFullYear(), _this.pad(activityDate.getMonth() + 1), _this.pad(activityDate.getDate())].join('-');
                                 if (activityDateValue == dateValue) {
-                                    tue_No_of_Lead_Activities = results[fixIndex].No_of_Lead_Activities;
-                                    tue_No_of_Quotation_Activities = results[fixIndex].No_of_Quotation_Activities;
-                                    tue_No_of_Delivery_Activities = results[fixIndex].No_of_Delivery_Activities;
-                                    tue_No_of_Support_Activities = results[fixIndex].No_of_Support_Activities;
-                                    tue_No_of_Software_Development_Activities = results[fixIndex].No_of_Software_Development_Activities;
+                                    if (results[fixIndex].No_of_Lead_Activities != 0) {
+                                        tue_No_of_Lead_Activities = "Leads (" + results[fixIndex].No_of_Lead_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Quotation_Activities != 0) {
+                                        tue_No_of_Quotation_Activities = "Quotations (" + results[fixIndex].No_of_Quotation_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Delivery_Activities != 0) {
+                                        tue_No_of_Delivery_Activities = "Deliveries (" + results[fixIndex].No_of_Delivery_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Support_Activities != 0) {
+                                        tue_No_of_Support_Activities = "Supports (" + results[fixIndex].No_of_Support_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Software_Development_Activities != 0) {
+                                        tue_No_of_Software_Development_Activities = "Soft. Dev. (" + results[fixIndex].No_of_Software_Development_Activities + ")";
+                                    }
                                 }
                                 else {
-                                    tue_No_of_Lead_Activities = "0";
-                                    tue_No_of_Quotation_Activities = "0";
-                                    tue_No_of_Delivery_Activities = "0";
-                                    tue_No_of_Support_Activities = "0";
-                                    tue_No_of_Software_Development_Activities = "0";
+                                    tue_No_of_Lead_Activities = " ";
+                                    tue_No_of_Quotation_Activities = " ";
+                                    tue_No_of_Delivery_Activities = " ";
+                                    tue_No_of_Support_Activities = " ";
+                                    tue_No_of_Software_Development_Activities = " ";
                                     fixIndex -= 1;
                                 }
                             }
@@ -207,18 +237,28 @@ var DashboardService = (function () {
                                 var activityDate = new Date(results[fixIndex].ActivityDate);
                                 var activityDateValue = [activityDate.getFullYear(), _this.pad(activityDate.getMonth() + 1), _this.pad(activityDate.getDate())].join('-');
                                 if (activityDateValue == dateValue) {
-                                    wed_No_of_Lead_Activities = results[fixIndex].No_of_Lead_Activities;
-                                    wed_No_of_Quotation_Activities = results[fixIndex].No_of_Quotation_Activities;
-                                    wed_No_of_Delivery_Activities = results[fixIndex].No_of_Delivery_Activities;
-                                    wed_No_of_Support_Activities = results[fixIndex].No_of_Support_Activities;
-                                    wed_No_of_Software_Development_Activities = results[fixIndex].No_of_Software_Development_Activities;
+                                    if (results[fixIndex].No_of_Lead_Activities != 0) {
+                                        wed_No_of_Lead_Activities = "Leads (" + results[fixIndex].No_of_Lead_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Quotation_Activities != 0) {
+                                        wed_No_of_Quotation_Activities = "Quotations (" + results[fixIndex].No_of_Quotation_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Delivery_Activities != 0) {
+                                        wed_No_of_Delivery_Activities = "Deliveries (" + results[fixIndex].No_of_Delivery_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Support_Activities != 0) {
+                                        wed_No_of_Support_Activities = "Supports (" + results[fixIndex].No_of_Support_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Software_Development_Activities != 0) {
+                                        wed_No_of_Software_Development_Activities = "Soft. Dev. (" + results[fixIndex].No_of_Software_Development_Activities + ")";
+                                    }
                                 }
                                 else {
-                                    wed_No_of_Lead_Activities = "0";
-                                    wed_No_of_Quotation_Activities = "0";
-                                    wed_No_of_Delivery_Activities = "0";
-                                    wed_No_of_Support_Activities = "0";
-                                    wed_No_of_Software_Development_Activities = "0";
+                                    wed_No_of_Lead_Activities = " ";
+                                    wed_No_of_Quotation_Activities = " ";
+                                    wed_No_of_Delivery_Activities = " ";
+                                    wed_No_of_Support_Activities = " ";
+                                    wed_No_of_Software_Development_Activities = " ";
                                     fixIndex -= 1;
                                 }
                             }
@@ -231,18 +271,28 @@ var DashboardService = (function () {
                                 var activityDate = new Date(results[fixIndex].ActivityDate);
                                 var activityDateValue = [activityDate.getFullYear(), _this.pad(activityDate.getMonth() + 1), _this.pad(activityDate.getDate())].join('-');
                                 if (activityDateValue == dateValue) {
-                                    thu_No_of_Lead_Activities = results[fixIndex].No_of_Lead_Activities;
-                                    thu_No_of_Quotation_Activities = results[fixIndex].No_of_Quotation_Activities;
-                                    thu_No_of_Delivery_Activities = results[fixIndex].No_of_Delivery_Activities;
-                                    thu_No_of_Support_Activities = results[fixIndex].No_of_Support_Activities;
-                                    thu_No_of_Software_Development_Activities = results[fixIndex].No_of_Software_Development_Activities;
+                                    if (results[fixIndex].No_of_Lead_Activities != 0) {
+                                        thu_No_of_Lead_Activities = "Leads (" + results[fixIndex].No_of_Lead_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Quotation_Activities != 0) {
+                                        thu_No_of_Quotation_Activities = "Quotations (" + results[fixIndex].No_of_Quotation_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Delivery_Activities != 0) {
+                                        thu_No_of_Delivery_Activities = "Deliveries (" + results[fixIndex].No_of_Delivery_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Support_Activities != 0) {
+                                        thu_No_of_Support_Activities = "Supports (" + results[fixIndex].No_of_Support_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Software_Development_Activities != 0) {
+                                        thu_No_of_Software_Development_Activities = "Soft. Dev. (" + results[fixIndex].No_of_Software_Development_Activities + ")";
+                                    }
                                 }
                                 else {
-                                    thu_No_of_Lead_Activities = "0";
-                                    thu_No_of_Quotation_Activities = "0";
-                                    thu_No_of_Delivery_Activities = "0";
-                                    thu_No_of_Support_Activities = "0";
-                                    thu_No_of_Software_Development_Activities = "0";
+                                    thu_No_of_Lead_Activities = " ";
+                                    thu_No_of_Quotation_Activities = " ";
+                                    thu_No_of_Delivery_Activities = " ";
+                                    thu_No_of_Support_Activities = " ";
+                                    thu_No_of_Software_Development_Activities = " ";
                                     fixIndex -= 1;
                                 }
                             }
@@ -255,18 +305,28 @@ var DashboardService = (function () {
                                 var activityDate = new Date(results[fixIndex].ActivityDate);
                                 var activityDateValue = [activityDate.getFullYear(), _this.pad(activityDate.getMonth() + 1), _this.pad(activityDate.getDate())].join('-');
                                 if (activityDateValue == dateValue) {
-                                    fri_No_of_Lead_Activities = results[fixIndex].No_of_Lead_Activities;
-                                    fri_No_of_Quotation_Activities = results[fixIndex].No_of_Quotation_Activities;
-                                    fri_No_of_Delivery_Activities = results[fixIndex].No_of_Delivery_Activities;
-                                    fri_No_of_Support_Activities = results[fixIndex].No_of_Support_Activities;
-                                    fri_No_of_Software_Development_Activities = results[fixIndex].No_of_Software_Development_Activities;
+                                    if (results[fixIndex].No_of_Lead_Activities != 0) {
+                                        fri_No_of_Lead_Activities = "Leads (" + results[fixIndex].No_of_Lead_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Quotation_Activities != 0) {
+                                        fri_No_of_Quotation_Activities = "Quotations (" + results[fixIndex].No_of_Quotation_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Delivery_Activities != 0) {
+                                        fri_No_of_Delivery_Activities = "Deliveries (" + results[fixIndex].No_of_Delivery_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Support_Activities != 0) {
+                                        fri_No_of_Support_Activities = "Supports (" + results[fixIndex].No_of_Support_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Software_Development_Activities != 0) {
+                                        fri_No_of_Software_Development_Activities = "Soft. Dev. (" + results[fixIndex].No_of_Software_Development_Activities + ")";
+                                    }
                                 }
                                 else {
-                                    fri_No_of_Lead_Activities = "0";
-                                    fri_No_of_Quotation_Activities = "0";
-                                    fri_No_of_Delivery_Activities = "0";
-                                    fri_No_of_Support_Activities = "0";
-                                    fri_No_of_Software_Development_Activities = "0";
+                                    fri_No_of_Lead_Activities = " ";
+                                    fri_No_of_Quotation_Activities = " ";
+                                    fri_No_of_Delivery_Activities = " ";
+                                    fri_No_of_Support_Activities = " ";
+                                    fri_No_of_Software_Development_Activities = " ";
                                     fixIndex -= 1;
                                 }
                             }
@@ -279,18 +339,28 @@ var DashboardService = (function () {
                                 var activityDate = new Date(results[fixIndex].ActivityDate);
                                 var activityDateValue = [activityDate.getFullYear(), _this.pad(activityDate.getMonth() + 1), _this.pad(activityDate.getDate())].join('-');
                                 if (activityDateValue == dateValue) {
-                                    sat_No_of_Lead_Activities = results[fixIndex].No_of_Lead_Activities;
-                                    sat_No_of_Quotation_Activities = results[fixIndex].No_of_Quotation_Activities;
-                                    sat_No_of_Delivery_Activities = results[fixIndex].No_of_Delivery_Activities;
-                                    sat_No_of_Support_Activities = results[fixIndex].No_of_Support_Activities;
-                                    sat_No_of_Software_Development_Activities = results[fixIndex].No_of_Software_Development_Activities;
+                                    if (results[fixIndex].No_of_Lead_Activities != 0) {
+                                        sat_No_of_Lead_Activities = "Leads (" + results[fixIndex].No_of_Lead_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Quotation_Activities != 0) {
+                                        sat_No_of_Quotation_Activities = "Quotations (" + results[fixIndex].No_of_Quotation_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Delivery_Activities != 0) {
+                                        sat_No_of_Delivery_Activities = "Deliveries (" + results[fixIndex].No_of_Delivery_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Support_Activities != 0) {
+                                        sat_No_of_Support_Activities = "Supports (" + results[fixIndex].No_of_Support_Activities + ")";
+                                    }
+                                    if (results[fixIndex].No_of_Software_Development_Activities != 0) {
+                                        sat_No_of_Software_Development_Activities = "Soft. Dev. (" + results[fixIndex].No_of_Software_Development_Activities + ")";
+                                    }
                                 }
                                 else {
-                                    sat_No_of_Lead_Activities = "0";
-                                    sat_No_of_Quotation_Activities = "0";
-                                    sat_No_of_Delivery_Activities = "0";
-                                    sat_No_of_Support_Activities = "0";
-                                    sat_No_of_Software_Development_Activities = "0";
+                                    sat_No_of_Lead_Activities = " ";
+                                    sat_No_of_Quotation_Activities = " ";
+                                    sat_No_of_Delivery_Activities = " ";
+                                    sat_No_of_Support_Activities = " ";
+                                    sat_No_of_Software_Development_Activities = " ";
                                     fixIndex -= 1;
                                 }
                             }
@@ -360,41 +430,41 @@ var DashboardService = (function () {
                         thu = " ";
                         fri = " ";
                         sat = " ";
-                        sun_No_of_Lead_Activities = "0";
-                        sun_No_of_Quotation_Activities = "0";
-                        sun_No_of_Delivery_Activities = "0";
-                        sun_No_of_Support_Activities = "0";
-                        sun_No_of_Software_Development_Activities = "0";
-                        mon_No_of_Lead_Activities = "0";
-                        mon_No_of_Quotation_Activities = "0";
-                        mon_No_of_Delivery_Activities = "0";
-                        mon_No_of_Support_Activities = "0";
-                        mon_No_of_Software_Development_Activities = "0";
-                        tue_No_of_Lead_Activities = "0";
-                        tue_No_of_Quotation_Activities = "0";
-                        tue_No_of_Delivery_Activities = "0";
-                        tue_No_of_Support_Activities = "0";
-                        tue_No_of_Software_Development_Activities = "0";
-                        wed_No_of_Lead_Activities = "0";
-                        wed_No_of_Quotation_Activities = "0";
-                        wed_No_of_Delivery_Activities = "0";
-                        wed_No_of_Support_Activities = "0";
-                        wed_No_of_Software_Development_Activities = "0";
-                        thu_No_of_Lead_Activities = "0";
-                        thu_No_of_Quotation_Activities = "0";
-                        thu_No_of_Delivery_Activities = "0";
-                        thu_No_of_Support_Activities = "0";
-                        thu_No_of_Software_Development_Activities = "0";
-                        fri_No_of_Lead_Activities = "0";
-                        fri_No_of_Quotation_Activities = "0";
-                        fri_No_of_Delivery_Activities = "0";
-                        fri_No_of_Support_Activities = "0";
-                        fri_No_of_Software_Development_Activities = "0";
-                        sat_No_of_Lead_Activities = "0";
-                        sat_No_of_Quotation_Activities = "0";
-                        sat_No_of_Delivery_Activities = "0";
-                        sat_No_of_Support_Activities = "0";
-                        sat_No_of_Software_Development_Activities = "0";
+                        sun_No_of_Lead_Activities = " ";
+                        sun_No_of_Quotation_Activities = " ";
+                        sun_No_of_Delivery_Activities = " ";
+                        sun_No_of_Support_Activities = " ";
+                        sun_No_of_Software_Development_Activities = " ";
+                        mon_No_of_Lead_Activities = " ";
+                        mon_No_of_Quotation_Activities = " ";
+                        mon_No_of_Delivery_Activities = " ";
+                        mon_No_of_Support_Activities = " ";
+                        mon_No_of_Software_Development_Activities = " ";
+                        tue_No_of_Lead_Activities = " ";
+                        tue_No_of_Quotation_Activities = " ";
+                        tue_No_of_Delivery_Activities = " ";
+                        tue_No_of_Support_Activities = " ";
+                        tue_No_of_Software_Development_Activities = " ";
+                        wed_No_of_Lead_Activities = " ";
+                        wed_No_of_Quotation_Activities = " ";
+                        wed_No_of_Delivery_Activities = " ";
+                        wed_No_of_Support_Activities = " ";
+                        wed_No_of_Software_Development_Activities = " ";
+                        thu_No_of_Lead_Activities = " ";
+                        thu_No_of_Quotation_Activities = " ";
+                        thu_No_of_Delivery_Activities = " ";
+                        thu_No_of_Support_Activities = " ";
+                        thu_No_of_Software_Development_Activities = " ";
+                        fri_No_of_Lead_Activities = " ";
+                        fri_No_of_Quotation_Activities = " ";
+                        fri_No_of_Delivery_Activities = " ";
+                        fri_No_of_Support_Activities = " ";
+                        fri_No_of_Software_Development_Activities = " ";
+                        sat_No_of_Lead_Activities = " ";
+                        sat_No_of_Quotation_Activities = " ";
+                        sat_No_of_Delivery_Activities = " ";
+                        sat_No_of_Support_Activities = " ";
+                        sat_No_of_Software_Development_Activities = " ";
                     }
                     countDay += 1;
                     fixIndex += 1;

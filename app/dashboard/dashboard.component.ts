@@ -40,7 +40,6 @@ export class DashboardComponent implements OnInit {
   public documentSelectedValue: String = "ALL";
   public calendarCollectionView: wijmo.collections.CollectionView;
   public itemFormatter: any;
-
   public sundayDateObservableArray: wijmo.collections.ObservableArray;
   public sundayDateCollectionView: wijmo.collections.CollectionView;
 
@@ -138,7 +137,7 @@ export class DashboardComponent implements OnInit {
 
     if (this.calendarCollectionView.items.length > 0) {
       for (var i = 0; i < this.calendarCollectionView.items.length; i++) {
-        
+
       }
     }
   }
@@ -147,7 +146,7 @@ export class DashboardComponent implements OnInit {
     this.itemFormatter = function (panel: any, r: any, c: any, cell: any) {
       if (panel.cellType == wijmo.grid.CellType.Cell) {
         var flex = panel.grid;
-        flex.rows[r].height = 180;
+        flex.rows[r].height = 160;
       }
     }
   }

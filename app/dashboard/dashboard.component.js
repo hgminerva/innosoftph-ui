@@ -144,7 +144,7 @@ var DashboardComponent = (function () {
         this.itemFormatter = function (panel, r, c, cell) {
             if (panel.cellType == wijmo.grid.CellType.Cell) {
                 var flex = panel.grid;
-                flex.rows[r].height = 180;
+                flex.rows[r].height = 160;
             }
         };
     };
