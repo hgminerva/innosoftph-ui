@@ -147,6 +147,7 @@ var SoftwareDevelopmentComponent = (function () {
         if (this.softwareDevelopmentFilter) {
             return (item.SoftDevNumber.toLowerCase().indexOf(this.softwareDevelopmentFilter.toLowerCase()) > -1) ||
                 (item.Task.toLowerCase().indexOf(this.softwareDevelopmentFilter.toLowerCase()) > -1) ||
+                (item.ProjectName.toLowerCase().indexOf(this.softwareDevelopmentFilter.toLowerCase()) > -1) ||
                 (item.Remarks.toLowerCase().indexOf(this.softwareDevelopmentFilter.toLowerCase()) > -1) ||
                 (item.EncodedByUser.toLowerCase().indexOf(this.softwareDevelopmentFilter.toLowerCase()) > -1) ||
                 (item.AssignedToUser.toLowerCase().indexOf(this.softwareDevelopmentFilter.toLowerCase()) > -1) ||
