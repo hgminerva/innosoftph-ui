@@ -1,7 +1,6 @@
 <div class="content-section-b">
     <div class="section-heading-custom">
         <div class="container">
-            <button class="menu-button pull-right" (click)="showMenu()"><i class="fa fa-bars fa-3x"></i></button>
             <h1 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: #fff; font-size: 35px;">LEADS</h1>
             <p class="lead">
                 List of Leads
@@ -209,7 +208,7 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm-4">Contact No's.</label>
                                         <div class="col-sm-8">
-                                            <textarea class="form-control" [(ngModel)]="leadContactNumber" rows="2" id="leadContactNumber" name="leadContactNumber" #ContactPhoneNo="ngModel"
+                                            <textarea class="form-control" [(ngModel)]="leadContactNumber" rows="3" id="leadContactNumber" name="leadContactNumber" #ContactPhoneNo="ngModel"
                                                 placeholder="Contact Numbers" required></textarea>
                                             <div [hidden]="ContactPhoneNo.valid || ContactPhoneNo.pristine" class="alert alert-danger" style="margin-bottom: 0px;">
                                                 <b>Required!</b>

@@ -8,8 +8,8 @@ h1, h2, h3 {
 }
 
 .section-heading-custom {
-    padding-top: 85px;
-    padding-bottom: 40px;
+    padding-top: 65px;
+    padding-bottom: 15px;
     width: 100%;
     background: linear-gradient( rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7) ), url(../images/backgrounds/vector1.jpg) no-repeat center center;
     background-size: cover;
@@ -1054,4 +1054,44 @@ textarea {
 
 #tableCalendar > .wj-cell {
     font-weight: bold;
+}
+
+.nav-tabs {
+    background-color: #f5f5f5;
+    border-bottom-color: #337ab7;
+    border-bottom-style: solid;
+    border-width: 3px;
+    border-radius: 0 !important;
+}
+
+    .nav-tabs > li > a:hover {
+        border-bottom-color: #337ab7;
+        border-bottom-style: solid;
+        color: #75a7d2;
+        border-radius: 0 !important;
+    }
+
+    .nav-tabs > li.active > a,
+    .nav-tabs > li.active > a:focus,
+    .nav-tabs > li.active > a:hover {
+        background-color: #337ab7 !important;
+        border-color: #2e6da4;
+        color: #fff;
+        box-shadow: none;
+        border-radius: 0 !important;
+    }
+
+    .btn-custom-menu {
+        background-color: #2a3d57;
+    }
+    
+    .btn-custom-menu:hover,
+    .btn-custom-menu:active,
+    .btn-custom-menu:focus {
+        background-color: #982324;
+    }
+    
+.panel,
+.wj-flexgrid.wj-content {
+    border-radius: 0;
 }

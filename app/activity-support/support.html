@@ -1,7 +1,7 @@
 <div class="content-section-b">
     <div class="section-heading-custom">
         <div class="container">
-            <button class="menu-button pull-right" (click)="showMenu()"><i class="fa fa-bars fa-3x"></i></button>
+            <!-- <button class="menu-button pull-right" (click)="showMenu()"><i class="fa fa-bars fa-3x"></i></button> -->
             <h1 style="font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; color: #fff; font-size: 35px;">SUPPORT</h1>
             <p class="lead">
                 List of Supports
@@ -73,7 +73,7 @@
                     <tr>
                         <td style="width: 29%;">
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-wrench fa-fw"></i> Type</span>
+                                <span class="input-group-addon"><i class="fa fa-wrench fa-fw"></i> Support Type</span>
                                 <wj-combo-box [itemsSource]="fliterSupportTypeArray" [placeholder]="'Select Type'" [isEditable]="false" [isRequired]="true"
                                     [(selectedValue)]="filterSupportTypeSelectedValue" (selectedIndexChanged)="filterSupportTypeSelectedIndexChangedClick()"
                                     style="width: 100%; ">
