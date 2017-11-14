@@ -160,8 +160,8 @@ var DashboardComponent = (function () {
                 _this.isFinishedLoadingDashboard = true;
             }, 500);
         }
-        this.getCalendarActivityList();
-        this.gridItemFormatter();
+        // this.getCalendarActivityList();
+        // this.gridItemFormatter();
     };
     DashboardComponent = __decorate([
         core_1.Component({

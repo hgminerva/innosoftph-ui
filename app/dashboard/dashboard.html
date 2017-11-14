@@ -17,8 +17,8 @@
         </div>
         <div *ngIf="isFinishedLoadingDashboard">
             <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" href="#calendar">Calendar</a></li>
-                <li><a data-toggle="tab" href="#sales">Sales</a></li>
+                <!-- <li><a data-toggle="tab" href="#calendar">Calendar</a></li> -->
+                <li class="active"><a data-toggle="tab" href="#sales">Sales</a></li>
                 <li><a data-toggle="tab" href="#support">Support</a></li>
                 <li><a data-toggle="tab" href="#soft-dev">Soft-Dev</a></li>
                 <li><a data-toggle="tab" href="#admin">Admin</a></li>
@@ -26,7 +26,7 @@
             </ul>
             <br />
             <div class="tab-content">
-                <div id="calendar" class="tab-pane fade in active">
+                <div id="calendar" class="tab-pane fade">
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <td style="width: 24%;">
@@ -180,7 +180,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="sales" class="tab-pane fade">
+                <div id="sales" class="tab-pane fade in active">
                     <table class="table table-bordered dashboardTable" border="0">
                         <thead style="background-color: #112540; border: 1px sold #112540; color: #fff;">
                             <tr>

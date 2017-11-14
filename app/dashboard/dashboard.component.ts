@@ -162,7 +162,7 @@ export class DashboardComponent implements OnInit {
       }, 500);
     }
 
-    this.getCalendarActivityList();
-    this.gridItemFormatter();
+    // this.getCalendarActivityList();
+    // this.gridItemFormatter();
   }
 }
