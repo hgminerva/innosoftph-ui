@@ -119,6 +119,8 @@
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="'Particulars'" [binding]="'Particulars'" [isReadOnly]="true" [width]="250">
                     </wj-flex-grid-column>
+                    <wj-flex-grid-column [header]="'Location'" [binding]="'Location'" [isReadOnly]="true" [width]="150">
+                    </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="'Activity'" [binding]="'Activity'" [isReadOnly]="true" [width]="250">
                     </wj-flex-grid-column>
                     <wj-flex-grid-column [header]="'Encoded By'" [binding]="'EncodedBy'" [isReadOnly]="true" [width]="150">
@@ -189,6 +191,14 @@
                             <div class="col-sm-8">
                                 <textarea class="form-control" rows="7" [(ngModel)]="activityParticulars" id="activityParticulars" name="activityParticulars"
                                     placeholder="Particulars"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-sm-4">Location</label>
+                            <div class="col-sm-8">
+                                <wj-combo-box [itemsSource]="activityLocations" [placeholder]="'Select Location'" [isEditable]="false"
+                                    [isRequired]="true" [(selectedValue)]="activityLocationsSelectedValue" style="width: 100%; ">
+                                </wj-combo-box>
                             </div>
                         </div>
                         <div class="form-group">

@@ -105,7 +105,7 @@ var AppModule = (function () {
                 router_1.RouterModule.forRoot(appRoutes),
                 forms_1.FormsModule,
                 http_1.HttpModule,
-                ng2_toastr_1.ToastModule,
+                ng2_toastr_1.ToastModule.forRoot(),
                 ng2_slim_loading_bar_1.SlimLoadingBarModule.forRoot(),
             ],
             declarations: [

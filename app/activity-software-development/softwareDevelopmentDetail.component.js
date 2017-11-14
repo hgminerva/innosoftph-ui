@@ -36,6 +36,10 @@ var SoftwareDevelopmentDetailComponent = (function () {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
         ];
         this.softwareDevelopmentNoOfHoursSelectedValue = "0";
+        this.activityLocations = [
+            'Off-Site',
+            'On-Site'
+        ];
         this.activityParticularCategories = [
             'Form',
             'Module',
@@ -162,6 +166,7 @@ var SoftwareDevelopmentDetailComponent = (function () {
             this.activityDetailModalString = "Add";
             this.activityId = 0;
             this.activityDateValue = new Date();
+            this.activityLocationsSelectedValue = "Off-Site";
             this.activityParticularCategorySelectedValue = "New Installation";
             document.getElementById("activityParticulars").value = "";
             this.activityNoOfHoursSelectedValue = "0";
@@ -174,6 +179,7 @@ var SoftwareDevelopmentDetailComponent = (function () {
             var currentSelectedActivity = this.activityCollectionView.currentItem;
             this.activityId = currentSelectedActivity.Id;
             this.activityDateValue = new Date(currentSelectedActivity.ActivityDate);
+            this.activityLocationsSelectedValue = currentSelectedActivity.Location;
             this.activityParticularCategorySelectedValue = currentSelectedActivity.ParticularCategory;
             document.getElementById("activityParticulars").value = currentSelectedActivity.Particulars;
             this.activityNoOfHoursSelectedValue = currentSelectedActivity.NumberOfHours;
@@ -186,6 +192,7 @@ var SoftwareDevelopmentDetailComponent = (function () {
     SoftwareDevelopmentDetailComponent.prototype.getActivityData = function () {
         var activityDataObject = {
             ActivityDate: this.activityDateValue.toLocaleDateString(),
+            Location: this.activityLocationsSelectedValue,
             ParticularCategory: this.activityParticularCategorySelectedValue,
             Particulars: document.getElementById("activityParticulars").value,
             NumberOfHours: this.activityNoOfHoursSelectedValue,

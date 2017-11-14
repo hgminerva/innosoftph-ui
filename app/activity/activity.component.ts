@@ -26,6 +26,11 @@ export class ActivityComponent implements OnInit {
   public activityParticularCategories = [''];
   public activityParticularCategorySelectedIndex = 0;
   public activityParticularCategorySelectedValue: String;
+  public activityLocations = [
+    'Off-Site',
+    'On-Site'
+  ];
+  public activityLocationsSelectedValue: String;
   public activityNoOfHours = [
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
   ];
@@ -286,6 +291,7 @@ export class ActivityComponent implements OnInit {
         this.activityId = 0;
         this.activityDateValue = new Date();
         this.activityParticularCategorySelectedValue = "New Installation";
+        this.activityLocationsSelectedValue = "Off-Site";
         (<HTMLInputElement>document.getElementById("activityParticulars")).value = "";
         this.activityNoOfHoursSelectedValue = "0";
         (<HTMLInputElement>document.getElementById("activityAmount")).value = "0";
@@ -300,8 +306,9 @@ export class ActivityComponent implements OnInit {
           this.activityDetailModalString = "Edit";
           this.activityId = currentSelectedActivity.Id;
           this.activityDateValue = new Date(currentSelectedActivity.ActivityDate);
-          this.activityParticularCategorySelectedValue = currentSelectedActivity.ParticularCategory;
           (<HTMLInputElement>document.getElementById("activityParticulars")).value = currentSelectedActivity.Activity;
+          this.activityLocationsSelectedValue = currentSelectedActivity.Location;
+          this.activityParticularCategorySelectedValue = currentSelectedActivity.ParticularCategory;
           this.activityNoOfHoursSelectedValue = currentSelectedActivity.NumberOfHours;
           (<HTMLInputElement>document.getElementById("activityAmount")).value = currentSelectedActivity.ActivityAmount.toLocaleString();
           this.activityAmount = currentSelectedActivity.ActivityAmount.toLocaleString();
@@ -362,6 +369,7 @@ export class ActivityComponent implements OnInit {
       ProductId: productId,
       ParticularCategory: this.activityParticularCategorySelectedValue,
       Particulars: (<HTMLInputElement>document.getElementById("activityParticulars")).value,
+      Location: this.activityLocationsSelectedValue,
       NumberOfHours: this.activityNoOfHoursSelectedValue,
       ActivityAmount: this.activityAmount,
       ActivityStatus: this.activityStatusSelectedValue,

@@ -318,6 +318,7 @@ export class SupportService {
 
     // list activity by support Id
     public getListActivityBySupportId(supportId: number, isLoadActivityOnly: Boolean): wijmo.collections.ObservableArray {
+        // let url = "http://api.innosoft.ph/api/activity/list/bySupportId/" + supportId;
         let url = "http://api.innosoft.ph/api/activity/list/bySupportId/" + supportId;
         let activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(
@@ -340,6 +341,7 @@ export class SupportService {
                             Product: results[i].Product,
                             ParticularCategory: results[i].ParticularCategory,
                             Particulars: results[i].Particulars,
+                            Location: results[i].Location,
                             NumberOfHours: results[i].NumberOfHours,
                             ActivityAmount: results[i].ActivityAmount,
                             ActivityStatus: results[i].ActivityStatus,

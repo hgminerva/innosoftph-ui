@@ -29,6 +29,10 @@ var ActivityComponent = (function () {
         this.activityFilter = '';
         this.activityParticularCategories = [''];
         this.activityParticularCategorySelectedIndex = 0;
+        this.activityLocations = [
+            'Off-Site',
+            'On-Site'
+        ];
         this.activityNoOfHours = [
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
         ];
@@ -259,6 +263,7 @@ var ActivityComponent = (function () {
                 _this.activityId = 0;
                 _this.activityDateValue = new Date();
                 _this.activityParticularCategorySelectedValue = "New Installation";
+                _this.activityLocationsSelectedValue = "Off-Site";
                 document.getElementById("activityParticulars").value = "";
                 _this.activityNoOfHoursSelectedValue = "0";
                 document.getElementById("activityAmount").value = "0";
@@ -274,8 +279,9 @@ var ActivityComponent = (function () {
                     _this.activityDetailModalString = "Edit";
                     _this.activityId = currentSelectedActivity.Id;
                     _this.activityDateValue = new Date(currentSelectedActivity.ActivityDate);
-                    _this.activityParticularCategorySelectedValue = currentSelectedActivity.ParticularCategory;
                     document.getElementById("activityParticulars").value = currentSelectedActivity.Activity;
+                    _this.activityLocationsSelectedValue = currentSelectedActivity.Location;
+                    _this.activityParticularCategorySelectedValue = currentSelectedActivity.ParticularCategory;
                     _this.activityNoOfHoursSelectedValue = currentSelectedActivity.NumberOfHours;
                     document.getElementById("activityAmount").value = currentSelectedActivity.ActivityAmount.toLocaleString();
                     _this.activityAmount = currentSelectedActivity.ActivityAmount.toLocaleString();
@@ -328,6 +334,7 @@ var ActivityComponent = (function () {
             ProductId: productId,
             ParticularCategory: this.activityParticularCategorySelectedValue,
             Particulars: document.getElementById("activityParticulars").value,
+            Location: this.activityLocationsSelectedValue,
             NumberOfHours: this.activityNoOfHoursSelectedValue,
             ActivityAmount: this.activityAmount,
             ActivityStatus: this.activityStatusSelectedValue,

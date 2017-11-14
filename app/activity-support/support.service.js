@@ -295,6 +295,7 @@ var SupportService = (function () {
     // list activity by support Id
     SupportService.prototype.getListActivityBySupportId = function (supportId, isLoadActivityOnly) {
         var _this = this;
+        // let url = "http://api.innosoft.ph/api/activity/list/bySupportId/" + supportId;
         var url = "http://api.innosoft.ph/api/activity/list/bySupportId/" + supportId;
         var activityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
@@ -315,6 +316,7 @@ var SupportService = (function () {
                         Product: results[i].Product,
                         ParticularCategory: results[i].ParticularCategory,
                         Particulars: results[i].Particulars,
+                        Location: results[i].Location,
                         NumberOfHours: results[i].NumberOfHours,
                         ActivityAmount: results[i].ActivityAmount,
                         ActivityStatus: results[i].ActivityStatus,

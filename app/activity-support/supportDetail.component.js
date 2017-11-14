@@ -58,6 +58,10 @@ var SupportDetailComponent = (function () {
             'Progam Update',
             'Data Archive'
         ];
+        this.activityLocations = [
+            'Off-Site',
+            'On-Site'
+        ];
         this.activityNoOfHours = [
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
         ];
@@ -223,6 +227,7 @@ var SupportDetailComponent = (function () {
             this.activityId = 0;
             this.activityDateValue = new Date();
             this.activityParticularCategorySelectedValue = "New Installation";
+            this.activityLocationsSelectedValue = "Off-Site";
             document.getElementById("activityParticulars").value = "";
             this.activityNoOfHoursSelectedValue = "0";
             document.getElementById("activityAmount").value = "0";
@@ -235,6 +240,7 @@ var SupportDetailComponent = (function () {
             this.activityId = currentSelectedActivity.Id;
             this.activityDateValue = new Date(currentSelectedActivity.ActivityDate);
             this.activityParticularCategorySelectedValue = currentSelectedActivity.ParticularCategory;
+            this.activityLocationsSelectedValue = currentSelectedActivity.Location;
             document.getElementById("activityParticulars").value = currentSelectedActivity.Particulars;
             this.activityNoOfHoursSelectedValue = currentSelectedActivity.NumberOfHours;
             document.getElementById("activityAmount").value = currentSelectedActivity.ActivityAmount.toLocaleString();
@@ -249,6 +255,7 @@ var SupportDetailComponent = (function () {
             ActivityDate: this.activityDateValue.toLocaleDateString(),
             StaffUserId: this.activityAssignedToSelectedValue,
             ParticularCategory: this.activityParticularCategorySelectedValue,
+            Location: this.activityLocationsSelectedValue,
             Particulars: document.getElementById("activityParticulars").value,
             NumberOfHours: this.activityNoOfHoursSelectedValue,
             ActivityAmount: this.activityAmount,

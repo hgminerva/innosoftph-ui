@@ -26,6 +26,10 @@ var DeliveryDetailComponent = (function () {
         this.slimLoadingBarService = slimLoadingBarService;
         this.deliveryQuotaionSelectedIndex = -1;
         this.deliveryStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING', 'DUPLICATE'];
+        this.activityLocations = [
+            'Off-Site',
+            'On-Site'
+        ];
         this.activityParticularCategories = [
             'Delivery'
         ];
@@ -178,6 +182,7 @@ var DeliveryDetailComponent = (function () {
             this.activityDetailModalString = "Add";
             this.activityId = 0;
             this.activityDateValue = new Date();
+            this.activityLocationsSelectedValue = "Off-Site";
             this.activityParticularCategorySelectedValue = "New Installation";
             document.getElementById("activityParticulars").value = "";
             this.activityNoOfHoursSelectedValue = "0";
@@ -190,6 +195,7 @@ var DeliveryDetailComponent = (function () {
             var currentSelectedActivity = this.activityCollectionView.currentItem;
             this.activityId = currentSelectedActivity.Id;
             this.activityDateValue = new Date(currentSelectedActivity.ActivityDate);
+            this.activityLocationsSelectedValue = currentSelectedActivity.Location;
             this.activityParticularCategorySelectedValue = currentSelectedActivity.ParticularCategory;
             document.getElementById("activityParticulars").value = currentSelectedActivity.Particulars;
             this.activityNoOfHoursSelectedValue = currentSelectedActivity.NumberOfHours;
@@ -202,6 +208,7 @@ var DeliveryDetailComponent = (function () {
     DeliveryDetailComponent.prototype.getActivityData = function () {
         var activityDataObject = {
             ActivityDate: this.activityDateValue.toLocaleDateString(),
+            Location: this.activityLocationsSelectedValue,
             ParticularCategory: this.activityParticularCategorySelectedValue,
             Particulars: document.getElementById("activityParticulars").value,
             NumberOfHours: this.activityNoOfHoursSelectedValue,

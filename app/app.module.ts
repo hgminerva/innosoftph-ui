@@ -95,7 +95,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     FormsModule,
     HttpModule,
-    ToastModule,
+    ToastModule.forRoot(),
     SlimLoadingBarModule.forRoot(),
   ],
   declarations: [

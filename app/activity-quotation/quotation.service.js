@@ -256,6 +256,7 @@ var QuotationService = (function () {
                         Product: results[i].Product,
                         ParticularCategory: results[i].ParticularCategory,
                         Particulars: results[i].Particulars,
+                        Location: results[i].Location,
                         NumberOfHours: results[i].NumberOfHours,
                         ActivityAmount: results[i].ActivityAmount,
                         ActivityStatus: results[i].ActivityStatus,
@@ -321,7 +322,7 @@ var QuotationService = (function () {
     // this is my previous code - not working
     // public printQuotationPaper(id: number, quotationObject: Object) {
     //     console.log(JSON.stringify(quotationObject));
-    //     let url = "http://localhost:22626/RepQuotationDetail/quotationDetail?quotationId=" + id;
+    //     let url = "http://api.innosoft.ph/RepQuotationDetail/quotationDetail?quotationId=" + id;
     //     this.http.post(url, JSON.stringify(quotationObject), this.options).subscribe(
     //         (response) => {
     //             var mediaType = 'application/pdf';

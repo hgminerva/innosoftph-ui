@@ -280,6 +280,7 @@ var DeliveryService = (function () {
                         Product: results[i].Product,
                         ParticularCategory: results[i].ParticularCategory,
                         Particulars: results[i].Particulars,
+                        Location: results[i].Location,
                         NumberOfHours: results[i].NumberOfHours,
                         ActivityAmount: results[i].ActivityAmount,
                         ActivityStatus: results[i].ActivityStatus,

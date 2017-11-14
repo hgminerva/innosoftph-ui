@@ -29,6 +29,11 @@ export class QuotationDetailComponent implements OnInit {
   public activityDetailModalString: String;
   public activityId: number;
   public activityDateValue: Date;
+  public activityLocations = [
+    'Off-Site',
+    'On-Site'
+  ];
+  public activityLocationsSelectedValue: String;
   public activityParticularCategories = [
     'Quotation'
   ];
@@ -268,6 +273,7 @@ export class QuotationDetailComponent implements OnInit {
       this.activityDetailModalString = "Add";
       this.activityId = 0;
       this.activityDateValue = new Date();
+      this.activityLocationsSelectedValue = "Off-Site";
       this.activityParticularCategorySelectedValue = "New Installation";
       (<HTMLInputElement>document.getElementById("activityParticulars")).value = "";
       this.activityNoOfHoursSelectedValue = "0";
@@ -279,6 +285,7 @@ export class QuotationDetailComponent implements OnInit {
       let currentSelectedActivity = this.activityCollectionView.currentItem;
       this.activityId = currentSelectedActivity.Id;
       this.activityDateValue = new Date(currentSelectedActivity.ActivityDate);
+      this.activityLocationsSelectedValue = currentSelectedActivity.Location;
       this.activityParticularCategorySelectedValue = currentSelectedActivity.ParticularCategory;
       (<HTMLInputElement>document.getElementById("activityParticulars")).value = currentSelectedActivity.Particulars;
       this.activityNoOfHoursSelectedValue = currentSelectedActivity.NumberOfHours;
@@ -292,6 +299,7 @@ export class QuotationDetailComponent implements OnInit {
   public getActivityData() {
     let activityDataObject = {
       ActivityDate: this.activityDateValue.toLocaleDateString(),
+      Location: this.activityLocationsSelectedValue,
       ParticularCategory: this.activityParticularCategorySelectedValue,
       Particulars: (<HTMLInputElement>document.getElementById("activityParticulars")).value,
       NumberOfHours: this.activityNoOfHoursSelectedValue,

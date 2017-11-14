@@ -65,6 +65,7 @@ export class ActivityService {
                             Document: results[i].DocumentNumber,
                             ActivityDate: myActivityDateValue,
                             Particulars: results[i].Particulars,
+                            Location: results[i].Location,
                             Activity: results[i].Activity == null ? " " : results[i].Activity,
                             StaffUserId: results[i].StaffUserId == null ? 0 : results[i].StaffUserId,
                             StaffUser: results[i].StaffUser == null ? " " : results[i].StaffUser,
