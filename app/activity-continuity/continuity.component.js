@@ -21,8 +21,6 @@ var ContinuityComponent = (function () {
         this.toastr = toastr;
         this.vRef = vRef;
         this.slimLoadingBarService = slimLoadingBarService;
-        this.isContinuityStartDateSelected = true;
-        this.isContinuityEndDateSelected = true;
         this.continuityFilter = '';
         // public continuityCustomerObservableArray: wijmo.collections.ObservableArray;
         // public continuityCustomerSelectedIndex = -1;
@@ -35,31 +33,31 @@ var ContinuityComponent = (function () {
         this.isFinishLoading = false;
         this.isLoading = true;
         this.fliterContinuityStatusArray = ['ALL', 'OPEN', 'EXPIRED'];
-        this.filterContinuityStatusSelectedValue = "OPEN";
-        this.isStartDateClicked = false;
-        this.isEndDateClicked = false;
+        this.filterContinuityStatusSelectedValue = "ALL";
         this.continuityStatusClicked = false;
-        this.isContinuityStatusSelected = false;
         this.dateTypeArray = ['Continuity Date', 'Expiry Date'];
         this.dateTypeSelectedValue = "Continuity Date";
         this.isDateTypeSelected = false;
-        this.isDateTypeClicked = false;
+        this.fliterMonthArray = [
+            'JANUARY',
+            'FEBRUARY',
+            'MARCH',
+            'APRIL',
+            'MAY',
+            'JUNE',
+            'JULY',
+            'AUGUST',
+            'SEPTEMBER',
+            'OCTOBER',
+            'NOVEMBER',
+            'DECEMBER'
+        ];
+        this.newDate = new Date();
+        this.filterMonthSelectedValue = this.fliterMonthArray[this.newDate.getMonth()];
+        this.monthStatusClicked = false;
+        this.isMonthStatusSelected = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
-    ContinuityComponent.prototype.cboDateTypeSelectedIndexChangedClick = function () {
-        if (!this.isDateTypeSelected) {
-            if (this.isDateTypeClicked) {
-                this.startLoading();
-                this.getContinuityData();
-            }
-            else {
-                this.isDateTypeClicked = true;
-            }
-        }
-        else {
-            this.isDateTypeSelected = false;
-        }
-    };
     // start loading
     ContinuityComponent.prototype.startLoading = function () {
         this.slimLoadingBarService.progress = 30;
@@ -79,8 +77,6 @@ var ContinuityComponent = (function () {
     // continuity date ranged
     ContinuityComponent.prototype.setContinuityDateRanged = function () {
         this.startLoading();
-        this.continuityStartDateValue = new Date();
-        this.continuityEndDateValue = new Date();
         this.continuityDateValue = new Date();
         this.continuityExpiryDateValue = new Date();
         this.getContinuityData();
@@ -91,45 +87,33 @@ var ContinuityComponent = (function () {
     // expired date on value changed
     ContinuityComponent.prototype.continuityExpiryDateOnValueChanged = function () {
     };
-    // event: continuity start date
-    ContinuityComponent.prototype.continuityStartDateOnValueChanged = function () {
-        if (!this.isContinuityStartDateSelected) {
-            if (this.isEndDateClicked) {
+    ContinuityComponent.prototype.filterMonthSelectedIndexChangedClick = function () {
+        if (this.monthStatusClicked) {
+            if (this.isMonthStatusSelected) {
                 this.startLoading();
                 this.getContinuityData();
             }
             else {
-                this.isEndDateClicked = true;
+                this.isMonthStatusSelected = true;
             }
         }
         else {
-            this.isContinuityStartDateSelected = false;
+            this.monthStatusClicked = true;
         }
     };
-    // event: continuity end date
-    ContinuityComponent.prototype.continuityEndDateOnValueChanged = function () {
-        if (!this.isContinuityEndDateSelected) {
-            if (this.isStartDateClicked) {
-                this.startLoading();
-                this.getContinuityData();
-            }
-            else {
-                this.isStartDateClicked = true;
-            }
+    ContinuityComponent.prototype.cboDateTypeSelectedIndexChangedClick = function () {
+        if (this.isDateTypeSelected) {
+            this.startLoading();
+            this.getContinuityData();
         }
         else {
-            this.isContinuityEndDateSelected = false;
+            this.isDateTypeSelected = true;
         }
     };
     ContinuityComponent.prototype.filterContinuityStatusSelectedIndexChangedClick = function () {
         if (this.continuityStatusClicked) {
-            if (this.isContinuityStatusSelected) {
-                this.startLoading();
-                this.getContinuityData();
-            }
-            else {
-                this.isContinuityStatusSelected = true;
-            }
+            this.startLoading();
+            this.getContinuityData();
         }
         else {
             this.continuityStatusClicked = true;
@@ -137,7 +121,7 @@ var ContinuityComponent = (function () {
     };
     // continuity data
     ContinuityComponent.prototype.getContinuityData = function () {
-        this.continuityCollectionView = new wijmo.collections.CollectionView(this.continuityService.getListContinuityData(this.dateTypeSelectedValue, this.continuityStartDateValue, this.continuityEndDateValue, this.filterContinuityStatusSelectedValue));
+        this.continuityCollectionView = new wijmo.collections.CollectionView(this.continuityService.getListContinuityData(this.filterMonthSelectedValue, this.dateTypeSelectedValue, this.filterContinuityStatusSelectedValue));
         this.continuityCollectionView.filter = this.filterFunction.bind(this);
         this.continuityCollectionView.pageSize = 15;
         this.continuityCollectionView.trackChanges = true;

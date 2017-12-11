@@ -11,10 +11,10 @@ import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
 
 export class ContinuityComponent implements OnInit {
   // global variables
-  public continuityStartDateValue: Date;
-  public isContinuityStartDateSelected = true;
-  public continuityEndDateValue: Date;
-  public isContinuityEndDateSelected = true;
+  // public continuityStartDateValue: Date;
+  // public isContinuityStartDateSelected = true;
+  // public continuityEndDateValue: Date;
+  // public isContinuityEndDateSelected = true;
   public continuityCollectionView: wijmo.collections.CollectionView;
   public continuityFilter = '';
   public continuityToFilter: any;
@@ -42,17 +42,33 @@ export class ContinuityComponent implements OnInit {
   public isLoading = true;
   public isAdd: Boolean;
   public fliterContinuityStatusArray = ['ALL', 'OPEN', 'EXPIRED'];
-  public filterContinuityStatusSelectedValue = "OPEN";
-  public isStartDateClicked = false;
-  public isEndDateClicked = false;
+  public filterContinuityStatusSelectedValue = "ALL";
   public continuityStatusClicked = false;
+  // public isStartDateClicked = false;
+  // public isEndDateClicked = false;
   public continuityRemarks: String;
-  public isContinuityStatusSelected = false;
   public dateTypeArray = ['Continuity Date', 'Expiry Date']
   public dateTypeSelectedValue = "Continuity Date";
   public isDateTypeSelected = false;
-  public isDateTypeClicked = false;
   public continuityAmount: String;
+  public fliterMonthArray = [
+    'JANUARY', 
+    'FEBRUARY', 
+    'MARCH', 
+    'APRIL', 
+    'MAY',
+    'JUNE', 
+    'JULY', 
+    'AUGUST', 
+    'SEPTEMBER', 
+    'OCTOBER', 
+    'NOVEMBER', 
+    'DECEMBER'
+  ];
+  public newDate = new Date();
+  public filterMonthSelectedValue = this.fliterMonthArray[this.newDate.getMonth()];
+  public monthStatusClicked = false;
+  public isMonthStatusSelected = false;
 
   // inject continuity service
   constructor(
@@ -63,20 +79,6 @@ export class ContinuityComponent implements OnInit {
     private slimLoadingBarService: SlimLoadingBarService
   ) {
     this.toastr.setRootViewContainerRef(vRef);
-  }
-
-  public cboDateTypeSelectedIndexChangedClick() {
-    if (!this.isDateTypeSelected) {
-      if (this.isDateTypeClicked) {
-        this.startLoading();
-        this.getContinuityData();
-      }
-      else {
-        this.isDateTypeClicked = true;
-      }
-    } else {
-      this.isDateTypeSelected = false;
-    }
   }
 
   // start loading
@@ -101,8 +103,6 @@ export class ContinuityComponent implements OnInit {
   // continuity date ranged
   public setContinuityDateRanged() {
     this.startLoading();
-    this.continuityStartDateValue = new Date();
-    this.continuityEndDateValue = new Date();
     this.continuityDateValue = new Date();
     this.continuityExpiryDateValue = new Date();
     this.getContinuityData();
@@ -118,45 +118,35 @@ export class ContinuityComponent implements OnInit {
 
   }
 
-  // event: continuity start date
-  public continuityStartDateOnValueChanged() {
-    if (!this.isContinuityStartDateSelected) {
-      if (this.isEndDateClicked) {
+  public filterMonthSelectedIndexChangedClick() {
+    if (this.monthStatusClicked) {
+      if (this.isMonthStatusSelected) {
         this.startLoading();
         this.getContinuityData();
       }
       else {
-        this.isEndDateClicked = true;
+        this.isMonthStatusSelected = true;
       }
-    } else {
-      this.isContinuityStartDateSelected = false;
+    }
+    else {
+      this.monthStatusClicked = true;
     }
   }
 
-  // event: continuity end date
-  public continuityEndDateOnValueChanged() {
-    if (!this.isContinuityEndDateSelected) {
-      if (this.isStartDateClicked) {
-        this.startLoading();
-        this.getContinuityData();
-      }
-      else {
-        this.isStartDateClicked = true;
-      }
-    } else {
-      this.isContinuityEndDateSelected = false;
+  public cboDateTypeSelectedIndexChangedClick() {
+    if (this.isDateTypeSelected) {
+      this.startLoading();
+      this.getContinuityData();
+    }
+    else {
+      this.isDateTypeSelected = true;
     }
   }
 
   public filterContinuityStatusSelectedIndexChangedClick() {
     if (this.continuityStatusClicked) {
-      if (this.isContinuityStatusSelected) {
-        this.startLoading();
-        this.getContinuityData();
-      }
-      else {
-        this.isContinuityStatusSelected = true;
-      }
+      this.startLoading();
+      this.getContinuityData();
     }
     else {
       this.continuityStatusClicked = true;
@@ -165,7 +155,7 @@ export class ContinuityComponent implements OnInit {
 
   // continuity data
   public getContinuityData() {
-    this.continuityCollectionView = new wijmo.collections.CollectionView(this.continuityService.getListContinuityData(this.dateTypeSelectedValue, this.continuityStartDateValue, this.continuityEndDateValue, this.filterContinuityStatusSelectedValue));
+    this.continuityCollectionView = new wijmo.collections.CollectionView(this.continuityService.getListContinuityData(this.filterMonthSelectedValue, this.dateTypeSelectedValue, this.filterContinuityStatusSelectedValue));
     this.continuityCollectionView.filter = this.filterFunction.bind(this);
     this.continuityCollectionView.pageSize = 15;
     this.continuityCollectionView.trackChanges = true;

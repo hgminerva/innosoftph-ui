@@ -91,14 +91,14 @@ var ContinuityService = (function () {
         return (n < 10) ? ("0" + n) : n;
     };
     // list continuity by date ranged (start date and end date)
-    ContinuityService.prototype.getListContinuityData = function (dateType, continuityStartDate, continuityEndDate, status) {
+    ContinuityService.prototype.getListContinuityData = function (month, dateType, status) {
         var _this = this;
-        var url = "http://api.innosoft.ph/api/continuity/list/byContinuityDateRange/" + dateType + "/" + continuityStartDate.toDateString() + "/" + continuityEndDate.toDateString() + "/" + status;
+        var url = "http://api.innosoft.ph/api/continuity/list/byContinuityDateRange/" + month + "/" + dateType + "/" + status;
         var continuityObservableArray = new wijmo.collections.ObservableArray();
         this.http.get(url, this.options).subscribe(function (response) {
+            var totalContinuityAmount = 0;
             var results = new wijmo.collections.ObservableArray(response.json());
             if (results.length > 0) {
-                var totalContinuityAmount = 0;
                 for (var i = 0; i <= results.length - 1; i++) {
                     var myDate = new Date(results[i].ContinuityDate);
                     var myDateValue = [myDate.getFullYear(), _this.pad(myDate.getMonth() + 1), _this.pad(myDate.getDate())].join('-');

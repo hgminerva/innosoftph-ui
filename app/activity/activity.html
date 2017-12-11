@@ -82,7 +82,7 @@
                 </table>
             </div>
             <div class="panel-body">
-                <wj-flex-grid #grid [itemsSource]="activityCollectionView" [selectionMode]="3" (initialized)="init(grid)">
+                <wj-flex-grid #grid [itemsSource]="activityCollectionView" [selectionMode]="3" (initialized)="init(grid)" [frozenColumns]="3">
                     <wj-flex-grid-column [isReadOnly]="true" [isContentHtml]="true" [width]="80">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
                             <button class="btn btn-primary btn-xs btn-block" (click)="btnActivityDetailModal(true)" data-toggle="modal" data-backdrop="static"

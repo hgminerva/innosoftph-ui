@@ -38,30 +38,33 @@
                     <tr>
                         <td style="width: 29%;">
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
-                                <wj-input-date [(value)]="continuityStartDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="continuityStartDateOnValueChanged()">
-                                </wj-input-date>
-                            </div>
-                        </td>
-                        <td style="width: 1%;"></td>
-                        <td style="width: 29%;">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
-                                <wj-input-date [(value)]="continuityEndDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="continuityEndDateOnValueChanged()">
-                                </wj-input-date>
-                            </div>
-                        </td>
-                        <td style="width: 1%;"></td>
-                        <td style="width: 29%;">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-question-circle-o fa-fw"></i> Status</span>
-                                <wj-combo-box [itemsSource]="fliterContinuityStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
-                                    [(selectedValue)]="filterContinuityStatusSelectedValue" (selectedIndexChanged)="filterContinuityStatusSelectedIndexChangedClick()"
+                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Month</span>
+                                <wj-combo-box [itemsSource]="fliterMonthArray" [placeholder]="'Select Month'" [isEditable]="false" [isRequired]="true"
+                                    [(selectedValue)]="filterMonthSelectedValue" (selectedIndexChanged)="filterMonthSelectedIndexChangedClick()"
                                     style="width: 100%;">
                                 </wj-combo-box>
                             </div>
                         </td>
                         <td style="width: 1%;"></td>
+                        <td style="width: 29%;">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Date Type</span>
+                                <wj-combo-box [itemsSource]="dateTypeArray" [placeholder]="'Select Date Type'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="dateTypeSelectedValue"
+                                    (selectedIndexChanged)="cboDateTypeSelectedIndexChangedClick()" style="width: 100%; ">
+                                </wj-combo-box>
+                            </div>
+                        </td>
+                        <td style="width: 1%;"></td>
+                        <td style="width: 29%;">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-question-circle-o fa-fw"></i> Status</span>
+                                    <wj-combo-box [itemsSource]="fliterContinuityStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
+                                        [(selectedValue)]="filterContinuityStatusSelectedValue" (selectedIndexChanged)="filterContinuityStatusSelectedIndexChangedClick()"
+                                        style="width: 100%;">
+                                    </wj-combo-box>
+                                </div>
+                            </td>
+                            <td style="width: 1%;"></td>
                         <td style="width: 10%;">
                             <button class="btn btn-default btn-block" id="btnRefresh" (click)="refreshGrid()"><i class="fa fa-refresh fa-fw"></i> Refresh</button>
                         </td>
@@ -71,20 +74,13 @@
             <div class="panel-heading">
                 <table border="0" style="width: 100%;">
                     <tr>
-                        <td style="width: 29%;">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Date Type</span>
-                                <wj-combo-box [itemsSource]="dateTypeArray" [placeholder]="'Select Date Type'" [isEditable]="false" [isRequired]="true" [(selectedValue)]="dateTypeSelectedValue"
-                                    (selectedIndexChanged)="cboDateTypeSelectedIndexChangedClick()" style="width: 100%; ">
-                                </wj-combo-box>
-                            </div>
-                        </td>
+                        
                         <td style="width: 71%;"></td>
                     </tr>
                 </table>
             </div>
             <div class="panel-body">
-                <wj-flex-grid [itemsSource]="continuityCollectionView" [selectionMode]="3">
+                <wj-flex-grid [itemsSource]="continuityCollectionView" [selectionMode]="3" [frozenColumns]="2">
                     <wj-flex-grid-column [header]="Edit" [isReadOnly]="true" [isContentHtml]="true" [width]="60">
                         <template wjFlexGridCellTemplate [cellType]="'Cell'" let-cell="cell">
                             <button class="btn btn-primary btn-xs btn-block" (click)="btnContinuityDetailClick(false)" data-toggle="modal" data-backdrop="static"
