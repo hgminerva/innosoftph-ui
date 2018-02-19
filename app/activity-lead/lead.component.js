@@ -13,14 +13,16 @@ var router_1 = require('@angular/router');
 var lead_service_1 = require('./lead.service');
 var ng2_toastr_1 = require('ng2-toastr/ng2-toastr');
 var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
+var angular2_json2csv_1 = require("angular2-json2csv");
 var LeadComponent = (function () {
     // inject lead service
-    function LeadComponent(leadService, router, toastr, vRef, slimLoadingBarService) {
+    function LeadComponent(leadService, router, toastr, vRef, slimLoadingBarService, csvService) {
         this.leadService = leadService;
         this.router = router;
         this.toastr = toastr;
         this.vRef = vRef;
         this.slimLoadingBarService = slimLoadingBarService;
+        this.csvService = csvService;
         this.isLeadStartDateSelected = true;
         this.isLeadEndDateSelected = true;
         this.isLeadDateSelected = true;
@@ -278,6 +280,34 @@ var LeadComponent = (function () {
         document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
         this.getLeadData();
     };
+    LeadComponent.prototype.btnExportCSV = function () {
+        var leadItems = new wijmo.collections.ObservableArray();
+        this.leadCollectionView.moveToFirstPage();
+        for (var p = 1; p <= this.leadCollectionView.pageCount; p++) {
+            for (var i = 0; i < this.leadCollectionView.items.length; i++) {
+                leadItems.push({
+                    LeadDate: this.leadCollectionView.items[i].LeadDate,
+                    LeadNumber: "LD-" + this.leadCollectionView.items[i].LeadNumber,
+                    Lead: this.leadCollectionView.items[i].LeadName,
+                    Address: this.leadCollectionView.items[i].Address,
+                    ContactPerson: this.leadCollectionView.items[i].ContactPerson,
+                    ContactPosition: this.leadCollectionView.items[i].ContactPosition,
+                    ContactEmail: this.leadCollectionView.items[i].ContactEmail,
+                    ContactPhoneNo: this.leadCollectionView.items[i].ContactPhoneNo,
+                    ReferredBy: this.leadCollectionView.items[i].ReferredBy,
+                    Remarks: this.leadCollectionView.items[i].Remarks,
+                    EncodedByUser: this.leadCollectionView.items[i].EncodedByUser,
+                    AssignedToUser: this.leadCollectionView.items[i].AssignedToUser,
+                    LeadStatus: this.leadCollectionView.items[i].LeadStatus,
+                });
+                this.leadCollectionView.moveToNextPage();
+                if (p == this.leadCollectionView.pageCount) {
+                    this.leadCollectionView.moveToFirstPage();
+                }
+            }
+        }
+        this.csvService.download(leadItems, 'Leads');
+    };
     // show menu
     LeadComponent.prototype.showMenu = function () {
         document.getElementById("showTop").click();
@@ -291,7 +321,7 @@ var LeadComponent = (function () {
             selector: 'my-lead',
             templateUrl: 'app/activity-lead/lead.html'
         }), 
-        __metadata('design:paramtypes', [lead_service_1.LeadService, router_1.Router, ng2_toastr_1.ToastsManager, core_1.ViewContainerRef, ng2_slim_loading_bar_1.SlimLoadingBarService])
+        __metadata('design:paramtypes', [lead_service_1.LeadService, router_1.Router, ng2_toastr_1.ToastsManager, core_1.ViewContainerRef, ng2_slim_loading_bar_1.SlimLoadingBarService, angular2_json2csv_1.CsvService])
     ], LeadComponent);
     return LeadComponent;
 }());

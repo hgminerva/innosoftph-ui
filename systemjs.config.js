@@ -27,6 +27,7 @@
       'rxjs': 'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api/bundles/in-memory-web-api.umd.js',
       'ng2-slim-loading-bar': 'node_modules/ng2-slim-loading-bar/bundles/index.umd.js',
+      'angular2-json2csv': 'node_modules/angular2-json2csv/src/csv.service.js',
       'file-saver': 'npm:file-saver/FileSaver.js'
       // 'file-saver': 'npm:file-saver'
     },

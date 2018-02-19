@@ -9,6 +9,7 @@ import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { SlimLoadingBarModule } from 'ng2-slim-loading-bar';
 import { CustomReuseStrategy } from './reuse-strategy';
+import { CsvService } from "angular2-json2csv";
 import * as wjFlexGrid from 'wijmo/wijmo.angular2.grid';
 import * as wjInput from 'wijmo/wijmo.angular2.input';
 
@@ -149,7 +150,8 @@ const appRoutes: Routes = [
     RequestService,
     ReportService,
     DashboardService,
-    { provide: RouteReuseStrategy, useClass: CustomReuseStrategy }
+    { provide: RouteReuseStrategy, useClass: CustomReuseStrategy },
+    CsvService
   ],
   bootstrap: [
     AppComponent

@@ -4,6 +4,8 @@ import { LeadService } from './lead.service';
 import { Lead } from './lead';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
+import { CsvService } from "angular2-json2csv";
+import { ObservableArray } from '../../wijmo/NpmImages/wijmo-amd-min/wijmo';
 
 @Component({
   selector: 'my-lead',
@@ -53,7 +55,8 @@ export class LeadComponent implements OnInit {
     private router: Router,
     private toastr: ToastsManager,
     private vRef: ViewContainerRef,
-    private slimLoadingBarService: SlimLoadingBarService
+    private slimLoadingBarService: SlimLoadingBarService,
+    private csvService: CsvService
   ) {
     this.toastr.setRootViewContainerRef(vRef);
   }
@@ -322,6 +325,39 @@ export class LeadComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = true;
     (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
     this.getLeadData();
+  }
+
+  public btnExportCSV() {
+    let leadItems = new wijmo.collections.ObservableArray();
+    
+    this.leadCollectionView.moveToFirstPage();
+
+    for (var p = 1; p <= this.leadCollectionView.pageCount; p++) {
+      for (var i = 0; i < this.leadCollectionView.items.length; i++) {
+        leadItems.push({
+          LeadDate: this.leadCollectionView.items[i].LeadDate,
+          LeadNumber: "LD-" + this.leadCollectionView.items[i].LeadNumber,
+          Lead: this.leadCollectionView.items[i].LeadName,
+          Address: this.leadCollectionView.items[i].Address,
+          ContactPerson: this.leadCollectionView.items[i].ContactPerson,
+          ContactPosition: this.leadCollectionView.items[i].ContactPosition,
+          ContactEmail: this.leadCollectionView.items[i].ContactEmail,
+          ContactPhoneNo: this.leadCollectionView.items[i].ContactPhoneNo,
+          ReferredBy: this.leadCollectionView.items[i].ReferredBy,
+          Remarks: this.leadCollectionView.items[i].Remarks,
+          EncodedByUser: this.leadCollectionView.items[i].EncodedByUser,
+          AssignedToUser: this.leadCollectionView.items[i].AssignedToUser,
+          LeadStatus: this.leadCollectionView.items[i].LeadStatus,
+        });
+
+        this.leadCollectionView.moveToNextPage();
+        if (p == this.leadCollectionView.pageCount) {
+          this.leadCollectionView.moveToFirstPage();
+        }
+      }
+    }
+
+    this.csvService.download(leadItems, 'Leads');
   }
 
   // show menu

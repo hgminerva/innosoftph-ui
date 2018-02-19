@@ -51,7 +51,7 @@
                             </div>
                         </td>
                         <td style="width: 1%;"></td>
-                        <td style="width: 29%;">
+                        <td style="width: 18%;">
                             <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-question-circle-o fa-fw"></i> Status</span>
                                 <wj-combo-box [itemsSource]="fliterLeadStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
@@ -59,6 +59,10 @@
                                     style="width: 100%; ">
                                 </wj-combo-box>
                             </div>
+                        </td>
+                        <td style="width: 1%;"></td>
+                        <td style="width: 10%;">
+                            <button class="btn btn-success btn-block" id="btnCSV" (click)="btnExportCSV()"><i class="fa fa-file-excel-o fa-fw"></i> Export CSV</button>
                         </td>
                         <td style="width: 1%;"></td>
                         <td style="width: 10%;">

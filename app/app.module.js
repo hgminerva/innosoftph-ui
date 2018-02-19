@@ -19,6 +19,7 @@ var ng2_toastr_2 = require('ng2-toastr/ng2-toastr');
 var platform_browser_dynamic_1 = require('@angular/platform-browser-dynamic');
 var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
 var reuse_strategy_1 = require('./reuse-strategy');
+var angular2_json2csv_1 = require("angular2-json2csv");
 var wjFlexGrid = require('wijmo/wijmo.angular2.grid');
 var wjInput = require('wijmo/wijmo.angular2.input');
 // components
@@ -159,7 +160,8 @@ var AppModule = (function () {
                 request_service_1.RequestService,
                 report_service_1.ReportService,
                 dashboard_service_1.DashboardService,
-                { provide: router_1.RouteReuseStrategy, useClass: reuse_strategy_1.CustomReuseStrategy }
+                { provide: router_1.RouteReuseStrategy, useClass: reuse_strategy_1.CustomReuseStrategy },
+                angular2_json2csv_1.CsvService
             ],
             bootstrap: [
                 app_component_1.AppComponent
