@@ -301,10 +301,10 @@ var LeadComponent = (function () {
                     AssignedToUser: this.leadCollectionView.items[i].AssignedToUser,
                     LeadStatus: this.leadCollectionView.items[i].LeadStatus,
                 });
-                this.leadCollectionView.moveToNextPage();
-                if (p == this.leadCollectionView.pageCount) {
-                    this.leadCollectionView.moveToFirstPage();
-                }
+            }
+            this.leadCollectionView.moveToNextPage();
+            if (p == this.leadCollectionView.pageCount) {
+                this.leadCollectionView.moveToFirstPage();
             }
         }
         this.csvService.download(leadItems, 'Leads');

@@ -344,13 +344,11 @@ export class ReportComponent implements OnInit {
 
     // csv
     public btnReportExportCSV() {
-        let leadDetail = new wijmo.collections.ObservableArray();
+        let leadDetail = [];
         this.reportCollectionView.moveToFirstPage();
 
-        console.log(this.reportCollectionView.pageCount);
-
-        for (var p = 1; p <= this.reportCollectionView.pageCount; p++) {
-            for (var i = 0; i < this.reportCollectionView.items.length; i++) {
+        for (let p = 1; p <= this.reportCollectionView.pageCount; p++) {
+            for (let i = 0; i < this.reportCollectionView.items.length; i++) {
                 leadDetail.push({
                     Document: this.reportCollectionView.items[i].Document,
                     ActivityNumber: "AC-" + this.reportCollectionView.items[i].ActivityNumber,
@@ -366,13 +364,15 @@ export class ReportComponent implements OnInit {
                     AssignedTo: this.reportCollectionView.items[i].StaffUser,
                     Status: this.reportCollectionView.items[i].HeaderStatus
                 });
-                this.reportCollectionView.moveToNextPage();
-                if (p == this.reportCollectionView.pageCount) {
-                    this.reportCollectionView.moveToFirstPage();
-                }
+            }
+            
+            this.reportCollectionView.moveToNextPage();
+            if (p == this.reportCollectionView.pageCount) {
+                this.reportCollectionView.moveToFirstPage();
             }
         }
-        this.csvService.download(leadDetail, 'Leads');
+        
+        this.csvService.download(leadDetail, 'Activity Report');
     }
 
     // initialization

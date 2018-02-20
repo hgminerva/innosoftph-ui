@@ -327,9 +327,8 @@ var ReportComponent = (function () {
     };
     // csv
     ReportComponent.prototype.btnReportExportCSV = function () {
-        var leadDetail = new wijmo.collections.ObservableArray();
+        var leadDetail = [];
         this.reportCollectionView.moveToFirstPage();
-        console.log(this.reportCollectionView.pageCount);
         for (var p = 1; p <= this.reportCollectionView.pageCount; p++) {
             for (var i = 0; i < this.reportCollectionView.items.length; i++) {
                 leadDetail.push({
@@ -347,13 +346,13 @@ var ReportComponent = (function () {
                     AssignedTo: this.reportCollectionView.items[i].StaffUser,
                     Status: this.reportCollectionView.items[i].HeaderStatus
                 });
-                this.reportCollectionView.moveToNextPage();
-                if (p == this.reportCollectionView.pageCount) {
-                    this.reportCollectionView.moveToFirstPage();
-                }
+            }
+            this.reportCollectionView.moveToNextPage();
+            if (p == this.reportCollectionView.pageCount) {
+                this.reportCollectionView.moveToFirstPage();
             }
         }
-        this.csvService.download(leadDetail, 'Leads');
+        this.csvService.download(leadDetail, 'Activity Report');
     };
     // initialization
     ReportComponent.prototype.ngOnInit = function () {
