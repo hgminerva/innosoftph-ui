@@ -280,6 +280,7 @@ var LeadComponent = (function () {
         document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
         this.getLeadData();
     };
+    // Export Leads
     LeadComponent.prototype.btnExportCSV = function () {
         var leadItems = new wijmo.collections.ObservableArray();
         this.leadCollectionView.moveToFirstPage();

@@ -327,6 +327,7 @@ export class LeadComponent implements OnInit {
     this.getLeadData();
   }
 
+  // Export Leads
   public btnExportCSV() {
     let leadItems = new wijmo.collections.ObservableArray();
     
