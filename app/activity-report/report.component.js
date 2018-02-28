@@ -13,14 +13,16 @@ var router_1 = require('@angular/router');
 var report_service_1 = require('./report.service');
 var ng2_toastr_1 = require('ng2-toastr/ng2-toastr');
 var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
+var angular2_json2csv_1 = require("angular2-json2csv");
 var ReportComponent = (function () {
     // inject service
-    function ReportComponent(reportService, router, toastr, vRef, slimLoadingBarService) {
+    function ReportComponent(reportService, router, toastr, vRef, slimLoadingBarService, csvService) {
         this.reportService = reportService;
         this.router = router;
         this.toastr = toastr;
         this.vRef = vRef;
         this.slimLoadingBarService = slimLoadingBarService;
+        this.csvService = csvService;
         this.isReportStartDateSelected = true;
         this.isReportStartDateClicked = false;
         this.isReportEndDateSelected = true;
@@ -323,6 +325,35 @@ var ReportComponent = (function () {
         document.getElementById("btnRefreshReportSummary").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
         this.getActivitySummaryReportData();
     };
+    // csv
+    ReportComponent.prototype.btnReportExportCSV = function () {
+        var leadDetail = [];
+        this.reportCollectionView.moveToFirstPage();
+        for (var p = 1; p <= this.reportCollectionView.pageCount; p++) {
+            for (var i = 0; i < this.reportCollectionView.items.length; i++) {
+                leadDetail.push({
+                    Document: this.reportCollectionView.items[i].Document,
+                    ActivityNumber: "AC-" + this.reportCollectionView.items[i].ActivityNumber,
+                    ActivityDate: this.reportCollectionView.items[i].ActivityDate,
+                    Customer: this.reportCollectionView.items[i].Customer,
+                    ParticularCategory: this.reportCollectionView.items[i].ParticularCategory,
+                    NoOfDays: this.reportCollectionView.items[i].NoOfDays,
+                    Particulars: this.reportCollectionView.items[i].Particulars,
+                    NumberOfHours: this.reportCollectionView.items[i].NumberOfHours,
+                    Amount: this.reportCollectionView.items[i].ActivityAmount,
+                    Product: this.reportCollectionView.items[i].Product,
+                    Remarks: this.reportCollectionView.items[i].HeaderRemarks,
+                    AssignedTo: this.reportCollectionView.items[i].StaffUser,
+                    Status: this.reportCollectionView.items[i].HeaderStatus
+                });
+            }
+            this.reportCollectionView.moveToNextPage();
+            if (p == this.reportCollectionView.pageCount) {
+                this.reportCollectionView.moveToFirstPage();
+            }
+        }
+        this.csvService.download(leadDetail, 'Activity Report');
+    };
     // initialization
     ReportComponent.prototype.ngOnInit = function () {
         if (!localStorage.getItem('access_token')) {
@@ -335,7 +366,7 @@ var ReportComponent = (function () {
             selector: 'my-report',
             templateUrl: 'app/activity-report/report.html'
         }), 
-        __metadata('design:paramtypes', [report_service_1.ReportService, router_1.Router, ng2_toastr_1.ToastsManager, core_1.ViewContainerRef, ng2_slim_loading_bar_1.SlimLoadingBarService])
+        __metadata('design:paramtypes', [report_service_1.ReportService, router_1.Router, ng2_toastr_1.ToastsManager, core_1.ViewContainerRef, ng2_slim_loading_bar_1.SlimLoadingBarService, angular2_json2csv_1.CsvService])
     ], ReportComponent);
     return ReportComponent;
 }());

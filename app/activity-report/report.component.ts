@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ReportService } from './report.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
+import { CsvService } from "angular2-json2csv";
+import { ObservableArray } from '../../wijmo/NpmImages/wijmo-amd-min/wijmo';
 
 @Component({
     selector: 'my-report',
@@ -54,7 +56,8 @@ export class ReportComponent implements OnInit {
         private router: Router,
         private toastr: ToastsManager,
         private vRef: ViewContainerRef,
-        private slimLoadingBarService: SlimLoadingBarService
+        private slimLoadingBarService: SlimLoadingBarService,
+        private csvService: CsvService
     ) {
         this.toastr.setRootViewContainerRef(vRef);
     }
@@ -337,6 +340,39 @@ export class ReportComponent implements OnInit {
         (<HTMLButtonElement>document.getElementById("btnRefreshReportSummary")).disabled = true;
         (<HTMLButtonElement>document.getElementById("btnRefreshReportSummary")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
         this.getActivitySummaryReportData();
+    }
+
+    // csv
+    public btnReportExportCSV() {
+        let leadDetail = [];
+        this.reportCollectionView.moveToFirstPage();
+
+        for (let p = 1; p <= this.reportCollectionView.pageCount; p++) {
+            for (let i = 0; i < this.reportCollectionView.items.length; i++) {
+                leadDetail.push({
+                    Document: this.reportCollectionView.items[i].Document,
+                    ActivityNumber: "AC-" + this.reportCollectionView.items[i].ActivityNumber,
+                    ActivityDate: this.reportCollectionView.items[i].ActivityDate,
+                    Customer: this.reportCollectionView.items[i].Customer,
+                    ParticularCategory: this.reportCollectionView.items[i].ParticularCategory,
+                    NoOfDays: this.reportCollectionView.items[i].NoOfDays,
+                    Particulars: this.reportCollectionView.items[i].Particulars,
+                    NumberOfHours: this.reportCollectionView.items[i].NumberOfHours,
+                    Amount: this.reportCollectionView.items[i].ActivityAmount,
+                    Product: this.reportCollectionView.items[i].Product,
+                    Remarks: this.reportCollectionView.items[i].HeaderRemarks,
+                    AssignedTo: this.reportCollectionView.items[i].StaffUser,
+                    Status: this.reportCollectionView.items[i].HeaderStatus
+                });
+            }
+            
+            this.reportCollectionView.moveToNextPage();
+            if (p == this.reportCollectionView.pageCount) {
+                this.reportCollectionView.moveToFirstPage();
+            }
+        }
+        
+        this.csvService.download(leadDetail, 'Activity Report');
     }
 
     // initialization

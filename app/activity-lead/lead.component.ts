@@ -327,9 +327,10 @@ export class LeadComponent implements OnInit {
     this.getLeadData();
   }
 
+  // Export Leads
   public btnExportCSV() {
     let leadItems = new wijmo.collections.ObservableArray();
-    
+
     this.leadCollectionView.moveToFirstPage();
 
     for (var p = 1; p <= this.leadCollectionView.pageCount; p++) {
@@ -349,11 +350,11 @@ export class LeadComponent implements OnInit {
           AssignedToUser: this.leadCollectionView.items[i].AssignedToUser,
           LeadStatus: this.leadCollectionView.items[i].LeadStatus,
         });
+      }
 
-        this.leadCollectionView.moveToNextPage();
-        if (p == this.leadCollectionView.pageCount) {
-          this.leadCollectionView.moveToFirstPage();
-        }
+      this.leadCollectionView.moveToNextPage();
+      if (p == this.leadCollectionView.pageCount) {
+        this.leadCollectionView.moveToFirstPage();
       }
     }
 
