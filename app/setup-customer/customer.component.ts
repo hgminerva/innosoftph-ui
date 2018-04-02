@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CustomerService } from './customer.service';
 import { ToastsManager } from 'ng2-toastr/ng2-toastr';
 import { SlimLoadingBarService } from 'ng2-slim-loading-bar';
+import { CsvService } from "angular2-json2csv";
 
 @Component({
   selector: 'my-customer',
@@ -21,7 +22,8 @@ export class CustomerComponent implements OnInit {
     private router: Router,
     private toastr: ToastsManager,
     private vRef: ViewContainerRef,
-    private slimLoadingBarService: SlimLoadingBarService
+    private slimLoadingBarService: SlimLoadingBarService,
+    private csvService: CsvService
   ) {
     this.toastr.setRootViewContainerRef(vRef);
   }
@@ -102,6 +104,33 @@ export class CustomerComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnRefresh")).disabled = true;
     (<HTMLButtonElement>document.getElementById("btnRefresh")).innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
     this.getCustomerData();
+  }
+
+  // Export CSV
+  public btnExportCSV() {
+    let customers = new wijmo.collections.ObservableArray();
+
+    this.customerCollectionView.moveToFirstPage();
+
+    for (var p = 1; p <= this.customerCollectionView.pageCount; p++) {
+      for (var i = 0; i < this.customerCollectionView.items.length; i++) {
+        customers.push({
+          Customer: this.customerCollectionView.items[i].Article,
+          ContactNumber: this.customerCollectionView.items[i].ContactNumber,
+          ContactPerson: this.customerCollectionView.items[i].ContactPerson,
+          EmailAddress: this.customerCollectionView.items[i].EmailAddress,
+          Address: this.customerCollectionView.items[i].Address,
+          Particulars: this.customerCollectionView.items[i].Particulars
+        });
+      }
+
+      this.customerCollectionView.moveToNextPage();
+      if (p == this.customerCollectionView.pageCount) {
+        this.customerCollectionView.moveToFirstPage();
+      }
+    }
+
+    this.csvService.download(customers, 'customers');
   }
 
   // initialization

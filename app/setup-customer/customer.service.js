@@ -39,6 +39,10 @@ var CustomerService = (function () {
                         ArticleCode: results[i].ArticleCode,
                         Article: results[i].Article,
                         ContactNumber: results[i].ContactNumber,
+                        ContactPerson: results[i].ContactPerson,
+                        EmailAddress: results[i].EmailAddress,
+                        Address: results[i].Address,
+                        Particulars: results[i].Particulars,
                         ArticleGroup: results[i].ArticleGroup
                     });
                 }

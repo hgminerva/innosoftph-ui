@@ -13,14 +13,16 @@ var router_1 = require('@angular/router');
 var customer_service_1 = require('./customer.service');
 var ng2_toastr_1 = require('ng2-toastr/ng2-toastr');
 var ng2_slim_loading_bar_1 = require('ng2-slim-loading-bar');
+var angular2_json2csv_1 = require("angular2-json2csv");
 var CustomerComponent = (function () {
     // constructor
-    function CustomerComponent(customerService, router, toastr, vRef, slimLoadingBarService) {
+    function CustomerComponent(customerService, router, toastr, vRef, slimLoadingBarService, csvService) {
         this.customerService = customerService;
         this.router = router;
         this.toastr = toastr;
         this.vRef = vRef;
         this.slimLoadingBarService = slimLoadingBarService;
+        this.csvService = csvService;
         this.customerFilter = '';
         this.toastr.setRootViewContainerRef(vRef);
     }
@@ -92,6 +94,28 @@ var CustomerComponent = (function () {
         document.getElementById("btnRefresh").innerHTML = "<i class='fa fa-spinner fa-spin fa-fw'></i> Refreshing";
         this.getCustomerData();
     };
+    // Export CSV
+    CustomerComponent.prototype.btnExportCSV = function () {
+        var customers = new wijmo.collections.ObservableArray();
+        this.customerCollectionView.moveToFirstPage();
+        for (var p = 1; p <= this.customerCollectionView.pageCount; p++) {
+            for (var i = 0; i < this.customerCollectionView.items.length; i++) {
+                customers.push({
+                    Customer: this.customerCollectionView.items[i].Article,
+                    ContactNumber: this.customerCollectionView.items[i].ContactNumber,
+                    ContactPerson: this.customerCollectionView.items[i].ContactPerson,
+                    EmailAddress: this.customerCollectionView.items[i].EmailAddress,
+                    Address: this.customerCollectionView.items[i].Address,
+                    Particulars: this.customerCollectionView.items[i].Particulars
+                });
+            }
+            this.customerCollectionView.moveToNextPage();
+            if (p == this.customerCollectionView.pageCount) {
+                this.customerCollectionView.moveToFirstPage();
+            }
+        }
+        this.csvService.download(customers, 'customers');
+    };
     // initialization
     CustomerComponent.prototype.ngOnInit = function () {
         this.startLoading();
@@ -102,7 +126,7 @@ var CustomerComponent = (function () {
             selector: 'my-customer',
             templateUrl: 'app/setup-customer/customer.html'
         }), 
-        __metadata('design:paramtypes', [customer_service_1.CustomerService, router_1.Router, ng2_toastr_1.ToastsManager, core_1.ViewContainerRef, ng2_slim_loading_bar_1.SlimLoadingBarService])
+        __metadata('design:paramtypes', [customer_service_1.CustomerService, router_1.Router, ng2_toastr_1.ToastsManager, core_1.ViewContainerRef, ng2_slim_loading_bar_1.SlimLoadingBarService, angular2_json2csv_1.CsvService])
     ], CustomerComponent);
     return CustomerComponent;
 }());
