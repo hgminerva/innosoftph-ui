@@ -124,11 +124,18 @@ export class DeliveryDetailComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnCloseDeliveryDetail")).disabled = true;
 
     var checkListArray = [
-      "Hardware and Infrastructure (c/o customer)",
-      "List of Items in XLS",
-      "List of Customer in XLS",
-      "List of Supplier in XLS",
-      "List of Users that needed to be trained"
+      "Hardware and infrastructure (c/o customer)",
+      "List of items in XLS",
+      "List of customer in XLS",
+      "List of supplier in XLS",
+      "List of users that needed to be trained",
+      "Implementor checklist",
+      "Manual receipt / Invoices used",
+      "PTU",
+      "Invoicing / Receipting requirements",
+      "Sales book / Reports / Back-end reports",
+      "Technical requirements",
+      "Other observations and/or findings"
     ];
 
     for (var i = 0; i < checkListArray.length; i++) {
