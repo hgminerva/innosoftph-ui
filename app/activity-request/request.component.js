@@ -41,6 +41,8 @@ var RequestComponent = (function () {
         this.requestStatusClicked = true;
         this.requestStatusArray = ["OPEN", "CLOSE", "CANCELLED", "DUPLICATE"];
         this.requestStatusSelectedValue = "OPEN";
+        this.isBtnSaveRequestShown = false;
+        this.isInpDisbledFields = false;
         this.toastr.setRootViewContainerRef(vRef);
     }
     RequestComponent.prototype.backClicked = function () {
@@ -152,15 +154,27 @@ var RequestComponent = (function () {
         var _this = this;
         this.isFinishLoading = false;
         this.isLoading = true;
-        document.getElementById("btnSaveRequest").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-        document.getElementById("btnSaveRequest").disabled = true;
-        document.getElementById("btnCloseRequest").disabled = true;
+        if (add) {
+            this.isBtnSaveRequestShown = true;
+            setTimeout(function () {
+                document.getElementById("btnSaveRequest").innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+                document.getElementById("btnSaveRequest").disabled = true;
+                document.getElementById("btnCloseRequest").disabled = true;
+            }, 50);
+        }
         setTimeout(function () {
             _this.isFinishLoading = true;
             _this.isLoading = false;
-            document.getElementById("btnSaveRequest").disabled = false;
-            document.getElementById("btnCloseRequest").disabled = false;
             if (add) {
+                _this.isBtnSaveRequestShown = true;
+                setTimeout(function () {
+                    document.getElementById("btnSaveRequest").disabled = false;
+                    document.getElementById("btnCloseRequest").disabled = false;
+                }, 50);
+            }
+            if (add) {
+                _this.isBtnSaveRequestShown = true;
+                _this.isInpDisbledFields = false;
                 _this.requestDetailModalString = "Add";
                 _this.isAdd = false;
                 _this.requestId = 0;
@@ -179,6 +193,8 @@ var RequestComponent = (function () {
                 _this.requestApprovedRemarks = " ";
             }
             else {
+                _this.isBtnSaveRequestShown = false;
+                _this.isInpDisbledFields = true;
                 _this.requestDetailModalString = "Edit";
                 _this.isAdd = true;
                 var currentSelectedRequest = _this.requestCollectionView.currentItem;
@@ -214,7 +230,7 @@ var RequestComponent = (function () {
                     _this.requestApprovedRemarks = " ";
                 }
             }
-        }, 1000);
+        }, 100);
     };
     // request data
     RequestComponent.prototype.getRequestObjectData = function () {
