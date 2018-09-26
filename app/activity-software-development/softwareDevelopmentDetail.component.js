@@ -53,6 +53,15 @@ var SoftwareDevelopmentDetailComponent = (function () {
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
         ];
         this.activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED', 'FOR CLOSING'];
+        this.softwareDevelopmentTypeArray = [
+            'Request for Quotation',
+            'Modification of Existing Program',
+            'Software Development',
+            'Data Tracing',
+            'Integration',
+            'Implementation'];
+        this.softwareDevelopmentTypeSelectedValue = "Software Development";
+        this.softwareDevelopmentAmount = "0";
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -102,6 +111,8 @@ var SoftwareDevelopmentDetailComponent = (function () {
         this.softwareDevelopmentStatusSelectedValue = document.getElementById("softwareDevelopmentStatusSelectedValue").value.toString();
         this.softwareDevelopmentNoOfHoursSelectedValue = document.getElementById("softwareDevelopmentNoOfHoursSelectedValue").value.toString();
         ;
+        this.softwareDevelopmentAmount = document.getElementById("softwareDevelopmentAmount").value.toString();
+        this.softwareDevelopmentTypeSelectedValue = document.getElementById("softwareDevelopmentTypeSelectedValue").value.toString();
     };
     // software dev data
     SoftwareDevelopmentDetailComponent.prototype.getSoftwareDevelopmentServiceData = function () {
@@ -119,6 +130,8 @@ var SoftwareDevelopmentDetailComponent = (function () {
             Task: document.getElementById("softwareDevelopmentTask").value,
             Remarks: document.getElementById("softwareDevelopmentRemarks").value,
             NumberOfHours: this.softwareDevelopmentNoOfHoursSelectedValue,
+            SoftDevType: this.softwareDevelopmentTypeSelectedValue,
+            Amount: this.softwareDevelopmentAmount,
             AssignedToUserId: softwareDevelopmentAssignedToUserIdValue,
             SoftDevStatus: this.softwareDevelopmentStatusSelectedValue
         };
@@ -242,6 +255,24 @@ var SoftwareDevelopmentDetailComponent = (function () {
     // show menu
     SoftwareDevelopmentDetailComponent.prototype.showMenu = function () {
         document.getElementById("showTop").click();
+    };
+    // on key press decimal key
+    SoftwareDevelopmentDetailComponent.prototype.onKeyPressOnlyDecimalNumberKeySoftDev = function (event) {
+        var charCode = (event.which) ? event.which : event.keyCode;
+        if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    };
+    // on blur 
+    SoftwareDevelopmentDetailComponent.prototype.onBlurOnlyDecimalNumberKeySoftDev = function () {
+        var _this = this;
+        // (<HTMLInputElement>document.getElementById("softwareDevelopmentAmount")).value = "";
+        setTimeout(function () {
+            document.getElementById("softwareDevelopmentAmount").value = _this.softwareDevelopmentAmount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        }, 100);
     };
     // initialization
     SoftwareDevelopmentDetailComponent.prototype.ngOnInit = function () {

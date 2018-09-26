@@ -59,6 +59,15 @@ export class SoftwareDevelopmentDetailComponent implements OnInit {
   public activityStatus = ['OPEN', 'CLOSE', 'DONE', 'CANCELLED', 'FOR CLOSING'];
   public activityStatusSelectedValue: String;
   public activityAmount: String;
+  public softwareDevelopmentTypeArray = [
+    'Request for Quotation',
+    'Modification of Existing Program',
+    'Software Development',
+    'Data Tracing',
+    'Integration',
+    'Implementation'];
+  public softwareDevelopmentTypeSelectedValue = "Software Development";
+  public softwareDevelopmentAmount: String = "0";
 
   // inject softwareDevelopment detail service
   constructor(
@@ -127,7 +136,9 @@ export class SoftwareDevelopmentDetailComponent implements OnInit {
     this.softwareDevelopmentAssignedUserSelectedValue = parseInt((<HTMLInputElement>document.getElementById("softwareDevelopmentAssignedUserSelectedValue")).value.toString());
     this.softwareDevelopmentStatusSelectedValue = (<HTMLInputElement>document.getElementById("softwareDevelopmentStatusSelectedValue")).value.toString();
     this.softwareDevelopmentNoOfHoursSelectedValue = (<HTMLInputElement>document.getElementById("softwareDevelopmentNoOfHoursSelectedValue")).value.toString();;
-}
+    this.softwareDevelopmentAmount = (<HTMLInputElement>document.getElementById("softwareDevelopmentAmount")).value.toString();
+    this.softwareDevelopmentTypeSelectedValue = (<HTMLInputElement>document.getElementById("softwareDevelopmentTypeSelectedValue")).value.toString();
+  }
 
   // software dev data
   public getSoftwareDevelopmentServiceData() {
@@ -147,6 +158,8 @@ export class SoftwareDevelopmentDetailComponent implements OnInit {
       Task: (<HTMLButtonElement>document.getElementById("softwareDevelopmentTask")).value,
       Remarks: (<HTMLButtonElement>document.getElementById("softwareDevelopmentRemarks")).value,
       NumberOfHours: this.softwareDevelopmentNoOfHoursSelectedValue,
+      SoftDevType: this.softwareDevelopmentTypeSelectedValue,
+      Amount: this.softwareDevelopmentAmount,
       AssignedToUserId: softwareDevelopmentAssignedToUserIdValue,
       SoftDevStatus: this.softwareDevelopmentStatusSelectedValue
     }
@@ -279,9 +292,27 @@ export class SoftwareDevelopmentDetailComponent implements OnInit {
 
   // show menu
   public showMenu() {
-      document.getElementById("showTop").click();
+    document.getElementById("showTop").click();
   }
-  
+
+  // on key press decimal key
+  public onKeyPressOnlyDecimalNumberKeySoftDev(event: any) {
+    let charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  // on blur 
+  public onBlurOnlyDecimalNumberKeySoftDev() {
+    // (<HTMLInputElement>document.getElementById("softwareDevelopmentAmount")).value = "";
+    setTimeout(() => {
+      (<HTMLInputElement>document.getElementById("softwareDevelopmentAmount")).value = this.softwareDevelopmentAmount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    }, 100);
+  }
+
   // initialization
   public ngOnInit(): any {
     if (!localStorage.getItem('access_token')) {

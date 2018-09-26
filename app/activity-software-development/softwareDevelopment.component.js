@@ -28,6 +28,14 @@ var SoftwareDevelopmentComponent = (function () {
         this.softwareDevelopmentFilter = '';
         this.softwareDevelopmentStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING', 'DUPLICATE'];
         this.softwareDevelopmentStatusSelectedValue = "OPEN";
+        this.softwareDevelopmentTypeArray = [
+            'Request for Quotation',
+            'Modification of Existing Program',
+            'Software Development',
+            'Data Tracing',
+            'Integration',
+            'Implementation'];
+        this.softwareDevelopmentTypeSelectedValue = "Software Development";
         this.softwareDevelopmentNoOfHoursArray = [
             '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
         ];
@@ -38,6 +46,7 @@ var SoftwareDevelopmentComponent = (function () {
         this.isEndDateClicked = false;
         this.softwareDevelopmentStatusClicked = false;
         this.isSoftwareDevelopmentStatusSelected = false;
+        this.softwareDevelopmentAmount = "0";
         this.toastr.setRootViewContainerRef(vRef);
     }
     // start loading
@@ -173,8 +182,10 @@ var SoftwareDevelopmentComponent = (function () {
         this.getListProject();
         this.softwareDevelopmentTask = "";
         this.softwareDevelopmentRemarks = "";
-        document.getElementById("softwareDevelopmentTask").value = " ";
-        document.getElementById("softwareDevelopmentRemarks").value = " ";
+        setTimeout(function () {
+            document.getElementById("softwareDevelopmentTask").value = "";
+            document.getElementById("softwareDevelopmentRemarks").value = "";
+        }, 1500);
     };
     // get software development data
     SoftwareDevelopmentComponent.prototype.getSoftwareDevelopmentDataValue = function () {
@@ -188,6 +199,8 @@ var SoftwareDevelopmentComponent = (function () {
             Task: document.getElementById("softwareDevelopmentTask").value,
             Remarks: document.getElementById("softwareDevelopmentRemarks").value,
             NumberOfHours: this.softwareDevelopmentNoOfHoursSelectedValue,
+            SoftDevType: this.softwareDevelopmentTypeSelectedValue,
+            Amount: this.softwareDevelopmentAmount,
             AssignedToUserId: softwareDevelopmentAssignedToUserIdValue,
             SoftDevStatus: this.softwareDevelopmentStatusSelectedValue
         };
@@ -228,6 +241,24 @@ var SoftwareDevelopmentComponent = (function () {
     // show menu
     SoftwareDevelopmentComponent.prototype.showMenu = function () {
         document.getElementById("showTop").click();
+    };
+    // on key press decimal key
+    SoftwareDevelopmentComponent.prototype.onKeyPressOnlyDecimalNumberKey = function (event) {
+        var charCode = (event.which) ? event.which : event.keyCode;
+        if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+            return false;
+        }
+        else {
+            return true;
+        }
+    };
+    // on blur 
+    SoftwareDevelopmentComponent.prototype.onBlurOnlyDecimalNumberKey = function () {
+        var _this = this;
+        document.getElementById("softwareDevelopmentAmount").value = "";
+        setTimeout(function () {
+            document.getElementById("softwareDevelopmentAmount").value = _this.softwareDevelopmentAmount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+        }, 100);
     };
     // refresh grid
     SoftwareDevelopmentComponent.prototype.refreshGrid = function () {

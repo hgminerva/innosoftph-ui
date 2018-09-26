@@ -138,6 +138,8 @@ export class SoftwareDevelopmentService {
                         (<HTMLInputElement>document.getElementById("softwareDevelopmentNoOfHoursSelectedValue")).value = results.NumberOfHours;
                         (<HTMLInputElement>document.getElementById("softwareDevelopmentEncodedBySelectedValue")).value = results.EncodedByUser;
                         (<HTMLInputElement>document.getElementById("softwareDevelopmentAssignedUserSelectedValue")).value = results.AssignedToUserId;
+                        (<HTMLInputElement>document.getElementById("softwareDevelopmentTypeSelectedValue")).value = results.SoftDevType;
+                        (<HTMLInputElement>document.getElementById("softwareDevelopmentAmount")).value = results.Amount;
                         (<HTMLInputElement>document.getElementById("softwareDevelopmentStatusSelectedValue")).value = results.SoftDevStatus;
                         document.getElementById("btn-hidden-selectedValue-data").click();
                         document.getElementById("btn-hidden-complete-loading").click();

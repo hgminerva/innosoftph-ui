@@ -27,6 +27,14 @@ export class SoftwareDevelopmentComponent implements OnInit {
   public softwareDevelopmentAssignedUserSelectedValue: number;
   public softwareDevelopmentStatusArray = ['OPEN', 'CLOSE', 'CANCELLED', 'FOR CLOSING', 'DUPLICATE'];
   public softwareDevelopmentStatusSelectedValue = "OPEN";
+  public softwareDevelopmentTypeArray = [
+    'Request for Quotation',
+    'Modification of Existing Program',
+    'Software Development',
+    'Data Tracing',
+    'Integration',
+    'Implementation'];
+  public softwareDevelopmentTypeSelectedValue = "Software Development";
   public softwareDevelopmentNoOfHoursArray = [
     '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'
   ];
@@ -40,6 +48,7 @@ export class SoftwareDevelopmentComponent implements OnInit {
   public isSoftwareDevelopmentStatusSelected = false;
   public softwareDevelopmentTask: String;
   public softwareDevelopmentRemarks: String;
+  public softwareDevelopmentAmount: String = "0";
 
   // inject softwareDevelopment service
   constructor(
@@ -195,12 +204,14 @@ export class SoftwareDevelopmentComponent implements OnInit {
     (<HTMLButtonElement>document.getElementById("btnCloseSoftwareDevelopment")).disabled = true;
     this.softwareDevelopmentDateValue = new Date();
     this.getListProject();
-    
+
     this.softwareDevelopmentTask = "";
     this.softwareDevelopmentRemarks = "";
 
-    (<HTMLButtonElement>document.getElementById("softwareDevelopmentTask")).value = " ";
-    (<HTMLButtonElement>document.getElementById("softwareDevelopmentRemarks")).value = " ";
+    setTimeout(() => {
+      (<HTMLButtonElement>document.getElementById("softwareDevelopmentTask")).value = "";
+      (<HTMLButtonElement>document.getElementById("softwareDevelopmentRemarks")).value = "";
+    }, 1500);
   }
 
   // get software development data
@@ -216,6 +227,8 @@ export class SoftwareDevelopmentComponent implements OnInit {
       Task: (<HTMLButtonElement>document.getElementById("softwareDevelopmentTask")).value,
       Remarks: (<HTMLButtonElement>document.getElementById("softwareDevelopmentRemarks")).value,
       NumberOfHours: this.softwareDevelopmentNoOfHoursSelectedValue,
+      SoftDevType: this.softwareDevelopmentTypeSelectedValue,
+      Amount: this.softwareDevelopmentAmount,
       AssignedToUserId: softwareDevelopmentAssignedToUserIdValue,
       SoftDevStatus: this.softwareDevelopmentStatusSelectedValue
     }
@@ -263,6 +276,24 @@ export class SoftwareDevelopmentComponent implements OnInit {
   // show menu
   public showMenu() {
     document.getElementById("showTop").click();
+  }
+
+  // on key press decimal key
+  public onKeyPressOnlyDecimalNumberKey(event: any) {
+    let charCode = (event.which) ? event.which : event.keyCode;
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  // on blur 
+  public onBlurOnlyDecimalNumberKey() {
+    (<HTMLInputElement>document.getElementById("softwareDevelopmentAmount")).value = "";
+    setTimeout(() => {
+      (<HTMLInputElement>document.getElementById("softwareDevelopmentAmount")).value = this.softwareDevelopmentAmount.replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1,");
+    }, 100);
   }
 
   // refresh grid

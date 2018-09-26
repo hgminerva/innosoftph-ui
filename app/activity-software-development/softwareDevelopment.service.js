@@ -129,6 +129,8 @@ var SoftwareDevelopmentService = (function () {
                     document.getElementById("softwareDevelopmentNoOfHoursSelectedValue").value = results.NumberOfHours;
                     document.getElementById("softwareDevelopmentEncodedBySelectedValue").value = results.EncodedByUser;
                     document.getElementById("softwareDevelopmentAssignedUserSelectedValue").value = results.AssignedToUserId;
+                    document.getElementById("softwareDevelopmentTypeSelectedValue").value = results.SoftDevType;
+                    document.getElementById("softwareDevelopmentAmount").value = results.Amount;
                     document.getElementById("softwareDevelopmentStatusSelectedValue").value = results.SoftDevStatus;
                     document.getElementById("btn-hidden-selectedValue-data").click();
                     document.getElementById("btn-hidden-complete-loading").click();
