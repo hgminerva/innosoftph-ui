@@ -56,6 +56,8 @@ export class RequestComponent {
   public requestStatusClicked = true;
   public requestStatusArray = ["OPEN", "CLOSE", "CANCELLED", "DUPLICATE"];
   public requestStatusSelectedValue = "OPEN";
+  public isBtnSaveRequestShown = false;
+  public isInpDisbledFields = false;
 
   // inject request service
   constructor(
@@ -184,15 +186,27 @@ export class RequestComponent {
   public btnRequestDetailClick(add: boolean) {
     this.isFinishLoading = false;
     this.isLoading = true;
-    (<HTMLButtonElement>document.getElementById("btnSaveRequest")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
-    (<HTMLButtonElement>document.getElementById("btnSaveRequest")).disabled = true;
-    (<HTMLButtonElement>document.getElementById("btnCloseRequest")).disabled = true;
+    if (add) {
+      this.isBtnSaveRequestShown = true;
+      setTimeout(() => {
+        (<HTMLButtonElement>document.getElementById("btnSaveRequest")).innerHTML = "<i class='fa fa-save fa-fw'></i> Save";
+        (<HTMLButtonElement>document.getElementById("btnSaveRequest")).disabled = true;
+        (<HTMLButtonElement>document.getElementById("btnCloseRequest")).disabled = true;
+      }, 50);
+    }
     setTimeout(() => {
       this.isFinishLoading = true;
       this.isLoading = false;
-      (<HTMLButtonElement>document.getElementById("btnSaveRequest")).disabled = false;
-      (<HTMLButtonElement>document.getElementById("btnCloseRequest")).disabled = false;
       if (add) {
+        this.isBtnSaveRequestShown = true;
+        setTimeout(() => {
+          (<HTMLButtonElement>document.getElementById("btnSaveRequest")).disabled = false;
+          (<HTMLButtonElement>document.getElementById("btnCloseRequest")).disabled = false;
+        }, 50);
+      }
+      if (add) {
+        this.isBtnSaveRequestShown = true;
+        this.isInpDisbledFields = false;
         this.requestDetailModalString = "Add";
         this.isAdd = false;
         this.requestId = 0;
@@ -210,6 +224,8 @@ export class RequestComponent {
         this.requestApprovedBy = " ";
         this.requestApprovedRemarks = " ";
       } else {
+        this.isBtnSaveRequestShown = false;
+        this.isInpDisbledFields = true;
         this.requestDetailModalString = "Edit";
         this.isAdd = true;
         let currentSelectedRequest = this.requestCollectionView.currentItem;
@@ -243,7 +259,7 @@ export class RequestComponent {
           this.requestApprovedRemarks = " ";
         }
       }
-    }, 1000);
+    }, 100);
   }
 
   // request data

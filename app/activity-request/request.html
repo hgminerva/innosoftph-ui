@@ -21,15 +21,19 @@
                     <tr>
                         <td style="width: 59%;">
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
+                                <span class="input-group-addon">
+                                    <i class="fa fa-search fa-fw"></i>
+                                </span>
                                 <input type="text" class="form-control" placeholder="filter" [(ngModel)]="filter" />
                             </div>
                         </td>
                         <td style="width: 1%;"></td>
                         <td style="width: 40%;" align="right">
                             <button class="btn btn-primary" (click)="btnRequestDetailClick(true)" data-toggle="modal" data-backdrop="static" data-keyboard="false"
-                                data-target="#request-detail-modal"><i class="fa fa-plus fa-fw"></i> Add</button>
-                            <button class="btn btn-danger" (click)="backClicked()"><i class="fa fa-close fa-fw"></i> Close</button>
+                                data-target="#request-detail-modal">
+                                <i class="fa fa-plus fa-fw"></i> Add</button>
+                            <button class="btn btn-danger" (click)="backClicked()">
+                                <i class="fa fa-close fa-fw"></i> Close</button>
                         </td>
                     </tr>
                 </table>
@@ -39,7 +43,8 @@
                     <tr>
                         <td style="width: 29%;">
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> Start Date</span>
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar fa-fw"></i> Start Date</span>
                                 <wj-input-date [(value)]="requestStartDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="requestStartDateOnValueChanged()">
                                 </wj-input-date>
                             </div>
@@ -47,7 +52,8 @@
                         <td style="width: 1%;"></td>
                         <td style="width: 29%;">
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-calendar fa-fw"></i> End Date</span>
+                                <span class="input-group-addon">
+                                    <i class="fa fa-calendar fa-fw"></i> End Date</span>
                                 <wj-input-date [(value)]="requestEndDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" (valueChanged)="requestEndDateOnValueChanged()">
                                 </wj-input-date>
                             </div>
@@ -55,7 +61,8 @@
                         <td style="width: 1%;"></td>
                         <td style="width: 29%;">
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-question-circle-o fa-fw"></i> Status</span>
+                                <span class="input-group-addon">
+                                    <i class="fa fa-question-circle-o fa-fw"></i> Status</span>
                                 <wj-combo-box [itemsSource]="fliterRequestStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
                                     [(selectedValue)]="filterRequestStatusSelectedValue" (selectedIndexChanged)="filterRequestStatusSelectedIndexChangedClick()"
                                     style="width: 100%;">
@@ -64,7 +71,8 @@
                         </td>
                         <td style="width: 1%;"></td>
                         <td style="width: 10%;">
-                            <button class="btn btn-default btn-block" id="btnRefresh" (click)="refreshGrid()"><i class="fa fa-refresh fa-fw"></i> Refresh</button>
+                            <button class="btn btn-default btn-block" id="btnRefresh" (click)="refreshGrid()">
+                                <i class="fa fa-refresh fa-fw"></i> Refresh</button>
                         </td>
                     </tr>
                 </table>
@@ -74,7 +82,8 @@
                     <tr>
                         <td style="width: 29%;">
                             <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-pencil-square-o fa-fw"></i> Type</span>
+                                <span class="input-group-addon">
+                                    <i class="fa fa-pencil-square-o fa-fw"></i> Type</span>
                                 <wj-combo-box [itemsSource]="requestTypeFilterObservableArray" [placeholder]="'Select Request Type'" [isEditable]="false"
                                     (selectedIndexChanged)="cboRequestTypeSelectedIndexChangedClick()" [isRequired]="true" [(selectedValue)]="requestTypeFilterSelectedValue"
                                     style="width: 100%;">
@@ -175,10 +184,12 @@
                             {{ requestCollectionView.pageIndex + 1 }} / {{ requestCollectionView.pageCount }}
                         </button>
                         <button type="button" class="btn btn-default" (click)="requestCollectionView.moveToNextPage()">
-                            Next <span class="glyphicon glyphicon-step-forward"></span>
+                            Next
+                            <span class="glyphicon glyphicon-step-forward"></span>
                         </button>
                         <button type="button" class="btn btn-default" (click)="requestCollectionView.moveToLastPage()">
-                            Last <span class="glyphicon glyphicon-fast-forward"></span>
+                            Last
+                            <span class="glyphicon glyphicon-fast-forward"></span>
                         </button>
                     </div>
                 </div>
@@ -200,9 +211,15 @@
                 </div>
                 <div *ngIf="isFinishLoading">
                     <ul class="nav nav-tabs">
-                        <li class="active"><a data-toggle="tab" href="#Request">Request</a></li>
-                        <li><a data-toggle="tab" href="#CheckedRemarks">Checked Remarks</a></li>
-                        <li><a data-toggle="tab" href="#ApprovedRemarks">Approved Remarks</a></li>
+                        <li class="active">
+                            <a data-toggle="tab" href="#Request">Request</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#CheckedRemarks">Checked Remarks</a>
+                        </li>
+                        <li>
+                            <a data-toggle="tab" href="#ApprovedRemarks">Approved Remarks</a>
+                        </li>
                     </ul>
                     <br />
                     <div class="tab-content">
@@ -220,30 +237,32 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Request Date</label>
                                     <div class="col-sm-8">
-                                        <wj-input-date [(value)]="requestDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'" style="width: 100%;">
+                                        <wj-input-date [isDisabled]="isInpDisbledFields" [(value)]="requestDateValue" [format]="'yyyy-MM-dd'" [mask]="'9999-99-99'"
+                                            style="width: 100%;">
                                         </wj-input-date>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Type</label>
                                     <div class="col-sm-8">
-                                        <wj-combo-box [itemsSource]="requestTypeObservableArray" [placeholder]="'Select Request Type'" [isEditable]="false" [isRequired]="true"
-                                            [(selectedValue)]="requestTypeSelectedValue" style="width: 100%;">
+                                        <wj-combo-box [isDisabled]="isInpDisbledFields" [itemsSource]="requestTypeObservableArray" [placeholder]="'Select Request Type'"
+                                            [isEditable]="false" [isRequired]="true" [(selectedValue)]="requestTypeSelectedValue"
+                                            style="width: 100%;">
                                         </wj-combo-box>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Particulars</label>
                                     <div class="col-sm-8">
-                                        <textarea [(ngModel)]="requestParticulars" class="form-control" rows="8" id="requestParticulars" name="requestParticulars"
-                                            placeholder="Particulars"></textarea>
+                                        <textarea [disabled]="isInpDisbledFields" [(ngModel)]="requestParticulars" class="form-control" rows="8" id="requestParticulars"
+                                            name="requestParticulars" placeholder="Particulars"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label col-sm-4">Status</label>
                                     <div class="col-sm-8">
-                                        <wj-combo-box [itemsSource]="requestStatusArray" [placeholder]="'Select Status'" [isEditable]="false" [isRequired]="true"
-                                            [(selectedValue)]="requestStatusSelectedValue" style="width: 100%;">
+                                        <wj-combo-box [isDisabled]="isInpDisbledFields" [itemsSource]="requestStatusArray" [placeholder]="'Select Status'" [isEditable]="false"
+                                            [isRequired]="true" [(selectedValue)]="requestStatusSelectedValue" style="width: 100%;">
                                         </wj-combo-box>
                                     </div>
                                 </div>
@@ -312,8 +331,10 @@
                 </div>
             </div>
             <div class="modal-footer" align="right">
-                <button type="button" id="btnSaveRequest" class="btn btn-primary" (click)="btnSaveRequest()"><i class="fa fa-save fa-fw"></i> Save</button>
-                <button type="button" id="btnCloseRequest" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+                <button *ngIf="isBtnSaveRequestShown" type="button" id="btnSaveRequest" class="btn btn-primary" (click)="btnSaveRequest()">
+                    <i class="fa fa-save fa-fw"></i> Save</button>
+                <button type="button" id="btnCloseRequest" class="btn btn-danger" data-dismiss="modal">
+                    <i class="fa fa-close fa-fw"></i> Close</button>
             </div>
         </div>
     </div>
@@ -330,8 +351,10 @@
                 Delete Request?
             </div>
             <div class="modal-footer" align="right">
-                <button type="button" id="btnDeleteRequest" class="btn btn-danger" (click)="btnDeleteConfirmRequestClick()"><i class="fa fa-trash fa-fw"></i> Delete</button>
-                <button type="button" id="btnDeleteCloseRequest" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+                <button type="button" id="btnDeleteRequest" class="btn btn-danger" (click)="btnDeleteConfirmRequestClick()">
+                    <i class="fa fa-trash fa-fw"></i> Delete</button>
+                <button type="button" id="btnDeleteCloseRequest" class="btn btn-default" data-dismiss="modal">
+                    <i class="fa fa-close fa-fw"></i> Close</button>
             </div>
         </div>
     </div>
@@ -355,8 +378,10 @@
                 </div>
             </div>
             <div class="modal-footer" align="right">
-                <button type="button" id="btnSaveCheckApproveRequest" class="btn btn-primary" (click)="btnSaveCheckApproveRequestClick()"><i class="fa fa-save fa-fw"></i> Save</button>
-                <button type="button" id="btnCloseCheckApproveRequest" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+                <button type="button" id="btnSaveCheckApproveRequest" class="btn btn-primary" (click)="btnSaveCheckApproveRequestClick()">
+                    <i class="fa fa-save fa-fw"></i> Save</button>
+                <button type="button" id="btnCloseCheckApproveRequest" class="btn btn-danger" data-dismiss="modal">
+                    <i class="fa fa-close fa-fw"></i> Close</button>
             </div>
         </div>
     </div>
@@ -373,8 +398,10 @@
                 {{ requestUncheckDisapproveDetailConfirmModalString }}
             </div>
             <div class="modal-footer" align="right">
-                <button type="button" id="btnSaveUncheckDisapproveRequest" class="btn btn-primary" (click)="btnSaveUncheckDisapproveRequestClick()"><i class="fa fa-save fa-fw"></i> Yes</button>
-                <button type="button" id="btnCloseUncheckDisapproveRequest" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-close fa-fw"></i> Close</button>
+                <button type="button" id="btnSaveUncheckDisapproveRequest" class="btn btn-primary" (click)="btnSaveUncheckDisapproveRequestClick()">
+                    <i class="fa fa-save fa-fw"></i> Yes</button>
+                <button type="button" id="btnCloseUncheckDisapproveRequest" class="btn btn-danger" data-dismiss="modal">
+                    <i class="fa fa-close fa-fw"></i> Close</button>
             </div>
         </div>
     </div>
