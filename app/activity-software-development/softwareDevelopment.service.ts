@@ -99,6 +99,7 @@ export class SoftwareDevelopmentService {
                             ProjectId: results[i].ProjectId,
                             ProjectNumber: results[i].ProjectNumber,
                             ProjectName: results[i].ProjectName,
+                            SoftDevType: results[i].SoftDevType,
                             Task: results[i].Task,
                             Remarks: results[i].Remarks,
                             NumberOfHours: results[i].NumberOfHours,
